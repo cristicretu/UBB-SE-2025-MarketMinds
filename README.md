@@ -1,13 +1,13 @@
 # UBB-SE-2025-MarketMinds
 
-malos - seller review
+malos - product review + compare
 <br>
 robert - bidding
 <br>
 paul - selling
 <br>
-costin - wallet
+costin - basket
 <br>
-luscan - bidding evolution
+luscan - buying
 <br>
-toni - product filtering + products database
+toni - product filtering (tags) + search
