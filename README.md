@@ -11,3 +11,6 @@ costin - basket
 luscan - buying
 <br>
 toni - product filtering (tags) + search
+
+Hand made GUI video - Seminar 2
+https://youtu.be/OBPRiNfDDVs?si=lRMacDvDzZtjhuQG
