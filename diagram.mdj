@@ -7429,6 +7429,24 @@
 											"height": 13,
 											"text": "+dailyRate: float",
 											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLAttributeView",
+											"_id": "AAAAAAGVlOHbhhLrchg=",
+											"_parent": {
+												"$ref": "AAAAAAGVi8c5fxeITvc="
+											},
+											"model": {
+												"$ref": "AAAAAAGVlOHbbBLo/Es="
+											},
+											"font": "Arial;13;0",
+											"parentStyle": true,
+											"left": 7717,
+											"top": 3234,
+											"width": 182.7080078125,
+											"height": 13,
+											"text": "+isBorrowed: bool",
+											"horizontalAlignment": 0
 										}
 									],
 									"font": "Arial;13;0",
@@ -7436,7 +7454,7 @@
 									"left": 7712,
 									"top": 3169,
 									"width": 192.7080078125,
-									"height": 68
+									"height": 83
 								},
 								{
 									"_type": "UMLOperationCompartmentView",
@@ -7460,7 +7478,7 @@
 											"font": "Arial;13;0",
 											"parentStyle": true,
 											"left": 7717,
-											"top": 3242,
+											"top": 3257,
 											"width": 182.7080078125,
 											"height": 13,
 											"text": "+getTimeLimit(): date",
@@ -7478,7 +7496,7 @@
 											"font": "Arial;13;0",
 											"parentStyle": true,
 											"left": 7717,
-											"top": 3257,
+											"top": 3272,
 											"width": 182.7080078125,
 											"height": 13,
 											"text": "+getStartTime(): date",
@@ -7496,7 +7514,7 @@
 											"font": "Arial;13;0",
 											"parentStyle": true,
 											"left": 7717,
-											"top": 3272,
+											"top": 3287,
 											"width": 182.7080078125,
 											"height": 13,
 											"text": "+getEndTime(): date",
@@ -7514,7 +7532,7 @@
 											"font": "Arial;13;0",
 											"parentStyle": true,
 											"left": 7717,
-											"top": 3287,
+											"top": 3302,
 											"width": 182.7080078125,
 											"height": 13,
 											"text": "+setTImeLimit(date: Date): void",
@@ -7532,7 +7550,7 @@
 											"font": "Arial;13;0",
 											"parentStyle": true,
 											"left": 7717,
-											"top": 3302,
+											"top": 3317,
 											"width": 182.7080078125,
 											"height": 13,
 											"text": "+setStartTime(date: Date): void",
@@ -7550,7 +7568,7 @@
 											"font": "Arial;13;0",
 											"parentStyle": true,
 											"left": 7717,
-											"top": 3317,
+											"top": 3332,
 											"width": 182.7080078125,
 											"height": 13,
 											"text": "+setEndTime(date: Date): void",
@@ -7560,7 +7578,7 @@
 									"font": "Arial;13;0",
 									"parentStyle": true,
 									"left": 7712,
-									"top": 3237,
+									"top": 3252,
 									"width": 192.7080078125,
 									"height": 98
 								},
@@ -7605,7 +7623,7 @@
 							"left": 7712,
 							"top": 3144,
 							"width": 191.7080078125,
-							"height": 191,
+							"height": 206,
 							"nameCompartment": {
 								"$ref": "AAAAAAGVi8c5fxeD/jA="
 							},
@@ -7755,6 +7773,7 @@
 											"model": {
 												"$ref": "AAAAAAGVkIhXdzZacB0="
 											},
+											"visible": false,
 											"font": "Arial;13;0",
 											"parentStyle": true,
 											"left": 7933,
@@ -7770,7 +7789,7 @@
 									"left": 7928,
 									"top": 3169,
 									"width": 200.66162109375,
-									"height": 38
+									"height": 23
 								},
 								{
 									"_type": "UMLOperationCompartmentView",
@@ -7794,7 +7813,7 @@
 											"font": "Arial;13;0",
 											"parentStyle": true,
 											"left": 7933,
-											"top": 3212,
+											"top": 3197,
 											"width": 190.66162109375,
 											"height": 13,
 											"text": "+getPrice(): float",
@@ -7812,7 +7831,7 @@
 											"font": "Arial;13;0",
 											"parentStyle": true,
 											"left": 7933,
-											"top": 3227,
+											"top": 3212,
 											"width": 190.66162109375,
 											"height": 13,
 											"text": "+getIsBorrowed(): bool",
@@ -7830,7 +7849,7 @@
 											"font": "Arial;13;0",
 											"parentStyle": true,
 											"left": 7933,
-											"top": 3242,
+											"top": 3227,
 											"width": 190.66162109375,
 											"height": 13,
 											"text": "+setPrice(price: float)",
@@ -7848,7 +7867,7 @@
 											"font": "Arial;13;0",
 											"parentStyle": true,
 											"left": 7933,
-											"top": 3257,
+											"top": 3242,
 											"width": 190.66162109375,
 											"height": 13,
 											"text": "+setIsBorrowed(IsBorrowed: ool)",
@@ -7858,7 +7877,7 @@
 									"font": "Arial;13;0",
 									"parentStyle": true,
 									"left": 7928,
-									"top": 3207,
+									"top": 3192,
 									"width": 200.66162109375,
 									"height": 68
 								},
@@ -31976,7 +31995,7 @@
 									"visible": false,
 									"font": "Arial;13;0",
 									"parentStyle": false,
-									"left": 7735,
+									"left": 7733,
 									"top": 3101,
 									"height": 13,
 									"alpha": 1.5707963267948966,
@@ -31998,8 +32017,8 @@
 									"visible": null,
 									"font": "Arial;13;0",
 									"parentStyle": false,
-									"left": 7721,
-									"top": 3107,
+									"left": 7719,
+									"top": 3106,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 30,
@@ -32020,7 +32039,7 @@
 									"visible": false,
 									"font": "Arial;13;0",
 									"parentStyle": false,
-									"left": 7762,
+									"left": 7760,
 									"top": 3090,
 									"height": 13,
 									"alpha": -1.5707963267948966,
@@ -32040,7 +32059,7 @@
 								"$ref": "AAAAAAGVi8c5fxeCz94="
 							},
 							"lineStyle": 1,
-							"points": "7766:3143;7732:3061",
+							"points": "7764:3143;7731:3061",
 							"showVisibility": true,
 							"nameLabel": {
 								"$ref": "AAAAAAGVk//K07dJcBU="
@@ -40158,6 +40177,15 @@
 							},
 							"name": "dailyRate",
 							"type": "float"
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGVlOHbbBLo/Es=",
+							"_parent": {
+								"$ref": "AAAAAAGVi8c5fxeALnM="
+							},
+							"name": "isBorrowed",
+							"type": "bool"
 						}
 					],
 					"operations": [
