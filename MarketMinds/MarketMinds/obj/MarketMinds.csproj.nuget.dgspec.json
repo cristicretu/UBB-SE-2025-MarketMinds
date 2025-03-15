@@ -96,7 +96,7 @@
             },
             {
               "name": "Microsoft.Windows.SDK.NET.Ref",
-              "version": "[10.0.19041.31, 10.0.19041.31]"
+              "version": "[10.0.19041.38, 10.0.19041.38]"
             },
             {
               "name": "Microsoft.WindowsDesktop.App.Runtime.win-arm64",

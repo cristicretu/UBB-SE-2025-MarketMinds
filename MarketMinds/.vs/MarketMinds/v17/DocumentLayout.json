@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Users\\Ghaster\\IdeaProjects\\UBB-SE-2025-MarketMinds\\MarketMinds\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{F2E945F0-754A-4BAD-9C9D-CD6BE9950D6C}|MarketMinds\\MarketMinds.csproj|c:\\users\\ghaster\\ideaprojects\\ubb-se-2025-marketminds\\marketminds\\marketminds\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F2E945F0-754A-4BAD-9C9D-CD6BE9950D6C}|MarketMinds\\MarketMinds.csproj|solutionrelative:marketminds\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{F2E945F0-754A-4BAD-9C9D-CD6BE9950D6C}|MarketMinds\\MarketMinds.csproj|c:\\users\\ghaster\\ideaprojects\\ubb-se-2025-marketminds\\marketminds\\marketminds\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{F2E945F0-754A-4BAD-9C9D-CD6BE9950D6C}|MarketMinds\\MarketMinds.csproj|solutionrelative:marketminds\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     }
@@ -14,7 +18,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 21,
+          "SelectedChildIndex": 22,
           "Children": [
             {
               "$type": "Bookmark",
@@ -101,8 +105,25 @@
               "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
             },
             {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
+            },
+            {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "App.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Ghaster\\IdeaProjects\\UBB-SE-2025-MarketMinds\\MarketMinds\\MarketMinds\\App.xaml.cs",
+              "RelativeDocumentMoniker": "MarketMinds\\App.xaml.cs",
+              "ToolTip": "C:\\Users\\Ghaster\\IdeaProjects\\UBB-SE-2025-MarketMinds\\MarketMinds\\MarketMinds\\App.xaml.cs",
+              "RelativeToolTip": "MarketMinds\\App.xaml.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABgAAABbAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-15T12:33:13.277Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "MainWindow.xaml",
               "DocumentMoniker": "C:\\Users\\Ghaster\\IdeaProjects\\UBB-SE-2025-MarketMinds\\MarketMinds\\MarketMinds\\MainWindow.xaml",
               "RelativeDocumentMoniker": "MarketMinds\\MainWindow.xaml",
@@ -112,10 +133,6 @@
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
               "WhenOpened": "2025-03-15T12:28:58.119Z",
               "EditorCaption": ""
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
             }
           ]
         }
