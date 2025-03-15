@@ -1,0 +1,22 @@
+{
+  "version": 2,
+  "dgSpecHash": "4Fnvyj00+Xo=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Ghaster\\IdeaProjects\\UBB-SE-2025-MarketMinds\\MarketMinds\\MarketMinds\\MarketMinds.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Ghaster\\.nuget\\packages\\microsoft.web.webview2\\1.0.2651.64\\microsoft.web.webview2.1.0.2651.64.nupkg.sha512",
+    "C:\\Users\\Ghaster\\.nuget\\packages\\microsoft.windows.sdk.buildtools\\10.0.22621.756\\microsoft.windows.sdk.buildtools.10.0.22621.756.nupkg.sha512",
+    "C:\\Users\\Ghaster\\.nuget\\packages\\microsoft.windowsappsdk\\1.6.250228001\\microsoft.windowsappsdk.1.6.250228001.nupkg.sha512",
+    "C:\\Users\\Ghaster\\.nuget\\packages\\microsoft.netcore.app.runtime.win-x86\\8.0.5\\microsoft.netcore.app.runtime.win-x86.8.0.5.nupkg.sha512",
+    "C:\\Users\\Ghaster\\.nuget\\packages\\microsoft.windows.sdk.net.ref\\10.0.19041.31\\microsoft.windows.sdk.net.ref.10.0.19041.31.nupkg.sha512",
+    "C:\\Users\\Ghaster\\.nuget\\packages\\microsoft.aspnetcore.app.runtime.win-x86\\8.0.5\\microsoft.aspnetcore.app.runtime.win-x86.8.0.5.nupkg.sha512",
+    "C:\\Users\\Ghaster\\.nuget\\packages\\microsoft.netcore.app.runtime.win-arm64\\8.0.5\\microsoft.netcore.app.runtime.win-arm64.8.0.5.nupkg.sha512",
+    "C:\\Users\\Ghaster\\.nuget\\packages\\microsoft.aspnetcore.app.runtime.win-x64\\8.0.5\\microsoft.aspnetcore.app.runtime.win-x64.8.0.5.nupkg.sha512",
+    "C:\\Users\\Ghaster\\.nuget\\packages\\microsoft.windowsdesktop.app.runtime.win-arm64\\8.0.5\\microsoft.windowsdesktop.app.runtime.win-arm64.8.0.5.nupkg.sha512",
+    "C:\\Users\\Ghaster\\.nuget\\packages\\microsoft.windowsdesktop.app.runtime.win-x64\\8.0.5\\microsoft.windowsdesktop.app.runtime.win-x64.8.0.5.nupkg.sha512",
+    "C:\\Users\\Ghaster\\.nuget\\packages\\microsoft.aspnetcore.app.runtime.win-arm64\\8.0.5\\microsoft.aspnetcore.app.runtime.win-arm64.8.0.5.nupkg.sha512",
+    "C:\\Users\\Ghaster\\.nuget\\packages\\microsoft.netcore.app.runtime.win-x64\\8.0.5\\microsoft.netcore.app.runtime.win-x64.8.0.5.nupkg.sha512",
+    "C:\\Users\\Ghaster\\.nuget\\packages\\microsoft.windowsdesktop.app.runtime.win-x86\\8.0.5\\microsoft.windowsdesktop.app.runtime.win-x86.8.0.5.nupkg.sha512"
+  ],
+  "logs": []
+}
