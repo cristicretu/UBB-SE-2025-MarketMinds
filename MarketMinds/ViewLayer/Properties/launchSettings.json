@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "ViewLayer (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "ViewLayer (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

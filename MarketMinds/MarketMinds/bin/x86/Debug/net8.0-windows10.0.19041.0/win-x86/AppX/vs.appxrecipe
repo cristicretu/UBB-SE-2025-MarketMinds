@@ -29,7 +29,7 @@
     <AppXManifest Include="C:\Users\Ghaster\IdeaProjects\UBB-SE-2025-MarketMinds\MarketMinds\MarketMinds\bin\x86\Debug\net8.0-windows10.0.19041.0\win-x86\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2025-03-15T12:37:08.977</Modified>
+      <Modified>2025-03-15T12:39:26.500</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
@@ -43,11 +43,11 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Ghaster\IdeaProjects\UBB-SE-2025-MarketMinds\MarketMinds\MarketMinds\bin\x86\Debug\net8.0-windows10.0.19041.0\win-x86\MarketMinds.dll">
       <PackagePath>MarketMinds.dll</PackagePath>
-      <Modified>2025-03-15T12:37:08.129</Modified>
+      <Modified>2025-03-15T12:39:26.172</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Ghaster\IdeaProjects\UBB-SE-2025-MarketMinds\MarketMinds\MarketMinds\obj\x86\Debug\net8.0-windows10.0.19041.0\win-x86\apphost.exe">
       <PackagePath>MarketMinds.exe</PackagePath>
-      <Modified>2025-03-15T12:37:08.140</Modified>
+      <Modified>2025-03-15T12:39:26.182</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Ghaster\.nuget\packages\microsoft.web.webview2\1.0.2651.64\runtimes\win-x86\native\WebView2Loader.dll">
       <PackagePath>runtimes\win-x86\native\WebView2Loader.dll</PackagePath>

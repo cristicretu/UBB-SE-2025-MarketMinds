@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MarketMinds")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6df31bcf543bb4c66ed8857da03abe7d4e993e8a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f6bf562f96f6ba79e8452f7efc6296726b2a3126")]
 [assembly: System.Reflection.AssemblyProductAttribute("MarketMinds")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MarketMinds")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
