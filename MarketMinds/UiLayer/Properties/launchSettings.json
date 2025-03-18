@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "UiLayer (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "UiLayer (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

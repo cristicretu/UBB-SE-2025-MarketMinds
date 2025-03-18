@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Tw3PuTRG3hg=",
+  "dgSpecHash": "G1cpoR7Qa0E=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Ghaster\\IdeaProjects\\UBB-SE-2025-MarketMinds\\MarketMinds\\MarketMinds\\MarketMinds.csproj",
+  "projectFilePath": "C:\\Users\\Ghaster\\IdeaProjects\\UBB-SE-2025-MarketMinds\\MarketMinds\\UiLayer\\UiLayer.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Ghaster\\.nuget\\packages\\microsoft.web.webview2\\1.0.2651.64\\microsoft.web.webview2.1.0.2651.64.nupkg.sha512",
     "C:\\Users\\Ghaster\\.nuget\\packages\\microsoft.windows.sdk.buildtools\\10.0.22621.756\\microsoft.windows.sdk.buildtools.10.0.22621.756.nupkg.sha512",
