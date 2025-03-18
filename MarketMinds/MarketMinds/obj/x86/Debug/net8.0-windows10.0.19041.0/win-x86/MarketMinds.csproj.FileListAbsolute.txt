@@ -1,0 +1,1 @@
+C:\Users\Ghaster\IdeaProjects\UBB-SE-2025-MarketMinds\MarketMinds\MarketMinds\obj\x86\Debug\net8.0-windows10.0.19041.0\win-x86\MarketMinds.csproj.AssemblyReference.cache
