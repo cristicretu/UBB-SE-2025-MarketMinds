@@ -9,22 +9,20 @@ namespace BusinessLogicLayer.domain
     public class Review
     {
         public string description { get; set; } = string.Empty;
-        public Image image { get; set; } = new Image();
+        public Image image { get; set; } = new Image("");
         public float rating {  get; set; }
         public int sellerId { get; set; }
         public int buyerId { get; set; } 
         public int productId { get; set; }
 
-        public User buyer;
-
-        public Review(string d, Image i, float r, int s, int b, int p)
+        public Review(string description, Image image, float rating, int sellerId, int buyerId, int productId)
         {
-            description = d;
-            image = i;
-            rating = r;
-            sellerId = s;
-            buyerId = b;
-            productId = p;
+            this.description = description;
+            this.image = image;
+            this.rating = rating;
+            this.sellerId = sellerId;
+            this.buyerId = buyerId;
+            this.productId = productId;
         }
     }
 }

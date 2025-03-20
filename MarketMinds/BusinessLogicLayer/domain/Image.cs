@@ -8,8 +8,11 @@ namespace BusinessLogicLayer.domain
 {
     public class Image
     {
-        public string _url { get; set; } = string.Empty;
+        public string url { get; set; } = string.Empty;
 
-
+        public Image(string u)
+        {
+            url = u;
+        }
     }
 }
