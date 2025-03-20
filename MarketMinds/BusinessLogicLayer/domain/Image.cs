@@ -6,10 +6,13 @@ using System.Threading.Tasks;
 
 namespace BusinessLogicLayer.domain
 {
-    internal class Image
+    public class Image
     {
-        internal string _url { get; set; } = string.Empty;
+        public string url { get; set; } = string.Empty;
 
-
+        public Image(string u)
+        {
+            url = u;
+        }
     }
 }

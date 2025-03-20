@@ -6,23 +6,23 @@ using System.Threading.Tasks;
 
 namespace BusinessLogicLayer.domain
 {
-    internal class Review
+    public class Review
     {
-        internal string _description { get; set; } = string.Empty;
-        internal Image _image { get; set; } = new Image();
-        internal float _rating {  get; set; }
-        internal User _seller { get; set; } = new User();
-        internal User _buyer { get; set; } = new User();
-        internal Product _product { get; set; } = new Product();
+        public string description { get; set; } = string.Empty;
+        public Image image { get; set; } = new Image("");
+        public float rating {  get; set; }
+        public int sellerId { get; set; }
+        public int buyerId { get; set; } 
+        public int productId { get; set; }
 
-        internal Review(string description, Image image, float rating, User seller, User buyer, Product product)
+        public Review(string description, Image image, float rating, int sellerId, int buyerId, int productId)
         {
-            _description = description;
-            _image = image;
-            _rating = rating;
-            _seller = seller;
-            _buyer = buyer;
-            _product = product;
+            this.description = description;
+            this.image = image;
+            this.rating = rating;
+            this.sellerId = sellerId;
+            this.buyerId = buyerId;
+            this.productId = productId;
         }
     }
 }
