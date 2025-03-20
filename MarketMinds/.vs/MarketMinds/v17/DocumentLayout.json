@@ -7,10 +7,6 @@
       "RelativeMoniker": "D:0:0:{6C2DAB53-5B7C-4358-8FDA-CCEA6AD4D995}|DataAccessLayer\\DataAccessLayer.csproj|solutionrelative:dataaccesslayer\\databaseconnection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{3B42F394-D49C-4032-AAFA-1ADB3300358D}|MarketMinds\\MarketMinds.csproj|c:\\users\\ghaster\\ideaprojects\\ubb-se-2025-marketminds\\marketminds\\marketminds\\login.env||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{3B42F394-D49C-4032-AAFA-1ADB3300358D}|MarketMinds\\MarketMinds.csproj|solutionrelative:marketminds\\login.env||{8B382828-6202-11D1-8870-0000F87579D2}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{3B42F394-D49C-4032-AAFA-1ADB3300358D}|MarketMinds\\MarketMinds.csproj|c:\\users\\ghaster\\ideaprojects\\ubb-se-2025-marketminds\\marketminds\\marketminds\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{3B42F394-D49C-4032-AAFA-1ADB3300358D}|MarketMinds\\MarketMinds.csproj|solutionrelative:marketminds\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -38,7 +34,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 26,
+          "SelectedChildIndex": 24,
           "Children": [
             {
               "$type": "Bookmark",
@@ -126,37 +122,19 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "login.env",
-              "DocumentMoniker": "C:\\Users\\Ghaster\\IdeaProjects\\UBB-SE-2025-MarketMinds\\MarketMinds\\MarketMinds\\login.env",
-              "RelativeDocumentMoniker": "MarketMinds\\login.env",
-              "ToolTip": "C:\\Users\\Ghaster\\IdeaProjects\\UBB-SE-2025-MarketMinds\\MarketMinds\\MarketMinds\\login.env",
-              "RelativeToolTip": "MarketMinds\\login.env",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAABrAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2025-03-19T13:29:37.261Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "MarketMinds",
+              "DocumentIndex": 2,
+              "Title": "MarketMinds.csproj",
               "DocumentMoniker": "C:\\Users\\Ghaster\\IdeaProjects\\UBB-SE-2025-MarketMinds\\MarketMinds\\MarketMinds\\MarketMinds.csproj",
               "RelativeDocumentMoniker": "MarketMinds\\MarketMinds.csproj",
               "ToolTip": "C:\\Users\\Ghaster\\IdeaProjects\\UBB-SE-2025-MarketMinds\\MarketMinds\\MarketMinds\\MarketMinds.csproj",
               "RelativeToolTip": "MarketMinds\\MarketMinds.csproj",
-              "ViewState": "AgIAABIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADgAAAAKAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-03-19T13:20:19.941Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-19T13:20:19.941Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 3,
               "Title": "Review.cs",
               "DocumentMoniker": "C:\\Users\\Ghaster\\IdeaProjects\\UBB-SE-2025-MarketMinds\\MarketMinds\\BusinessLogicLayer\\domain\\Review.cs",
               "RelativeDocumentMoniker": "BusinessLogicLayer\\domain\\Review.cs",
@@ -164,21 +142,19 @@
               "RelativeToolTip": "BusinessLogicLayer\\domain\\Review.cs",
               "ViewState": "AgIAAAgAAAAAAAAAAAAxwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-19T12:59:10.693Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-19T12:59:10.693Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "MainWindow.xaml.cs",
               "DocumentMoniker": "C:\\Users\\Ghaster\\IdeaProjects\\UBB-SE-2025-MarketMinds\\MarketMinds\\MarketMinds\\MainWindow.xaml.cs",
               "RelativeDocumentMoniker": "MarketMinds\\MainWindow.xaml.cs",
               "ToolTip": "C:\\Users\\Ghaster\\IdeaProjects\\UBB-SE-2025-MarketMinds\\MarketMinds\\MarketMinds\\MainWindow.xaml.cs",
               "RelativeToolTip": "MarketMinds\\MainWindow.xaml.cs",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAAABwAAAA5AAAAAAAAAA==",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAAACIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-19T12:09:07.916Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-19T12:09:07.916Z"
             },
             {
               "$type": "Document",
@@ -186,16 +162,16 @@
               "Title": "DataBaseConnection.cs",
               "DocumentMoniker": "C:\\Users\\Ghaster\\IdeaProjects\\UBB-SE-2025-MarketMinds\\MarketMinds\\DataAccessLayer\\DataBaseConnection.cs",
               "RelativeDocumentMoniker": "DataAccessLayer\\DataBaseConnection.cs",
-              "ToolTip": "C:\\Users\\Ghaster\\IdeaProjects\\UBB-SE-2025-MarketMinds\\MarketMinds\\DataAccessLayer\\DataBaseConnection.cs*",
-              "RelativeToolTip": "DataAccessLayer\\DataBaseConnection.cs*",
-              "ViewState": "AgIAABoAAAAAAAAAAADwvxgAAAB8AAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\Ghaster\\IdeaProjects\\UBB-SE-2025-MarketMinds\\MarketMinds\\DataAccessLayer\\DataBaseConnection.cs",
+              "RelativeToolTip": "DataAccessLayer\\DataBaseConnection.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAABgAAAB8AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-18T18:44:17.31Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 4,
               "Title": "Product.cs",
               "DocumentMoniker": "C:\\Users\\Ghaster\\IdeaProjects\\UBB-SE-2025-MarketMinds\\MarketMinds\\BusinessLogicLayer\\domain\\Product.cs",
               "RelativeDocumentMoniker": "BusinessLogicLayer\\domain\\Product.cs",
@@ -207,7 +183,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 5,
               "Title": "User.cs",
               "DocumentMoniker": "C:\\Users\\Ghaster\\IdeaProjects\\UBB-SE-2025-MarketMinds\\MarketMinds\\BusinessLogicLayer\\domain\\User.cs",
               "RelativeDocumentMoniker": "BusinessLogicLayer\\domain\\User.cs",
@@ -216,6 +192,10 @@
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-18T17:19:56.419Z"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
             }
           ]
         }

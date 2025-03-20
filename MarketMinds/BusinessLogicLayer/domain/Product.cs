@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace BusinessLogicLayer.domain
 {
-    internal class Product
+    public class Product
     {
-        internal int _id { get; set; }
+        public int id { get; set; }
 
     }
 }
