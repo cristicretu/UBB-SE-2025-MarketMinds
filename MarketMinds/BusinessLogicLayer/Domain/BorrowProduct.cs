@@ -6,9 +6,7 @@ using System.Threading.Tasks;
 
 namespace BusinessLogicLayer.Domain
 {
-    public class Product
+    class BorrowProduct : Product
     {
-        public int id { get; set; }
-
     }
 }

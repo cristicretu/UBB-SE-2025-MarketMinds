@@ -4,15 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BusinessLogicLayer.domain
+namespace BusinessLogicLayer.Domain
 {
     public class Image
     {
         public string url { get; set; } = string.Empty;
 
-        public Image(string u)
+        public Image(string url)
         {
-            url = u;
+            this.url = url;
         }
     }
 }
