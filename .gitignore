@@ -16,10 +16,9 @@ obj/
 *.suo
 *.user
 *.vs
+*.vs/
 
 # Ignore NuGet packages
 packages/
 *.nupkg
 project.lock.json
-MarketMinds/.vs/MarketMinds/DesignTimeBuild/.dtbcache.v2
-MarketMinds/.vs/MarketMinds/DesignTimeBuild/.dtbcache.v2
