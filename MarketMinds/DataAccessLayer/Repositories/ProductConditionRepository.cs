@@ -69,7 +69,7 @@ namespace DataAccessLayer.Repositories
             return new ProductCondition(newId, displayTitle, description);
         }
 
-        public void DeleteProductTag(string displayTitle)
+        public void DeleteProductCondition(string displayTitle)
         {
             // deletes a product condition
             // input: displayTitle
