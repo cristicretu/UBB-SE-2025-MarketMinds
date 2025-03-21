@@ -13,6 +13,9 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using DataAccessLayer;
+using DataAccessLayer.Repos;
+using BusinessLogicLayer;
+using BusinessLogicLayer.domain;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -27,6 +30,7 @@ namespace MarketMinds
         public MainWindow()
         {
             DataBaseConnection dataBaseConnection = new DataBaseConnection();
+            
             dataBaseConnection.OpenConnection();
             this.InitializeComponent();
             dataBaseConnection.CloseConnection();

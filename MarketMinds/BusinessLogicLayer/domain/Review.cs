@@ -4,25 +4,29 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BusinessLogicLayer.Domain
+namespace BusinessLogicLayer.domain
 {
     public class Review
     {
+        // The review doesn't take into account the product for which the review has been made,
+        // it can be mentioned in the description, and images
+        public int id { get; set; }
         public string description { get; set; } = string.Empty;
-        public Image image { get; set; } = new Image("");
+        public List<Image> images { get; set; }
         public float rating {  get; set; }
         public int sellerId { get; set; }
         public int buyerId { get; set; } 
-        public int productId { get; set; }
 
-        public Review(string description, Image image, float rating, int sellerId, int buyerId, int productId)
+        //public int productId { get; set; }
+
+        public Review(int id, string description, List<Image> images, float rating, int sellerId, int buyerId)
         {
+            this.id= id;
             this.description = description;
-            this.image = image;
+            this.images = images;
             this.rating = rating;
             this.sellerId = sellerId;
             this.buyerId = buyerId;
-            this.productId = productId;
         }
     }
 }
