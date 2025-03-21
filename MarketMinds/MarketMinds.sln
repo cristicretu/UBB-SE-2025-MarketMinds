@@ -11,8 +11,13 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UiLayer", "UiLayer\UiLayer.csproj", "{6CD23050-3025-4927-94C2-B969A9199DF3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessLogicLayer", "BusinessLogicLayer\BusinessLogicLayer.csproj", "{60B9CCB1-89F4-4982-854D-4F66DE327521}"
+	ProjectSection(ProjectDependencies) = postProject
+		{6C2DAB53-5B7C-4358-8FDA-CCEA6AD4D995} = {6C2DAB53-5B7C-4358-8FDA-CCEA6AD4D995}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccessLayer", "DataAccessLayer\DataAccessLayer.csproj", "{6C2DAB53-5B7C-4358-8FDA-CCEA6AD4D995}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomainLayer", "DomainLayer\DomainLayer.csproj", "{64CFA615-0C94-49A5-89DC-FDF1D37BCE01}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -106,6 +111,22 @@ Global
 		{6C2DAB53-5B7C-4358-8FDA-CCEA6AD4D995}.Release|x64.Build.0 = Release|Any CPU
 		{6C2DAB53-5B7C-4358-8FDA-CCEA6AD4D995}.Release|x86.ActiveCfg = Release|Any CPU
 		{6C2DAB53-5B7C-4358-8FDA-CCEA6AD4D995}.Release|x86.Build.0 = Release|Any CPU
+		{64CFA615-0C94-49A5-89DC-FDF1D37BCE01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64CFA615-0C94-49A5-89DC-FDF1D37BCE01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64CFA615-0C94-49A5-89DC-FDF1D37BCE01}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{64CFA615-0C94-49A5-89DC-FDF1D37BCE01}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{64CFA615-0C94-49A5-89DC-FDF1D37BCE01}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{64CFA615-0C94-49A5-89DC-FDF1D37BCE01}.Debug|x64.Build.0 = Debug|Any CPU
+		{64CFA615-0C94-49A5-89DC-FDF1D37BCE01}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{64CFA615-0C94-49A5-89DC-FDF1D37BCE01}.Debug|x86.Build.0 = Debug|Any CPU
+		{64CFA615-0C94-49A5-89DC-FDF1D37BCE01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64CFA615-0C94-49A5-89DC-FDF1D37BCE01}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64CFA615-0C94-49A5-89DC-FDF1D37BCE01}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{64CFA615-0C94-49A5-89DC-FDF1D37BCE01}.Release|ARM64.Build.0 = Release|Any CPU
+		{64CFA615-0C94-49A5-89DC-FDF1D37BCE01}.Release|x64.ActiveCfg = Release|Any CPU
+		{64CFA615-0C94-49A5-89DC-FDF1D37BCE01}.Release|x64.Build.0 = Release|Any CPU
+		{64CFA615-0C94-49A5-89DC-FDF1D37BCE01}.Release|x86.ActiveCfg = Release|Any CPU
+		{64CFA615-0C94-49A5-89DC-FDF1D37BCE01}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

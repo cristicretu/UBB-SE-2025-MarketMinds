@@ -4,15 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BusinessLogicLayer.Domain
+namespace DomainLayer.Domain
 {
-    public class ProductCondition
+    public class ProductCategory
     {
         public int id { get; set; }
         public string displayTitle { get; set; } = string.Empty;
         public string description { get; set; } = string.Empty;
 
-        public ProductCondition(int id, string displayTitle, string description)
+        public ProductCategory(int id, string displayTitle, string description)
         {
             this.id = id;
             this.displayTitle = displayTitle;

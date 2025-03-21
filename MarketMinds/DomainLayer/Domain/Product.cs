@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BusinessLogicLayer.Domain
+namespace DomainLayer.Domain
 {
-    class BorrowProduct : Product
+    public class Product
     {
+        public int id { get; set; }
+
     }
 }

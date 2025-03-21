@@ -2030,14 +2030,14 @@
           "lib/netstandard1.3/System.Xml.XDocument.dll": {}
         }
       },
-      "BusinessLogicLayer/1.0.0": {
+      "DomainLayer/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "compile": {
-          "bin/placeholder/BusinessLogicLayer.dll": {}
+          "bin/placeholder/DomainLayer.dll": {}
         },
         "runtime": {
-          "bin/placeholder/BusinessLogicLayer.dll": {}
+          "bin/placeholder/DomainLayer.dll": {}
         }
       }
     }
@@ -6422,15 +6422,15 @@
         "system.xml.xdocument.nuspec"
       ]
     },
-    "BusinessLogicLayer/1.0.0": {
+    "DomainLayer/1.0.0": {
       "type": "project",
-      "path": "../BusinessLogicLayer/BusinessLogicLayer.csproj",
-      "msbuildProject": "../BusinessLogicLayer/BusinessLogicLayer.csproj"
+      "path": "../DomainLayer/DomainLayer.csproj",
+      "msbuildProject": "../DomainLayer/DomainLayer.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net8.0": [
-      "BusinessLogicLayer >= 1.0.0",
+      "DomainLayer >= 1.0.0",
       "DotNetEnv >= 3.1.1",
       "Microsoft.Data.SqlClient >= 6.0.1",
       "System.Data.SqlClient >= 4.9.0"
@@ -6468,8 +6468,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\Ghaster\\IdeaProjects\\UBB-SE-2025-MarketMinds\\MarketMinds\\BusinessLogicLayer\\BusinessLogicLayer.csproj": {
-              "projectPath": "C:\\Users\\Ghaster\\IdeaProjects\\UBB-SE-2025-MarketMinds\\MarketMinds\\BusinessLogicLayer\\BusinessLogicLayer.csproj"
+            "C:\\Users\\Ghaster\\IdeaProjects\\UBB-SE-2025-MarketMinds\\MarketMinds\\DomainLayer\\DomainLayer.csproj": {
+              "projectPath": "C:\\Users\\Ghaster\\IdeaProjects\\UBB-SE-2025-MarketMinds\\MarketMinds\\DomainLayer\\DomainLayer.csproj"
             }
           }
         }
@@ -6522,13 +6522,5 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201/PortableRuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Problem reading the cache file C:\\Users\\Ghaster\\IdeaProjects\\UBB-SE-2025-MarketMinds\\MarketMinds\\DataAccessLayer\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
-    }
-  ]
+  }
 }

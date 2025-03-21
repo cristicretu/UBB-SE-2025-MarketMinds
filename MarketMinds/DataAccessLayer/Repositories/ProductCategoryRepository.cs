@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BusinessLogicLayer.Domain;
+using DomainLayer.Domain;
 using Microsoft.Data.SqlClient;
 
-namespace DataAccessLayer.Repos
+namespace DataAccessLayer.Repositories
 {
     public class ProductCategoryRepository
     {

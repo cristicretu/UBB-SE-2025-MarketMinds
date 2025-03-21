@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "ReY8b7Kk1cc=",
+  "dgSpecHash": "GSbk7Kd4sNw=",
   "success": true,
   "projectFilePath": "C:\\Users\\Ghaster\\IdeaProjects\\UBB-SE-2025-MarketMinds\\MarketMinds\\MarketMinds\\MarketMinds.csproj",
   "expectedPackageFiles": [
@@ -163,12 +163,5 @@
     "C:\\Users\\Ghaster\\.nuget\\packages\\microsoft.netcore.app.runtime.win-x64\\8.0.14\\microsoft.netcore.app.runtime.win-x64.8.0.14.nupkg.sha512",
     "C:\\Users\\Ghaster\\.nuget\\packages\\microsoft.windowsdesktop.app.runtime.win-x86\\8.0.14\\microsoft.windowsdesktop.app.runtime.win-x86.8.0.14.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Problem reading the cache file C:\\Users\\Ghaster\\IdeaProjects\\UBB-SE-2025-MarketMinds\\MarketMinds\\MarketMinds\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
-    }
-  ]
+  "logs": []
 }

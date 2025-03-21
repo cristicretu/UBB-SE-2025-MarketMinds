@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BusinessLogicLayer.Domain
+namespace DomainLayer.Domain
 {
-    class BuyProduct : Product
+    class AuctionProduct : Product
     {
     }
 }

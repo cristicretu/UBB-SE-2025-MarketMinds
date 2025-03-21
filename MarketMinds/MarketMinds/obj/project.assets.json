@@ -2178,21 +2178,11 @@
           "lib/netstandard1.3/System.Xml.XDocument.dll": {}
         }
       },
-      "BusinessLogicLayer/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v8.0",
-        "compile": {
-          "bin/placeholder/BusinessLogicLayer.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/BusinessLogicLayer.dll": {}
-        }
-      },
       "DataAccessLayer/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
-          "BusinessLogicLayer": "1.0.0",
+          "DomainLayer": "1.0.0",
           "DotNetEnv": "3.1.1",
           "Microsoft.Data.SqlClient": "6.0.1",
           "System.Data.SqlClient": "4.9.0"
@@ -2202,6 +2192,16 @@
         },
         "runtime": {
           "bin/placeholder/DataAccessLayer.dll": {}
+        }
+      },
+      "DomainLayer/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "compile": {
+          "bin/placeholder/DomainLayer.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/DomainLayer.dll": {}
         }
       }
     },
@@ -4573,21 +4573,11 @@
           "lib/netstandard1.3/System.Xml.XDocument.dll": {}
         }
       },
-      "BusinessLogicLayer/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v8.0",
-        "compile": {
-          "bin/placeholder/BusinessLogicLayer.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/BusinessLogicLayer.dll": {}
-        }
-      },
       "DataAccessLayer/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
-          "BusinessLogicLayer": "1.0.0",
+          "DomainLayer": "1.0.0",
           "DotNetEnv": "3.1.1",
           "Microsoft.Data.SqlClient": "6.0.1",
           "System.Data.SqlClient": "4.9.0"
@@ -4597,6 +4587,16 @@
         },
         "runtime": {
           "bin/placeholder/DataAccessLayer.dll": {}
+        }
+      },
+      "DomainLayer/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "compile": {
+          "bin/placeholder/DomainLayer.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/DomainLayer.dll": {}
         }
       }
     },
@@ -6968,21 +6968,11 @@
           "lib/netstandard1.3/System.Xml.XDocument.dll": {}
         }
       },
-      "BusinessLogicLayer/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v8.0",
-        "compile": {
-          "bin/placeholder/BusinessLogicLayer.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/BusinessLogicLayer.dll": {}
-        }
-      },
       "DataAccessLayer/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
-          "BusinessLogicLayer": "1.0.0",
+          "DomainLayer": "1.0.0",
           "DotNetEnv": "3.1.1",
           "Microsoft.Data.SqlClient": "6.0.1",
           "System.Data.SqlClient": "4.9.0"
@@ -6992,6 +6982,16 @@
         },
         "runtime": {
           "bin/placeholder/DataAccessLayer.dll": {}
+        }
+      },
+      "DomainLayer/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "compile": {
+          "bin/placeholder/DomainLayer.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/DomainLayer.dll": {}
         }
       }
     },
@@ -9363,21 +9363,11 @@
           "lib/netstandard1.3/System.Xml.XDocument.dll": {}
         }
       },
-      "BusinessLogicLayer/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v8.0",
-        "compile": {
-          "bin/placeholder/BusinessLogicLayer.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/BusinessLogicLayer.dll": {}
-        }
-      },
       "DataAccessLayer/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
-          "BusinessLogicLayer": "1.0.0",
+          "DomainLayer": "1.0.0",
           "DotNetEnv": "3.1.1",
           "Microsoft.Data.SqlClient": "6.0.1",
           "System.Data.SqlClient": "4.9.0"
@@ -9387,6 +9377,16 @@
         },
         "runtime": {
           "bin/placeholder/DataAccessLayer.dll": {}
+        }
+      },
+      "DomainLayer/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "compile": {
+          "bin/placeholder/DomainLayer.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/DomainLayer.dll": {}
         }
       }
     }
@@ -15288,15 +15288,15 @@
         "system.xml.xdocument.nuspec"
       ]
     },
-    "BusinessLogicLayer/1.0.0": {
-      "type": "project",
-      "path": "../BusinessLogicLayer/BusinessLogicLayer.csproj",
-      "msbuildProject": "../BusinessLogicLayer/BusinessLogicLayer.csproj"
-    },
     "DataAccessLayer/1.0.0": {
       "type": "project",
       "path": "../DataAccessLayer/DataAccessLayer.csproj",
       "msbuildProject": "../DataAccessLayer/DataAccessLayer.csproj"
+    },
+    "DomainLayer/1.0.0": {
+      "type": "project",
+      "path": "../DomainLayer/DomainLayer.csproj",
+      "msbuildProject": "../DomainLayer/DomainLayer.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -15444,13 +15444,5 @@
         "#import": []
       }
     }
-  },
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Problem reading the cache file C:\\Users\\Ghaster\\IdeaProjects\\UBB-SE-2025-MarketMinds\\MarketMinds\\MarketMinds\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
-    }
-  ]
+  }
 }
