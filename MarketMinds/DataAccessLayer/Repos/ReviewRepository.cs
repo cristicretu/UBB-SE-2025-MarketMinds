@@ -8,6 +8,7 @@ using Microsoft.Data.SqlClient;
 
 namespace DataAccessLayer.Repos
 {
+    // TODO: Check the functions again now that id is also in review
     public class ReviewRepository
     {
         private DataBaseConnection connection;
@@ -97,7 +98,7 @@ namespace DataAccessLayer.Repos
                 cmd.Parameters.AddWithValue("@description", review.description);
                 cmd.Parameters.AddWithValue("@rating", review.rating);
 
-                inserted_id = cmd.ExecuteNonQuery();
+                review.id = cmd.ExecuteNonQuery();
             }
 
             // adding the images
@@ -107,7 +108,7 @@ namespace DataAccessLayer.Repos
                 using (SqlCommand cmd = new SqlCommand(insertImageSql, connection.GetConnection()))
                 {
                     cmd.Parameters.AddWithValue("@url", img.url);
-                    cmd.Parameters.AddWithValue("@review_id", inserted_id);
+                    cmd.Parameters.AddWithValue("@review_id", review.id);
                  
                     cmd.ExecuteNonQuery();   
                 }
@@ -142,7 +143,10 @@ namespace DataAccessLayer.Repos
         public void EditReview(Review review, int rating, string description)
         {
             connection.OpenConnection();
-            int id = GetReviewId(review);
+            if (review.id == -1)
+            {
+                review.id = GetReviewId(review);
+            }
 
             if (rating != 0)
             {
@@ -151,7 +155,7 @@ namespace DataAccessLayer.Repos
                 using (SqlCommand cmd = new SqlCommand(updateQuery, connection.GetConnection()))
                 {
                     
-                    cmd.Parameters.AddWithValue("@id", id);
+                    cmd.Parameters.AddWithValue("@id", review.id);
                     cmd.Parameters.AddWithValue("@rating", rating);
                     cmd.ExecuteNonQuery();
                 }
@@ -164,7 +168,7 @@ namespace DataAccessLayer.Repos
                 using (SqlCommand cmd = new SqlCommand(updateQuery, connection.GetConnection()))
                 {
 
-                    cmd.Parameters.AddWithValue("@id", id);
+                    cmd.Parameters.AddWithValue("@id", review.id);
                     cmd.Parameters.AddWithValue("@description", description);
                     cmd.ExecuteNonQuery();
                 }
@@ -175,17 +179,19 @@ namespace DataAccessLayer.Repos
         public void DeleteReview(Review review)
         {
             // first get the id, delete the images, then the review
-            int id = GetReviewId(review);
-
+            if (review.id == -1)
+            {
+                review.id = GetReviewId(review);
+            }
             connection.OpenConnection();
-            DeleteImages(id);
+            DeleteImages(review.id);
 
             // deleting from the Reviews Table
             string query = "DELETE FROM Reviews WHERE id = @id";
             using (SqlCommand cmd = new SqlCommand(query, connection.GetConnection()))
             {
 
-                cmd.Parameters.AddWithValue("@id", id);
+                cmd.Parameters.AddWithValue("@id", review.id);
                 cmd.ExecuteNonQuery();
             }
             connection.CloseConnection();
