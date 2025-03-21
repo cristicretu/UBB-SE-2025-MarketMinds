@@ -1,1 +1,23 @@
-/.vs
+# Ignore the DataBaseConnection file
+DataBaseConnection.cs
+.env
+
+# Ignore build and dependency files
+bin/
+obj/
+*.dll
+*.exe
+*.pdb
+*.log
+
+# Ignore user-specific settings
+.vscode/
+.idea/
+*.suo
+*.user
+*.vs
+
+# Ignore NuGet packages
+packages/
+*.nupkg
+project.lock.json
