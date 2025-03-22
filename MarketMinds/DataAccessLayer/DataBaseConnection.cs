@@ -10,9 +10,10 @@ namespace DataAccessLayer
     public class DataBaseConnection
     {
         SqlConnection sqlConnection;
-        //replace with own
-        private string connectionString = "Data Source=LAPTOP-TONI\\SQLEXPRESS;Initial Catalog=LogisticsCompany;Integrated Security=True;TrustServerCertificate=True";
-        
+
+        private string connectionString = "Server=COSTIN\\SQLEXPRESS;Database=MarketPlace;User Id=sa;Password=Spiderman2004;TrustServerCertificate=True";
+
+
 
         public DataBaseConnection()
         {
@@ -26,12 +27,18 @@ namespace DataAccessLayer
 
         public void OpenConnection()
         {
-            this.sqlConnection.Open();
+            if (this.sqlConnection.State != System.Data.ConnectionState.Open)
+            {
+                this.sqlConnection.Open();
+            }
         }
 
         public void CloseConnection()
         {
-            this.sqlConnection.Close();
+            if (this.sqlConnection.State == System.Data.ConnectionState.Open)
+            {
+                this.sqlConnection.Close();
+            }
         }
 
     }
