@@ -1,5 +1,6 @@
 {
   "Version": 1,
+<<<<<<< HEAD
   "WorkspaceRootPath": "C:\\Users\\Ghaster\\IdeaProjects\\UBB-SE-2025-MarketMinds\\MarketMinds\\",
   "Documents": [
     {
@@ -21,6 +22,141 @@
     {
       "AbsoluteMoniker": "D:0:0:{1851CDEE-7B1B-4F9A-83D5-BEDB1AC10E5F}|ViewModelLayer\\ViewModelLayer.csproj|c:\\users\\ghaster\\ideaprojects\\ubb-se-2025-marketminds\\marketminds\\viewmodellayer\\viewmodel\\sortandfilterviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{1851CDEE-7B1B-4F9A-83D5-BEDB1AC10E5F}|ViewModelLayer\\ViewModelLayer.csproj|solutionrelative:viewmodellayer\\viewmodel\\sortandfilterviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+=======
+  "WorkspaceRootPath": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{6C2DAB53-5B7C-4358-8FDA-CCEA6AD4D995}|DataAccessLayer\\DataAccessLayer.csproj|c:\\users\\robi\\desktop\\marketplace\\ubb-se-2025-marketminds\\marketminds\\dataaccesslayer\\repositories\\auctionproductsrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6C2DAB53-5B7C-4358-8FDA-CCEA6AD4D995}|DataAccessLayer\\DataAccessLayer.csproj|solutionrelative:dataaccesslayer\\repositories\\auctionproductsrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{60B9CCB1-89F4-4982-854D-4F66DE327521}|BusinessLogicLayer\\BusinessLogicLayer.csproj|c:\\users\\robi\\desktop\\marketplace\\ubb-se-2025-marketminds\\marketminds\\businesslogiclayer\\services\\auctionproductsservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{60B9CCB1-89F4-4982-854D-4F66DE327521}|BusinessLogicLayer\\BusinessLogicLayer.csproj|solutionrelative:businesslogiclayer\\services\\auctionproductsservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{60B9CCB1-89F4-4982-854D-4F66DE327521}|BusinessLogicLayer\\BusinessLogicLayer.csproj|c:\\users\\robi\\desktop\\marketplace\\ubb-se-2025-marketminds\\marketminds\\businesslogiclayer\\services\\productservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{60B9CCB1-89F4-4982-854D-4F66DE327521}|BusinessLogicLayer\\BusinessLogicLayer.csproj|solutionrelative:businesslogiclayer\\services\\productservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6C2DAB53-5B7C-4358-8FDA-CCEA6AD4D995}|DataAccessLayer\\DataAccessLayer.csproj|c:\\users\\robi\\desktop\\marketplace\\ubb-se-2025-marketminds\\marketminds\\dataaccesslayer\\repositories\\productsrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6C2DAB53-5B7C-4358-8FDA-CCEA6AD4D995}|DataAccessLayer\\DataAccessLayer.csproj|solutionrelative:dataaccesslayer\\repositories\\productsrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6C2DAB53-5B7C-4358-8FDA-CCEA6AD4D995}|DataAccessLayer\\DataAccessLayer.csproj|c:\\users\\robi\\desktop\\marketplace\\ubb-se-2025-marketminds\\marketminds\\dataaccesslayer\\repositories\\reviewrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6C2DAB53-5B7C-4358-8FDA-CCEA6AD4D995}|DataAccessLayer\\DataAccessLayer.csproj|solutionrelative:dataaccesslayer\\repositories\\reviewrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64CFA615-0C94-49A5-89DC-FDF1D37BCE01}|DomainLayer\\DomainLayer.csproj|c:\\users\\robi\\desktop\\marketplace\\ubb-se-2025-marketminds\\marketminds\\domainlayer\\domain\\auctionproduct.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{64CFA615-0C94-49A5-89DC-FDF1D37BCE01}|DomainLayer\\DomainLayer.csproj|solutionrelative:domainlayer\\domain\\auctionproduct.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64CFA615-0C94-49A5-89DC-FDF1D37BCE01}|DomainLayer\\DomainLayer.csproj|c:\\users\\robi\\desktop\\marketplace\\ubb-se-2025-marketminds\\marketminds\\domainlayer\\domain\\review.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{64CFA615-0C94-49A5-89DC-FDF1D37BCE01}|DomainLayer\\DomainLayer.csproj|solutionrelative:domainlayer\\domain\\review.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64CFA615-0C94-49A5-89DC-FDF1D37BCE01}|DomainLayer\\DomainLayer.csproj|c:\\users\\robi\\desktop\\marketplace\\ubb-se-2025-marketminds\\marketminds\\domainlayer\\domain\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{64CFA615-0C94-49A5-89DC-FDF1D37BCE01}|DomainLayer\\DomainLayer.csproj|solutionrelative:domainlayer\\domain\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64CFA615-0C94-49A5-89DC-FDF1D37BCE01}|DomainLayer\\DomainLayer.csproj|c:\\users\\robi\\desktop\\marketplace\\ubb-se-2025-marketminds\\marketminds\\domainlayer\\domain\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{64CFA615-0C94-49A5-89DC-FDF1D37BCE01}|DomainLayer\\DomainLayer.csproj|solutionrelative:domainlayer\\domain\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64CFA615-0C94-49A5-89DC-FDF1D37BCE01}|DomainLayer\\DomainLayer.csproj|c:\\users\\robi\\desktop\\marketplace\\ubb-se-2025-marketminds\\marketminds\\domainlayer\\domain\\bid.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{64CFA615-0C94-49A5-89DC-FDF1D37BCE01}|DomainLayer\\DomainLayer.csproj|solutionrelative:domainlayer\\domain\\bid.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6C2DAB53-5B7C-4358-8FDA-CCEA6AD4D995}|DataAccessLayer\\DataAccessLayer.csproj|c:\\users\\robi\\desktop\\marketplace\\ubb-se-2025-marketminds\\marketminds\\dataaccesslayer\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6C2DAB53-5B7C-4358-8FDA-CCEA6AD4D995}|DataAccessLayer\\DataAccessLayer.csproj|solutionrelative:dataaccesslayer\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{60B9CCB1-89F4-4982-854D-4F66DE327521}|BusinessLogicLayer\\BusinessLogicLayer.csproj|c:\\users\\robi\\desktop\\marketplace\\ubb-se-2025-marketminds\\marketminds\\businesslogiclayer\\services\\productconditionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{60B9CCB1-89F4-4982-854D-4F66DE327521}|BusinessLogicLayer\\BusinessLogicLayer.csproj|solutionrelative:businesslogiclayer\\services\\productconditionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{60B9CCB1-89F4-4982-854D-4F66DE327521}|BusinessLogicLayer\\BusinessLogicLayer.csproj|c:\\users\\robi\\desktop\\marketplace\\ubb-se-2025-marketminds\\marketminds\\businesslogiclayer\\services\\producttagservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{60B9CCB1-89F4-4982-854D-4F66DE327521}|BusinessLogicLayer\\BusinessLogicLayer.csproj|solutionrelative:businesslogiclayer\\services\\producttagservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64CFA615-0C94-49A5-89DC-FDF1D37BCE01}|DomainLayer\\DomainLayer.csproj|c:\\users\\robi\\desktop\\marketplace\\ubb-se-2025-marketminds\\marketminds\\domainlayer\\domain\\productcategory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{64CFA615-0C94-49A5-89DC-FDF1D37BCE01}|DomainLayer\\DomainLayer.csproj|solutionrelative:domainlayer\\domain\\productcategory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6C2DAB53-5B7C-4358-8FDA-CCEA6AD4D995}|DataAccessLayer\\DataAccessLayer.csproj|c:\\users\\robi\\desktop\\marketplace\\ubb-se-2025-marketminds\\marketminds\\dataaccesslayer\\repositories\\producttagrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6C2DAB53-5B7C-4358-8FDA-CCEA6AD4D995}|DataAccessLayer\\DataAccessLayer.csproj|solutionrelative:dataaccesslayer\\repositories\\producttagrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6C2DAB53-5B7C-4358-8FDA-CCEA6AD4D995}|DataAccessLayer\\DataAccessLayer.csproj|c:\\users\\robi\\desktop\\marketplace\\ubb-se-2025-marketminds\\marketminds\\dataaccesslayer\\repositories\\productconditionrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6C2DAB53-5B7C-4358-8FDA-CCEA6AD4D995}|DataAccessLayer\\DataAccessLayer.csproj|solutionrelative:dataaccesslayer\\repositories\\productconditionrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64CFA615-0C94-49A5-89DC-FDF1D37BCE01}|DomainLayer\\DomainLayer.csproj|c:\\users\\robi\\desktop\\marketplace\\ubb-se-2025-marketminds\\marketminds\\domainlayer\\domain\\productcondition.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{64CFA615-0C94-49A5-89DC-FDF1D37BCE01}|DomainLayer\\DomainLayer.csproj|solutionrelative:domainlayer\\domain\\productcondition.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64CFA615-0C94-49A5-89DC-FDF1D37BCE01}|DomainLayer\\DomainLayer.csproj|c:\\users\\robi\\desktop\\marketplace\\ubb-se-2025-marketminds\\marketminds\\domainlayer\\domain\\image.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{64CFA615-0C94-49A5-89DC-FDF1D37BCE01}|DomainLayer\\DomainLayer.csproj|solutionrelative:domainlayer\\domain\\image.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6C2DAB53-5B7C-4358-8FDA-CCEA6AD4D995}|DataAccessLayer\\DataAccessLayer.csproj|c:\\users\\robi\\desktop\\marketplace\\ubb-se-2025-marketminds\\marketminds\\dataaccesslayer\\repositories\\productcategoryrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6C2DAB53-5B7C-4358-8FDA-CCEA6AD4D995}|DataAccessLayer\\DataAccessLayer.csproj|solutionrelative:dataaccesslayer\\repositories\\productcategoryrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64CFA615-0C94-49A5-89DC-FDF1D37BCE01}|DomainLayer\\DomainLayer.csproj|c:\\users\\robi\\desktop\\marketplace\\ubb-se-2025-marketminds\\marketminds\\domainlayer\\domain\\productsorttype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{64CFA615-0C94-49A5-89DC-FDF1D37BCE01}|DomainLayer\\DomainLayer.csproj|solutionrelative:domainlayer\\domain\\productsorttype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64CFA615-0C94-49A5-89DC-FDF1D37BCE01}|DomainLayer\\DomainLayer.csproj|c:\\users\\robi\\desktop\\marketplace\\ubb-se-2025-marketminds\\marketminds\\domainlayer\\domain\\basket.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{64CFA615-0C94-49A5-89DC-FDF1D37BCE01}|DomainLayer\\DomainLayer.csproj|solutionrelative:domainlayer\\domain\\basket.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{60B9CCB1-89F4-4982-854D-4F66DE327521}|BusinessLogicLayer\\BusinessLogicLayer.csproj|c:\\users\\robi\\desktop\\marketplace\\ubb-se-2025-marketminds\\marketminds\\businesslogiclayer\\viewmodel\\sortandfilterviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{60B9CCB1-89F4-4982-854D-4F66DE327521}|BusinessLogicLayer\\BusinessLogicLayer.csproj|solutionrelative:businesslogiclayer\\viewmodel\\sortandfilterviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64CFA615-0C94-49A5-89DC-FDF1D37BCE01}|DomainLayer\\DomainLayer.csproj|c:\\users\\robi\\desktop\\marketplace\\ubb-se-2025-marketminds\\marketminds\\domainlayer\\domain\\producttag.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{64CFA615-0C94-49A5-89DC-FDF1D37BCE01}|DomainLayer\\DomainLayer.csproj|solutionrelative:domainlayer\\domain\\producttag.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64CFA615-0C94-49A5-89DC-FDF1D37BCE01}|DomainLayer\\DomainLayer.csproj|c:\\users\\robi\\desktop\\marketplace\\ubb-se-2025-marketminds\\marketminds\\domainlayer\\domain\\buyproduct.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{64CFA615-0C94-49A5-89DC-FDF1D37BCE01}|DomainLayer\\DomainLayer.csproj|solutionrelative:domainlayer\\domain\\buyproduct.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64CFA615-0C94-49A5-89DC-FDF1D37BCE01}|DomainLayer\\DomainLayer.csproj|c:\\users\\robi\\desktop\\marketplace\\ubb-se-2025-marketminds\\marketminds\\domainlayer\\domain\\borrowproduct.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{64CFA615-0C94-49A5-89DC-FDF1D37BCE01}|DomainLayer\\DomainLayer.csproj|solutionrelative:domainlayer\\domain\\borrowproduct.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64CFA615-0C94-49A5-89DC-FDF1D37BCE01}|DomainLayer\\DomainLayer.csproj|c:\\users\\robi\\desktop\\marketplace\\ubb-se-2025-marketminds\\marketminds\\domainlayer\\domain\\basketitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{64CFA615-0C94-49A5-89DC-FDF1D37BCE01}|DomainLayer\\DomainLayer.csproj|solutionrelative:domainlayer\\domain\\basketitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6C2DAB53-5B7C-4358-8FDA-CCEA6AD4D995}|DataAccessLayer\\DataAccessLayer.csproj|c:\\users\\robi\\desktop\\marketplace\\ubb-se-2025-marketminds\\marketminds\\dataaccesslayer\\databaseconnection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6C2DAB53-5B7C-4358-8FDA-CCEA6AD4D995}|DataAccessLayer\\DataAccessLayer.csproj|solutionrelative:dataaccesslayer\\databaseconnection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64CFA615-0C94-49A5-89DC-FDF1D37BCE01}|DomainLayer\\DomainLayer.csproj|c:\\users\\robi\\desktop\\marketplace\\ubb-se-2025-marketminds\\marketminds\\domainlayer\\domainlayer.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{64CFA615-0C94-49A5-89DC-FDF1D37BCE01}|DomainLayer\\DomainLayer.csproj|solutionrelative:domainlayer\\domainlayer.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{60B9CCB1-89F4-4982-854D-4F66DE327521}|BusinessLogicLayer\\BusinessLogicLayer.csproj|c:\\users\\robi\\desktop\\marketplace\\ubb-se-2025-marketminds\\marketminds\\businesslogiclayer\\services\\productcategoryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{60B9CCB1-89F4-4982-854D-4F66DE327521}|BusinessLogicLayer\\BusinessLogicLayer.csproj|solutionrelative:businesslogiclayer\\services\\productcategoryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{60B9CCB1-89F4-4982-854D-4F66DE327521}|BusinessLogicLayer\\BusinessLogicLayer.csproj|c:\\users\\robi\\desktop\\marketplace\\ubb-se-2025-marketminds\\marketminds\\businesslogiclayer\\businesslogiclayer.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{60B9CCB1-89F4-4982-854D-4F66DE327521}|BusinessLogicLayer\\BusinessLogicLayer.csproj|solutionrelative:businesslogiclayer\\businesslogiclayer.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6CD23050-3025-4927-94C2-B969A9199DF3}|UiLayer\\UiLayer.csproj|c:\\users\\robi\\desktop\\marketplace\\ubb-se-2025-marketminds\\marketminds\\uilayer\\uilayer.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{6CD23050-3025-4927-94C2-B969A9199DF3}|UiLayer\\UiLayer.csproj|solutionrelative:uilayer\\uilayer.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B42F394-D49C-4032-AAFA-1ADB3300358D}|MarketMinds\\MarketMinds.csproj|c:\\users\\robi\\desktop\\marketplace\\ubb-se-2025-marketminds\\marketminds\\marketminds\\marketminds.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
+      "RelativeMoniker": "D:0:0:{3B42F394-D49C-4032-AAFA-1ADB3300358D}|MarketMinds\\MarketMinds.csproj|solutionrelative:marketminds\\marketminds.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B42F394-D49C-4032-AAFA-1ADB3300358D}|MarketMinds\\MarketMinds.csproj|c:\\users\\robi\\desktop\\marketplace\\ubb-se-2025-marketminds\\marketminds\\marketminds\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3B42F394-D49C-4032-AAFA-1ADB3300358D}|MarketMinds\\MarketMinds.csproj|solutionrelative:marketminds\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+>>>>>>> bidding
     }
   ],
   "DocumentGroupContainers": [
@@ -117,6 +253,7 @@
               "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
             },
             {
+<<<<<<< HEAD
               "$type": "Document",
               "DocumentIndex": 1,
               "Title": "ProductConditionViewModel.cs",
@@ -182,12 +319,426 @@
               "EditorCaption": ""
             },
             {
+=======
+>>>>>>> bidding
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
             },
             {
               "$type": "Bookmark",
+<<<<<<< HEAD
               "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+=======
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "AuctionProductsService.cs",
+              "DocumentMoniker": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\BusinessLogicLayer\\Services\\AuctionProductsService.cs",
+              "RelativeDocumentMoniker": "BusinessLogicLayer\\Services\\AuctionProductsService.cs",
+              "ToolTip": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\BusinessLogicLayer\\Services\\AuctionProductsService.cs",
+              "RelativeToolTip": "BusinessLogicLayer\\Services\\AuctionProductsService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAF0AAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-22T16:29:26.285Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "AuctionProductsRepository.cs",
+              "DocumentMoniker": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\DataAccessLayer\\Repositories\\AuctionProductsRepository.cs",
+              "RelativeDocumentMoniker": "DataAccessLayer\\Repositories\\AuctionProductsRepository.cs",
+              "ToolTip": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\DataAccessLayer\\Repositories\\AuctionProductsRepository.cs",
+              "RelativeToolTip": "DataAccessLayer\\Repositories\\AuctionProductsRepository.cs",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAYwEgAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-21T18:46:25.516Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ProductsRepository.cs",
+              "DocumentMoniker": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\DataAccessLayer\\Repositories\\ProductsRepository.cs",
+              "RelativeDocumentMoniker": "DataAccessLayer\\Repositories\\ProductsRepository.cs",
+              "ToolTip": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\DataAccessLayer\\Repositories\\ProductsRepository.cs",
+              "RelativeToolTip": "DataAccessLayer\\Repositories\\ProductsRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAA2AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-21T19:47:14.17Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "AuctionProduct.cs",
+              "DocumentMoniker": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\DomainLayer\\Domain\\AuctionProduct.cs",
+              "RelativeDocumentMoniker": "DomainLayer\\Domain\\AuctionProduct.cs",
+              "ToolTip": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\DomainLayer\\Domain\\AuctionProduct.cs",
+              "RelativeToolTip": "DomainLayer\\Domain\\AuctionProduct.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAA5wAsAAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-21T14:28:04.035Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ReviewRepository.cs",
+              "DocumentMoniker": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\DataAccessLayer\\Repositories\\ReviewRepository.cs",
+              "RelativeDocumentMoniker": "DataAccessLayer\\Repositories\\ReviewRepository.cs",
+              "ToolTip": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\DataAccessLayer\\Repositories\\ReviewRepository.cs",
+              "RelativeToolTip": "DataAccessLayer\\Repositories\\ReviewRepository.cs",
+              "ViewState": "AgIAAC0AAAAAAAAAAAAYwAUAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-21T18:29:59.476Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Review.cs",
+              "DocumentMoniker": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\DomainLayer\\Domain\\Review.cs",
+              "RelativeDocumentMoniker": "DomainLayer\\Domain\\Review.cs",
+              "ToolTip": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\DomainLayer\\Domain\\Review.cs",
+              "RelativeToolTip": "DomainLayer\\Domain\\Review.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAQwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-21T14:28:29.43Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ProductService.cs",
+              "DocumentMoniker": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\BusinessLogicLayer\\Services\\ProductService.cs",
+              "RelativeDocumentMoniker": "BusinessLogicLayer\\Services\\ProductService.cs",
+              "ToolTip": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\BusinessLogicLayer\\Services\\ProductService.cs",
+              "RelativeToolTip": "BusinessLogicLayer\\Services\\ProductService.cs",
+              "ViewState": "AgIAACcAAAAAAAAAAAAowCwAAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-22T16:02:46.525Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "User.cs",
+              "DocumentMoniker": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\DomainLayer\\Domain\\User.cs",
+              "RelativeDocumentMoniker": "DomainLayer\\Domain\\User.cs",
+              "ToolTip": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\DomainLayer\\Domain\\User.cs",
+              "RelativeToolTip": "DomainLayer\\Domain\\User.cs",
+              "ViewState": "AgIAAAcAAAAAAAAAAAAiwBQAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-21T14:28:39.604Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Product.cs",
+              "DocumentMoniker": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\DomainLayer\\Domain\\Product.cs",
+              "RelativeDocumentMoniker": "DomainLayer\\Domain\\Product.cs",
+              "ToolTip": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\DomainLayer\\Domain\\Product.cs",
+              "RelativeToolTip": "DomainLayer\\Domain\\Product.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAxwA8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-21T20:21:33.676Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Bid.cs",
+              "DocumentMoniker": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\DomainLayer\\Domain\\Bid.cs",
+              "RelativeDocumentMoniker": "DomainLayer\\Domain\\Bid.cs",
+              "ToolTip": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\DomainLayer\\Domain\\Bid.cs",
+              "RelativeToolTip": "DomainLayer\\Domain\\Bid.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-21T18:22:02.944Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Class1.cs",
+              "DocumentMoniker": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\DataAccessLayer\\Class1.cs",
+              "RelativeDocumentMoniker": "DataAccessLayer\\Class1.cs",
+              "ToolTip": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\DataAccessLayer\\Class1.cs",
+              "RelativeToolTip": "DataAccessLayer\\Class1.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-22T17:47:58.122Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "ProductConditionService.cs",
+              "DocumentMoniker": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\BusinessLogicLayer\\Services\\ProductConditionService.cs",
+              "RelativeDocumentMoniker": "BusinessLogicLayer\\Services\\ProductConditionService.cs",
+              "ToolTip": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\BusinessLogicLayer\\Services\\ProductConditionService.cs",
+              "RelativeToolTip": "BusinessLogicLayer\\Services\\ProductConditionService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-21T14:31:15.915Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "ProductTagService.cs",
+              "DocumentMoniker": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\BusinessLogicLayer\\Services\\ProductTagService.cs",
+              "RelativeDocumentMoniker": "BusinessLogicLayer\\Services\\ProductTagService.cs",
+              "ToolTip": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\BusinessLogicLayer\\Services\\ProductTagService.cs",
+              "RelativeToolTip": "BusinessLogicLayer\\Services\\ProductTagService.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-21T18:30:06.509Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "ProductTagRepository.cs",
+              "DocumentMoniker": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\DataAccessLayer\\Repositories\\ProductTagRepository.cs",
+              "RelativeDocumentMoniker": "DataAccessLayer\\Repositories\\ProductTagRepository.cs",
+              "ToolTip": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\DataAccessLayer\\Repositories\\ProductTagRepository.cs",
+              "RelativeToolTip": "DataAccessLayer\\Repositories\\ProductTagRepository.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-21T18:29:55.727Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "ProductCategory.cs",
+              "DocumentMoniker": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\DomainLayer\\Domain\\ProductCategory.cs",
+              "RelativeDocumentMoniker": "DomainLayer\\Domain\\ProductCategory.cs",
+              "ToolTip": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\DomainLayer\\Domain\\ProductCategory.cs",
+              "RelativeToolTip": "DomainLayer\\Domain\\ProductCategory.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-22T15:44:01.693Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "ProductConditionRepository.cs",
+              "DocumentMoniker": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\DataAccessLayer\\Repositories\\ProductConditionRepository.cs",
+              "RelativeDocumentMoniker": "DataAccessLayer\\Repositories\\ProductConditionRepository.cs",
+              "ToolTip": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\DataAccessLayer\\Repositories\\ProductConditionRepository.cs",
+              "RelativeToolTip": "DataAccessLayer\\Repositories\\ProductConditionRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-21T18:29:46.191Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "ProductCondition.cs",
+              "DocumentMoniker": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\DomainLayer\\Domain\\ProductCondition.cs",
+              "RelativeDocumentMoniker": "DomainLayer\\Domain\\ProductCondition.cs",
+              "ToolTip": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\DomainLayer\\Domain\\ProductCondition.cs",
+              "RelativeToolTip": "DomainLayer\\Domain\\ProductCondition.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-21T14:28:17.335Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "Image.cs",
+              "DocumentMoniker": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\DomainLayer\\Domain\\Image.cs",
+              "RelativeDocumentMoniker": "DomainLayer\\Domain\\Image.cs",
+              "ToolTip": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\DomainLayer\\Domain\\Image.cs",
+              "RelativeToolTip": "DomainLayer\\Domain\\Image.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-21T20:40:28.506Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "ProductCategoryRepository.cs",
+              "DocumentMoniker": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\DataAccessLayer\\Repositories\\ProductCategoryRepository.cs",
+              "RelativeDocumentMoniker": "DataAccessLayer\\Repositories\\ProductCategoryRepository.cs",
+              "ToolTip": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\DataAccessLayer\\Repositories\\ProductCategoryRepository.cs",
+              "RelativeToolTip": "DataAccessLayer\\Repositories\\ProductCategoryRepository.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAAAQwDcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-21T14:31:26.51Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "ProductSortType.cs",
+              "DocumentMoniker": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\DomainLayer\\Domain\\ProductSortType.cs",
+              "RelativeDocumentMoniker": "DomainLayer\\Domain\\ProductSortType.cs",
+              "ToolTip": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\DomainLayer\\Domain\\ProductSortType.cs",
+              "RelativeToolTip": "DomainLayer\\Domain\\ProductSortType.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-21T18:31:47.656Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "Basket.cs",
+              "DocumentMoniker": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\DomainLayer\\Domain\\Basket.cs",
+              "RelativeDocumentMoniker": "DomainLayer\\Domain\\Basket.cs",
+              "ToolTip": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\DomainLayer\\Domain\\Basket.cs",
+              "RelativeToolTip": "DomainLayer\\Domain\\Basket.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-21T15:12:27.047Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "SortAndFilterViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\BusinessLogicLayer\\ViewModel\\SortAndFilterViewModel.cs",
+              "RelativeDocumentMoniker": "BusinessLogicLayer\\ViewModel\\SortAndFilterViewModel.cs",
+              "ToolTip": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\BusinessLogicLayer\\ViewModel\\SortAndFilterViewModel.cs",
+              "RelativeToolTip": "BusinessLogicLayer\\ViewModel\\SortAndFilterViewModel.cs",
+              "ViewState": "AgIAACcAAAAAAAAAAAAkwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-21T14:31:20.637Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "ProductTag.cs",
+              "DocumentMoniker": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\DomainLayer\\Domain\\ProductTag.cs",
+              "RelativeDocumentMoniker": "DomainLayer\\Domain\\ProductTag.cs",
+              "ToolTip": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\DomainLayer\\Domain\\ProductTag.cs",
+              "RelativeToolTip": "DomainLayer\\Domain\\ProductTag.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-21T14:28:25.119Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "BuyProduct.cs",
+              "DocumentMoniker": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\DomainLayer\\Domain\\BuyProduct.cs",
+              "RelativeDocumentMoniker": "DomainLayer\\Domain\\BuyProduct.cs",
+              "ToolTip": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\DomainLayer\\Domain\\BuyProduct.cs",
+              "RelativeToolTip": "DomainLayer\\Domain\\BuyProduct.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-21T14:28:07.877Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "BorrowProduct.cs",
+              "DocumentMoniker": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\DomainLayer\\Domain\\BorrowProduct.cs",
+              "RelativeDocumentMoniker": "DomainLayer\\Domain\\BorrowProduct.cs",
+              "ToolTip": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\DomainLayer\\Domain\\BorrowProduct.cs",
+              "RelativeToolTip": "DomainLayer\\Domain\\BorrowProduct.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-21T14:28:08.91Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "BasketItem.cs",
+              "DocumentMoniker": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\DomainLayer\\Domain\\BasketItem.cs",
+              "RelativeDocumentMoniker": "DomainLayer\\Domain\\BasketItem.cs",
+              "ToolTip": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\DomainLayer\\Domain\\BasketItem.cs",
+              "RelativeToolTip": "DomainLayer\\Domain\\BasketItem.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-21T15:12:44.62Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "DataBaseConnection.cs",
+              "DocumentMoniker": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\DataAccessLayer\\DataBaseConnection.cs",
+              "RelativeDocumentMoniker": "DataAccessLayer\\DataBaseConnection.cs",
+              "ToolTip": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\DataAccessLayer\\DataBaseConnection.cs",
+              "RelativeToolTip": "DataAccessLayer\\DataBaseConnection.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAUwBAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-21T17:51:32.525Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "DomainLayer.csproj",
+              "DocumentMoniker": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\DomainLayer\\DomainLayer.csproj",
+              "RelativeDocumentMoniker": "DomainLayer\\DomainLayer.csproj",
+              "ToolTip": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\DomainLayer\\DomainLayer.csproj",
+              "RelativeToolTip": "DomainLayer\\DomainLayer.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-03-21T14:34:40.418Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "ProductCategoryService.cs",
+              "DocumentMoniker": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\BusinessLogicLayer\\Services\\ProductCategoryService.cs",
+              "RelativeDocumentMoniker": "BusinessLogicLayer\\Services\\ProductCategoryService.cs",
+              "ToolTip": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\BusinessLogicLayer\\Services\\ProductCategoryService.cs",
+              "RelativeToolTip": "BusinessLogicLayer\\Services\\ProductCategoryService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-21T14:31:00.28Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "BusinessLogicLayer.csproj",
+              "DocumentMoniker": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\BusinessLogicLayer\\BusinessLogicLayer.csproj",
+              "RelativeDocumentMoniker": "BusinessLogicLayer\\BusinessLogicLayer.csproj",
+              "ToolTip": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\BusinessLogicLayer\\BusinessLogicLayer.csproj",
+              "RelativeToolTip": "BusinessLogicLayer\\BusinessLogicLayer.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-03-21T14:30:56.977Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
+              "Title": "UiLayer.csproj",
+              "DocumentMoniker": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\UiLayer\\UiLayer.csproj",
+              "RelativeDocumentMoniker": "UiLayer\\UiLayer.csproj",
+              "ToolTip": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\UiLayer\\UiLayer.csproj",
+              "RelativeToolTip": "UiLayer\\UiLayer.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-03-21T14:05:25.009Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 31,
+              "Title": "MarketMinds",
+              "DocumentMoniker": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\MarketMinds\\MarketMinds.csproj",
+              "RelativeDocumentMoniker": "MarketMinds\\MarketMinds.csproj",
+              "ToolTip": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\MarketMinds\\MarketMinds.csproj",
+              "RelativeToolTip": "MarketMinds\\MarketMinds.csproj",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-03-21T14:05:18.589Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 32,
+              "Title": "MainWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\MarketMinds\\MainWindow.xaml.cs",
+              "RelativeDocumentMoniker": "MarketMinds\\MainWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\MarketMinds\\MainWindow.xaml.cs",
+              "RelativeToolTip": "MarketMinds\\MainWindow.xaml.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAABwAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-19T12:09:07.916Z"
+>>>>>>> bidding
             }
           ]
         }

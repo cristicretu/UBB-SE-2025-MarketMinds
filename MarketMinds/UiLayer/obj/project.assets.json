@@ -15431,23 +15431,39 @@
     ]
   },
   "packageFolders": {
+<<<<<<< HEAD
     "C:\\Users\\Ghaster\\.nuget\\packages\\": {},
+=======
+    "C:\\Users\\Robi\\.nuget\\packages\\": {},
+>>>>>>> bidding
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
+<<<<<<< HEAD
       "projectUniqueName": "C:\\Users\\Ghaster\\IdeaProjects\\UBB-SE-2025-MarketMinds\\MarketMinds\\UiLayer\\UiLayer.csproj",
       "projectName": "UiLayer",
       "projectPath": "C:\\Users\\Ghaster\\IdeaProjects\\UBB-SE-2025-MarketMinds\\MarketMinds\\UiLayer\\UiLayer.csproj",
       "packagesPath": "C:\\Users\\Ghaster\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\Ghaster\\IdeaProjects\\UBB-SE-2025-MarketMinds\\MarketMinds\\UiLayer\\obj\\",
+=======
+      "projectUniqueName": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\UiLayer\\UiLayer.csproj",
+      "projectName": "UiLayer",
+      "projectPath": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\UiLayer\\UiLayer.csproj",
+      "packagesPath": "C:\\Users\\Robi\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\UiLayer\\obj\\",
+>>>>>>> bidding
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
+<<<<<<< HEAD
         "C:\\Users\\Ghaster\\AppData\\Roaming\\NuGet\\NuGet.Config",
+=======
+        "C:\\Users\\Robi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+>>>>>>> bidding
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -15513,27 +15529,27 @@
         "downloadDependencies": [
           {
             "name": "Microsoft.AspNetCore.App.Runtime.win-arm64",
-            "version": "[8.0.14, 8.0.14]"
+            "version": "[8.0.13, 8.0.13]"
           },
           {
             "name": "Microsoft.AspNetCore.App.Runtime.win-x64",
-            "version": "[8.0.14, 8.0.14]"
+            "version": "[8.0.13, 8.0.13]"
           },
           {
             "name": "Microsoft.AspNetCore.App.Runtime.win-x86",
-            "version": "[8.0.14, 8.0.14]"
+            "version": "[8.0.13, 8.0.13]"
           },
           {
             "name": "Microsoft.NETCore.App.Runtime.win-arm64",
-            "version": "[8.0.14, 8.0.14]"
+            "version": "[8.0.13, 8.0.13]"
           },
           {
             "name": "Microsoft.NETCore.App.Runtime.win-x64",
-            "version": "[8.0.14, 8.0.14]"
+            "version": "[8.0.13, 8.0.13]"
           },
           {
             "name": "Microsoft.NETCore.App.Runtime.win-x86",
-            "version": "[8.0.14, 8.0.14]"
+            "version": "[8.0.13, 8.0.13]"
           },
           {
             "name": "Microsoft.Windows.SDK.NET.Ref",
@@ -15541,15 +15557,15 @@
           },
           {
             "name": "Microsoft.WindowsDesktop.App.Runtime.win-arm64",
-            "version": "[8.0.14, 8.0.14]"
+            "version": "[8.0.13, 8.0.13]"
           },
           {
             "name": "Microsoft.WindowsDesktop.App.Runtime.win-x64",
-            "version": "[8.0.14, 8.0.14]"
+            "version": "[8.0.13, 8.0.13]"
           },
           {
             "name": "Microsoft.WindowsDesktop.App.Runtime.win-x86",
-            "version": "[8.0.14, 8.0.14]"
+            "version": "[8.0.13, 8.0.13]"
           }
         ],
         "frameworkReferences": {
@@ -15560,7 +15576,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
       }
     },
     "runtimes": {
