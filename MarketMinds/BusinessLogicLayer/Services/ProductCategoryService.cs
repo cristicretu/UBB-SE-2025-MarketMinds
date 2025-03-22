@@ -8,7 +8,7 @@ using DataAccessLayer.Repositories;
 
 namespace BusinessLogicLayer.Services
 {
-    class ProductCategoryService
+    public class ProductCategoryService
     {
         private ProductCategoryRepository repository;
 

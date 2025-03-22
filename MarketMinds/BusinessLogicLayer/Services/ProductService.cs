@@ -9,7 +9,7 @@ using DomainLayer.Domain;
 
 namespace BusinessLogicLayer.Services
 {
-    class ProductService
+    public class ProductService
     {
         //private ProductRepository productRepository;
 

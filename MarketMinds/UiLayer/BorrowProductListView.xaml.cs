@@ -19,11 +19,11 @@ using Microsoft.UI.Xaml.Navigation;
 namespace UiLayer
 {
     /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
+    /// An empty window that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class ProductList : Page
+    public sealed partial class BorrowProductListView : Window
     {
-        public ProductList()
+        public BorrowProductListView()
         {
             this.InitializeComponent();
         }

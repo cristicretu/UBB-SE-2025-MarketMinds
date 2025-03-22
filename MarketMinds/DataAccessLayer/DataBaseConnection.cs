@@ -11,7 +11,7 @@ namespace DataAccessLayer
     {
         SqlConnection sqlConnection;
         //replace with own
-        private string connectionString = "Server=GHASTERLAPTOP;Database=MarketPlace;User Id=sa;Password=1808;TrustServerCertificate=True";
+        private string connectionString = "Data Source=LAPTOP-TONI\\SQLEXPRESS;Initial Catalog=LogisticsCompany;Integrated Security=True;TrustServerCertificate=True";
         
 
         public DataBaseConnection()
