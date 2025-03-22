@@ -9,6 +9,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarketMinds", "MarketMinds\
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UiLayer", "UiLayer\UiLayer.csproj", "{6CD23050-3025-4927-94C2-B969A9199DF3}"
+	ProjectSection(ProjectDependencies) = postProject
+		{60B9CCB1-89F4-4982-854D-4F66DE327521} = {60B9CCB1-89F4-4982-854D-4F66DE327521}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessLogicLayer", "BusinessLogicLayer\BusinessLogicLayer.csproj", "{60B9CCB1-89F4-4982-854D-4F66DE327521}"
 	ProjectSection(ProjectDependencies) = postProject

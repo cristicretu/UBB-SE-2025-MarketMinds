@@ -42,7 +42,6 @@
   <ItemGroup>
     <ProjectReference Include="..\BusinessLogicLayer\BusinessLogicLayer.csproj" />
     <ProjectReference Include="..\DomainLayer\DomainLayer.csproj" />
-    <ProjectReference Include="..\MarketMinds\MarketMinds.csproj" />
   </ItemGroup>
 
   <!--

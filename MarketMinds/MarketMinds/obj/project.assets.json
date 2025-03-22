@@ -2222,14 +2222,32 @@
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
           "BusinessLogicLayer": "1.0.0",
+          "DomainLayer": "1.0.0",
           "Microsoft.Windows.SDK.BuildTools": "10.0.22621.756",
-          "Microsoft.WindowsAppSDK": "1.6.250228001"
+          "Microsoft.WindowsAppSDK": "1.6.250228001",
+          "ViewModelLayer": "1.0.0"
         },
         "compile": {
           "bin/placeholder/UiLayer.dll": {}
         },
         "runtime": {
           "bin/placeholder/UiLayer.dll": {}
+        }
+      },
+      "ViewModelLayer/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "BusinessLogicLayer": "1.0.0",
+          "DomainLayer": "1.0.0",
+          "Microsoft.Windows.SDK.BuildTools": "10.0.26100.1742",
+          "Microsoft.WindowsAppSDK": "1.7.250310001"
+        },
+        "compile": {
+          "bin/placeholder/ViewModelLayer.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ViewModelLayer.dll": {}
         }
       }
     },
@@ -4645,14 +4663,32 @@
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
           "BusinessLogicLayer": "1.0.0",
+          "DomainLayer": "1.0.0",
           "Microsoft.Windows.SDK.BuildTools": "10.0.22621.756",
-          "Microsoft.WindowsAppSDK": "1.6.250228001"
+          "Microsoft.WindowsAppSDK": "1.6.250228001",
+          "ViewModelLayer": "1.0.0"
         },
         "compile": {
           "bin/placeholder/UiLayer.dll": {}
         },
         "runtime": {
           "bin/placeholder/UiLayer.dll": {}
+        }
+      },
+      "ViewModelLayer/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "BusinessLogicLayer": "1.0.0",
+          "DomainLayer": "1.0.0",
+          "Microsoft.Windows.SDK.BuildTools": "10.0.26100.1742",
+          "Microsoft.WindowsAppSDK": "1.7.250310001"
+        },
+        "compile": {
+          "bin/placeholder/ViewModelLayer.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ViewModelLayer.dll": {}
         }
       }
     },
@@ -7068,14 +7104,32 @@
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
           "BusinessLogicLayer": "1.0.0",
+          "DomainLayer": "1.0.0",
           "Microsoft.Windows.SDK.BuildTools": "10.0.22621.756",
-          "Microsoft.WindowsAppSDK": "1.6.250228001"
+          "Microsoft.WindowsAppSDK": "1.6.250228001",
+          "ViewModelLayer": "1.0.0"
         },
         "compile": {
           "bin/placeholder/UiLayer.dll": {}
         },
         "runtime": {
           "bin/placeholder/UiLayer.dll": {}
+        }
+      },
+      "ViewModelLayer/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "BusinessLogicLayer": "1.0.0",
+          "DomainLayer": "1.0.0",
+          "Microsoft.Windows.SDK.BuildTools": "10.0.26100.1742",
+          "Microsoft.WindowsAppSDK": "1.7.250310001"
+        },
+        "compile": {
+          "bin/placeholder/ViewModelLayer.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ViewModelLayer.dll": {}
         }
       }
     },
@@ -9491,14 +9545,32 @@
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
           "BusinessLogicLayer": "1.0.0",
+          "DomainLayer": "1.0.0",
           "Microsoft.Windows.SDK.BuildTools": "10.0.22621.756",
-          "Microsoft.WindowsAppSDK": "1.6.250228001"
+          "Microsoft.WindowsAppSDK": "1.6.250228001",
+          "ViewModelLayer": "1.0.0"
         },
         "compile": {
           "bin/placeholder/UiLayer.dll": {}
         },
         "runtime": {
           "bin/placeholder/UiLayer.dll": {}
+        }
+      },
+      "ViewModelLayer/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "BusinessLogicLayer": "1.0.0",
+          "DomainLayer": "1.0.0",
+          "Microsoft.Windows.SDK.BuildTools": "10.0.26100.1742",
+          "Microsoft.WindowsAppSDK": "1.7.250310001"
+        },
+        "compile": {
+          "bin/placeholder/ViewModelLayer.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ViewModelLayer.dll": {}
         }
       }
     }
@@ -15419,6 +15491,11 @@
       "type": "project",
       "path": "../UiLayer/UiLayer.csproj",
       "msbuildProject": "../UiLayer/UiLayer.csproj"
+    },
+    "ViewModelLayer/1.0.0": {
+      "type": "project",
+      "path": "../ViewModelLayer/ViewModelLayer.csproj",
+      "msbuildProject": "../ViewModelLayer/ViewModelLayer.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -15430,23 +15507,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\anton\\.nuget\\packages\\": {},
+    "C:\\Users\\Ghaster\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\anton\\OneDrive\\Documents\\GitHub\\UBB-SE-2025-MarketMinds\\MarketMinds\\MarketMinds\\MarketMinds.csproj",
+      "projectUniqueName": "C:\\Users\\Ghaster\\IdeaProjects\\UBB-SE-2025-MarketMinds\\MarketMinds\\MarketMinds\\MarketMinds.csproj",
       "projectName": "MarketMinds",
-      "projectPath": "C:\\Users\\anton\\OneDrive\\Documents\\GitHub\\UBB-SE-2025-MarketMinds\\MarketMinds\\MarketMinds\\MarketMinds.csproj",
-      "packagesPath": "C:\\Users\\anton\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\anton\\OneDrive\\Documents\\GitHub\\UBB-SE-2025-MarketMinds\\MarketMinds\\MarketMinds\\obj\\",
+      "projectPath": "C:\\Users\\Ghaster\\IdeaProjects\\UBB-SE-2025-MarketMinds\\MarketMinds\\MarketMinds\\MarketMinds.csproj",
+      "packagesPath": "C:\\Users\\Ghaster\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Ghaster\\IdeaProjects\\UBB-SE-2025-MarketMinds\\MarketMinds\\MarketMinds\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\anton\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Ghaster\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -15461,11 +15538,11 @@
         "net8.0-windows10.0.19041": {
           "targetAlias": "net8.0-windows10.0.19041.0",
           "projectReferences": {
-            "C:\\Users\\anton\\OneDrive\\Documents\\GitHub\\UBB-SE-2025-MarketMinds\\MarketMinds\\DataAccessLayer\\DataAccessLayer.csproj": {
-              "projectPath": "C:\\Users\\anton\\OneDrive\\Documents\\GitHub\\UBB-SE-2025-MarketMinds\\MarketMinds\\DataAccessLayer\\DataAccessLayer.csproj"
+            "C:\\Users\\Ghaster\\IdeaProjects\\UBB-SE-2025-MarketMinds\\MarketMinds\\DataAccessLayer\\DataAccessLayer.csproj": {
+              "projectPath": "C:\\Users\\Ghaster\\IdeaProjects\\UBB-SE-2025-MarketMinds\\MarketMinds\\DataAccessLayer\\DataAccessLayer.csproj"
             },
-            "C:\\Users\\anton\\OneDrive\\Documents\\GitHub\\UBB-SE-2025-MarketMinds\\MarketMinds\\UiLayer\\UiLayer.csproj": {
-              "projectPath": "C:\\Users\\anton\\OneDrive\\Documents\\GitHub\\UBB-SE-2025-MarketMinds\\MarketMinds\\UiLayer\\UiLayer.csproj"
+            "C:\\Users\\Ghaster\\IdeaProjects\\UBB-SE-2025-MarketMinds\\MarketMinds\\UiLayer\\UiLayer.csproj": {
+              "projectPath": "C:\\Users\\Ghaster\\IdeaProjects\\UBB-SE-2025-MarketMinds\\MarketMinds\\UiLayer\\UiLayer.csproj"
             }
           }
         }
@@ -15509,27 +15586,27 @@
         "downloadDependencies": [
           {
             "name": "Microsoft.AspNetCore.App.Runtime.win-arm64",
-            "version": "[8.0.13, 8.0.13]"
+            "version": "[8.0.14, 8.0.14]"
           },
           {
             "name": "Microsoft.AspNetCore.App.Runtime.win-x64",
-            "version": "[8.0.13, 8.0.13]"
+            "version": "[8.0.14, 8.0.14]"
           },
           {
             "name": "Microsoft.AspNetCore.App.Runtime.win-x86",
-            "version": "[8.0.13, 8.0.13]"
+            "version": "[8.0.14, 8.0.14]"
           },
           {
             "name": "Microsoft.NETCore.App.Runtime.win-arm64",
-            "version": "[8.0.13, 8.0.13]"
+            "version": "[8.0.14, 8.0.14]"
           },
           {
             "name": "Microsoft.NETCore.App.Runtime.win-x64",
-            "version": "[8.0.13, 8.0.13]"
+            "version": "[8.0.14, 8.0.14]"
           },
           {
             "name": "Microsoft.NETCore.App.Runtime.win-x86",
-            "version": "[8.0.13, 8.0.13]"
+            "version": "[8.0.14, 8.0.14]"
           },
           {
             "name": "Microsoft.Windows.SDK.NET.Ref",
@@ -15537,15 +15614,15 @@
           },
           {
             "name": "Microsoft.WindowsDesktop.App.Runtime.win-arm64",
-            "version": "[8.0.13, 8.0.13]"
+            "version": "[8.0.14, 8.0.14]"
           },
           {
             "name": "Microsoft.WindowsDesktop.App.Runtime.win-x64",
-            "version": "[8.0.13, 8.0.13]"
+            "version": "[8.0.14, 8.0.14]"
           },
           {
             "name": "Microsoft.WindowsDesktop.App.Runtime.win-x86",
-            "version": "[8.0.13, 8.0.13]"
+            "version": "[8.0.14, 8.0.14]"
           }
         ],
         "frameworkReferences": {
@@ -15556,7 +15633,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201/PortableRuntimeIdentifierGraph.json"
       }
     },
     "runtimes": {
@@ -15570,5 +15647,19 @@
         "#import": []
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1605",
+      "level": "Error",
+      "message": "Warning As Error: Detected package downgrade: Microsoft.WindowsAppSDK from 1.7.250310001 to 1.6.250228001. Reference the package directly from the project to select a different version. \r\n MarketMinds -> UiLayer -> ViewModelLayer -> Microsoft.WindowsAppSDK (>= 1.7.250310001) \r\n MarketMinds -> Microsoft.WindowsAppSDK (>= 1.6.250228001)",
+      "libraryId": "Microsoft.WindowsAppSDK",
+      "targetGraphs": [
+        "net8.0-windows10.0.19041",
+        "net8.0-windows10.0.19041/win-arm64",
+        "net8.0-windows10.0.19041/win-x64",
+        "net8.0-windows10.0.19041/win-x86"
+      ]
+    }
+  ]
 }

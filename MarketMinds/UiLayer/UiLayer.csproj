@@ -44,6 +44,11 @@
     <ProjectCapability Include="Msix" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BusinessLogicLayer\BusinessLogicLayer.csproj" />
+    <ProjectReference Include="..\DomainLayer\DomainLayer.csproj" />
+    <ProjectReference Include="..\ViewModelLayer\ViewModelLayer.csproj" />
+  </ItemGroup>
+  <ItemGroup>
     <Page Update="BorrowProductListView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -62,9 +67,6 @@
     <Page Update="AdminView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\BusinessLogicLayer\BusinessLogicLayer.csproj" />
   </ItemGroup>
 
   <!--

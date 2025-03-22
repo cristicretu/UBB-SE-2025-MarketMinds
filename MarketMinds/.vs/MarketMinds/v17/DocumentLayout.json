@@ -1,21 +1,25 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\anton\\OneDrive\\Documents\\GitHub\\UBB-SE-2025-MarketMinds\\MarketMinds\\",
+  "WorkspaceRootPath": "C:\\Users\\Ghaster\\IdeaProjects\\UBB-SE-2025-MarketMinds\\MarketMinds\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{1851CDEE-7B1B-4F9A-83D5-BEDB1AC10E5F}|ViewModelLayer\\ViewModelLayer.csproj|c:\\users\\anton\\onedrive\\documents\\github\\ubb-se-2025-marketminds\\marketminds\\viewmodellayer\\viewmodel\\productcategoryviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1851CDEE-7B1B-4F9A-83D5-BEDB1AC10E5F}|ViewModelLayer\\ViewModelLayer.csproj|solutionrelative:viewmodellayer\\viewmodel\\productcategoryviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6CD23050-3025-4927-94C2-B969A9199DF3}|UiLayer\\UiLayer.csproj|c:\\users\\ghaster\\ideaprojects\\ubb-se-2025-marketminds\\marketminds\\uilayer\\adminview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6CD23050-3025-4927-94C2-B969A9199DF3}|UiLayer\\UiLayer.csproj|solutionrelative:uilayer\\adminview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1851CDEE-7B1B-4F9A-83D5-BEDB1AC10E5F}|ViewModelLayer\\ViewModelLayer.csproj|c:\\users\\anton\\onedrive\\documents\\github\\ubb-se-2025-marketminds\\marketminds\\viewmodellayer\\viewmodel\\producttagviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1851CDEE-7B1B-4F9A-83D5-BEDB1AC10E5F}|ViewModelLayer\\ViewModelLayer.csproj|solutionrelative:viewmodellayer\\viewmodel\\producttagviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1851CDEE-7B1B-4F9A-83D5-BEDB1AC10E5F}|ViewModelLayer\\ViewModelLayer.csproj|c:\\users\\anton\\onedrive\\documents\\github\\ubb-se-2025-marketminds\\marketminds\\viewmodellayer\\viewmodel\\productconditionviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{1851CDEE-7B1B-4F9A-83D5-BEDB1AC10E5F}|ViewModelLayer\\ViewModelLayer.csproj|c:\\users\\ghaster\\ideaprojects\\ubb-se-2025-marketminds\\marketminds\\viewmodellayer\\viewmodel\\productconditionviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{1851CDEE-7B1B-4F9A-83D5-BEDB1AC10E5F}|ViewModelLayer\\ViewModelLayer.csproj|solutionrelative:viewmodellayer\\viewmodel\\productconditionviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1851CDEE-7B1B-4F9A-83D5-BEDB1AC10E5F}|ViewModelLayer\\ViewModelLayer.csproj|c:\\users\\anton\\onedrive\\documents\\github\\ubb-se-2025-marketminds\\marketminds\\viewmodellayer\\viewmodel\\sortandfilterviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{1851CDEE-7B1B-4F9A-83D5-BEDB1AC10E5F}|ViewModelLayer\\ViewModelLayer.csproj|c:\\users\\ghaster\\ideaprojects\\ubb-se-2025-marketminds\\marketminds\\viewmodellayer\\viewmodel\\producttagviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1851CDEE-7B1B-4F9A-83D5-BEDB1AC10E5F}|ViewModelLayer\\ViewModelLayer.csproj|solutionrelative:viewmodellayer\\viewmodel\\producttagviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1851CDEE-7B1B-4F9A-83D5-BEDB1AC10E5F}|ViewModelLayer\\ViewModelLayer.csproj|c:\\users\\ghaster\\ideaprojects\\ubb-se-2025-marketminds\\marketminds\\viewmodellayer\\viewmodel\\productcategoryviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1851CDEE-7B1B-4F9A-83D5-BEDB1AC10E5F}|ViewModelLayer\\ViewModelLayer.csproj|solutionrelative:viewmodellayer\\viewmodel\\productcategoryviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1851CDEE-7B1B-4F9A-83D5-BEDB1AC10E5F}|ViewModelLayer\\ViewModelLayer.csproj|c:\\users\\ghaster\\ideaprojects\\ubb-se-2025-marketminds\\marketminds\\viewmodellayer\\viewmodel\\sortandfilterviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{1851CDEE-7B1B-4F9A-83D5-BEDB1AC10E5F}|ViewModelLayer\\ViewModelLayer.csproj|solutionrelative:viewmodellayer\\viewmodel\\sortandfilterviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -26,7 +30,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 25,
+          "SelectedChildIndex": 22,
           "Children": [
             {
               "$type": "Bookmark",
@@ -113,39 +117,40 @@
               "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
-            },
-            {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "ProductTagViewModel.cs",
-              "DocumentMoniker": "C:\\Users\\anton\\OneDrive\\Documents\\GitHub\\UBB-SE-2025-MarketMinds\\MarketMinds\\ViewModelLayer\\ViewModel\\ProductTagViewModel.cs",
-              "RelativeDocumentMoniker": "ViewModelLayer\\ViewModel\\ProductTagViewModel.cs",
-              "ToolTip": "C:\\Users\\anton\\OneDrive\\Documents\\GitHub\\UBB-SE-2025-MarketMinds\\MarketMinds\\ViewModelLayer\\ViewModel\\ProductTagViewModel.cs",
-              "RelativeToolTip": "ViewModelLayer\\ViewModel\\ProductTagViewModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Title": "ProductConditionViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\Ghaster\\IdeaProjects\\UBB-SE-2025-MarketMinds\\MarketMinds\\ViewModelLayer\\ViewModel\\ProductConditionViewModel.cs",
+              "RelativeDocumentMoniker": "ViewModelLayer\\ViewModel\\ProductConditionViewModel.cs",
+              "ToolTip": "C:\\Users\\Ghaster\\IdeaProjects\\UBB-SE-2025-MarketMinds\\MarketMinds\\ViewModelLayer\\ViewModel\\ProductConditionViewModel.cs",
+              "RelativeToolTip": "ViewModelLayer\\ViewModel\\ProductConditionViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-22T13:21:03.598Z",
+              "WhenOpened": "2025-03-22T13:20:35.252Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "AdminView.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Ghaster\\IdeaProjects\\UBB-SE-2025-MarketMinds\\MarketMinds\\UiLayer\\AdminView.xaml.cs",
+              "RelativeDocumentMoniker": "UiLayer\\AdminView.xaml.cs",
+              "ToolTip": "C:\\Users\\Ghaster\\IdeaProjects\\UBB-SE-2025-MarketMinds\\MarketMinds\\UiLayer\\AdminView.xaml.cs",
+              "RelativeToolTip": "UiLayer\\AdminView.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-22T13:45:29.511Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "ProductCategoryViewModel.cs",
-              "DocumentMoniker": "C:\\Users\\anton\\OneDrive\\Documents\\GitHub\\UBB-SE-2025-MarketMinds\\MarketMinds\\ViewModelLayer\\ViewModel\\ProductCategoryViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\Ghaster\\IdeaProjects\\UBB-SE-2025-MarketMinds\\MarketMinds\\ViewModelLayer\\ViewModel\\ProductCategoryViewModel.cs",
               "RelativeDocumentMoniker": "ViewModelLayer\\ViewModel\\ProductCategoryViewModel.cs",
-              "ToolTip": "C:\\Users\\anton\\OneDrive\\Documents\\GitHub\\UBB-SE-2025-MarketMinds\\MarketMinds\\ViewModelLayer\\ViewModel\\ProductCategoryViewModel.cs",
+              "ToolTip": "C:\\Users\\Ghaster\\IdeaProjects\\UBB-SE-2025-MarketMinds\\MarketMinds\\ViewModelLayer\\ViewModel\\ProductCategoryViewModel.cs",
               "RelativeToolTip": "ViewModelLayer\\ViewModel\\ProductCategoryViewModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-22T13:20:49.097Z",
               "EditorCaption": ""
@@ -153,28 +158,36 @@
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "ProductConditionViewModel.cs",
-              "DocumentMoniker": "C:\\Users\\anton\\OneDrive\\Documents\\GitHub\\UBB-SE-2025-MarketMinds\\MarketMinds\\ViewModelLayer\\ViewModel\\ProductConditionViewModel.cs",
-              "RelativeDocumentMoniker": "ViewModelLayer\\ViewModel\\ProductConditionViewModel.cs",
-              "ToolTip": "C:\\Users\\anton\\OneDrive\\Documents\\GitHub\\UBB-SE-2025-MarketMinds\\MarketMinds\\ViewModelLayer\\ViewModel\\ProductConditionViewModel.cs",
-              "RelativeToolTip": "ViewModelLayer\\ViewModel\\ProductConditionViewModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Title": "ProductTagViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\Ghaster\\IdeaProjects\\UBB-SE-2025-MarketMinds\\MarketMinds\\ViewModelLayer\\ViewModel\\ProductTagViewModel.cs",
+              "RelativeDocumentMoniker": "ViewModelLayer\\ViewModel\\ProductTagViewModel.cs",
+              "ToolTip": "C:\\Users\\Ghaster\\IdeaProjects\\UBB-SE-2025-MarketMinds\\MarketMinds\\ViewModelLayer\\ViewModel\\ProductTagViewModel.cs",
+              "RelativeToolTip": "ViewModelLayer\\ViewModel\\ProductTagViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-22T13:20:35.252Z",
+              "WhenOpened": "2025-03-22T13:21:03.598Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "SortAndFilterViewModel.cs",
-              "DocumentMoniker": "C:\\Users\\anton\\OneDrive\\Documents\\GitHub\\UBB-SE-2025-MarketMinds\\MarketMinds\\ViewModelLayer\\ViewModel\\SortAndFilterViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\Ghaster\\IdeaProjects\\UBB-SE-2025-MarketMinds\\MarketMinds\\ViewModelLayer\\ViewModel\\SortAndFilterViewModel.cs",
               "RelativeDocumentMoniker": "ViewModelLayer\\ViewModel\\SortAndFilterViewModel.cs",
-              "ToolTip": "C:\\Users\\anton\\OneDrive\\Documents\\GitHub\\UBB-SE-2025-MarketMinds\\MarketMinds\\ViewModelLayer\\ViewModel\\SortAndFilterViewModel.cs",
+              "ToolTip": "C:\\Users\\Ghaster\\IdeaProjects\\UBB-SE-2025-MarketMinds\\MarketMinds\\ViewModelLayer\\ViewModel\\SortAndFilterViewModel.cs",
               "RelativeToolTip": "ViewModelLayer\\ViewModel\\SortAndFilterViewModel.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-22T13:18:00.697Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
             }
           ]
         }
