@@ -9,11 +9,7 @@ using DomainLayer.Domain;
 
 namespace BusinessLogicLayer.Services
 {
-<<<<<<< HEAD
-    public class ProductService
-=======
     public class ProductService<T> where T : Product
->>>>>>> bidding
     {
         private ProductsRepository<T> productRepository;
 
