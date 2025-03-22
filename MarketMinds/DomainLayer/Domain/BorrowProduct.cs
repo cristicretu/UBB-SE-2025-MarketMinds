@@ -17,7 +17,7 @@ namespace DomainLayer.Domain
                 return endDate - startDate;
             }
         }
-        public BorrowProduct(DateTime startDate, DateTime endDate)
+        public BorrowProduct(int id, string description, string title, ProductCondition condition, ProductCategory category, List<ProductTag> tags, DateTime startDate, DateTime endDate) : base(id, description, title, condition, category, tags)
         {
             this.startDate = startDate;
             this.endDate = endDate;

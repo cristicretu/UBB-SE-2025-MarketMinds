@@ -19,7 +19,7 @@ namespace DomainLayer.Domain
             this.id = id;
             this.product = product;
             this.quantity = quantity;
-            //this.price = product.getPrice(); getPrice() not implemented yet.
+            // this.price = product.getPrice(); getPrice() not implemented yet.
             // When getPrice() is implemented, this line will store the product's current price
             // at the time the item is added to the basket
         }
