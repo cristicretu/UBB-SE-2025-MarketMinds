@@ -7,8 +7,28 @@
       "RelativeMoniker": "D:0:0:{60B9CCB1-89F4-4982-854D-4F66DE327521}|BusinessLogicLayer\\BusinessLogicLayer.csproj|solutionrelative:businesslogiclayer\\services\\basketservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{64CFA615-0C94-49A5-89DC-FDF1D37BCE01}|DomainLayer\\DomainLayer.csproj|c:\\users\\jolde\\onedrive\\documents\\github\\ubb-se-2025-marketminds\\marketminds\\domainlayer\\domain\\auctionproduct.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{64CFA615-0C94-49A5-89DC-FDF1D37BCE01}|DomainLayer\\DomainLayer.csproj|solutionrelative:domainlayer\\domain\\auctionproduct.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6C2DAB53-5B7C-4358-8FDA-CCEA6AD4D995}|DataAccessLayer\\DataAccessLayer.csproj|c:\\users\\jolde\\onedrive\\documents\\github\\ubb-se-2025-marketminds\\marketminds\\dataaccesslayer\\repositories\\buyproductsrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6C2DAB53-5B7C-4358-8FDA-CCEA6AD4D995}|DataAccessLayer\\DataAccessLayer.csproj|solutionrelative:dataaccesslayer\\repositories\\buyproductsrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6C2DAB53-5B7C-4358-8FDA-CCEA6AD4D995}|DataAccessLayer\\DataAccessLayer.csproj|c:\\users\\jolde\\onedrive\\documents\\github\\ubb-se-2025-marketminds\\marketminds\\dataaccesslayer\\repositories\\auctionproductsrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6C2DAB53-5B7C-4358-8FDA-CCEA6AD4D995}|DataAccessLayer\\DataAccessLayer.csproj|solutionrelative:dataaccesslayer\\repositories\\auctionproductsrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{6C2DAB53-5B7C-4358-8FDA-CCEA6AD4D995}|DataAccessLayer\\DataAccessLayer.csproj|c:\\users\\jolde\\onedrive\\documents\\github\\ubb-se-2025-marketminds\\marketminds\\dataaccesslayer\\repositories\\basketrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6C2DAB53-5B7C-4358-8FDA-CCEA6AD4D995}|DataAccessLayer\\DataAccessLayer.csproj|solutionrelative:dataaccesslayer\\repositories\\basketrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64CFA615-0C94-49A5-89DC-FDF1D37BCE01}|DomainLayer\\DomainLayer.csproj|c:\\users\\jolde\\onedrive\\documents\\github\\ubb-se-2025-marketminds\\marketminds\\domainlayer\\domain\\buyproduct.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{64CFA615-0C94-49A5-89DC-FDF1D37BCE01}|DomainLayer\\DomainLayer.csproj|solutionrelative:domainlayer\\domain\\buyproduct.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{60B9CCB1-89F4-4982-854D-4F66DE327521}|BusinessLogicLayer\\BusinessLogicLayer.csproj|c:\\users\\jolde\\onedrive\\documents\\github\\ubb-se-2025-marketminds\\marketminds\\businesslogiclayer\\services\\productservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{60B9CCB1-89F4-4982-854D-4F66DE327521}|BusinessLogicLayer\\BusinessLogicLayer.csproj|solutionrelative:businesslogiclayer\\services\\productservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6C2DAB53-5B7C-4358-8FDA-CCEA6AD4D995}|DataAccessLayer\\DataAccessLayer.csproj|c:\\users\\jolde\\onedrive\\documents\\github\\ubb-se-2025-marketminds\\marketminds\\dataaccesslayer\\databaseconnection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -21,10 +41,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{64CFA615-0C94-49A5-89DC-FDF1D37BCE01}|DomainLayer\\DomainLayer.csproj|c:\\users\\jolde\\onedrive\\documents\\github\\ubb-se-2025-marketminds\\marketminds\\domainlayer\\domain\\basketitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{64CFA615-0C94-49A5-89DC-FDF1D37BCE01}|DomainLayer\\DomainLayer.csproj|solutionrelative:domainlayer\\domain\\basketitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{64CFA615-0C94-49A5-89DC-FDF1D37BCE01}|DomainLayer\\DomainLayer.csproj|c:\\users\\jolde\\onedrive\\documents\\github\\ubb-se-2025-marketminds\\marketminds\\domainlayer\\domain\\buyproduct.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{64CFA615-0C94-49A5-89DC-FDF1D37BCE01}|DomainLayer\\DomainLayer.csproj|solutionrelative:domainlayer\\domain\\buyproduct.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{3B42F394-D49C-4032-AAFA-1ADB3300358D}|MarketMinds\\MarketMinds.csproj|c:\\users\\jolde\\onedrive\\documents\\github\\ubb-se-2025-marketminds\\marketminds\\marketminds\\marketminds.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
@@ -74,7 +90,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 29,
+          "SelectedChildIndex": 33,
           "Children": [
             {
               "$type": "Bookmark",
@@ -178,7 +194,59 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 1,
+              "Title": "AuctionProduct.cs",
+              "DocumentMoniker": "C:\\Users\\jolde\\OneDrive\\Documents\\GitHub\\UBB-SE-2025-MarketMinds\\MarketMinds\\DomainLayer\\Domain\\AuctionProduct.cs",
+              "RelativeDocumentMoniker": "DomainLayer\\Domain\\AuctionProduct.cs",
+              "ToolTip": "C:\\Users\\jolde\\OneDrive\\Documents\\GitHub\\UBB-SE-2025-MarketMinds\\MarketMinds\\DomainLayer\\Domain\\AuctionProduct.cs",
+              "RelativeToolTip": "DomainLayer\\Domain\\AuctionProduct.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-22T22:37:59.262Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "AuctionProductsRepository.cs",
+              "DocumentMoniker": "C:\\Users\\jolde\\OneDrive\\Documents\\GitHub\\UBB-SE-2025-MarketMinds\\MarketMinds\\DataAccessLayer\\Repositories\\AuctionProductsRepository.cs",
+              "RelativeDocumentMoniker": "DataAccessLayer\\Repositories\\AuctionProductsRepository.cs",
+              "ToolTip": "C:\\Users\\jolde\\OneDrive\\Documents\\GitHub\\UBB-SE-2025-MarketMinds\\MarketMinds\\DataAccessLayer\\Repositories\\AuctionProductsRepository.cs",
+              "RelativeToolTip": "DataAccessLayer\\Repositories\\AuctionProductsRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwA8AAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-22T22:34:54.771Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "BuyProductsRepository.cs",
+              "DocumentMoniker": "C:\\Users\\jolde\\OneDrive\\Documents\\GitHub\\UBB-SE-2025-MarketMinds\\MarketMinds\\DataAccessLayer\\Repositories\\BuyProductsRepository.cs",
+              "RelativeDocumentMoniker": "DataAccessLayer\\Repositories\\BuyProductsRepository.cs",
+              "ToolTip": "C:\\Users\\jolde\\OneDrive\\Documents\\GitHub\\UBB-SE-2025-MarketMinds\\MarketMinds\\DataAccessLayer\\Repositories\\BuyProductsRepository.cs",
+              "RelativeToolTip": "DataAccessLayer\\Repositories\\BuyProductsRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAA6AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-22T22:34:22.636Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "ProductService.cs",
+              "DocumentMoniker": "C:\\Users\\jolde\\OneDrive\\Documents\\GitHub\\UBB-SE-2025-MarketMinds\\MarketMinds\\BusinessLogicLayer\\Services\\ProductService.cs",
+              "RelativeDocumentMoniker": "BusinessLogicLayer\\Services\\ProductService.cs",
+              "ToolTip": "C:\\Users\\jolde\\OneDrive\\Documents\\GitHub\\UBB-SE-2025-MarketMinds\\MarketMinds\\BusinessLogicLayer\\Services\\ProductService.cs",
+              "RelativeToolTip": "BusinessLogicLayer\\Services\\ProductService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-22T22:29:35.882Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
               "Title": "Product.cs",
               "DocumentMoniker": "C:\\Users\\jolde\\OneDrive\\Documents\\GitHub\\UBB-SE-2025-MarketMinds\\MarketMinds\\DomainLayer\\Domain\\Product.cs",
               "RelativeDocumentMoniker": "DomainLayer\\Domain\\Product.cs",
@@ -204,7 +272,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 12,
               "Title": "DomainLayer",
               "DocumentMoniker": "C:\\Users\\jolde\\OneDrive\\Documents\\GitHub\\UBB-SE-2025-MarketMinds\\MarketMinds\\DomainLayer\\DomainLayer.csproj",
               "RelativeDocumentMoniker": "DomainLayer\\DomainLayer.csproj",
@@ -217,7 +285,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 13,
               "Title": "ProductCategoryService.cs",
               "DocumentMoniker": "C:\\Users\\jolde\\OneDrive\\Documents\\GitHub\\UBB-SE-2025-MarketMinds\\MarketMinds\\BusinessLogicLayer\\Services\\ProductCategoryService.cs",
               "RelativeDocumentMoniker": "BusinessLogicLayer\\Services\\ProductCategoryService.cs",
@@ -236,14 +304,14 @@
               "RelativeDocumentMoniker": "BusinessLogicLayer\\Services\\BasketService.cs",
               "ToolTip": "C:\\Users\\jolde\\OneDrive\\Documents\\GitHub\\UBB-SE-2025-MarketMinds\\MarketMinds\\BusinessLogicLayer\\Services\\BasketService.cs",
               "RelativeToolTip": "BusinessLogicLayer\\Services\\BasketService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAApAAAAAAAAAA==",
+              "ViewState": "AgIAAEEAAAAAAAAAAAAIwE0AAAAaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-22T20:29:13.829Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 9,
               "Title": "BasketItem.cs",
               "DocumentMoniker": "C:\\Users\\jolde\\OneDrive\\Documents\\GitHub\\UBB-SE-2025-MarketMinds\\MarketMinds\\DomainLayer\\Domain\\BasketItem.cs",
               "RelativeDocumentMoniker": "DomainLayer\\Domain\\BasketItem.cs",
@@ -256,7 +324,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 8,
               "Title": "Basket.cs",
               "DocumentMoniker": "C:\\Users\\jolde\\OneDrive\\Documents\\GitHub\\UBB-SE-2025-MarketMinds\\MarketMinds\\DomainLayer\\Domain\\Basket.cs",
               "RelativeDocumentMoniker": "DomainLayer\\Domain\\Basket.cs",
@@ -269,7 +337,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 10,
               "Title": "MarketMinds",
               "DocumentMoniker": "C:\\Users\\jolde\\OneDrive\\Documents\\GitHub\\UBB-SE-2025-MarketMinds\\MarketMinds\\MarketMinds\\MarketMinds.csproj",
               "RelativeDocumentMoniker": "MarketMinds\\MarketMinds.csproj",
@@ -282,7 +350,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 7,
               "Title": "DataBaseConnection.cs",
               "DocumentMoniker": "C:\\Users\\jolde\\OneDrive\\Documents\\GitHub\\UBB-SE-2025-MarketMinds\\MarketMinds\\DataAccessLayer\\DataBaseConnection.cs",
               "RelativeDocumentMoniker": "DataAccessLayer\\DataBaseConnection.cs",
@@ -295,7 +363,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 14,
               "Title": "UiLayer",
               "DocumentMoniker": "C:\\Users\\jolde\\OneDrive\\Documents\\GitHub\\UBB-SE-2025-MarketMinds\\MarketMinds\\UiLayer\\UiLayer.csproj",
               "RelativeDocumentMoniker": "UiLayer\\UiLayer.csproj",
@@ -308,20 +376,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 4,
               "Title": "BasketRepository.cs",
               "DocumentMoniker": "C:\\Users\\jolde\\OneDrive\\Documents\\GitHub\\UBB-SE-2025-MarketMinds\\MarketMinds\\DataAccessLayer\\Repositories\\BasketRepository.cs",
               "RelativeDocumentMoniker": "DataAccessLayer\\Repositories\\BasketRepository.cs",
               "ToolTip": "C:\\Users\\jolde\\OneDrive\\Documents\\GitHub\\UBB-SE-2025-MarketMinds\\MarketMinds\\DataAccessLayer\\Repositories\\BasketRepository.cs",
               "RelativeToolTip": "DataAccessLayer\\Repositories\\BasketRepository.cs",
-              "ViewState": "AgIAAEYBAAAAAAAAAAAuwAoAAAAhAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAJ4AAAA8AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-22T20:06:36.857Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 17,
               "Title": "ProductConditionViewModel.cs",
               "DocumentMoniker": "C:\\Users\\jolde\\OneDrive\\Documents\\GitHub\\UBB-SE-2025-MarketMinds\\MarketMinds\\ViewModelLayer\\ViewModel\\ProductConditionViewModel.cs",
               "RelativeDocumentMoniker": "ViewModelLayer\\ViewModel\\ProductConditionViewModel.cs",
@@ -334,7 +402,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 15,
               "Title": "AdminView.xaml.cs",
               "DocumentMoniker": "C:\\Users\\jolde\\OneDrive\\Documents\\GitHub\\UBB-SE-2025-MarketMinds\\MarketMinds\\UiLayer\\AdminView.xaml.cs",
               "RelativeDocumentMoniker": "UiLayer\\AdminView.xaml.cs",
@@ -347,7 +415,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 19,
               "Title": "ProductCategoryViewModel.cs",
               "DocumentMoniker": "C:\\Users\\jolde\\OneDrive\\Documents\\GitHub\\UBB-SE-2025-MarketMinds\\MarketMinds\\ViewModelLayer\\ViewModel\\ProductCategoryViewModel.cs",
               "RelativeDocumentMoniker": "ViewModelLayer\\ViewModel\\ProductCategoryViewModel.cs",
@@ -360,7 +428,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 18,
               "Title": "ProductTagViewModel.cs",
               "DocumentMoniker": "C:\\Users\\jolde\\OneDrive\\Documents\\GitHub\\UBB-SE-2025-MarketMinds\\MarketMinds\\ViewModelLayer\\ViewModel\\ProductTagViewModel.cs",
               "RelativeDocumentMoniker": "ViewModelLayer\\ViewModel\\ProductTagViewModel.cs",
@@ -373,7 +441,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 16,
               "Title": "SortAndFilterViewModel.cs",
               "DocumentMoniker": "C:\\Users\\jolde\\OneDrive\\Documents\\GitHub\\UBB-SE-2025-MarketMinds\\MarketMinds\\ViewModelLayer\\ViewModel\\SortAndFilterViewModel.cs",
               "RelativeDocumentMoniker": "ViewModelLayer\\ViewModel\\SortAndFilterViewModel.cs",

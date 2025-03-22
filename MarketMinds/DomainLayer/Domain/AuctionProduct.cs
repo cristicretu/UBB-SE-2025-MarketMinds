@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DomainLayer.Domain
 {
-    class AuctionProduct : Product
+    public class AuctionProduct : Product
     {
     }
 }
