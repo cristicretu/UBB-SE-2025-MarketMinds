@@ -12,8 +12,9 @@ namespace DataAccessLayer.Repositories
         public abstract List<T> GetProducts();
         public abstract T GetProductByID(int id);
 
-        public abstract void SaveProduct(T product);
+        public abstract void AddProduct(T product);
 
+        public abstract void UpdateProduct(T product);
         public abstract void DeleteProduct(T product);
     }
 }

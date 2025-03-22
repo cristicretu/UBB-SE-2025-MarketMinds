@@ -9,30 +9,30 @@ using DomainLayer.Domain;
 
 namespace BusinessLogicLayer.Services
 {
-    public class ProductService
+    public class ProductService<T> where T : Product
     {
-        private ProductsRepository<Product> productRepository;
+        private ProductsRepository<T> productRepository;
 
-        public ProductService(ProductsRepository<Product> repository)
+        public ProductService(ProductsRepository<T> repository)
         {
             this.productRepository = repository;
         }
 
-        public List<Product> GetProducts()
+        public List<T> GetProducts()
         {
             return productRepository.GetProducts();
-            return null;
+            
         }
 
-        public Product GetProductById(int id)
+        public T GetProductById(int id)
         {
-            //return productRepository.GetProductById(id);
-            return null;
+            return productRepository.GetProductByID(id);
+            
         }
 
-        public void AddProduct(Product product)
+        public void AddProduct(T product)
         {
-            //productRepository.AddProduct(product);
+            productRepository.AddProduct(product);
         }
 
         public void UpdateProduct(Product product)
@@ -42,13 +42,13 @@ namespace BusinessLogicLayer.Services
 
         public void DeleteProduct(int id)
         {
-            //productRepository.DeleteProduct(id);
+            productRepository.DeleteProduct(id);
         }
 
-        public List<Product> GetSortedFilteredProducts(List<ProductCondition> selectedConditions, List<ProductCategory> selectedCategories, List<ProductTag> selectedTags, ProductSortType sortCondition, string searchQuery)
+        public List<T> GetSortedFilteredProducts(List<ProductCondition> selectedConditions, List<ProductCategory> selectedCategories, List<ProductTag> selectedTags, ProductSortType sortCondition, string searchQuery)
         {
-            List<Product> productResultSet = new List<Product>();
-            foreach (Product product in this.GetAllProducts())
+            List<T> productResultSet = new List<T>();
+            foreach (Product product in this.GetProducts())
             {
                 bool matchesConditions = selectedConditions == null || selectedConditions.Count == 0 || selectedConditions.Any(c => c.id == product.condition.id);
                 bool matchesCategories = selectedCategories == null || selectedCategories.Count == 0 || selectedCategories.Any(c => c.id == product.category.id);

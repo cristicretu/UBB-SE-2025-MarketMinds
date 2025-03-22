@@ -142,20 +142,8 @@ namespace DataAccessLayer.Repositories
 
         public override void AddProduct(AuctionProduct product)
         {
-            string query = "INSERT INTO AuctionProducts (Title, StartAuctionDate, EndAuctionDate, StartingPrice, CurrentPrice) " +
-                           "VALUES (@Title, @StartAuctionDate, @EndAuctionDate, @StartingPrice, @CurrentPrice)";
+            throw new NotImplementedException();
 
-            connection.OpenConnection();
-            using (SqlCommand cmd = new SqlCommand(query, connection.GetConnection()))
-                {
-                    cmd.Parameters.AddWithValue("@Title", product.Title);
-                    cmd.Parameters.AddWithValue("@StartAuctionDate", product.StartAuctionDate);
-                    cmd.Parameters.AddWithValue("@EndAuctionDate", product.EndAuctionDate);
-                    cmd.Parameters.AddWithValue("@StartingPrice", product.StartingPrice);
-                    cmd.Parameters.AddWithValue("@CurrentPrice", product.CurrentPrice);
-                    cmd.ExecuteNonQuery();
-                }
-            
         }
 
 
