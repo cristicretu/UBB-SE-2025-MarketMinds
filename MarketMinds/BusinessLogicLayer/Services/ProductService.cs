@@ -9,18 +9,18 @@ using DomainLayer.Domain;
 
 namespace BusinessLogicLayer.Services
 {
-    class ProductService
+    public class ProductService
     {
-        //private ProductRepository productRepository;
+        private ProductsRepository<Product> productRepository;
 
-        public ProductService()
+        public ProductService(ProductsRepository<Product> repository)
         {
-            //productRepository = new ProductRepository();
+            this.productRepository = repository;
         }
 
-        public List<Product> GetAllProducts()
+        public List<Product> GetProducts()
         {
-            //return productRepository.GetAllProducts();
+            return productRepository.GetProducts();
             return null;
         }
 

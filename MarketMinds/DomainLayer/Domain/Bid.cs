@@ -8,10 +8,10 @@ namespace DomainLayer.Domain
 {
     public class Bid
     {
-        public User bidder { get; set; }
-        public float price { get; set; }
+        public User Bidder { get; set; }
+        public float Price { get; set; }
 
-        public DateTime timestamp { get; set; }
+        public DateTime Timestamp { get; set; }
 
     }
 }
