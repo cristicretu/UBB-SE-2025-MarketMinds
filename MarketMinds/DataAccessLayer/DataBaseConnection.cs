@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Data.SqlClient;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace DataAccessLayer
 {
@@ -11,9 +12,7 @@ namespace DataAccessLayer
     {
         SqlConnection sqlConnection;
 
-        private string connectionString = "Server=COSTIN\\SQLEXPRESS;Database=MarketPlace;User Id=sa;Password=Spiderman2004;TrustServerCertificate=True";
-
-
+        private string connectionString = "Data Source = COSTIN\\SQLEXPRESS; Initial Catalog = MarketPlace; Integrated Security = True; TrustServerCertificate=True;";
 
         public DataBaseConnection()
         {
