@@ -8,13 +8,20 @@ namespace DomainLayer.Domain
 {
     public class User
     {
-        public int id { get; set; }
-        public string username { get; set; } = string.Empty;
-        public string email { get; set; } = string.Empty;
-        public string userType { get; set; } = string.Empty;
-        public float balance { get; set; }
-        public float rating { get; set; }
-        public float password { get; set; }
+        public int Id { get; set; }
+        public string Username { get; set; } = string.Empty;
+        public string Email { get; set; } = string.Empty;
+        public string UserType { get; set; } = string.Empty;
+        public float Balance { get; set; }
+        public float Rating { get; set; }
+        public float Password { get; set; }
+
+        public User(int id , string username , string email)
+        {
+            this.Id = id;
+            this.Username = username;
+            this.Email = email;
+        }
 
 
     }
