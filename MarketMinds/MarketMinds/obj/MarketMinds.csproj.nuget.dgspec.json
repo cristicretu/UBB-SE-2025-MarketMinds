@@ -1,6 +1,7 @@
 {
   "format": 1,
   "restore": {
+<<<<<<< HEAD
     "C:\\Users\\paul\\source\\repos\\MalosAlex\\UBB-SE-2025-MarketMinds\\MarketMinds\\MarketMinds\\MarketMinds.csproj": {}
   },
   "projects": {
@@ -12,12 +13,29 @@
         "projectPath": "C:\\Users\\paul\\source\\repos\\MalosAlex\\UBB-SE-2025-MarketMinds\\MarketMinds\\DataAccessLayer\\DataAccessLayer.csproj",
         "packagesPath": "C:\\Users\\paul\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\paul\\source\\repos\\MalosAlex\\UBB-SE-2025-MarketMinds\\MarketMinds\\DataAccessLayer\\obj\\",
+=======
+    "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\MarketMinds\\MarketMinds.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\BusinessLogicLayer\\BusinessLogicLayer.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\BusinessLogicLayer\\BusinessLogicLayer.csproj",
+        "projectName": "BusinessLogicLayer",
+        "projectPath": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\BusinessLogicLayer\\BusinessLogicLayer.csproj",
+        "packagesPath": "C:\\Users\\Robi\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\BusinessLogicLayer\\obj\\",
+>>>>>>> main
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
+<<<<<<< HEAD
           "C:\\Users\\paul\\AppData\\Roaming\\NuGet\\NuGet.Config",
+=======
+          "C:\\Users\\Robi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+>>>>>>> main
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -32,8 +50,82 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
+<<<<<<< HEAD
               "C:\\Users\\paul\\source\\repos\\MalosAlex\\UBB-SE-2025-MarketMinds\\MarketMinds\\DomainLayer\\DomainLayer.csproj": {
                 "projectPath": "C:\\Users\\paul\\source\\repos\\MalosAlex\\UBB-SE-2025-MarketMinds\\MarketMinds\\DomainLayer\\DomainLayer.csproj"
+=======
+              "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\DataAccessLayer\\DataAccessLayer.csproj": {
+                "projectPath": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\DataAccessLayer\\DataAccessLayer.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.200"
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\DataAccessLayer\\DataAccessLayer.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\DataAccessLayer\\DataAccessLayer.csproj",
+        "projectName": "DataAccessLayer",
+        "projectPath": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\DataAccessLayer\\DataAccessLayer.csproj",
+        "packagesPath": "C:\\Users\\Robi\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\DataAccessLayer\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Robi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\DomainLayer\\DomainLayer.csproj": {
+                "projectPath": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\DomainLayer\\DomainLayer.csproj"
+>>>>>>> main
               }
             }
           }
@@ -87,6 +179,7 @@
         }
       }
     },
+<<<<<<< HEAD
     "C:\\Users\\paul\\source\\repos\\MalosAlex\\UBB-SE-2025-MarketMinds\\MarketMinds\\DomainLayer\\DomainLayer.csproj": {
       "version": "1.0.0",
       "restore": {
@@ -95,12 +188,26 @@
         "projectPath": "C:\\Users\\paul\\source\\repos\\MalosAlex\\UBB-SE-2025-MarketMinds\\MarketMinds\\DomainLayer\\DomainLayer.csproj",
         "packagesPath": "C:\\Users\\paul\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\paul\\source\\repos\\MalosAlex\\UBB-SE-2025-MarketMinds\\MarketMinds\\DomainLayer\\obj\\",
+=======
+    "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\DomainLayer\\DomainLayer.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\DomainLayer\\DomainLayer.csproj",
+        "projectName": "DomainLayer",
+        "projectPath": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\DomainLayer\\DomainLayer.csproj",
+        "packagesPath": "C:\\Users\\Robi\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\DomainLayer\\obj\\",
+>>>>>>> main
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
+<<<<<<< HEAD
           "C:\\Users\\paul\\AppData\\Roaming\\NuGet\\NuGet.Config",
+=======
+          "C:\\Users\\Robi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+>>>>>>> main
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -152,6 +259,7 @@
         }
       }
     },
+<<<<<<< HEAD
     "C:\\Users\\paul\\source\\repos\\MalosAlex\\UBB-SE-2025-MarketMinds\\MarketMinds\\MarketMinds\\MarketMinds.csproj": {
       "version": "1.0.0",
       "restore": {
@@ -160,12 +268,26 @@
         "projectPath": "C:\\Users\\paul\\source\\repos\\MalosAlex\\UBB-SE-2025-MarketMinds\\MarketMinds\\MarketMinds\\MarketMinds.csproj",
         "packagesPath": "C:\\Users\\paul\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\paul\\source\\repos\\MalosAlex\\UBB-SE-2025-MarketMinds\\MarketMinds\\MarketMinds\\obj\\",
+=======
+    "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\MarketMinds\\MarketMinds.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\MarketMinds\\MarketMinds.csproj",
+        "projectName": "MarketMinds",
+        "projectPath": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\MarketMinds\\MarketMinds.csproj",
+        "packagesPath": "C:\\Users\\Robi\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\MarketMinds\\obj\\",
+>>>>>>> main
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
+<<<<<<< HEAD
           "C:\\Users\\paul\\AppData\\Roaming\\NuGet\\NuGet.Config",
+=======
+          "C:\\Users\\Robi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+>>>>>>> main
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -180,8 +302,22 @@
           "net8.0-windows10.0.19041": {
             "targetAlias": "net8.0-windows10.0.19041.0",
             "projectReferences": {
+<<<<<<< HEAD
               "C:\\Users\\paul\\source\\repos\\MalosAlex\\UBB-SE-2025-MarketMinds\\MarketMinds\\DataAccessLayer\\DataAccessLayer.csproj": {
                 "projectPath": "C:\\Users\\paul\\source\\repos\\MalosAlex\\UBB-SE-2025-MarketMinds\\MarketMinds\\DataAccessLayer\\DataAccessLayer.csproj"
+=======
+              "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\BusinessLogicLayer\\BusinessLogicLayer.csproj": {
+                "projectPath": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\BusinessLogicLayer\\BusinessLogicLayer.csproj"
+              },
+              "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\DataAccessLayer\\DataAccessLayer.csproj": {
+                "projectPath": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\DataAccessLayer\\DataAccessLayer.csproj"
+              },
+              "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\DomainLayer\\DomainLayer.csproj": {
+                "projectPath": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\DomainLayer\\DomainLayer.csproj"
+              },
+              "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\ViewModelLayer\\ViewModelLayer.csproj": {
+                "projectPath": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\ViewModelLayer\\ViewModelLayer.csproj"
+>>>>>>> main
               }
             }
           }
@@ -208,7 +344,7 @@
             },
             "Microsoft.WindowsAppSDK": {
               "target": "Package",
-              "version": "[1.6.250228001, )"
+              "version": "[1.7.250310001, )"
             }
           },
           "imports": [
@@ -273,6 +409,147 @@
             }
           },
           "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
+<<<<<<< HEAD
+=======
+        }
+      },
+      "runtimes": {
+        "win-arm64": {
+          "#import": []
+        },
+        "win-x64": {
+          "#import": []
+        },
+        "win-x86": {
+          "#import": []
+        }
+      }
+    },
+    "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\ViewModelLayer\\ViewModelLayer.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\ViewModelLayer\\ViewModelLayer.csproj",
+        "projectName": "ViewModelLayer",
+        "projectPath": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\ViewModelLayer\\ViewModelLayer.csproj",
+        "packagesPath": "C:\\Users\\Robi\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\ViewModelLayer\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Robi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0-windows10.0.19041.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0-windows10.0.19041": {
+            "targetAlias": "net8.0-windows10.0.19041.0",
+            "projectReferences": {
+              "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\BusinessLogicLayer\\BusinessLogicLayer.csproj": {
+                "projectPath": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\BusinessLogicLayer\\BusinessLogicLayer.csproj"
+              },
+              "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\DomainLayer\\DomainLayer.csproj": {
+                "projectPath": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\DomainLayer\\DomainLayer.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.200"
+      },
+      "frameworks": {
+        "net8.0-windows10.0.19041": {
+          "targetAlias": "net8.0-windows10.0.19041.0",
+          "dependencies": {
+            "Microsoft.Windows.SDK.BuildTools": {
+              "target": "Package",
+              "version": "[10.0.26100.1742, )"
+            },
+            "Microsoft.WindowsAppSDK": {
+              "target": "Package",
+              "version": "[1.7.250310001, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Runtime.win-arm64",
+              "version": "[8.0.13, 8.0.13]"
+            },
+            {
+              "name": "Microsoft.AspNetCore.App.Runtime.win-x64",
+              "version": "[8.0.13, 8.0.13]"
+            },
+            {
+              "name": "Microsoft.AspNetCore.App.Runtime.win-x86",
+              "version": "[8.0.13, 8.0.13]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Runtime.win-arm64",
+              "version": "[8.0.13, 8.0.13]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Runtime.win-x64",
+              "version": "[8.0.13, 8.0.13]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Runtime.win-x86",
+              "version": "[8.0.13, 8.0.13]"
+            },
+            {
+              "name": "Microsoft.Windows.SDK.NET.Ref",
+              "version": "[10.0.19041.57, 10.0.19041.57]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Runtime.win-arm64",
+              "version": "[8.0.13, 8.0.13]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Runtime.win-x64",
+              "version": "[8.0.13, 8.0.13]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Runtime.win-x86",
+              "version": "[8.0.13, 8.0.13]"
+            }
+          ],
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            },
+            "Microsoft.Windows.SDK.NET.Ref.Windows": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
+>>>>>>> main
         }
       },
       "runtimes": {

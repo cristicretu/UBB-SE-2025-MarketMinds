@@ -1,0 +1,45 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Microsoft.Data.SqlClient;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+
+namespace DataAccessLayer
+{
+    public class DataBaseConnection
+    {
+        SqlConnection sqlConnection;
+
+        private string connectionString = "Data Source = COSTIN\\SQLEXPRESS; Initial Catalog = MarketPlace; Integrated Security = True; TrustServerCertificate=True;";
+
+        public DataBaseConnection()
+        {
+            this.sqlConnection = new SqlConnection(connectionString);
+        }
+
+        public SqlConnection GetConnection()
+        {
+            return this.sqlConnection;
+        }
+
+        public void OpenConnection()
+        {
+            if (this.sqlConnection.State != System.Data.ConnectionState.Open)
+            {
+                this.sqlConnection.Open();
+            }
+        }
+
+        public void CloseConnection()
+        {
+            if (this.sqlConnection.State == System.Data.ConnectionState.Open)
+            {
+                this.sqlConnection.Close();
+            }
+        }
+
+    }
+}
+

@@ -5,11 +5,16 @@
     <None Update="App.xaml">
       <SubType>Designer</SubType>
     </None>
-    <None Update="MainWindow.xaml">
+    <Page Update="ReviewCreateView.xaml">
       <SubType>Designer</SubType>
-    </None>
+    </Page>
     <None Update="Package.appxmanifest">
       <SubType>Designer</SubType>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
 </Project>

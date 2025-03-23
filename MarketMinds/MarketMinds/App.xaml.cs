@@ -15,9 +15,10 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
-
-// To learn more about WinUI, the WinUI project structure,
-// and more about our project templates, see: http://aka.ms/winui-project-info.
+using UiLayer;
+using BusinessLogicLayer.Services;
+using DataAccessLayer;
+using DataAccessLayer.Repositories;
 
 namespace MarketMinds
 {
@@ -41,10 +42,25 @@ namespace MarketMinds
         /// <param name="args">Details about the launch request and process.</param>
         protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
         {
-            m_window = new MainWindow();
-            m_window.Activate();
+            mainWindow = new UiLayer.MainWindow();
+            mainWindow.Activate();
+            
+            // Instantiate database connection
+            var dataBaseConnection = new DataBaseConnection();
+            
+            // Instantiate repositories
+            var categoryRepository = new ProductCategoryRepository(dataBaseConnection);
+            var conditionRepository = new ProductConditionRepository(dataBaseConnection);
+
+            // Instantiate services using the repositories
+            categoryService = new ProductCategoryService(categoryRepository);
+            conditionService = new ProductConditionService(conditionRepository);
+            productService = new ProductService();
         }
 
-        private Window m_window;
+        private Window mainWindow;
+        public static ProductCategoryService categoryService { get; private set; }
+        public static ProductConditionService conditionService { get; private set; }
+        public static ProductService productService { get; private set; }
     }
 }

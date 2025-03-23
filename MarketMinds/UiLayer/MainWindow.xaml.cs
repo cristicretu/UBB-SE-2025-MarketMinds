@@ -27,10 +27,34 @@ namespace UiLayer
         {
             this.InitializeComponent();
         }
-
-        private void myButton_Click(object sender, RoutedEventArgs e)
+            
+        private void handleAuctionProductListViewButton_Click(object sender, RoutedEventArgs e)
         {
-            myButton.Content = "Clicked";
+            auctionProductListViewWindow = new AuctionProductListView();
+            auctionProductListViewWindow.Activate();
         }
+        
+        private void handleBorrowProductListViewButton_Click(object sender, RoutedEventArgs e)
+        {
+            borrowProductListViewWindow = new BorrowProductListView();
+            borrowProductListViewWindow.Activate();
+        }
+        
+        private void handleBuyProductListViewButton_Click(object sender, RoutedEventArgs e)
+        {
+            buyProductListViewWindow = new BuyProductListView();
+            buyProductListViewWindow.Activate();
+        }
+        
+        private void handleAdminViewButton_Click(object sender, RoutedEventArgs e)
+        {
+            adminViewWindow = new AdminView();
+            adminViewWindow.Activate();
+        }
+
+        private Window auctionProductListViewWindow;
+        private Window borrowProductListViewWindow;
+        private Window buyProductListViewWindow;
+        private Window adminViewWindow;
     }
 }
