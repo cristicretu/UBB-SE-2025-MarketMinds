@@ -19,9 +19,7 @@ namespace DomainLayer.Domain
             this.Id = id;
             this.Product = product;
             this.Quantity = quantity;
-            //this.price = product.getPrice(); getPrice() not implemented yet.
-            // When getPrice() is implemented, this line will store the product's current price
-            // at the time the item is added to the basket
+            this.Price = product.getPrice();
         }
 
         public float GetPrice()

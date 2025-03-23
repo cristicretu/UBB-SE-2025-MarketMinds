@@ -110,7 +110,7 @@ namespace DataAccessLayer.Repositories
 
             // Query to get basket items with product details, conditions, and categories in one go
             string query = @"
-                SELECT bi.id, bi.product_id, bi.quantity, bi.price, p.title, 
+                SELECT bi.id, bi.product_id, bi.quantity, bi.price, p.description, 
                        pc.id AS condition_id, pc.title AS condition_title, pc.description AS condition_description,
                        pcat.id AS category_id, pcat.title AS category_title, pcat.description AS category_description
                 FROM BasketItemsBuyProducts bi
@@ -119,6 +119,8 @@ namespace DataAccessLayer.Repositories
                 LEFT JOIN ProductCategories pcat ON p.category_id = pcat.id
                 WHERE bi.basket_id = @basketId";
 
+
+            connection.OpenConnection();
             using (SqlCommand cmd = new SqlCommand(query, connection.GetConnection()))
             {
                 cmd.Parameters.AddWithValue("@basketId", basketId);
@@ -130,8 +132,8 @@ namespace DataAccessLayer.Repositories
                         int itemId = reader.GetInt32(0);
                         int productId = reader.GetInt32(1);
                         int quantity = reader.GetInt32(2);
-                        float price = reader.GetFloat(3);
-                        string title = reader.GetString(4);
+                        double price = reader.GetDouble(3);
+                        string description = reader.GetString(4);
 
                         // Read condition details directly from query
                         int conditionId = reader.IsDBNull(5) ? -1 : reader.GetInt32(5);
@@ -151,10 +153,11 @@ namespace DataAccessLayer.Repositories
                             new ProductCategory(categoryId, categoryTitle, categoryDesc) : null;
 
                         // Create the product with basic information
-                        Product product = new Product
+                        BuyProduct product = new BuyProduct((float)price)
                         {
                             id = productId,
-                            title = title,
+                            title = "Product #" + productId,
+                            description = description,
                             condition = condition,
                             category = category,
                             tags = new List<ProductTag>()
@@ -162,11 +165,12 @@ namespace DataAccessLayer.Repositories
 
                         // Create the basket item
                         BasketItem item = new BasketItem(itemId, product, quantity);
-                        item.Price = price;
+                        item.Price = (float)price;
                         items.Add(item);
                     }
                 }
             }
+            connection.CloseConnection();
 
             // Now load tags for each product
             foreach (BasketItem item in items)
@@ -177,7 +181,7 @@ namespace DataAccessLayer.Repositories
                     FROM ProductTags t
                     JOIN BuyProductProductTags pt ON t.id = pt.tag_id
                     WHERE pt.product_id = @productId";
-
+                connection.OpenConnection();
                 using (SqlCommand cmd = new SqlCommand(tagsQuery, connection.GetConnection()))
                 {
                     cmd.Parameters.AddWithValue("@productId", item.Product.id);
@@ -193,6 +197,7 @@ namespace DataAccessLayer.Repositories
                         }
                     }
                 }
+                connection.CloseConnection();
             }
 
             return items;
