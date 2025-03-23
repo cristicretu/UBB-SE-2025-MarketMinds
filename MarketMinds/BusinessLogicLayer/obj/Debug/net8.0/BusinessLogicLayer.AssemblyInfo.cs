@@ -14,11 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BusinessLogicLayer")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-<<<<<<< HEAD
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+89af9eb0f0faa132e936ca08357df5dd35a6851b")]
-=======
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bf5748f09193b621714a1acd1c49317d3d455e64")]
->>>>>>> bidding
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+49d8dc239cf1b3b8b4059f8ef2ed5cb5d1eb454c")]
 [assembly: System.Reflection.AssemblyProductAttribute("BusinessLogicLayer")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BusinessLogicLayer")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

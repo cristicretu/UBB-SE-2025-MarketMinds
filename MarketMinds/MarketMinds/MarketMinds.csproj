@@ -38,8 +38,24 @@
     <ProjectCapability Include="Msix" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BusinessLogicLayer\BusinessLogicLayer.csproj" />
     <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj" />
-    <ProjectReference Include="..\UiLayer\UiLayer.csproj" />
+    <ProjectReference Include="..\DomainLayer\DomainLayer.csproj" />
+    <ProjectReference Include="..\ViewModelLayer\ViewModelLayer.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="AdminView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="AuctionProductListView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="BorrowProductListView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="BuyProductListView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
 
   <!--
