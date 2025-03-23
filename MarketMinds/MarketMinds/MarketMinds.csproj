@@ -25,7 +25,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.1742" />
-    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.6.250228001" />
+    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.7.250310001" />
     <Manifest Include="$(ApplicationManifest)" />
   </ItemGroup>
 
@@ -42,6 +42,11 @@
     <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj" />
     <ProjectReference Include="..\DomainLayer\DomainLayer.csproj" />
     <ProjectReference Include="..\ViewModelLayer\ViewModelLayer.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="ReviewCreateView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="AdminView.xaml">

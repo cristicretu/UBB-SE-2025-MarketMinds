@@ -35,18 +35,18 @@ namespace BusinessLogicLayer.Services
 
         public void AddReview(string description, List<Image> images, float rating, User seller, User buyer)
         {
-            Repository.CreateReview(new Review(-1,description, images, rating, seller.id, buyer.id));
+            Repository.CreateReview(new Review(-1,description, images, rating, seller.Id, buyer.Id));
         }
 
-        public void EditReview(string description, List<Image> images, float rating, User seller, User buyer, string newDescription, float newRating)
+        public void EditReview(string description, List<Image> images, float rating, int sellerid, int buyerid, string newDescription, float newRating)
         {
             // change in uml aswell
-            Repository.EditReview(new Review(-1, description, images, rating, seller.id, buyer.id), newRating, newDescription);
+            Repository.EditReview(new Review(-1, description, images, rating, sellerid, buyerid), newRating, newDescription);
         }
 
-        public void DeleteReview(string description, List<Image> images, float rating, User seller, User buyer)
+        public void DeleteReview(string description, List<Image> images, float rating, int sellerid, int buyerid)
         {
-            Repository.DeleteReview(new Review(-1, description, images, rating, seller.id, buyer.id));
+            Repository.DeleteReview(new Review(-1, description, images, rating, sellerid, buyerid));
         }
     }
 }

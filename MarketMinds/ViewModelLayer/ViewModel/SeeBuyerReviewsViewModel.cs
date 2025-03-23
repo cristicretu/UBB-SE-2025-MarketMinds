@@ -19,6 +19,14 @@ namespace BusinessLogicLayer.ViewModel
             this.reviewsService = reviewsService;
         }
 
-        // TODO: EditReview
+        public void EditReview(Review review, string description, float rating)
+        {
+            reviewsService.EditReview(review.description, review.images, review.rating, review.sellerId,review.buyerId, description, rating);
+        }
+
+        public void DeleteReview(Review review)
+        {
+            reviewsService.DeleteReview(review.description, review.images, review.rating, review.sellerId, review.buyerId);
+        }
     }
 }
