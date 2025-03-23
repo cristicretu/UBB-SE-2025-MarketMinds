@@ -5,13 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using BusinessLogicLayer.Services;
 using DomainLayer.Domain;
-using MarketMinds;
 
 namespace BusinessLogicLayer.ViewModel
 {
     class SortAndFilterViewModel
     {
-        private ProductService productService;
+        private ProductService<Product> productService;
 
         private List<ProductCondition> selectedConditions;
         private List<ProductCategory> selectedCategories;

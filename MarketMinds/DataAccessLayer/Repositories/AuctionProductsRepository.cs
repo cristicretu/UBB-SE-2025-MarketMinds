@@ -1,25 +1,11 @@
-<<<<<<< HEAD
-﻿using System;
-=======
+
 ﻿using DomainLayer.Domain;
 using System;
->>>>>>> main
+
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-<<<<<<< HEAD
-using DomainLayer.Domain;
-
-namespace DataAccessLayer.Repositories
-{
-    public class AuctionProductsRepository
-    {
-        public AuctionProduct GetAuctionByID(int productId)
-        {
-            // Implementation to get auction product by ID
-            return null;
-=======
 using Microsoft.Data.SqlClient;
 
 namespace DataAccessLayer.Repositories
@@ -181,7 +167,6 @@ namespace DataAccessLayer.Repositories
         {
             throw new NotImplementedException();
           
->>>>>>> main
         }
     }
 }
