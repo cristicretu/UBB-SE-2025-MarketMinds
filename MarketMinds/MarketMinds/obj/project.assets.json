@@ -2245,23 +2245,6 @@
           "bin/placeholder/DomainLayer.dll": {}
         }
       },
-      "UiLayer/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v8.0",
-        "dependencies": {
-          "BusinessLogicLayer": "1.0.0",
-          "DomainLayer": "1.0.0",
-          "Microsoft.Windows.SDK.BuildTools": "10.0.22621.756",
-          "Microsoft.WindowsAppSDK": "1.6.250228001",
-          "ViewModelLayer": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/UiLayer.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/UiLayer.dll": {}
-        }
-      },
       "ViewModelLayer/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
@@ -4693,23 +4676,6 @@
         },
         "runtime": {
           "bin/placeholder/DomainLayer.dll": {}
-        }
-      },
-      "UiLayer/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v8.0",
-        "dependencies": {
-          "BusinessLogicLayer": "1.0.0",
-          "DomainLayer": "1.0.0",
-          "Microsoft.Windows.SDK.BuildTools": "10.0.22621.756",
-          "Microsoft.WindowsAppSDK": "1.6.250228001",
-          "ViewModelLayer": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/UiLayer.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/UiLayer.dll": {}
         }
       },
       "ViewModelLayer/1.0.0": {
@@ -7145,23 +7111,6 @@
           "bin/placeholder/DomainLayer.dll": {}
         }
       },
-      "UiLayer/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v8.0",
-        "dependencies": {
-          "BusinessLogicLayer": "1.0.0",
-          "DomainLayer": "1.0.0",
-          "Microsoft.Windows.SDK.BuildTools": "10.0.22621.756",
-          "Microsoft.WindowsAppSDK": "1.6.250228001",
-          "ViewModelLayer": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/UiLayer.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/UiLayer.dll": {}
-        }
-      },
       "ViewModelLayer/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
@@ -9593,23 +9542,6 @@
         },
         "runtime": {
           "bin/placeholder/DomainLayer.dll": {}
-        }
-      },
-      "UiLayer/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v8.0",
-        "dependencies": {
-          "BusinessLogicLayer": "1.0.0",
-          "DomainLayer": "1.0.0",
-          "Microsoft.Windows.SDK.BuildTools": "10.0.22621.756",
-          "Microsoft.WindowsAppSDK": "1.6.250228001",
-          "ViewModelLayer": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/UiLayer.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/UiLayer.dll": {}
         }
       },
       "ViewModelLayer/1.0.0": {
@@ -15641,11 +15573,6 @@
       "path": "../DomainLayer/DomainLayer.csproj",
       "msbuildProject": "../DomainLayer/DomainLayer.csproj"
     },
-    "UiLayer/1.0.0": {
-      "type": "project",
-      "path": "../UiLayer/UiLayer.csproj",
-      "msbuildProject": "../UiLayer/UiLayer.csproj"
-    },
     "ViewModelLayer/1.0.0": {
       "type": "project",
       "path": "../ViewModelLayer/ViewModelLayer.csproj",
@@ -15654,9 +15581,12 @@
   },
   "projectFileDependencyGroups": {
     "net8.0-windows10.0.19041": [
+      "BusinessLogicLayer >= 1.0.0",
       "DataAccessLayer >= 1.0.0",
+      "DomainLayer >= 1.0.0",
       "Microsoft.Windows.SDK.BuildTools >= 10.0.26100.1742",
       "Microsoft.WindowsAppSDK >= 1.7.250310001",
+<<<<<<< HEAD
       "UiLayer >= 1.0.0"
     ]
   },
@@ -15670,11 +15600,19 @@
     "C:\\Users\\Robi\\.nuget\\packages\\": {},
 >>>>>>> bidding
 >>>>>>> main
+=======
+      "ViewModelLayer >= 1.0.0"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\Ghaster\\.nuget\\packages\\": {},
+>>>>>>> main
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
+<<<<<<< HEAD
 <<<<<<< HEAD
       "projectUniqueName": "C:\\Users\\jolde\\OneDrive\\Documents\\GitHub\\UBB-SE-2025-MarketMinds\\MarketMinds\\MarketMinds\\MarketMinds.csproj",
       "projectName": "MarketMinds",
@@ -15683,11 +15621,14 @@
       "outputPath": "C:\\Users\\jolde\\OneDrive\\Documents\\GitHub\\UBB-SE-2025-MarketMinds\\MarketMinds\\MarketMinds\\obj\\",
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> main
       "projectUniqueName": "C:\\Users\\Ghaster\\IdeaProjects\\UBB-SE-2025-MarketMinds\\MarketMinds\\MarketMinds\\MarketMinds.csproj",
       "projectName": "MarketMinds",
       "projectPath": "C:\\Users\\Ghaster\\IdeaProjects\\UBB-SE-2025-MarketMinds\\MarketMinds\\MarketMinds\\MarketMinds.csproj",
       "packagesPath": "C:\\Users\\Ghaster\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\Ghaster\\IdeaProjects\\UBB-SE-2025-MarketMinds\\MarketMinds\\MarketMinds\\obj\\",
+<<<<<<< HEAD
 =======
       "projectUniqueName": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\MarketMinds\\MarketMinds.csproj",
       "projectName": "MarketMinds",
@@ -15696,11 +15637,14 @@
       "outputPath": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\MarketMinds\\obj\\",
 >>>>>>> bidding
 >>>>>>> main
+=======
+>>>>>>> main
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
+<<<<<<< HEAD
 <<<<<<< HEAD
         "C:\\Users\\jolde\\AppData\\Roaming\\NuGet\\NuGet.Config",
 =======
@@ -15709,6 +15653,9 @@
 =======
         "C:\\Users\\Robi\\AppData\\Roaming\\NuGet\\NuGet.Config",
 >>>>>>> bidding
+>>>>>>> main
+=======
+        "C:\\Users\\Ghaster\\AppData\\Roaming\\NuGet\\NuGet.Config",
 >>>>>>> main
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
@@ -15726,6 +15673,7 @@
           "targetAlias": "net8.0-windows10.0.19041.0",
           "projectReferences": {
 <<<<<<< HEAD
+<<<<<<< HEAD
             "C:\\Users\\jolde\\OneDrive\\Documents\\GitHub\\UBB-SE-2025-MarketMinds\\MarketMinds\\DataAccessLayer\\DataAccessLayer.csproj": {
               "projectPath": "C:\\Users\\jolde\\OneDrive\\Documents\\GitHub\\UBB-SE-2025-MarketMinds\\MarketMinds\\DataAccessLayer\\DataAccessLayer.csproj"
             },
@@ -15742,6 +15690,19 @@
             "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\DataAccessLayer\\DataAccessLayer.csproj": {
               "projectPath": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\DataAccessLayer\\DataAccessLayer.csproj"
 >>>>>>> bidding
+>>>>>>> main
+=======
+            "C:\\Users\\Ghaster\\IdeaProjects\\UBB-SE-2025-MarketMinds\\MarketMinds\\BusinessLogicLayer\\BusinessLogicLayer.csproj": {
+              "projectPath": "C:\\Users\\Ghaster\\IdeaProjects\\UBB-SE-2025-MarketMinds\\MarketMinds\\BusinessLogicLayer\\BusinessLogicLayer.csproj"
+            },
+            "C:\\Users\\Ghaster\\IdeaProjects\\UBB-SE-2025-MarketMinds\\MarketMinds\\DataAccessLayer\\DataAccessLayer.csproj": {
+              "projectPath": "C:\\Users\\Ghaster\\IdeaProjects\\UBB-SE-2025-MarketMinds\\MarketMinds\\DataAccessLayer\\DataAccessLayer.csproj"
+            },
+            "C:\\Users\\Ghaster\\IdeaProjects\\UBB-SE-2025-MarketMinds\\MarketMinds\\DomainLayer\\DomainLayer.csproj": {
+              "projectPath": "C:\\Users\\Ghaster\\IdeaProjects\\UBB-SE-2025-MarketMinds\\MarketMinds\\DomainLayer\\DomainLayer.csproj"
+            },
+            "C:\\Users\\Ghaster\\IdeaProjects\\UBB-SE-2025-MarketMinds\\MarketMinds\\ViewModelLayer\\ViewModelLayer.csproj": {
+              "projectPath": "C:\\Users\\Ghaster\\IdeaProjects\\UBB-SE-2025-MarketMinds\\MarketMinds\\ViewModelLayer\\ViewModelLayer.csproj"
 >>>>>>> main
             }
           }
@@ -15786,27 +15747,27 @@
         "downloadDependencies": [
           {
             "name": "Microsoft.AspNetCore.App.Runtime.win-arm64",
-            "version": "[8.0.13, 8.0.13]"
+            "version": "[8.0.14, 8.0.14]"
           },
           {
             "name": "Microsoft.AspNetCore.App.Runtime.win-x64",
-            "version": "[8.0.13, 8.0.13]"
+            "version": "[8.0.14, 8.0.14]"
           },
           {
             "name": "Microsoft.AspNetCore.App.Runtime.win-x86",
-            "version": "[8.0.13, 8.0.13]"
+            "version": "[8.0.14, 8.0.14]"
           },
           {
             "name": "Microsoft.NETCore.App.Runtime.win-arm64",
-            "version": "[8.0.13, 8.0.13]"
+            "version": "[8.0.14, 8.0.14]"
           },
           {
             "name": "Microsoft.NETCore.App.Runtime.win-x64",
-            "version": "[8.0.13, 8.0.13]"
+            "version": "[8.0.14, 8.0.14]"
           },
           {
             "name": "Microsoft.NETCore.App.Runtime.win-x86",
-            "version": "[8.0.13, 8.0.13]"
+            "version": "[8.0.14, 8.0.14]"
           },
           {
             "name": "Microsoft.Windows.SDK.NET.Ref",
@@ -15814,15 +15775,15 @@
           },
           {
             "name": "Microsoft.WindowsDesktop.App.Runtime.win-arm64",
-            "version": "[8.0.13, 8.0.13]"
+            "version": "[8.0.14, 8.0.14]"
           },
           {
             "name": "Microsoft.WindowsDesktop.App.Runtime.win-x64",
-            "version": "[8.0.13, 8.0.13]"
+            "version": "[8.0.14, 8.0.14]"
           },
           {
             "name": "Microsoft.WindowsDesktop.App.Runtime.win-x86",
-            "version": "[8.0.13, 8.0.13]"
+            "version": "[8.0.14, 8.0.14]"
           }
         ],
         "frameworkReferences": {
@@ -15833,7 +15794,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201/PortableRuntimeIdentifierGraph.json"
       }
     },
     "runtimes": {

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DomainLayer.Domain;
 using Microsoft.Data.SqlClient;
+using DataAccessLayer;
 
 namespace DataAccessLayer.Repositories
 {
@@ -141,7 +142,7 @@ namespace DataAccessLayer.Repositories
             return images;
         }
 
-        public void EditReview(Review review, int rating, string description)
+        public void EditReview(Review review, float rating, string description)
         {
             connection.OpenConnection();
             if (review.id == -1)

@@ -1,9 +1,12 @@
 {
   "version": 2,
 <<<<<<< HEAD
+<<<<<<< HEAD
   "dgSpecHash": "jQcliE8VSrY=",
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> main
   "dgSpecHash": "wFLB36Ve8uU=",
 >>>>>>> main
   "success": true,
@@ -243,6 +246,7 @@
     "C:\\Users\\Ghaster\\.nuget\\packages\\system.threading.timer\\4.3.0\\system.threading.timer.4.3.0.nupkg.sha512",
     "C:\\Users\\Ghaster\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\Ghaster\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512"
+<<<<<<< HEAD
 =======
   "dgSpecHash": "kF+cRT4CK4M=",
   "success": true,
@@ -366,6 +370,15 @@
     "C:\\Users\\Robi\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512"
 >>>>>>> bidding
 >>>>>>> main
+=======
+>>>>>>> main
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problem reading the cache file C:\\Users\\Ghaster\\IdeaProjects\\UBB-SE-2025-MarketMinds\\MarketMinds\\DataAccessLayer\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
 }
