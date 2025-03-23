@@ -50,9 +50,9 @@ namespace BusinessLogicLayer.Services
             List<T> productResultSet = new List<T>();
             foreach (Product product in this.GetProducts())
             {
-                bool matchesConditions = selectedConditions == null || selectedConditions.Count == 0 || selectedConditions.Any(c => c.id == product.condition.id);
-                bool matchesCategories = selectedCategories == null || selectedCategories.Count == 0 || selectedCategories.Any(c => c.id == product.category.id);
-                bool matchesTags = selectedTags == null || selectedTags.Count == 0 || selectedTags.Any(t => product.tags.Any(pt => pt.id == t.id));
+                bool matchesConditions = selectedConditions == null || selectedConditions.Count == 0 || selectedConditions.Any(c => c.id == product.Condition.id);
+                bool matchesCategories = selectedCategories == null || selectedCategories.Count == 0 || selectedCategories.Any(c => c.id == product.Category.id);
+                bool matchesTags = selectedTags == null || selectedTags.Count == 0 || selectedTags.Any(t => product.Tags.Any(pt => pt.id == t.id));
                 bool matchesSearchQuery = string.IsNullOrEmpty(searchQuery) || product.title.ToLower().Contains(searchQuery.ToLower());
 
                 if (matchesConditions && matchesCategories && matchesTags && matchesSearchQuery)

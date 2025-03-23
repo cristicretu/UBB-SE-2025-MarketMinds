@@ -27,7 +27,7 @@ namespace BusinessLogicLayer.Services
         public Basket GetBasketByUser(User user)
         {
             // Get the user's basket or create one if it doesn't exist
-            return repository.GetBasketByUser(user.id);
+            return repository.GetBasketByUser(user.Id);
         }
 
         public void addToBasket(int userId, int productId, int quantity)
@@ -56,7 +56,7 @@ namespace BusinessLogicLayer.Services
             // Check if the product exists in the auction products
             try
             {
-                var auctionProduct = auctionProductsRepository.GetAuctionByID(productId);
+                var auctionProduct = auctionProductsRepository.GetProductByID(productId);
                 return auctionProduct != null; // If it finds it, it's biddable
             }
             catch
