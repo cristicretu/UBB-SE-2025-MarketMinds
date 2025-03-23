@@ -30,16 +30,16 @@ namespace BusinessLogicLayer.Services
             return repository.GetBasketByUser(user.Id);
         }
 
-        public void addToBasket(int userId, int productId, int quantity)
+        public void AddToBasket(int userId, int productId, int quantity)
         {
             // Check if product is biddable/auction product
-            if (isProductBiddable(productId))
+            if (IsProductBiddable(productId))
             {
                 throw new InvalidOperationException("Auction/biddable products cannot be added to basket");
             }
 
             // Check if there's enough stock available
-            if (!isStockAvailable(productId, quantity))
+            if (!IsStockAvailable(productId, quantity))
             {
                 throw new InvalidOperationException("Not enough stock available");
             }
@@ -51,7 +51,7 @@ namespace BusinessLogicLayer.Services
             repository.AddItemToBasket(basket.Id, productId, quantity);
         }
 
-        private bool isProductBiddable(int productId)
+        private bool IsProductBiddable(int productId)
         {
             // Check if the product exists in the auction products
             try
@@ -66,7 +66,7 @@ namespace BusinessLogicLayer.Services
             }
         }
 
-        private bool isStockAvailable(int productId, int requestedQuantity)
+        private bool IsStockAvailable(int productId, int requestedQuantity)
         {
             // Check if the product exists
             try
@@ -88,7 +88,7 @@ namespace BusinessLogicLayer.Services
             }
         }
 
-        public void removeFromBasket(int userId, int basketItemId)
+        public void RemoveFromBasket(int userId, int basketItemId)
         {
             // Get the user's basket
             Basket basket = repository.GetBasketByUser(userId);
@@ -97,7 +97,7 @@ namespace BusinessLogicLayer.Services
             repository.RemoveItemFromBasket(basketItemId);
         }
 
-        public void updateQuantity(int userId, int basketItemId, int quantity)
+        public void UpdateQuantity(int userId, int basketItemId, int quantity)
         {
             // Get the user's basket 
             Basket basket = repository.GetBasketByUser(userId);
@@ -106,7 +106,7 @@ namespace BusinessLogicLayer.Services
             repository.UpdateItemQuantity(basketItemId, quantity);
         }
 
-        public void clearBasket(int userId)
+        public void ClearBasket(int userId)
         {
             // Get the user's basket
             Basket basket = repository.GetBasketByUser(userId);
@@ -115,7 +115,7 @@ namespace BusinessLogicLayer.Services
             repository.ClearBasket(basket.Id);
         }
 
-        public bool validateBasketBeforeCheckOut(int basketId)
+        public bool ValidateBasketBeforeCheckOut(int basketId)
         {
             // Get the basket items
             List<BasketItem> items = repository.GetBasketItems(basketId);
@@ -138,7 +138,7 @@ namespace BusinessLogicLayer.Services
             return true;
         }
 
-        public void applyPromoCode(int basketId, string code)
+        public void ApplyPromoCode(int basketId, string code)
         {
             // This method needs to be implemented
             throw new NotImplementedException("ApplyPromoCode needs to be implemented");

@@ -31,7 +31,7 @@ namespace DomainLayer.Domain
             // If the product already exists in the basket, its quantity is increased
 
             // Check if the product is already in the basket
-            BasketItem existingItem = items.FirstOrDefault(i => i.Product.id == product.id);
+            BasketItem existingItem = items.FirstOrDefault(i => i.Product.Id == product.Id);
 
             if (existingItem != null)
             {
