@@ -94,7 +94,7 @@ namespace DataAccessLayer.Repositories
                 using (SqlCommand cmd = new SqlCommand(insertCmd, connection.GetConnection()))
                 {
                     cmd.Parameters.AddWithValue("@basketId", basket.Id);
-                    cmd.Parameters.AddWithValue("@productId", item.Product.id);
+                    cmd.Parameters.AddWithValue("@productId", item.Product.Id);
                     cmd.Parameters.AddWithValue("@quantity", item.Quantity);
                     cmd.Parameters.AddWithValue("@price", item.Price);
                     cmd.ExecuteNonQuery();
@@ -152,15 +152,15 @@ namespace DataAccessLayer.Repositories
                         ProductCategory category = categoryId > 0 ?
                             new ProductCategory(categoryId, categoryTitle, categoryDesc) : null;
 
-                        // Create the product with basic information
+                        // Create the product with basic information 
                         BuyProduct product = new BuyProduct((float)price)
                         {
-                            id = productId,
-                            title = "Product #" + productId,
-                            description = description,
-                            condition = condition,
-                            category = category,
-                            tags = new List<ProductTag>()
+                            Id = productId,
+                            Description = description,
+                            Title = "Product #" + productId,
+                            Condition = condition,
+                            Category = category,
+                            Tags = new List<ProductTag>()
                         };
 
                         // Create the basket item
@@ -184,7 +184,7 @@ namespace DataAccessLayer.Repositories
                 connection.OpenConnection();
                 using (SqlCommand cmd = new SqlCommand(tagsQuery, connection.GetConnection()))
                 {
-                    cmd.Parameters.AddWithValue("@productId", item.Product.id);
+                    cmd.Parameters.AddWithValue("@productId", item.Product.Id);
 
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
@@ -193,7 +193,7 @@ namespace DataAccessLayer.Repositories
                             int tagId = reader.GetInt32(0);
                             string tagTitle = reader.GetString(1);
 
-                            item.Product.tags.Add(new ProductTag(tagId, tagTitle));
+                            item.Product.Tags.Add(new ProductTag(tagId, tagTitle));
                         }
                     }
                 }
