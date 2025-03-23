@@ -13,6 +13,17 @@ namespace DomainLayer.Domain
         {
             throw new NotImplementedException("getPrice() not implemented for the base Product class.");
         }
+<<<<<<< HEAD
+        public Product(int id, string description, string title, ProductCondition condition, ProductCategory category, List<ProductTag> tags)
+        {
+            this.id = id;
+            this.description = description;
+            this.title = title;
+            this.condition = condition;
+            this.category = category;
+            this.tags = tags;
+        }
+=======
         public int Id { get; set; }
         public string Description { get; set; }
         public ProductCondition Condition { get; set; }
@@ -31,5 +42,6 @@ namespace DomainLayer.Domain
             this.Seller = Seller;
         }
 
+>>>>>>> main
     }
 }

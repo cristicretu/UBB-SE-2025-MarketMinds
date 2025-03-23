@@ -16,10 +16,19 @@ namespace DomainLayer.Domain
 
         public BasketItem(int id, Product product, int quantity)
         {
+<<<<<<< HEAD
+            this.id = id;
+            this.product = product;
+            this.quantity = quantity;
+            // this.price = product.getPrice(); getPrice() not implemented yet.
+            // When getPrice() is implemented, this line will store the product's current price
+            // at the time the item is added to the basket
+=======
             this.Id = id;
             this.Product = product;
             this.Quantity = quantity;
             this.Price = product.getPrice();
+>>>>>>> main
         }
 
         public float GetPrice()
