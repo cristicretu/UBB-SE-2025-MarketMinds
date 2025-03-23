@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DomainLayer.Domain
 {
-    class BuyProduct : Product
+    public class BuyProduct : Product
     {
         public float price { get; set; }
         public BuyProduct(float price)
