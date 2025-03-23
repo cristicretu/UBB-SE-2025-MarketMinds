@@ -1,7 +1,7 @@
 {
   "version": 2,
-  "dgSpecHash": "GSbk7Kd4sNw=",
-  "success": true,
+  "dgSpecHash": "KpW9vLsmXLs=",
+  "success": false,
   "projectFilePath": "C:\\Users\\Ghaster\\IdeaProjects\\UBB-SE-2025-MarketMinds\\MarketMinds\\MarketMinds\\MarketMinds.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Ghaster\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
@@ -163,5 +163,24 @@
     "C:\\Users\\Ghaster\\.nuget\\packages\\microsoft.netcore.app.runtime.win-x64\\8.0.14\\microsoft.netcore.app.runtime.win-x64.8.0.14.nupkg.sha512",
     "C:\\Users\\Ghaster\\.nuget\\packages\\microsoft.windowsdesktop.app.runtime.win-x86\\8.0.14\\microsoft.windowsdesktop.app.runtime.win-x86.8.0.14.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problem reading the cache file C:\\Users\\Ghaster\\IdeaProjects\\UBB-SE-2025-MarketMinds\\MarketMinds\\MarketMinds\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+    },
+    {
+      "code": "NU1605",
+      "level": "Error",
+      "message": "Warning As Error: Detected package downgrade: Microsoft.WindowsAppSDK from 1.7.250310001 to 1.6.250228001. Reference the package directly from the project to select a different version. \r\n MarketMinds -> ViewModelLayer -> Microsoft.WindowsAppSDK (>= 1.7.250310001) \r\n MarketMinds -> Microsoft.WindowsAppSDK (>= 1.6.250228001)",
+      "libraryId": "Microsoft.WindowsAppSDK",
+      "targetGraphs": [
+        "net8.0-windows10.0.19041",
+        "net8.0-windows10.0.19041/win-arm64",
+        "net8.0-windows10.0.19041/win-x64",
+        "net8.0-windows10.0.19041/win-x86"
+      ]
+    }
+  ]
 }

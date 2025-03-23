@@ -1,5 +1,4 @@
-# Ignore the DataBaseConnection file
-DataBaseConnection.cs
+# Ignore the env files
 .env
 
 # Ignore build and dependency files
