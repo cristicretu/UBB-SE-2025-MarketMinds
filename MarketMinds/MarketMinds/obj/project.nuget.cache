@@ -1,7 +1,7 @@
 {
   "version": 2,
-  "dgSpecHash": "jVm6RmVB9KY=",
-  "success": false,
+  "dgSpecHash": "krGHM1b4NyU=",
+  "success": true,
   "projectFilePath": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\MarketMinds\\MarketMinds.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Robi\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
@@ -30,10 +30,10 @@
     "C:\\Users\\Robi\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.1\\microsoft.netcore.platforms.1.1.1.nupkg.sha512",
     "C:\\Users\\Robi\\.nuget\\packages\\microsoft.netcore.targets\\1.1.3\\microsoft.netcore.targets.1.1.3.nupkg.sha512",
     "C:\\Users\\Robi\\.nuget\\packages\\microsoft.sqlserver.server\\1.0.0\\microsoft.sqlserver.server.1.0.0.nupkg.sha512",
-    "C:\\Users\\Robi\\.nuget\\packages\\microsoft.web.webview2\\1.0.2651.64\\microsoft.web.webview2.1.0.2651.64.nupkg.sha512",
+    "C:\\Users\\Robi\\.nuget\\packages\\microsoft.web.webview2\\1.0.2903.40\\microsoft.web.webview2.1.0.2903.40.nupkg.sha512",
     "C:\\Users\\Robi\\.nuget\\packages\\microsoft.win32.primitives\\4.3.0\\microsoft.win32.primitives.4.3.0.nupkg.sha512",
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages\\microsoft.windows.sdk.buildtools\\10.0.26100.1742\\microsoft.windows.sdk.buildtools.10.0.26100.1742.nupkg.sha512",
-    "C:\\Users\\Robi\\.nuget\\packages\\microsoft.windowsappsdk\\1.6.250228001\\microsoft.windowsappsdk.1.6.250228001.nupkg.sha512",
+    "C:\\Users\\Robi\\.nuget\\packages\\microsoft.windowsappsdk\\1.7.250310001\\microsoft.windowsappsdk.1.7.250310001.nupkg.sha512",
     "C:\\Users\\Robi\\.nuget\\packages\\netstandard.library\\1.6.1\\netstandard.library.1.6.1.nupkg.sha512",
     "C:\\Users\\Robi\\.nuget\\packages\\runtime.any.system.collections\\4.3.0\\runtime.any.system.collections.4.3.0.nupkg.sha512",
     "C:\\Users\\Robi\\.nuget\\packages\\runtime.any.system.diagnostics.tools\\4.3.0\\runtime.any.system.diagnostics.tools.4.3.0.nupkg.sha512",
@@ -163,18 +163,5 @@
     "C:\\Users\\Robi\\.nuget\\packages\\microsoft.netcore.app.runtime.win-x64\\8.0.13\\microsoft.netcore.app.runtime.win-x64.8.0.13.nupkg.sha512",
     "C:\\Users\\Robi\\.nuget\\packages\\microsoft.windowsdesktop.app.runtime.win-x86\\8.0.13\\microsoft.windowsdesktop.app.runtime.win-x86.8.0.13.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "NU1605",
-      "level": "Error",
-      "message": "Warning As Error: Detected package downgrade: Microsoft.WindowsAppSDK from 1.7.250310001 to 1.6.250228001. Reference the package directly from the project to select a different version. \r\n MarketMinds -> UiLayer -> ViewModelLayer -> Microsoft.WindowsAppSDK (>= 1.7.250310001) \r\n MarketMinds -> Microsoft.WindowsAppSDK (>= 1.6.250228001)",
-      "libraryId": "Microsoft.WindowsAppSDK",
-      "targetGraphs": [
-        "net8.0-windows10.0.19041",
-        "net8.0-windows10.0.19041/win-arm64",
-        "net8.0-windows10.0.19041/win-x64",
-        "net8.0-windows10.0.19041/win-x86"
-      ]
-    }
-  ]
+  "logs": []
 }
