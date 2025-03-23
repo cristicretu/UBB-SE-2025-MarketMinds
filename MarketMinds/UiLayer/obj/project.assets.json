@@ -15432,7 +15432,15 @@
   },
   "packageFolders": {
 <<<<<<< HEAD
+<<<<<<< HEAD
+    "C:\\Users\\jolde\\.nuget\\packages\\": {},
+=======
+<<<<<<< HEAD
+    "C:\\Users\\Ghaster\\.nuget\\packages\\": {},
+=======
     "C:\\Users\\Robi\\.nuget\\packages\\": {},
+>>>>>>> bidding
+>>>>>>> main
 =======
     "C:\\Users\\Ghaster\\.nuget\\packages\\": {},
 >>>>>>> main
@@ -15442,17 +15450,31 @@
     "version": "1.0.0",
     "restore": {
 <<<<<<< HEAD
-      "projectUniqueName": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\UiLayer\\UiLayer.csproj",
+<<<<<<< HEAD
+      "projectUniqueName": "C:\\Users\\jolde\\OneDrive\\Documents\\GitHub\\UBB-SE-2025-MarketMinds\\MarketMinds\\UiLayer\\UiLayer.csproj",
       "projectName": "UiLayer",
-      "projectPath": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\UiLayer\\UiLayer.csproj",
-      "packagesPath": "C:\\Users\\Robi\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\UiLayer\\obj\\",
+      "projectPath": "C:\\Users\\jolde\\OneDrive\\Documents\\GitHub\\UBB-SE-2025-MarketMinds\\MarketMinds\\UiLayer\\UiLayer.csproj",
+      "packagesPath": "C:\\Users\\jolde\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\jolde\\OneDrive\\Documents\\GitHub\\UBB-SE-2025-MarketMinds\\MarketMinds\\UiLayer\\obj\\",
 =======
+<<<<<<< HEAD
+=======
+>>>>>>> main
       "projectUniqueName": "C:\\Users\\Ghaster\\IdeaProjects\\UBB-SE-2025-MarketMinds\\MarketMinds\\UiLayer\\UiLayer.csproj",
       "projectName": "UiLayer",
       "projectPath": "C:\\Users\\Ghaster\\IdeaProjects\\UBB-SE-2025-MarketMinds\\MarketMinds\\UiLayer\\UiLayer.csproj",
       "packagesPath": "C:\\Users\\Ghaster\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\Ghaster\\IdeaProjects\\UBB-SE-2025-MarketMinds\\MarketMinds\\UiLayer\\obj\\",
+<<<<<<< HEAD
+=======
+      "projectUniqueName": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\UiLayer\\UiLayer.csproj",
+      "projectName": "UiLayer",
+      "projectPath": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\UiLayer\\UiLayer.csproj",
+      "packagesPath": "C:\\Users\\Robi\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\UiLayer\\obj\\",
+>>>>>>> bidding
+>>>>>>> main
+=======
 >>>>>>> main
       "projectStyle": "PackageReference",
       "fallbackFolders": [
@@ -15460,7 +15482,15 @@
       ],
       "configFilePaths": [
 <<<<<<< HEAD
+<<<<<<< HEAD
+        "C:\\Users\\jolde\\AppData\\Roaming\\NuGet\\NuGet.Config",
+=======
+<<<<<<< HEAD
+        "C:\\Users\\Ghaster\\AppData\\Roaming\\NuGet\\NuGet.Config",
+=======
         "C:\\Users\\Robi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+>>>>>>> bidding
+>>>>>>> main
 =======
         "C:\\Users\\Ghaster\\AppData\\Roaming\\NuGet\\NuGet.Config",
 >>>>>>> main
@@ -15472,20 +15502,21 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net8.0-windows10.0.19041": {
           "targetAlias": "net8.0-windows10.0.19041.0",
           "projectReferences": {
-            "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\BusinessLogicLayer\\BusinessLogicLayer.csproj": {
-              "projectPath": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\BusinessLogicLayer\\BusinessLogicLayer.csproj"
+            "C:\\Users\\jolde\\OneDrive\\Documents\\GitHub\\UBB-SE-2025-MarketMinds\\MarketMinds\\BusinessLogicLayer\\BusinessLogicLayer.csproj": {
+              "projectPath": "C:\\Users\\jolde\\OneDrive\\Documents\\GitHub\\UBB-SE-2025-MarketMinds\\MarketMinds\\BusinessLogicLayer\\BusinessLogicLayer.csproj"
             },
-            "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\DomainLayer\\DomainLayer.csproj": {
-              "projectPath": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\DomainLayer\\DomainLayer.csproj"
+            "C:\\Users\\jolde\\OneDrive\\Documents\\GitHub\\UBB-SE-2025-MarketMinds\\MarketMinds\\DomainLayer\\DomainLayer.csproj": {
+              "projectPath": "C:\\Users\\jolde\\OneDrive\\Documents\\GitHub\\UBB-SE-2025-MarketMinds\\MarketMinds\\DomainLayer\\DomainLayer.csproj"
             },
-            "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\ViewModelLayer\\ViewModelLayer.csproj": {
-              "projectPath": "C:\\Users\\Robi\\Desktop\\Marketplace\\UBB-SE-2025-MarketMinds\\MarketMinds\\ViewModelLayer\\ViewModelLayer.csproj"
+            "C:\\Users\\jolde\\OneDrive\\Documents\\GitHub\\UBB-SE-2025-MarketMinds\\MarketMinds\\ViewModelLayer\\ViewModelLayer.csproj": {
+              "projectPath": "C:\\Users\\jolde\\OneDrive\\Documents\\GitHub\\UBB-SE-2025-MarketMinds\\MarketMinds\\ViewModelLayer\\ViewModelLayer.csproj"
             }
           }
         }
