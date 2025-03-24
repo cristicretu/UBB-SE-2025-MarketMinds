@@ -52,17 +52,28 @@ namespace MarketMinds
             // Instantiate repositories
             var categoryRepository = new ProductCategoryRepository(dataBaseConnection);
             var conditionRepository = new ProductConditionRepository(dataBaseConnection);
-            var productRepository = new ProductsRepository<Product>(dataBaseConnection);
+            var auctionRepository = new AuctionProductsRepository(dataBaseConnection);
+           // var borrowRepository = ... de adaugat
+            //var buyRepository = ... de adaugat
 
-            // Instantiate services using the repositories
+            // 4. Instantiate services
+            auctionProductsService = new AuctionProductsService(auctionRepository);
+            // buyProductsService = ... de adaugat
+            // borrowProductsService = ... de adaugat
+
             categoryService = new ProductCategoryService(categoryRepository);
             conditionService = new ProductConditionService(conditionRepository);
-            productService = new ProductService<Product>(productRepository);
+
+
         }
 
         private Window mainWindow;
+        //public static BuyProductsService buyProductsService { get; private set; }
+
+        //public static BorrowProductsService borrowProductsService { get; private set; }
+        public static AuctionProductsService auctionProductsService { get; private set; }
         public static ProductCategoryService categoryService { get; private set; }
         public static ProductConditionService conditionService { get; private set; }
-        public static ProductService<Product> productService { get; private set; }
+        public static ProductService productService { get; private set; }
     }
 }

@@ -19,7 +19,8 @@ namespace DomainLayer.Domain
             this.Id = id;
             this.Product = product;
             this.Quantity = quantity;
-            this.Price = product.getPrice();
+            //ERROR
+            //this.Price = product.getPrice();
 
         }
 

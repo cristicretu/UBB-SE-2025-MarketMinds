@@ -153,15 +153,19 @@ namespace DataAccessLayer.Repositories
                             new ProductCategory(categoryId, categoryTitle, categoryDesc) : null;
 
                         // Create the product with basic information 
-                        BuyProduct product = new BuyProduct((float)price)
-                        {
-                            Id = productId,
-                            Description = description,
-                            Title = "Product #" + productId,
-                            Condition = condition,
-                            Category = category,
-                            Tags = new List<ProductTag>()
-                        };
+
+                        //ERROR
+                        //BuyProduct product = new BuyProduct((float)price)
+                        //{
+                        //    Id = productId,
+                        //    Description = description,
+                        //    Title = "Product #" + productId,
+                        //    Condition = condition,
+                        //    Category = category,
+                        //    Tags = new List<ProductTag>()
+                        //};
+
+                        BuyProduct product = null;
 
                         // Create the basket item
                         BasketItem item = new BasketItem(itemId, product, quantity);
