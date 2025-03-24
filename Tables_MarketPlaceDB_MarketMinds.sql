@@ -48,10 +48,12 @@ CREATE TABLE ProductTags (
 
 CREATE TABLE BuyProducts (
 	id INT PRIMARY KEY IDENTITY(1,1),
+    	title NVARCHAR(100) NOT NULL,
 	description NVARCHAR(3000) NULL,
 	seller_id INT NOT NULL,
 	condition_id INT NOT NULL,
 	category_id INT NOT NULL,
+    	price FLOAT NOT NULL,
 	CONSTRAINT FK_Products_Users FOREIGN KEY (seller_id) REFERENCES Users(id),
 	CONSTRAINT FK_Products_ProductConditions FOREIGN KEY (condition_id) REFERENCES ProductConditions(id),
 	CONSTRAINT FK_Products_ProductCategories FOREIGN KEY (category_id) REFERENCES ProductCategories(id),
@@ -74,18 +76,22 @@ CREATE TABLE BuyProductProductTags (
 
 -- BORROW PRODUCTS --
 CREATE TABLE BorrowProducts (
-	id INT PRIMARY KEY IDENTITY(1,1),
-	description NVARCHAR(3000) NULL,
-	seller_id INT NOT NULL,
-	condition_id INT NOT NULL,
-	category_id INT NOT NULL,
-	time_limit INT NOT NULL,
-	start_date DATE NULL,
-	end_date DATE NULL,
-	CONSTRAINT FK_BorrowProducts_Users FOREIGN KEY (seller_id) REFERENCES Users(id),
-	CONSTRAINT FK_BorrowProducts_ProductConditions FOREIGN KEY (condition_id) REFERENCES ProductConditions(id),
-	CONSTRAINT FK_BorrowProducts_ProductCategories FOREIGN KEY (category_id) REFERENCES ProductCategories(id),
-);
+    id INT PRIMARY KEY IDENTITY(1,1),
+    title NVARCHAR(100) NOT NULL,
+    description NVARCHAR(3000) NULL,
+    seller_id INT NOT NULL,
+    condition_id INT NOT NULL,
+    category_id INT NOT NULL,
+    time_limit DATE NOT NULL,
+    start_date DATE NULL,
+    end_date DATE NULL,
+    daily_rate FLOAT NOT NULL,
+    is_borrowed BIT NOT NULL DEFAULT 0,
+
+    CONSTRAINT FK_BorrowProducts_Users FOREIGN KEY (seller_id) REFERENCES Users(id),
+    CONSTRAINT FK_BorrowProducts_ProductConditions FOREIGN KEY (condition_id) REFERENCES ProductConditions(id),
+    CONSTRAINT FK_BorrowProducts_ProductCategories FOREIGN KEY (category_id) REFERENCES ProductCategories(id)
+)
 
 CREATE TABLE BorrowProductImages (
 	id INT PRIMARY KEY IDENTITY(1,1),
@@ -105,6 +111,7 @@ CREATE TABLE BorrowProductProductTags (
 -- AUCTION PRODUCTS --
 CREATE TABLE AuctionProducts (
 	id INT PRIMARY KEY IDENTITY(1,1),
+    	title NVARCHAR(100) NOT NULL,
 	description NVARCHAR(3000) NULL,
 	seller_id INT NOT NULL,
 	condition_id INT NOT NULL,
