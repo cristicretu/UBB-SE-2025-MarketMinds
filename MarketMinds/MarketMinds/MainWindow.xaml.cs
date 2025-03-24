@@ -51,7 +51,13 @@ namespace UiLayer
             adminViewWindow = new AdminView();
             adminViewWindow.Activate();
         }
+        private void handleBasketViewButton_Click(object sender, RoutedEventArgs e)
+        {
+            basketViewWindow = new BasketView();
+            basketViewWindow.Activate();
+        }
 
+        private Window basketViewWindow;
         private Window auctionProductListViewWindow;
         private Window borrowProductListViewWindow;
         private Window buyProductListViewWindow;
