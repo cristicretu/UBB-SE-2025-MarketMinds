@@ -67,6 +67,9 @@ namespace MarketMinds
 
             productCategoryViewModel = new ProductCategoryViewModel(categoryService);
             productConditionViewModel = new ProductConditionViewModel(conditionService);
+
+            var basketRepository = new BasketRepository(dataBaseConnection);
+            basketService = new BasketService(basketRepository);
         }
 
         private Window mainWindow;
@@ -79,5 +82,7 @@ namespace MarketMinds
         
         public static ProductCategoryViewModel productCategoryViewModel { get; private set; }
         public static ProductConditionViewModel productConditionViewModel { get; private set; }
+
+        public static BasketService basketService { get; private set; }
     }
 }
