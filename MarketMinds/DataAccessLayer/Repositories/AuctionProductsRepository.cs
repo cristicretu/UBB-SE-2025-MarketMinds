@@ -298,8 +298,6 @@ namespace DataAccessLayer.Repositories
                 cmd.Parameters.AddWithValue("@APid", APid);
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
-                    while (reader.Read())
-                    {
                         int id = reader.GetInt32(reader.GetOrdinal("id"));
                         string title = reader.GetString(reader.GetOrdinal("title"));
                         string description = reader.GetString(reader.GetOrdinal("description"));
@@ -342,7 +340,7 @@ namespace DataAccessLayer.Repositories
                             end,
                             startingPrice
                         );
-                    }
+                    
                 }
             }
             connection.CloseConnection();
