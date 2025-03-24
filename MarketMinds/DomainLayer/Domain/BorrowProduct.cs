@@ -11,8 +11,10 @@ namespace DomainLayer.Domain
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public TimeSpan TimeLimit { get; set; }
+        public float DailyRate { get; set; }
+        public bool IsBorrowed {  get; set; }
         public BorrowProduct(int Id, string Title, string Description, User Seller, ProductCondition ProductCondition, ProductCategory ProductCategory,
-            List<ProductTag> ProductTags, List<Image> Images, DateTime StartDate, DateTime EndDate)
+            List<ProductTag> ProductTags, List<Image> Images, DateTime StartDate, DateTime EndDate, float DailyRate, bool IsBorrowed)
         {
             this.Id = Id;
             this.Title = Title;
@@ -26,6 +28,8 @@ namespace DomainLayer.Domain
             this.StartDate = StartDate;
             this.EndDate = EndDate;
             this.TimeLimit = EndDate - StartDate;
+            this.DailyRate = DailyRate;
+            this.IsBorrowed = IsBorrowed;
         }
     }
 }

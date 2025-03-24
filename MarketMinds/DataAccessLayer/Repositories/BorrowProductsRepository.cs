@@ -1,4 +1,4 @@
-﻿using DomainLayer.Domain;
+using DomainLayer.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +15,7 @@ namespace DataAccessLayer.Repositories
         {
             this.connection = connection;
         }
-        public BuyProduct GetBuyProductByID(int productId)
+        public BuyProduct GetBorrowProductByID(int productId)
         {
             // Implementation to get auction product by ID
             return null;
