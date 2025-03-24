@@ -12,7 +12,7 @@ namespace DomainLayer.Domain
         public DateTime EndDate { get; set; }
         public TimeSpan TimeLimit { get; set; }
         public BorrowProduct(int Id, string Title, string Description, User Seller, ProductCondition ProductCondition, ProductCategory ProductCategory,
-            List<ProductTag> ProductTags, List<Image> Images, DateTime StartDate, DateTime EndDate, float StartingPrice)
+            List<ProductTag> ProductTags, List<Image> Images, DateTime StartDate, DateTime EndDate)
         {
             this.Id = Id;
             this.Title = Title;
