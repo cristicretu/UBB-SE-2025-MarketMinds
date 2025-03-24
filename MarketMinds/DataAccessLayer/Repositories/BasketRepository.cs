@@ -111,12 +111,14 @@ namespace DataAccessLayer.Repositories
             // Query to get basket items with product details, conditions, and categories in one go
             string query = @"
                 SELECT bi.id, bi.product_id, bi.quantity, bi.price, p.description, 
-                       pc.id AS condition_id, pc.title AS condition_title, pc.description AS condition_description,
-                       pcat.id AS category_id, pcat.title AS category_title, pcat.description AS category_description
+                    pc.id AS condition_id, pc.title AS condition_title, pc.description AS condition_description,
+                    pcat.id AS category_id, pcat.title AS category_title, pcat.description AS category_description,
+                    u.id AS seller_id, u.username AS seller_username, u.email AS seller_email
                 FROM BasketItemsBuyProducts bi
                 JOIN BuyProducts p ON bi.product_id = p.id
                 LEFT JOIN ProductConditions pc ON p.condition_id = pc.id
                 LEFT JOIN ProductCategories pcat ON p.category_id = pcat.id
+                LEFT JOIN Users u ON p.seller_id = u.id
                 WHERE bi.basket_id = @basketId";
 
 
@@ -145,6 +147,11 @@ namespace DataAccessLayer.Repositories
                         string categoryTitle = reader.IsDBNull(9) ? string.Empty : reader.GetString(9);
                         string categoryDesc = reader.IsDBNull(10) ? string.Empty : reader.GetString(10);
 
+                        // Read seller details directly from query
+                        int sellerId = reader.IsDBNull(11) ? -1 : reader.GetInt32(11);
+                        string sellerUsername = reader.IsDBNull(12) ? string.Empty : reader.GetString(12);
+                        string sellerEmail = reader.IsDBNull(13) ? string.Empty : reader.GetString(13);
+
                         // Create condition and category objects
                         ProductCondition condition = conditionId > 0 ?
                             new ProductCondition(conditionId, conditionTitle, conditionDesc) : null;
@@ -152,20 +159,23 @@ namespace DataAccessLayer.Repositories
                         ProductCategory category = categoryId > 0 ?
                             new ProductCategory(categoryId, categoryTitle, categoryDesc) : null;
 
+                        // Create the seller object
+                        User seller = sellerId > 0 ?
+                            new User(sellerId, sellerUsername, sellerEmail) : null;
+
                         // Create the product with basic information 
 
-                        //ERROR
-                        //BuyProduct product = new BuyProduct((float)price)
-                        //{
-                        //    Id = productId,
-                        //    Description = description,
-                        //    Title = "Product #" + productId,
-                        //    Condition = condition,
-                        //    Category = category,
-                        //    Tags = new List<ProductTag>()
-                        //};
-
-                        BuyProduct product = null;
+                        BuyProduct product = new BuyProduct(
+                            productId,                   // Id
+                            "Product #" + productId,     // Title
+                            description,                 // Description
+                            seller,                      // Seller
+                            condition,                   // ProductCondition
+                            category,                    // ProductCategory
+                            new List<ProductTag>(),      // Tags
+                            new List<Image>(),           // Images
+                            (float)price                 // Price
+                        );
 
                         // Create the basket item
                         BasketItem item = new BasketItem(itemId, product, quantity);
@@ -198,6 +208,33 @@ namespace DataAccessLayer.Repositories
                             string tagTitle = reader.GetString(1);
 
                             item.Product.Tags.Add(new ProductTag(tagId, tagTitle));
+                        }
+                    }
+                }
+                connection.CloseConnection();
+            }
+
+            // After loading tags, now load images for each product
+            foreach (BasketItem item in items)
+            {
+                // Get images for this product
+                string imagesQuery = @"
+                    SELECT id, url
+                    FROM BuyProductImages
+                    WHERE product_id = @productId";
+
+                connection.OpenConnection();
+                using (SqlCommand cmd = new SqlCommand(imagesQuery, connection.GetConnection()))
+                {
+                    cmd.Parameters.AddWithValue("@productId", item.Product.Id);
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            string imageUrl = reader.GetString(1);
+
+                            item.Product.Images.Add(new Image(imageUrl));
                         }
                     }
                 }
