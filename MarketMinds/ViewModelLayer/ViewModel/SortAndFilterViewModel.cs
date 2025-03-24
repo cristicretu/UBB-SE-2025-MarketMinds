@@ -18,9 +18,10 @@ namespace BusinessLogicLayer.ViewModel
         private ProductSortType? sortCondition;
         private string searchQuery;
 
-        public SortAndFilterViewModel()
+        // when created use new SortAndFilterViewModel(App.productService)
+        public SortAndFilterViewModel(ProductService<Product> productService)
         {
-            productService = App.productService;
+            this.productService = productService;
 
             this.selectedConditions = new List<ProductCondition>();
             this.selectedCategories = new List<ProductCategory>();

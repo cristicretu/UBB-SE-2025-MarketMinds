@@ -19,6 +19,7 @@ using UiLayer;
 using BusinessLogicLayer.Services;
 using DataAccessLayer;
 using DataAccessLayer.Repositories;
+using DomainLayer.Domain;
 
 namespace MarketMinds
 {
@@ -51,16 +52,17 @@ namespace MarketMinds
             // Instantiate repositories
             var categoryRepository = new ProductCategoryRepository(dataBaseConnection);
             var conditionRepository = new ProductConditionRepository(dataBaseConnection);
+            var productRepository = new ProductsRepository<Product>(dataBaseConnection);
 
             // Instantiate services using the repositories
             categoryService = new ProductCategoryService(categoryRepository);
             conditionService = new ProductConditionService(conditionRepository);
-            productService = new ProductService();
+            productService = new ProductService<Product>(productRepository);
         }
 
         private Window mainWindow;
         public static ProductCategoryService categoryService { get; private set; }
         public static ProductConditionService conditionService { get; private set; }
-        public static ProductService productService { get; private set; }
+        public static ProductService<Product> productService { get; private set; }
     }
 }
