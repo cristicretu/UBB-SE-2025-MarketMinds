@@ -9,28 +9,28 @@ using DomainLayer.Domain;
 
 namespace BusinessLogicLayer.Services
 {
-    public class ProductService<T> where T : Product
+    public class ProductService
     {
-        private ProductsRepository<T> productRepository;
+        private ProductsRepository productRepository;
 
-        public ProductService(ProductsRepository<T> repository)
+        public ProductService(ProductsRepository repository)
         {
             this.productRepository = repository;
         }
 
-        public List<T> GetProducts()
+        public List<Product> GetProducts()
         {
             return productRepository.GetProducts();
             
         }
 
-        public T GetProductById(int id)
+        public Product GetProductById(int id)
         {
             return productRepository.GetProductByID(id);
             
         }
 
-        public void AddProduct(T product)
+        public void AddProduct(Product product)
         {
             productRepository.AddProduct(product);
         }
@@ -45,9 +45,9 @@ namespace BusinessLogicLayer.Services
             productRepository.DeleteProduct(id);
         }
 
-        public List<T> GetSortedFilteredProducts(List<ProductCondition> selectedConditions, List<ProductCategory> selectedCategories, List<ProductTag> selectedTags, ProductSortType sortCondition, string searchQuery)
+        public List<Product> GetSortedFilteredProducts(List<ProductCondition> selectedConditions, List<ProductCategory> selectedCategories, List<ProductTag> selectedTags, ProductSortType sortCondition, string searchQuery)
         {
-            List<T> productResultSet = new List<T>();
+            List<Product> productResultSet = new List<Product>();
             foreach (Product product in this.GetProducts())
             {
                 bool matchesConditions = selectedConditions == null || selectedConditions.Count == 0 || selectedConditions.Any(c => c.id == product.Condition.id);

@@ -7,14 +7,14 @@ using DomainLayer.Domain;
 
 namespace DataAccessLayer.Repositories
 {
-    public abstract class ProductsRepository<T> where T : Product
+    public abstract class ProductsRepository
     {
-        public abstract List<T> GetProducts();
-        public abstract T GetProductByID(int id);
+        public abstract List<Product> GetProducts();
+        public abstract Product GetProductByID(int id);
 
-        public abstract void AddProduct(T product);
+        public abstract void AddProduct(Product product);
 
-        public abstract void UpdateProduct(T product);
-        public abstract void DeleteProduct(T product);
+        public abstract void UpdateProduct(Product product);
+        public abstract void DeleteProduct(Product product);
     }
 }
