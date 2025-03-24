@@ -7,18 +7,38 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Repositories
 {
-    public class BuyProductsRepository : ProductsRepository
+    public class BorrowProductsRepository : ProductsRepository
     {
         private DataBaseConnection connection;
 
-        public AuctionProductsRepository(DataBaseConnection connection)
+        public BorrowProductsRepository(DataBaseConnection connection)
         {
             this.connection = connection;
         }
-        public BuyProduct GetBorrowProductByID(int productId)
+
+        public override void AddProduct(Product product)
         {
-            // Implementation to get auction product by ID
-            return null;
+            throw new NotImplementedException();
+        }
+
+        public override void DeleteProduct(Product product)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override Product GetProductByID(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override List<Product> GetProducts()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void UpdateProduct(Product product)
+        {
+            throw new NotImplementedException();
         }
     }
 }

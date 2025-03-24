@@ -48,7 +48,7 @@ namespace BusinessLogicLayer.Services
             if (productId <= 0) throw new ArgumentException("Invalid product ID");
             if (quantity <= 0) throw new ArgumentException("Quantity must be greater than zero");
 
-            var buyProduct = buyProductsRepository.GetBuyProductByID(productId);
+            var buyProduct = buyProductsRepository.GetProductByID(productId);
             if (buyProduct == null)
             {
                 throw new InvalidOperationException("Product not found or is not available for purchase");
@@ -72,7 +72,7 @@ namespace BusinessLogicLayer.Services
             // Check if the product exists
             try
             {
-                var buyProduct = buyProductsRepository.GetBuyProductByID(productId);
+                var buyProduct = buyProductsRepository.GetProductByID(productId);
                 if (buyProduct == null)
                 {
                     return false;
@@ -186,7 +186,7 @@ namespace BusinessLogicLayer.Services
                     return false;
                 }
 
-                var product = buyProductsRepository.GetBuyProductByID(item.Product.Id);
+                var product = buyProductsRepository.GetProductByID(item.Product.Id);
                 if (product == null)
                 {
                     return false;
