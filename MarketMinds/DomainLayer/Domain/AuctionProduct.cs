@@ -15,9 +15,9 @@ namespace DomainLayer.Domain
 
         public List<Bid> BidHistory { get; set; }
 
-        public AuctionProduct(int Id , string Description , User Seller , ProductCondition ProductCondition , ProductCategory ProductCategory ,
+        public AuctionProduct(int Id , string Title, string Description , User Seller , ProductCondition ProductCondition , ProductCategory ProductCategory ,
             List<ProductTag> ProductTags , DateTime StartAuctionDate, DateTime EndAuctionDate, float StartingPrice)
-            : base(Id , Seller , Description, ProductCondition, ProductCategory, ProductTags)
+            : base(Id , Seller , Title, Description, ProductCondition, ProductCategory, ProductTags)
         {
             this.StartAuctionDate = StartAuctionDate;
             this.EndAuctionDate = EndAuctionDate;

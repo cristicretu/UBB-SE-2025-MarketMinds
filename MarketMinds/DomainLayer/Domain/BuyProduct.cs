@@ -9,7 +9,7 @@ namespace DomainLayer.Domain
     public class BuyProduct : Product
     {
         public float price { get; set; }
-        public BuyProduct(int id, string description, string title, ProductCondition condition, ProductCategory category, List<ProductTag> tags, float price) : base(id, description, title, condition, category, tags)
+        public BuyProduct(int id, User Seller, string title, string description, ProductCondition condition, ProductCategory category, List<ProductTag> tags, float price) : base(id, Seller, title, description, condition, category, tags)
         {
             this.price = price;
         }
