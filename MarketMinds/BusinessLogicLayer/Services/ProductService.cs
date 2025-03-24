@@ -42,7 +42,8 @@ namespace BusinessLogicLayer.Services
 
         public void DeleteProduct(int id)
         {
-            productRepository.DeleteProduct(id);
+            //ERROR
+            //productRepository.DeleteProduct(id);
         }
 
         public List<Product> GetSortedFilteredProducts(List<ProductCondition> selectedConditions, List<ProductCategory> selectedCategories, List<ProductTag> selectedTags, ProductSortType sortCondition, string searchQuery)

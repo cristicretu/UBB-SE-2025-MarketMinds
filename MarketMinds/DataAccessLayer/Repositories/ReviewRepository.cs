@@ -31,7 +31,7 @@ namespace DataAccessLayer.Repositories
             using (SqlCommand cmd = new SqlCommand(query, connection.GetConnection()))
             {
                 // attach to the parameter the id
-                cmd.Parameters.AddWithValue("@id", buyer.id);
+                cmd.Parameters.AddWithValue("@id", buyer.Id);
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
                     while (reader.Read())
@@ -65,7 +65,7 @@ namespace DataAccessLayer.Repositories
             using (SqlCommand cmd = new SqlCommand(query, connection.GetConnection()))
             {
                 // attach to the parameter the id
-                cmd.Parameters.AddWithValue("@id", seller.id);
+                cmd.Parameters.AddWithValue("@id", seller.Id);
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
                     while (reader.Read())

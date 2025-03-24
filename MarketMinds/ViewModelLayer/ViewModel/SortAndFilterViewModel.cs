@@ -10,7 +10,7 @@ namespace BusinessLogicLayer.ViewModel
 {
     class SortAndFilterViewModel
     {
-        private ProductService<Product> productService;
+        private ProductService productService;
 
         private List<ProductCondition> selectedConditions;
         private List<ProductCategory> selectedCategories;
@@ -19,7 +19,7 @@ namespace BusinessLogicLayer.ViewModel
         private string searchQuery;
 
         // when created use new SortAndFilterViewModel(App.productService)
-        public SortAndFilterViewModel(ProductService<Product> productService)
+        public SortAndFilterViewModel(ProductService productService)
         {
             this.productService = productService;
 

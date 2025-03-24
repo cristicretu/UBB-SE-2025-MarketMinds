@@ -2,7 +2,7 @@ using System;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using ViewModelLayer.ViewModel;
-
+using BusinessLogicLayer.Services;
 namespace UiLayer
 {
     /// <summary>
@@ -13,13 +13,20 @@ namespace UiLayer
         private readonly ProductCategoryViewModel _categoryViewModel;
         private readonly ProductConditionViewModel _conditionViewModel;
 
+        ProductCategoryService _categoryService;
+        ProductConditionService _conditionService;
+
         public AdminView()
         {
             this.InitializeComponent();
 
             // Use the centralized services from App
-            _categoryService = MarketMinds.App.CategoryService;
-            _conditionService = MarketMinds.App.ConditionService;
+
+            //ERROR
+            _categoryService = MarketMinds.App.categoryService;
+            _conditionService = MarketMinds.App.conditionService;
+
+
         }
 
         private void handleCloseButton_Click(object sender, RoutedEventArgs e)
