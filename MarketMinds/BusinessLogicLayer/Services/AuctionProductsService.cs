@@ -9,7 +9,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace BusinessLogicLayer.Services
 {
-    public class AuctionProductsService : ProductService<AuctionProduct>
+    public class AuctionProductsService : ProductService
     {
         private AuctionProductsRepository _auctionRepository;
         public AuctionProductsService(AuctionProductsRepository repository)
