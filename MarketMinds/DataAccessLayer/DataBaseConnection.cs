@@ -12,7 +12,9 @@ namespace DataAccessLayer
     {
         SqlConnection sqlConnection;
 
-        private string connectionString = "Data Source = COSTIN\\SQLEXPRESS; Initial Catalog = MarketPlace; Integrated Security = True; TrustServerCertificate=True;";
+        // TONI: Data Source=LAPTOP-TONI\SQLEXPRESS;Initial Catalog= MarketPlace;Integrated Security=True; TrustServerCertificate=True;
+        // COSTIN: Data Source = COSTIN\SQLEXPRESS; Initial Catalog = MarketPlace; Integrated Security = True; TrustServerCertificate=True;
+        private string connectionString = "Data Source=LAPTOP-TONI\\SQLEXPRESS;Initial Catalog= MarketPlace;Integrated Security=True; TrustServerCertificate=True;";
 
         public DataBaseConnection()
         {

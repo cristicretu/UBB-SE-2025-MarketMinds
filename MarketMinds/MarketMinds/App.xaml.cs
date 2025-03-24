@@ -20,6 +20,7 @@ using BusinessLogicLayer.Services;
 using DataAccessLayer;
 using DataAccessLayer.Repositories;
 using DomainLayer.Domain;
+using ViewModelLayer.ViewModel;
 
 namespace MarketMinds
 {
@@ -53,7 +54,7 @@ namespace MarketMinds
             var categoryRepository = new ProductCategoryRepository(dataBaseConnection);
             var conditionRepository = new ProductConditionRepository(dataBaseConnection);
             var auctionRepository = new AuctionProductsRepository(dataBaseConnection);
-           // var borrowRepository = ... de adaugat
+            // var borrowRepository = ... de adaugat
             //var buyRepository = ... de adaugat
 
             // 4. Instantiate services
@@ -61,10 +62,11 @@ namespace MarketMinds
             // buyProductsService = ... de adaugat
             // borrowProductsService = ... de adaugat
 
-            categoryService = new ProductCategoryService(categoryRepository);
-            conditionService = new ProductConditionService(conditionRepository);
+            var categoryService = new ProductCategoryService(categoryRepository);
+            var conditionService = new ProductConditionService(conditionRepository);
 
-
+            productCategoryViewModel = new ProductCategoryViewModel(categoryService);
+            productConditionViewModel = new ProductConditionViewModel(conditionService);
         }
 
         private Window mainWindow;
@@ -72,8 +74,10 @@ namespace MarketMinds
 
         //public static BorrowProductsService borrowProductsService { get; private set; }
         public static AuctionProductsService auctionProductsService { get; private set; }
-        public static ProductCategoryService categoryService { get; private set; }
-        public static ProductConditionService conditionService { get; private set; }
+
         public static ProductService productService { get; private set; }
+        
+        public static ProductCategoryViewModel productCategoryViewModel { get; private set; }
+        public static ProductConditionViewModel productConditionViewModel { get; private set; }
     }
 }

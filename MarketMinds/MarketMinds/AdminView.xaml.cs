@@ -1,8 +1,11 @@
 using System;
+using System.Collections.ObjectModel;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using ViewModelLayer.ViewModel;
 using BusinessLogicLayer.Services;
+using DomainLayer.Domain;
+
 namespace UiLayer
 {
     /// <summary>
@@ -10,28 +13,25 @@ namespace UiLayer
     /// </summary>
     public sealed partial class AdminView : Window
     {
-        private readonly ProductCategoryViewModel _categoryViewModel;
-        private readonly ProductConditionViewModel _conditionViewModel;
-
-        ProductCategoryService _categoryService;
-        ProductConditionService _conditionService;
+        private readonly ProductCategoryViewModel _productCategoryViewModel;
+        private readonly ProductConditionViewModel _productConditionViewModel;
+        private ObservableCollection<ProductCategory> Categories;
+        private ObservableCollection<ProductCondition> Conditions;
 
         public AdminView()
         {
             this.InitializeComponent();
 
-            // Use the centralized services from App
+            // Ensure services are correctly referenced
+            _productCategoryViewModel = MarketMinds.App.productCategoryViewModel;
+            _productConditionViewModel = MarketMinds.App.productConditionViewModel;
 
-            //ERROR
-            _categoryService = MarketMinds.App.categoryService;
-            _conditionService = MarketMinds.App.conditionService;
+            Categories = new ObservableCollection<ProductCategory>();
+            Conditions = new ObservableCollection<ProductCondition>();
 
-
-        }
-
-        private void handleCloseButton_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
+            // Load existing data
+            LoadCategories();
+            LoadConditions();
         }
 
         private async void handleAddCategoryButton_Click(object sender, RoutedEventArgs e)
@@ -47,7 +47,8 @@ namespace UiLayer
 
             try
             {
-                var category = _categoryService.CreateProductCategory(name, description);
+                var category = _productCategoryViewModel.CreateProductCategory(name, description);
+                Categories.Add(category); // Update list dynamically
                 await ShowContentDialog("Success", $"Category '{name}' created successfully.");
 
                 // Clear input fields
@@ -73,7 +74,8 @@ namespace UiLayer
 
             try
             {
-                var condition = _conditionService.CreateProductCondition(name, description);
+                var condition = _productConditionViewModel.CreateProductCondition(name, description);
+                Conditions.Add(condition);
                 await ShowContentDialog("Success", $"Condition '{name}' created successfully.");
 
                 // Clear input fields
@@ -86,6 +88,28 @@ namespace UiLayer
             }
         }
 
+        // Load existing categories from service
+        private void LoadCategories()
+        {
+            var categories = _productCategoryViewModel.GetAllProductCategories();
+            Categories.Clear();
+            foreach (var category in categories)
+            {
+                Categories.Add(category);
+            }
+        }
+
+        // Load existing conditions from service
+        private void LoadConditions()
+        {
+            var conditions = _productConditionViewModel.GetAllProductConditions();
+            Conditions.Clear();
+            foreach (var condition in conditions)
+            {
+                Conditions.Add(condition);
+            }
+        }
+
         // Helper method to display a ContentDialog
         private async System.Threading.Tasks.Task ShowContentDialog(string title, string content)
         {
@@ -93,7 +117,8 @@ namespace UiLayer
             {
                 Title = title,
                 Content = content,
-                CloseButtonText = "OK"
+                CloseButtonText = "OK",
+                XamlRoot = this.Content.XamlRoot 
             };
             await dialog.ShowAsync();
         }
