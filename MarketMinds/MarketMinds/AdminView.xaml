@@ -49,7 +49,7 @@
                     <!-- List of Existing Categories -->
                     <TextBlock Text="Existing Categories" FontSize="16" FontWeight="SemiBold" Margin="0,15,0,5"/>
                     <ListView x:Name="CategoriesListView"
-                              ItemsSource="{x:Bind Categories, Mode=OneWay}"
+                              ItemsSource="{x:Bind _productCategories, Mode=OneWay}"
                               Height="150">
                         <ListView.ItemTemplate>
                             <DataTemplate>
@@ -83,7 +83,7 @@
                     <!-- List of Existing Conditions -->
                     <TextBlock Text="Existing Conditions" FontSize="16" FontWeight="SemiBold" Margin="0,15,0,5"/>
                     <ListView x:Name="ConditionsListView"
-                              ItemsSource="{x:Bind Conditions, Mode=OneWay}"
+                              ItemsSource="{x:Bind _productConditions, Mode=OneWay}"
                               Height="150">
                         <ListView.ItemTemplate>
                             <DataTemplate>

@@ -15,8 +15,8 @@ namespace UiLayer
     {
         private readonly ProductCategoryViewModel _productCategoryViewModel;
         private readonly ProductConditionViewModel _productConditionViewModel;
-        private ObservableCollection<ProductCategory> Categories;
-        private ObservableCollection<ProductCondition> Conditions;
+        private ObservableCollection<ProductCategory> _productCategories;
+        private ObservableCollection<ProductCondition> _productConditions;
 
         public AdminView()
         {
@@ -26,8 +26,8 @@ namespace UiLayer
             _productCategoryViewModel = MarketMinds.App.productCategoryViewModel;
             _productConditionViewModel = MarketMinds.App.productConditionViewModel;
 
-            Categories = new ObservableCollection<ProductCategory>();
-            Conditions = new ObservableCollection<ProductCondition>();
+            _productCategories = new ObservableCollection<ProductCategory>();
+            _productConditions = new ObservableCollection<ProductCondition>();
 
             // Load existing data
             LoadCategories();
@@ -48,7 +48,7 @@ namespace UiLayer
             try
             {
                 var category = _productCategoryViewModel.CreateProductCategory(name, description);
-                Categories.Add(category); // Update list dynamically
+                _productCategories.Add(category); // Update list dynamically
                 await ShowContentDialog("Success", $"Category '{name}' created successfully.");
 
                 // Clear input fields
@@ -75,7 +75,7 @@ namespace UiLayer
             try
             {
                 var condition = _productConditionViewModel.CreateProductCondition(name, description);
-                Conditions.Add(condition);
+                _productConditions.Add(condition);
                 await ShowContentDialog("Success", $"Condition '{name}' created successfully.");
 
                 // Clear input fields
@@ -92,10 +92,10 @@ namespace UiLayer
         private void LoadCategories()
         {
             var categories = _productCategoryViewModel.GetAllProductCategories();
-            Categories.Clear();
+            _productCategories.Clear();
             foreach (var category in categories)
             {
-                Categories.Add(category);
+                _productCategories.Add(category);
             }
         }
 
@@ -103,10 +103,10 @@ namespace UiLayer
         private void LoadConditions()
         {
             var conditions = _productConditionViewModel.GetAllProductConditions();
-            Conditions.Clear();
+            _productConditions.Clear();
             foreach (var condition in conditions)
             {
-                Conditions.Add(condition);
+                _productConditions.Add(condition);
             }
         }
 
