@@ -8,14 +8,20 @@ namespace DomainLayer.Domain
 {
     public class BuyProduct : Product
     {
-        public float price { get; set; }
-        public BuyProduct(int id, User Seller, string title, string description, ProductCondition condition, ProductCategory category, List<ProductTag> tags, float price) : base(id, Seller, title, description, condition, category, tags)
+        public float Price { get; set; }
+        public BuyProduct(int Id, string Title, string Description, User Seller, ProductCondition ProductCondition, ProductCategory ProductCategory,
+            List<ProductTag> ProductTags, List<Image> Images, float Price)
         {
-            this.price = price;
-        }
-        public override float getPrice()
-        {
-            return price;
+            this.Id = Id;
+            this.Title = Title;
+            this.Description = Description;
+            this.Seller = Seller;
+            this.Condition = ProductCondition;
+            this.Category = ProductCategory;
+            this.Tags = ProductTags;
+            this.Seller = Seller;
+            this.Images = Images;
+            this.Price = Price;
         }
     }
 }

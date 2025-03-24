@@ -8,19 +8,24 @@ namespace DomainLayer.Domain
 {
     class BorrowProduct : Product
     {
-        public DateTime startDate { get; set; }
-        public DateTime endDate { get; set; }
-        public TimeSpan timeLimit
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public TimeSpan TimeLimit { get; set; }
+        public BorrowProduct(int Id, string Title, string Description, User Seller, ProductCondition ProductCondition, ProductCategory ProductCategory,
+            List<ProductTag> ProductTags, List<Image> Images, DateTime StartDate, DateTime EndDate, float StartingPrice)
         {
-            get
-            {
-                return endDate - startDate;
-            }
-        }
-        public BorrowProduct(int id, User Seller, string title, string description, ProductCondition condition, ProductCategory category, List<ProductTag> tags, DateTime startDate, DateTime endDate) : base(id, Seller, title, description, condition, category, tags)
-        {
-            this.startDate = startDate;
-            this.endDate = endDate;
+            this.Id = Id;
+            this.Title = Title;
+            this.Description = Description;
+            this.Seller = Seller;
+            this.Condition = ProductCondition;
+            this.Category = ProductCategory;
+            this.Tags = ProductTags;
+            this.Seller = Seller;
+            this.Images = Images;
+            this.StartDate = StartDate;
+            this.EndDate = EndDate;
+            this.TimeLimit = EndDate - StartDate;
         }
     }
 }
