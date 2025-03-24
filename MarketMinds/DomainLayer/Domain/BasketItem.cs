@@ -14,14 +14,26 @@ namespace DomainLayer.Domain
         public int Quantity { get; set; }
         public float Price { get; set; }
 
+        public bool HasValidPrice { get; private set; }
+
         public BasketItem(int id, Product product, int quantity)
         {
             this.Id = id;
             this.Product = product;
             this.Quantity = quantity;
-            //ERROR
-            //this.Price = product.getPrice();
 
+            // Set the price based on the product type (only BuyProduct is allowed in basket)
+            if (product is BuyProduct buyProduct)
+            {
+                this.Price = buyProduct.Price;
+                this.HasValidPrice = true;
+            }
+            else
+            {
+                // Invalid product type
+                this.Price = 0;
+                this.HasValidPrice = false;
+            }
         }
 
         public float GetPrice()
