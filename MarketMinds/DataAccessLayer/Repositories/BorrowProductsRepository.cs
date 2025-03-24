@@ -16,29 +16,93 @@ namespace DataAccessLayer.Repositories
             this.connection = connection;
         }
 
-        public override void AddProduct(Product product)
+        public void SaveBorrowProduct(BorrowProduct product)
         {
             throw new NotImplementedException();
         }
 
-        public override void DeleteProduct(Product product)
+        public void DeleteBorrowProduct(BorrowProduct product)
         {
-            throw new NotImplementedException();
+            string query = "DELETE FROM BorrowProducts WHERE id = @Id";
+
+            connection.OpenConnection();
+            using (SqlCommand cmd = new SqlCommand(query, connection.GetConnection()))
+            {
+                cmd.Parameters.AddWithValue("@Id", product.Id);
+
+                cmd.ExecuteNonQuery();
+            }
         }
 
-        public override Product GetProductByID(int id)
+        private List<ProductTag> GetProductTags(int productId)
         {
-            throw new NotImplementedException();
+            var tags = new List<ProductTag>();
+
+            string query = @"
+                        SELECT pt.id, pt.title
+                        FROM ProductTags pt
+                        INNER JOIN BorrowProductProductTags bpt ON pt.id = bpt.tag_id
+                        WHERE apt.product_id = @ProductId";
+
+            connection.OpenConnection();
+            using (SqlCommand cmd = new SqlCommand(query, connection.GetConnection()))
+            {
+                cmd.Parameters.AddWithValue("@ProductId", productId);
+
+
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        int tagId = reader.GetInt32(reader.GetOrdinal("id"));
+                        string tagTitle = reader.GetString(reader.GetOrdinal("title"));
+
+                        tags.Add(new ProductTag(tagId, tagTitle));
+                    }
+                }
+            }
+
+            return tags;
         }
 
-        public override List<Product> GetProducts()
+        private List<Image> GetProductImages(int productId)
         {
-            throw new NotImplementedException();
+            var images = new List<Image>();
+
+            string query = @"
+            SELECT url
+            FROM BorrowProductsImages
+            WHERE product_id = @ProductId";
+
+            connection.OpenConnection();
+            using (SqlCommand cmd = new SqlCommand(query, connection.GetConnection()))
+            {
+                cmd.Parameters.AddWithValue("@ProductId", productId);
+
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        int imageId = reader.GetInt32(reader.GetOrdinal("id"));
+                        string url = reader.GetString(reader.GetOrdinal("url"));
+
+                        images.Add(new Image(url));
+                    }
+                }
+            }
+            connection.CloseConnection();
+
+            return images;
         }
 
-        public override void UpdateProduct(Product product)
+        public BorrowProduct GetBorrowProductByID(int productId)
         {
-            throw new NotImplementedException();
+            return null;
+        }
+
+        public List<BorrowProduct> GetAllBorrowProducts()
+        {
+            return null;
         }
     }
 }
