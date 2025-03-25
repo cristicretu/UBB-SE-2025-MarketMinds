@@ -326,5 +326,15 @@ namespace DataAccessLayer.Repositories
             connection.CloseConnection();
             return borrows;
         }
+        
+        public override void UpdateProduct(Product product)
+        {
+            
+        }
+
+        public override void DeleteProduct(Product product)
+        {
+            
+        }
     }
 }

@@ -18,9 +18,9 @@ namespace DataAccessLayer.Repositories
             this.connection = connection;
         }
 
-        public void SaveBuyProduct(BuyProduct product)
+        public override void AddProduct(Product product)
         {
-            BuyProduct buy = product;
+            BuyProduct buy = (BuyProduct) product;
             if (buy == null)
                 throw new ArgumentException("Product must be of type BuyProduct.");
 
@@ -39,7 +39,7 @@ namespace DataAccessLayer.Repositories
             {
                 cmd.Parameters.AddWithValue("@Title", buy.Title);
                 cmd.Parameters.AddWithValue("@Description", buy.Description);
-                cmd.Parameters.AddWithValue("@SellerId", buy.Seller.id);
+                cmd.Parameters.AddWithValue("@SellerId", buy.Seller.Id);
                 cmd.Parameters.AddWithValue("@ConditionId", buy.Condition.id);
                 cmd.Parameters.AddWithValue("@CategoryId", buy.Category.id);
                 cmd.Parameters.AddWithValue("@Price", buy.Price);
@@ -48,7 +48,7 @@ namespace DataAccessLayer.Repositories
                 newProductId = Convert.ToInt32(result);
             }
 
-            foreach (var tag in borrow.Tags)
+            foreach (var tag in buy.Tags)
             {
                 string insertTagQuery = @"
             INSERT INTO BuyProductProductTags (product_id, tag_id)
@@ -62,7 +62,7 @@ namespace DataAccessLayer.Repositories
                 }
             }
 
-            foreach (var image in borrow.Images)
+            foreach (var image in buy.Images)
             {
                 string insertImageQuery = @"
             INSERT INTO BuyProductsImages (url, product_id)
@@ -153,10 +153,9 @@ namespace DataAccessLayer.Repositories
             return images;
         }
 
-        public BorrowProduct GetBuyProductByID(int productId)
+        public override Product GetProductByID(int productId)
         {
-            BuyProduct buy = BuyProduct();
-
+            BuyProduct buy = null;
             string query = @"
                             SELECT 
                                 bp.id,
@@ -210,7 +209,7 @@ namespace DataAccessLayer.Repositories
 
                         List<Image> images = GetProductImages(id);
 
-                        buy = BuyProduct(
+                        buy = new BuyProduct(
                             id,
                             title,
                             description,
@@ -227,9 +226,9 @@ namespace DataAccessLayer.Repositories
             return buy;
         }
 
-        public override List<BuyProduct> GetAllBuyProducts()
+        public override List<Product> GetProducts()
         {
-            List<BuyProduct> buys = new List<BuyProduct>();
+            List<Product> buys = new List<Product>();
 
             string query = @"
                             SELECT 
@@ -303,6 +302,16 @@ namespace DataAccessLayer.Repositories
             }
             connection.CloseConnection();
             return buys;
+        }
+
+        public override void UpdateProduct(Product product)
+        {
+            
+        }
+
+        public override void DeleteProduct(Product product)
+        {
+            
         }
     }
 }
