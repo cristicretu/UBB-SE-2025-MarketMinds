@@ -60,7 +60,7 @@ namespace UiLayer
 
         private void handleLeaveReviewButton_Click(Object sender, RoutedEventArgs e)
         {
-            leaveReviewViewWindow = new CreateReviewView();
+            //leaveReviewViewWindow = new CreateReviewView();
             leaveReviewViewWindow.Activate();
         }
 
