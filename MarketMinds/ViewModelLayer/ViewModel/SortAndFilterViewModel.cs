@@ -8,7 +8,7 @@ using DomainLayer.Domain;
 
 namespace BusinessLogicLayer.ViewModel
 {
-    class SortAndFilterViewModel
+    public class SortAndFilterViewModel
     {
         private ProductService productService;
 
@@ -17,8 +17,7 @@ namespace BusinessLogicLayer.ViewModel
         private List<ProductTag> selectedTags;
         private ProductSortType? sortCondition;
         private string searchQuery;
-
-        // when created use new SortAndFilterViewModel(App.productService)
+        
         public SortAndFilterViewModel(ProductService productService)
         {
             this.productService = productService;
@@ -32,7 +31,7 @@ namespace BusinessLogicLayer.ViewModel
 
         public List<Product> handleSearch()
         {
-            return productService.GetSortedFilteredProducts(selectedConditions, selectedCategories, selectedTags, sortCondition, searchQuery);
+            return ProductService.GetSortedFilteredProducts(this.productService.GetProducts(), selectedConditions, selectedCategories, selectedTags, sortCondition, searchQuery);
         }
 
         public void handleClearAllFilters()

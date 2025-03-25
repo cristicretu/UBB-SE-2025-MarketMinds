@@ -3,13 +3,13 @@ using DomainLayer.Domain;
 
 namespace BusinessLogicLayer.Services;
 
-public class BuyProductsService
+public class BuyProductsService: ProductService
 {
     private BorrowProductsRepository buyProductsRepository;
 
-    public BuyProductsService(BorrowProductsRepository borrowProductsRepository)
+    public BuyProductsService(BorrowProductsRepository repository): base(repository)
     {
-        this.buyProductsRepository = borrowProductsRepository;
+        this.buyProductsRepository = repository;
     }
     
     public List<Product> GetAllProducts()

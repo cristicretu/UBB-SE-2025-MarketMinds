@@ -46,10 +46,10 @@ namespace BusinessLogicLayer.Services
             //productRepository.DeleteProduct(id);
         }
 
-        public List<Product> GetSortedFilteredProducts(List<ProductCondition> selectedConditions, List<ProductCategory> selectedCategories, List<ProductTag> selectedTags, ProductSortType sortCondition, string searchQuery)
+        public static List<Product> GetSortedFilteredProducts(List<Product> products, List<ProductCondition> selectedConditions, List<ProductCategory> selectedCategories, List<ProductTag> selectedTags, ProductSortType sortCondition, string searchQuery)
         {
             List<Product> productResultSet = new List<Product>();
-            foreach (Product product in this.GetProducts())
+            foreach (Product product in products)
             {
                 bool matchesConditions = selectedConditions == null || selectedConditions.Count == 0 || selectedConditions.Any(c => c.id == product.Condition.id);
                 bool matchesCategories = selectedCategories == null || selectedCategories.Count == 0 || selectedCategories.Any(c => c.id == product.Category.id);

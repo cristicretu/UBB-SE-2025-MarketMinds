@@ -17,6 +17,7 @@ using Windows.Foundation;
 using Windows.Foundation.Collections;
 using UiLayer;
 using BusinessLogicLayer.Services;
+using BusinessLogicLayer.ViewModel;
 using DataAccessLayer;
 using DataAccessLayer.Repositories;
 using DomainLayer.Domain;
@@ -53,22 +54,30 @@ namespace MarketMinds
             // Instantiate repositories
             var categoryRepository = new ProductCategoryRepository(dataBaseConnection);
             var conditionRepository = new ProductConditionRepository(dataBaseConnection);
+            var tagRepository = new ProductTagRepository(dataBaseConnection);
             var auctionRepository = new AuctionProductsRepository(dataBaseConnection);
             var borrowRepository = new BorrowProductsRepository(dataBaseConnection);
             var buyRepository = new BorrowProductsRepository(dataBaseConnection);
 
             // 4. Instantiate services
+            var productService = new ProductService(borrowRepository);
             var buyProductsService = new BuyProductsService(buyRepository);
             var borrowProductsService = new BorrowProductsService(borrowRepository);
             var auctionProductsService = new AuctionProductsService(auctionRepository);
             var categoryService = new ProductCategoryService(categoryRepository);
+            var tagService = new ProductTagService(tagRepository);
             var conditionService = new ProductConditionService(conditionRepository);
 
             buyProductsViewModel = new BuyProductsViewModel(buyProductsService);
             auctionProductsViewModel = new AuctionProductsViewModel(auctionProductsService);
             productCategoryViewModel = new ProductCategoryViewModel(categoryService);
+            productTagViewModel = new ProductTagViewModel(tagService);
             productConditionViewModel = new ProductConditionViewModel(conditionService);
             borrowProductsViewModel = new BorrowProductsViewModel(borrowProductsService);
+            
+            auctionProductSortAndFilterViewModel = new SortAndFilterViewModel(auctionProductsService);
+            borrowProductSortAndFilterViewModel = new SortAndFilterViewModel(borrowProductsService);
+            buyProductSortAndFilterViewModel = new SortAndFilterViewModel(buyProductsService);
         }
 
         private Window mainWindow;
@@ -78,5 +87,10 @@ namespace MarketMinds
         public static AuctionProductsViewModel auctionProductsViewModel { get; private set; }
         public static ProductCategoryViewModel productCategoryViewModel { get; private set; }
         public static ProductConditionViewModel productConditionViewModel { get; private set; }
+        public static ProductTagViewModel productTagViewModel { get; private set; }
+        
+        public static SortAndFilterViewModel auctionProductSortAndFilterViewModel { get; private set; }
+        public static SortAndFilterViewModel borrowProductSortAndFilterViewModel { get; private set; }
+        public static SortAndFilterViewModel buyProductSortAndFilterViewModel { get; private set; }
     }
 }
