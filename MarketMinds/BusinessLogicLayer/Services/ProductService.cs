@@ -40,10 +40,9 @@ namespace BusinessLogicLayer.Services
             //productRepository.UpdateProduct(product);
         }
 
-        public void DeleteProduct(int id)
+        public void DeleteProduct(Product product)
         {
-            //ERROR
-            //productRepository.DeleteProduct(id);
+            productRepository.DeleteProduct(product);
         }
 
         public static List<Product> GetSortedFilteredProducts(List<Product> products, List<ProductCondition> selectedConditions, List<ProductCategory> selectedCategories, List<ProductTag> selectedTags, ProductSortType sortCondition, string searchQuery)
