@@ -59,7 +59,7 @@ namespace MarketMinds
             var tagRepository = new ProductTagRepository(dataBaseConnection);
             var auctionRepository = new AuctionProductsRepository(dataBaseConnection);
             var borrowRepository = new BorrowProductsRepository(dataBaseConnection);
-            var buyRepository = new BorrowProductsRepository(dataBaseConnection);
+            var buyRepository = new BuyProductsRepository(dataBaseConnection);
             var reviewRepository = new ReviewRepository(dataBaseConnection);
             var basketRepository = new BasketRepository(dataBaseConnection);
 
