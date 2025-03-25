@@ -101,6 +101,8 @@ namespace DataAccessLayer.Repositories
                 }
             }
             connection.CloseConnection();
+        
+
             return auctions;
         }
 
