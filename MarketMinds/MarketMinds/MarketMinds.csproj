@@ -14,6 +14,7 @@
   </PropertyGroup>
   <ItemGroup>
     <None Remove="FilterDialog.xaml" />
+    <None Remove="SeeBuyerReviewsView.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -45,6 +46,11 @@
     <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj" />
     <ProjectReference Include="..\DomainLayer\DomainLayer.csproj" />
     <ProjectReference Include="..\ViewModelLayer\ViewModelLayer.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="SeeBuyerReviewsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="FilterDialog.xaml" />
