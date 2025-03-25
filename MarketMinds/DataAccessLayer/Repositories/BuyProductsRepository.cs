@@ -79,7 +79,7 @@ namespace DataAccessLayer.Repositories
             connection.CloseConnection();
         }
 
-        public void DeleteBuyProduct(BuyProduct product)
+        public override void DeleteProduct(Product product)
         {
             string query = "DELETE FROM BuyProducts WHERE id = @Id";
 
@@ -304,14 +304,7 @@ namespace DataAccessLayer.Repositories
             return buys;
         }
 
-        public override void UpdateProduct(Product product)
-        {
-            
-        }
+        public override void UpdateProduct(Product product) { }
 
-        public override void DeleteProduct(Product product)
-        {
-            
-        }
     }
 }
