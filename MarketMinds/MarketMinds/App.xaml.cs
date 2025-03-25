@@ -72,6 +72,9 @@ namespace MarketMinds
             auctionProductsViewModel = new AuctionProductsViewModel(auctionProductsService);
             productCategoryViewModel = new ProductCategoryViewModel(categoryService);
             productConditionViewModel = new ProductConditionViewModel(conditionService);
+
+            var basketRepository = new BasketRepository(dataBaseConnection);
+            basketService = new BasketService(basketRepository);
             borrowProductsViewModel = new BorrowProductsViewModel(borrowProductsService);
         }
 
@@ -82,5 +85,7 @@ namespace MarketMinds
         public static AuctionProductsViewModel auctionProductsViewModel { get; private set; }
         public static ProductCategoryViewModel productCategoryViewModel { get; private set; }
         public static ProductConditionViewModel productConditionViewModel { get; private set; }
+
+        public static BasketService basketService { get; private set; }
     }
 }
