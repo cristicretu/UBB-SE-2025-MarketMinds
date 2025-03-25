@@ -111,7 +111,7 @@ CREATE TABLE BorrowProductProductTags (
 -- AUCTION PRODUCTS --
 CREATE TABLE AuctionProducts (
 	id INT PRIMARY KEY IDENTITY(1,1),
-    	title NVARCHAR(100) NOT NULL,
+    title NVARCHAR(100) NOT NULL,
 	description NVARCHAR(3000) NULL,
 	seller_id INT NOT NULL,
 	condition_id INT NOT NULL,
@@ -200,3 +200,111 @@ DROP TABLE IF EXISTS ProductConditions;
 
 -- Drop Users table last since many tables reference it
 DROP TABLE IF EXISTS .Users;
+
+
+
+
+
+
+
+-- SQL QUERRIES FOR INSERTING DATA
+
+
+-- ADD USERS FIRST
+INSERT INTO Users (email, username, userType, balance, rating, passwordHash)
+VALUES 
+('alice@example.com', 'alice123', 1, 500.00, 4.5, 'hashedpassword1'),
+('bob@example.com', 'bob321', 2, 1000.00, 4.8, 'hashedpassword2');
+
+--ADD PRODUCT CONDITIONS, CATEGORIES AND TAGS
+INSERT INTO ProductConditions (title, description)
+VALUES 
+('New', 'Brand new item, unopened'),
+('Used', 'Item has been previously used');
+
+INSERT INTO ProductCategories (title, description)
+VALUES 
+('Electronics', 'Devices like phones, laptops, etc.'),
+('Furniture', 'Chairs, tables, beds, etc.');
+
+INSERT INTO ProductTags (title)
+VALUES 
+('Tech'),
+('Home'),
+('Vintage');
+
+
+
+
+-- INSERT QUERRIES FOR AUCTION PRODUCTS
+
+INSERT INTO AuctionProducts (title, description, seller_id, condition_id, category_id,    start_datetime, end_datetime, starting_price, current_price)
+VALUES 
+('Used iPhone 12', 'Still works great. Minor scratches.', 1, 2, 1, '2025-03-25 10:00:00', '2025-03-30 10:00:00', 300.00, 300.00) , 	
+('Gaming Laptop', 'High-end gaming laptop with RTX 3070.', 2, 1, 1, '2025-03-26 09:00:00', '2025-03-29 09:00:00', 800.00, 800.00),
+('Antique Clock', 'Old collectible wall clock.', 1, 2, 2, '2025-03-24 15:00:00', '2025-03-28 15:00:00', 100.00, 100.00),
+('Smartwatch', 'Waterproof smartwatch with GPS.', 2, 1, 1, '2025-03-27 14:00:00', '2025-03-31 14:00:00', 120.00, 120.00),
+('Bluetooth Speaker', 'Compact speaker with deep bass.', 1, 1, 1, '2025-03-26 11:00:00', '2025-03-29 11:00:00', 40.00, 40.00);
+
+INSERT INTO AuctionProductsImages (url, product_id)
+VALUES 
+('https://imgur.com/XBpDHa7', 1),
+('https://imgur.com/u9j0U5Y', 1),
+('https://imgur.com/YYXgjHM' , 2),
+('https://imgur.com/Yq7jIzr' , 3),
+('https://imgur.com/4XWqyj5' , 3),
+('https://imgur.com/a/vVvRugv' , 4),
+('https://imgur.com/a/zK6LJX5' , 5),
+('https://imgur.com/srDfm59' , 5);
+
+
+INSERT INTO AuctionProductProductTags (product_id, tag_id)
+VALUES 
+(1, 1),
+(1, 3),
+(2, 1),
+(3, 3),
+(4 , 1),
+(4 , 2),
+(5 , 1),
+(5 , 2);
+
+INSERT INTO Bids (bidder_id, product_id, price, timestamp)
+VALUES 
+(2, 1, 350.00, '2025-03-25 12:30:00');
+
+
+
+
+-- INSERT QUERRIES FOR BORROW PRODUCTS
+
+INSERT INTO BorrowProducts (title, description, seller_id, condition_id, category_id, time_limit, start_date, end_date, daily_rate, is_borrowed) 
+VALUES 
+('Office Chair', 'Ergonomic office chair, adjustable height and recline.', 1, 1, 2, '2025-04-15', NULL, NULL, 5.00, 0), 
+
+
+INSERT INTO BorrowProductImages (url, product_id)
+VALUES 
+('https://example.com/images/office-chair.jpg', 1);
+
+INSERT INTO BorrowProductProductTags (product_id, tag_id)
+VALUES 
+(1, 2);
+
+
+-- INSERT QUERRIES FOR BUY PRODUCTS
+
+INSERT INTO BuyProducts (
+    title, description, seller_id, condition_id, category_id, price
+) VALUES (
+    'Wireless Headphones', 'Brand new noise-cancelling headphones with long battery life.',
+    2, 1, 1, 120.00
+);
+
+INSERT INTO BuyProductImages (url, product_id)
+VALUES 
+('https://example.com/images/headphones.jpg', 1);
+
+INSERT INTO BuyProductProductTags (product_id, tag_id)
+VALUES 
+(1, 1);
