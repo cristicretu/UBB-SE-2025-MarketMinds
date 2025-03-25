@@ -1,3 +1,4 @@
+using BusinessLogicLayer.Services;
 using BusinessLogicLayer.ViewModel;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -26,10 +27,15 @@ namespace MarketMinds
     public sealed partial class SeeBuyerReviewsView : Window
     {
         public SeeBuyerReviewsViewModel ViewModel { get; set; }
+        
         public SeeBuyerReviewsView(SeeBuyerReviewsViewModel viewModel)
         {
             ViewModel = viewModel;
+            viewModel.refreshData();
             this.InitializeComponent();
+            // Show/hide elements based on review count
+            ReviewsListView.Visibility = ViewModel.reviews.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
+            EmptyMessageTextBlock.Visibility = ViewModel.reviews.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
         }
     }
 }
