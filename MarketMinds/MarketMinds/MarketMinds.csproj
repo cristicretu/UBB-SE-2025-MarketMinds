@@ -11,10 +11,11 @@
     <PublishProfile>win-$(Platform).pubxml</PublishProfile>
     <UseWinUI>true</UseWinUI>
     <EnableMsixTooling>true</EnableMsixTooling>
+	 
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="AuctionProductView.xaml" />
     <None Remove="FilterDialog.xaml" />
-    <None Remove="SeeBuyerReviewsView.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -30,6 +31,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.1742" />
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.7.250310001" />
+	
     <Manifest Include="$(ApplicationManifest)" />
   </ItemGroup>
 
@@ -48,7 +50,7 @@
     <ProjectReference Include="..\ViewModelLayer\ViewModelLayer.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Page Update="SeeBuyerReviewsView.xaml">
+    <Page Update="AuctionProductView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>

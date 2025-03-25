@@ -50,7 +50,8 @@
 
         <!-- Auction Product Listings with Empty Message -->
         <Grid Grid.Row="2">
-            <ListView x:Name="AuctionListView" ItemsSource="{x:Bind auctionProducts, Mode=OneWay}">
+            <ListView x:Name="AuctionListView" ItemsSource="{x:Bind auctionProducts, Mode=OneWay}" IsItemClickEnabled="True"
+          ItemClick="AuctionListView_ItemClick">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <Border BorderThickness="1" BorderBrush="Gray" Padding="10" Margin="5">
