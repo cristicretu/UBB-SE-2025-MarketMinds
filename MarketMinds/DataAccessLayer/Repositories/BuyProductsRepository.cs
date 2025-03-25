@@ -90,6 +90,7 @@ namespace DataAccessLayer.Repositories
 
                 cmd.ExecuteNonQuery();
             }
+            connection.CloseConnection();
         }
 
         private List<ProductTag> GetProductTags(int productId)
@@ -119,7 +120,7 @@ namespace DataAccessLayer.Repositories
                     }
                 }
             }
-
+            connection.CloseConnection();
             return tags;
         }
 
