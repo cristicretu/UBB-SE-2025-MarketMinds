@@ -3,6 +3,8 @@ using ViewModelLayer.ViewModel;
 using BusinessLogicLayer.Services;
 using DomainLayer.Domain;
 using Microsoft.UI.Xaml;
+using System;
+using System.Diagnostics;
 
 namespace MarketMinds
 {
@@ -12,9 +14,20 @@ namespace MarketMinds
 
         public CreateReviewView(ReviewCreateViewModel viewModel)
         {
-            this.InitializeComponent();
             ViewModel = viewModel;
+            this.InitializeComponent();
+        }
 
+        private void handleSubmit_Click(Object sender, RoutedEventArgs e)
+        {
+            if (ViewModel == null)
+            {
+                Debug.WriteLine("ViewModel is null!");
+                return;
+            }
+
+            ViewModel.SubmitReview();
+            this.Close();
         }
     }
 }

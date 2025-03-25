@@ -23,6 +23,13 @@ CREATE TABLE Reviews (
 	CONSTRAINT FK_Reviews_SellerUsers FOREIGN KEY (seller_id) REFERENCES Users(id),
 );
 
+CREATE TABLE ReviewsPictures(
+	id INT PRIMARY KEY IDENTITY(1,1),
+	url NVARCHAR(256) NOT NULL,
+	review_id INT NOT NULL,
+	CONSTRAINT FK_Image_Reviews FOREIGN KEY (review_id) REFERENCES Reviews(id)
+);
+
 CREATE TABLE ProductConditions (
     id INT PRIMARY KEY IDENTITY(1,1),
     title NVARCHAR(100) NOT NULL,
@@ -191,6 +198,7 @@ DROP TABLE IF EXISTS BuyProductImages;
 DROP TABLE IF EXISTS BuyProducts;
 
 -- Drop Reviews table (dependent on Users)
+DROP TABLE IF EXISTS ReviewsPictures
 DROP TABLE IF EXISTS Reviews;
 
 -- Drop product category, condition, and tag-related tables

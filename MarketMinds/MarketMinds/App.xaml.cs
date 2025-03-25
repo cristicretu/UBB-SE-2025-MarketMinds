@@ -49,6 +49,7 @@ namespace MarketMinds
             mainWindow = new UiLayer.MainWindow();
             mainWindow.Activate();
             User currentUser = new User(1, "random", "random@gmail.com");
+            User testingUser = new User(2, "seller", "sell@gmail.com");
             
             // Instantiate database connection
             var dataBaseConnection = new DataBaseConnection();
@@ -86,7 +87,7 @@ namespace MarketMinds
             auctionProductSortAndFilterViewModel = new SortAndFilterViewModel(auctionProductsService);
             borrowProductSortAndFilterViewModel = new SortAndFilterViewModel(borrowProductsService);
             buyProductSortAndFilterViewModel = new SortAndFilterViewModel(buyProductsService);
-            reviewCreateViewModel = new ReviewCreateViewModel(reviewsService, currentUser);
+            reviewCreateViewModel = new ReviewCreateViewModel(reviewsService, currentUser, testingUser);
             //seeSellerReviewsViewModel = new SeeSellerReviewsViewModel(reviewRepository, currentUser); this one in the product window
             seeBuyerReviewsViewModel = new SeeBuyerReviewsViewModel(reviewsService, currentUser);
         }
