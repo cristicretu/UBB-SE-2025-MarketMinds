@@ -56,6 +56,7 @@ namespace MarketMinds
             var auctionRepository = new AuctionProductsRepository(dataBaseConnection);
             var borrowRepository = new BorrowProductsRepository(dataBaseConnection);
             var buyRepository = new BorrowProductsRepository(dataBaseConnection);
+            var reviewRepository = new ReviewRepository(dataBaseConnection);
 
             // 4. Instantiate services
             var buyProductsService = new BuyProductsService(buyRepository);
@@ -63,6 +64,9 @@ namespace MarketMinds
             var auctionProductsService = new AuctionProductsService(auctionRepository);
             var categoryService = new ProductCategoryService(categoryRepository);
             var conditionService = new ProductConditionService(conditionRepository);
+            var reviewsService = new ReviewsService(reviewRepository);
+
+            // Instantiate view models
 
             buyProductsViewModel = new BuyProductsViewModel(buyProductsService);
             auctionProductsViewModel = new AuctionProductsViewModel(auctionProductsService);
