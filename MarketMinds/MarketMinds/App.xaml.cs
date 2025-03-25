@@ -54,27 +54,30 @@ namespace MarketMinds
             var categoryRepository = new ProductCategoryRepository(dataBaseConnection);
             var conditionRepository = new ProductConditionRepository(dataBaseConnection);
             var auctionRepository = new AuctionProductsRepository(dataBaseConnection);
-            // var borrowRepository = ... de adaugat
-            //var buyRepository = ... de adaugat
+            var borrowRepository = new BorrowProductsRepository(dataBaseConnection);
+            var buyRepository = new BorrowProductsRepository(dataBaseConnection);
 
             // 4. Instantiate services
-            // buyProductsService = ... de adaugat
-            // borrowProductsService = ... de adaugat
-
+            var buyProductsService = new BuyProductsService(buyRepository);
+            var borrowProductsService = new BorrowProductsService(borrowRepository);
             var auctionProductsService = new AuctionProductsService(auctionRepository);
             var categoryService = new ProductCategoryService(categoryRepository);
             var conditionService = new ProductConditionService(conditionRepository);
 
+            buyProductsViewModel = new BuyProductsViewModel(buyProductsService);
             auctionProductsViewModel = new AuctionProductsViewModel(auctionProductsService);
             productCategoryViewModel = new ProductCategoryViewModel(categoryService);
             productConditionViewModel = new ProductConditionViewModel(conditionService);
 
             var basketRepository = new BasketRepository(dataBaseConnection);
             basketService = new BasketService(basketRepository);
+            borrowProductsViewModel = new BorrowProductsViewModel(borrowProductsService);
         }
 
         private Window mainWindow;
         
+        public static BuyProductsViewModel buyProductsViewModel { get; private set; }
+        public static BorrowProductsViewModel borrowProductsViewModel { get; private set; }
         public static AuctionProductsViewModel auctionProductsViewModel { get; private set; }
         public static ProductCategoryViewModel productCategoryViewModel { get; private set; }
         public static ProductConditionViewModel productConditionViewModel { get; private set; }
