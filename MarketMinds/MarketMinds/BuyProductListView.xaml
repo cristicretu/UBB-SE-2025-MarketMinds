@@ -24,10 +24,11 @@
                      PlaceholderText="Search by title, category, or tag..."
                      TextChanged="SearchTextBox_TextChanged"/>
             <Button x:Name="FilterButton" 
-                    Content="&#x1F50D;"  
                     Width="40" Height="40" 
                     Margin="0,0,10,0"
-                    Click="FilterButton_Click"/>
+                    Click="FilterButton_Click">
+                <SymbolIcon Symbol="Filter"/>
+            </Button>
             <Button x:Name="SortButton" 
                     Content="&#x2195;" 
                     Width="40" Height="40"
@@ -38,6 +39,8 @@
         <ComboBox x:Name="SortingComboBox" Grid.Row="1" Width="200" 
                   Visibility="Collapsed" 
                   SelectionChanged="SortingComboBox_SelectionChanged">
+            <ComboBoxItem Content="Seller Rating (Best to Worst)" Tag="SellerRatingDesc"/>
+            <ComboBoxItem Content="Seller Rating (Worst to Best)" Tag="SellerRatingAsc"/>
             <ComboBoxItem Content="Price (Low to High)" Tag="PriceAsc"/>
             <ComboBoxItem Content="Price (High to Low)" Tag="PriceDesc"/>
         </ComboBox>
@@ -57,6 +60,15 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+        
+        <!-- This TextBlock will be shown when there are no items -->
+        <TextBlock x:Name="EmptyMessageTextBlock"
+                   Text="No results found."
+                   Visibility="Collapsed"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   FontSize="16"
+                   Foreground="Gray"/>
 
         <!-- Pagination Controls -->
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="3" Margin="0,10,0,0">

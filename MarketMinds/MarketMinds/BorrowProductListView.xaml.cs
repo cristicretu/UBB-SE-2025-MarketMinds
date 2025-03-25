@@ -57,6 +57,15 @@ namespace UiLayer
             borrowProducts.Clear();
             foreach (var item in pageItems)
                 borrowProducts.Add(item);
+            
+            if (borrowProducts.Count == 0)
+            {
+                EmptyMessageTextBlock.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                EmptyMessageTextBlock.Visibility = Visibility.Collapsed;
+            }
 
             UpdatePaginationDisplay();
         }
@@ -127,6 +136,10 @@ namespace UiLayer
         {
             switch (sortTag)
             {
+                case "SellerRatingAsc":
+                    return new ProductSortType("Seller Rating", "SellerRating", true);
+                case "SellerRatingDesc":
+                    return new ProductSortType("Seller Rating", "SellerRating", false);
                 case "DailyRateAsc":
                     return new ProductSortType("Daily Rate", "DailyRate", true);
                 case "DailyRateDesc":

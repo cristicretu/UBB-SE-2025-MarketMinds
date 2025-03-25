@@ -56,6 +56,16 @@ namespace UiLayer
             buyProducts.Clear();
             foreach (var item in pageItems)
                 buyProducts.Add(item);
+            
+            // Show the empty message if no items exist
+            if (buyProducts.Count == 0)
+            {
+                EmptyMessageTextBlock.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                EmptyMessageTextBlock.Visibility = Visibility.Collapsed;
+            }
 
             UpdatePaginationDisplay();
         }
@@ -126,6 +136,10 @@ namespace UiLayer
         {
             switch (sortTag)
             {
+                case "SellerRatingAsc":
+                    return new ProductSortType("Seller Rating", "SellerRating", true);
+                case "SellerRatingDesc":
+                    return new ProductSortType("Seller Rating", "SellerRating", false);
                 case "PriceAsc":
                     return new ProductSortType("Price", "Price", true);
                 case "PriceDesc":
