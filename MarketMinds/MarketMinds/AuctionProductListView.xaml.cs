@@ -33,7 +33,7 @@ namespace UiLayer
 
             auctionProducts = new ObservableCollection<AuctionProduct>();
             // Initially load all auction products
-            currentFullList = auctionProductsViewModel.GetAllAuctionProducts();
+            currentFullList = auctionProductsViewModel.GetAllProducts();
             ApplyFiltersAndPagination();
         }
 
@@ -54,20 +54,33 @@ namespace UiLayer
         private void LoadCurrentPage()
         {
             var pageItems = currentFullList
-                                .Skip((currentPage - 1) * itemsPerPage)
-                                .Take(itemsPerPage)
-                                .ToList();
+                .Skip((currentPage - 1) * itemsPerPage)
+                .Take(itemsPerPage)
+                .ToList();
 
             auctionProducts.Clear();
             foreach (var item in pageItems)
                 auctionProducts.Add(item);
 
+            // Show the empty message if no items exist
+            if (auctionProducts.Count == 0)
+            {
+                EmptyMessageTextBlock.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                EmptyMessageTextBlock.Visibility = Visibility.Collapsed;
+            }
+
             UpdatePaginationDisplay();
         }
 
+
         private void UpdatePaginationDisplay()
         {
-            PaginationTextBlock.Text = $"Page {currentPage} of {totalPages + 1}";
+            PaginationTextBlock.Text = totalPages == 0 ?
+                $"Page {currentPage} of 1" :
+                $"Page {currentPage} of {totalPages}";
             PreviousButton.IsEnabled = currentPage > 1;
             NextButton.IsEnabled = currentPage < totalPages;
         }

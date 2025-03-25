@@ -12,11 +12,11 @@ namespace BusinessLogicLayer.ViewModel
     {
         private ProductService productService;
 
-        private List<ProductCondition> selectedConditions;
-        private List<ProductCategory> selectedCategories;
-        private List<ProductTag> selectedTags;
-        private ProductSortType? sortCondition;
-        private string searchQuery;
+        public List<ProductCondition> selectedConditions { get; set;}
+        public List<ProductCategory> selectedCategories { get; set;}
+        public List<ProductTag> selectedTags { get; set;}
+        public ProductSortType? sortCondition { get; set; }
+        public string searchQuery { get; set; }
         
         public SortAndFilterViewModel(ProductService productService)
         {

@@ -13,7 +13,7 @@ public class AuctionProductsViewModel
         this.auctionProductsService = auctionProductsService;
     }
     
-    public List<AuctionProduct> GetAllAuctionProducts()
+    public List<AuctionProduct> GetAllProducts()
     {
         var auctionProducts = new List<AuctionProduct>();
         foreach (var product in auctionProductsService.GetProducts())

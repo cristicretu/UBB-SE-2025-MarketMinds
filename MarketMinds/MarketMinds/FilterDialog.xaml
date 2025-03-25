@@ -6,43 +6,57 @@
     Title="Filter Listings"
     PrimaryButtonText="Apply"
     SecondaryButtonText="Cancel">
-    <StackPanel>
-        <!-- Conditions ListView -->
-        <TextBlock Text="Conditions:" FontWeight="Bold" Margin="0,10,0,0"/>
-        <ListView x:Name="ConditionListView" SelectionMode="Multiple">
-            <ListView.ItemTemplate>
-                <DataTemplate x:DataType="domain:ProductCondition">
-                    <StackPanel Orientation="Vertical" Padding="5">
-                        <TextBlock Text="{x:Bind displayTitle}" FontWeight="Bold"/>
-                        <TextBlock Text="{x:Bind description}" FontSize="12" Foreground="Gray"/>
-                    </StackPanel>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+  <ScrollViewer>
+    <StackPanel Padding="10">
+      <!-- Conditions Section -->
+      <TextBlock Text="Conditions:" FontWeight="Bold" Margin="0,10,0,0"/>
+      <ListView x:Name="ConditionListView" SelectionMode="Multiple" Height="150">
+        <ListView.ItemTemplate>
+          <DataTemplate x:DataType="domain:ProductCondition">
+            <Border Padding="5" Margin="2" Background="Transparent">
+              <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{x:Bind displayTitle}" FontWeight="Bold"/>
+                <!-- Optionally, you can add an X button for individual removal -->
+              </StackPanel>
+            </Border>
+          </DataTemplate>
+        </ListView.ItemTemplate>
+      </ListView>
 
-        <!-- Categories ListView -->
-        <TextBlock Text="Categories:" FontWeight="Bold" Margin="0,10,0,0"/>
-        <ListView x:Name="CategoryListView" SelectionMode="Multiple">
-            <ListView.ItemTemplate>
-                <DataTemplate x:DataType="domain:ProductCategory">
-                    <StackPanel Orientation="Vertical" Padding="5">
-                        <TextBlock Text="{x:Bind displayTitle}" FontWeight="Bold"/>
-                        <TextBlock Text="{x:Bind description}" FontSize="12" Foreground="Gray"/>
-                    </StackPanel>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+      <!-- Categories Section -->
+      <TextBlock Text="Categories:" FontWeight="Bold" Margin="0,10,0,0"/>
+      <TextBox x:Name="CategorySearchBox" PlaceholderText="Search categories..." TextChanged="CategorySearchBox_TextChanged"/>
+      <ListView x:Name="CategoryListView" SelectionMode="Multiple" Height="150">
+        <ListView.ItemTemplate>
+          <DataTemplate x:DataType="domain:ProductCategory">
+            <Border Padding="5" Margin="2" Background="Transparent">
+              <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{x:Bind displayTitle}" FontWeight="Bold"/>
+              </StackPanel>
+            </Border>
+          </DataTemplate>
+        </ListView.ItemTemplate>
+      </ListView>
+      <Button x:Name="ViewMoreCategoriesButton" Content="View More" Click="ViewMoreCategoriesButton_Click" Visibility="Collapsed"/>
 
-        <!-- Tags ListView -->
-        <TextBlock Text="Tags:" FontWeight="Bold" Margin="0,10,0,0"/>
-        <ListView x:Name="TagListView" SelectionMode="Multiple">
-            <ListView.ItemTemplate>
-                <DataTemplate x:DataType="domain:ProductTag">
-                    <StackPanel Orientation="Vertical" Padding="5">
-                        <TextBlock Text="{x:Bind displayTitle}" FontWeight="Bold"/>
-                    </StackPanel>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+      <!-- Tags Section -->
+      <TextBlock Text="Tags:" FontWeight="Bold" Margin="0,10,0,0"/>
+      <TextBox x:Name="TagSearchBox" PlaceholderText="Search tags..." TextChanged="TagSearchBox_TextChanged"/>
+      <ListView x:Name="TagListView" SelectionMode="Multiple" Height="150">
+        <ListView.ItemTemplate>
+          <DataTemplate x:DataType="domain:ProductTag">
+            <Border Padding="5" Margin="2" Background="Transparent">
+              <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{x:Bind displayTitle}" FontWeight="Bold"/>
+              </StackPanel>
+            </Border>
+          </DataTemplate>
+        </ListView.ItemTemplate>
+      </ListView>
+      <Button x:Name="ViewMoreTagsButton" Content="View More" Click="ViewMoreTagsButton_Click" Visibility="Collapsed"/>
+
+      <!-- Clear All Button -->
+      <Button Content="Clear All" Click="ClearAllButton_Click" Margin="0,10,0,0"/>
     </StackPanel>
+  </ScrollViewer>
 </ContentDialog>
