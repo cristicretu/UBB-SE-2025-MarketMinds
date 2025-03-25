@@ -17,9 +17,9 @@ namespace DataAccessLayer.Repositories
             this.connection = connection;
         }
 
-        public void SaveBorrowProduct(BorrowProduct product)
+        public override void AddProduct(Product product)
         {
-            BorrowProduct borrow = product;
+            BorrowProduct borrow = (BorrowProduct) product;
             if (borrow == null)
                 throw new ArgumentException("Product must be of type BorrowProduct.");
 
@@ -38,7 +38,7 @@ namespace DataAccessLayer.Repositories
             {
                 cmd.Parameters.AddWithValue("@Title", borrow.Title);
                 cmd.Parameters.AddWithValue("@Description", borrow.Description);
-                cmd.Parameters.AddWithValue("@SellerId", borrow.Seller.id);
+                cmd.Parameters.AddWithValue("@SellerId", borrow.Seller.Id);
                 cmd.Parameters.AddWithValue("@ConditionId", borrow.Condition.id);
                 cmd.Parameters.AddWithValue("@CategoryId", borrow.Category.id);
                 cmd.Parameters.AddWithValue("@TimeLimit", borrow.TimeLimit);
@@ -90,7 +90,7 @@ namespace DataAccessLayer.Repositories
             connection.OpenConnection();
             using (SqlCommand cmd = new SqlCommand(query, connection.GetConnection()))
             {
-                cmd.Parameters.AddWithValue("@Id", product.id);
+                cmd.Parameters.AddWithValue("@Id", product.Id);
 
                 cmd.ExecuteNonQuery();
             }
@@ -157,9 +157,9 @@ namespace DataAccessLayer.Repositories
             return images;
         }
 
-        public BorrowProduct GetBorrowProductByID(int productId)
+        public override Product GetProductByID(int productId)
         {
-            BorrowProduct borrow = new BorrowProduct();
+            BorrowProduct borrow = null;
 
             string query = @"
                             SELECT 
@@ -219,7 +219,7 @@ namespace DataAccessLayer.Repositories
 
                         List<Image> images = GetProductImages(id);
 
-                        borrow = BorrowProduct(
+                        borrow = new BorrowProduct(
                             id,
                             title,
                             description,
@@ -240,7 +240,7 @@ namespace DataAccessLayer.Repositories
             return borrow;
         }
 
-        public List<Product> GetAllProducts()
+        public override List<Product> GetProducts()
         {
             var borrows = new List<Product>();
 
