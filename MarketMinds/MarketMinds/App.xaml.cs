@@ -22,6 +22,7 @@ using DataAccessLayer;
 using DataAccessLayer.Repositories;
 using DomainLayer.Domain;
 using ViewModelLayer.ViewModel;
+using BusinessLogicLayer.ViewModel;
 
 namespace MarketMinds
 {
@@ -47,6 +48,7 @@ namespace MarketMinds
         {
             mainWindow = new UiLayer.MainWindow();
             mainWindow.Activate();
+            User currentUser = new User(1, "random", "random@gmail.com");
             
             // Instantiate database connection
             var dataBaseConnection = new DataBaseConnection();
@@ -58,6 +60,8 @@ namespace MarketMinds
             var auctionRepository = new AuctionProductsRepository(dataBaseConnection);
             var borrowRepository = new BorrowProductsRepository(dataBaseConnection);
             var buyRepository = new BorrowProductsRepository(dataBaseConnection);
+            var reviewRepository = new ReviewRepository(dataBaseConnection);
+            var basketRepository = new BasketRepository(dataBaseConnection);
 
             // 4. Instantiate services
             var productService = new ProductService(borrowRepository);
@@ -67,6 +71,10 @@ namespace MarketMinds
             var categoryService = new ProductCategoryService(categoryRepository);
             var tagService = new ProductTagService(tagRepository);
             var conditionService = new ProductConditionService(conditionRepository);
+            var reviewsService = new ReviewsService(reviewRepository);
+            var basketService = new BasketService(basketRepository);
+
+            // Instantiate view models
 
             buyProductsViewModel = new BuyProductsViewModel(buyProductsService);
             auctionProductsViewModel = new AuctionProductsViewModel(auctionProductsService);
@@ -78,6 +86,9 @@ namespace MarketMinds
             auctionProductSortAndFilterViewModel = new SortAndFilterViewModel(auctionProductsService);
             borrowProductSortAndFilterViewModel = new SortAndFilterViewModel(borrowProductsService);
             buyProductSortAndFilterViewModel = new SortAndFilterViewModel(buyProductsService);
+            reviewCreateViewModel = new ReviewCreateViewModel(reviewsService, currentUser);
+            //seeSellerReviewsViewModel = new SeeSellerReviewsViewModel(reviewRepository, currentUser); this one in the product window
+            seeBuyerReviewsViewModel = new SeeBuyerReviewsViewModel(reviewsService, currentUser);
         }
 
         private Window mainWindow;
@@ -92,5 +103,8 @@ namespace MarketMinds
         public static SortAndFilterViewModel auctionProductSortAndFilterViewModel { get; private set; }
         public static SortAndFilterViewModel borrowProductSortAndFilterViewModel { get; private set; }
         public static SortAndFilterViewModel buyProductSortAndFilterViewModel { get; private set; }
+        public static ReviewCreateViewModel reviewCreateViewModel { get; private set; }
+        public static SeeBuyerReviewsViewModel seeBuyerReviewsViewModel { get; private set; }
+        public static BasketService basketService { get; private set; }
     }
 }

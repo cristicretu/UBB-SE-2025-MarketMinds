@@ -1,3 +1,4 @@
+using MarketMinds;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -57,10 +58,17 @@ namespace UiLayer
             basketViewWindow.Activate();
         }
 
+        private void handleLeaveReviewButton_Click(Object sender, RoutedEventArgs e)
+        {
+            leaveReviewViewWindow = new CreateReviewView();
+            leaveReviewViewWindow.Activate();
+        }
+
         private Window basketViewWindow;
         private Window auctionProductListViewWindow;
         private Window borrowProductListViewWindow;
         private Window buyProductListViewWindow;
         private Window adminViewWindow;
+        private Window leaveReviewViewWindow;
     }
 }

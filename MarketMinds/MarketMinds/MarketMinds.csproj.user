@@ -6,6 +6,7 @@
       <SubType>Designer</SubType>
     </None>
     <Page Update="FilterDialog.xaml">
+    <Page Update="CreateReviewView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="BasketView.xaml">
