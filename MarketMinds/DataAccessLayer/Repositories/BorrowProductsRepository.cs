@@ -295,7 +295,7 @@ namespace DataAccessLayer.Repositories
 
                         List<ProductTag> tags = GetProductTags(id);
 
-                        List<Image> images = GetProductImages(id);
+                        List<Image> images = GetProductImages( id);
 
                         borrow = new BorrowProduct(
                             id,
