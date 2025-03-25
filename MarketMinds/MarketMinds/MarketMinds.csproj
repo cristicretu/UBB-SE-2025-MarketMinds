@@ -47,7 +47,7 @@
     <ProjectReference Include="..\ViewModelLayer\ViewModelLayer.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Page Update="FilterDialog.xaml"/>
+    <Page Update="FilterDialog.xaml" />
     <Page Update="CreateReviewView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>

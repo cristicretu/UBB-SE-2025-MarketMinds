@@ -26,7 +26,13 @@
             Background="Transparent">
             <FontIcon Glyph="&#xE719;" FontSize="24"/>
         </Button>
-
+        <Button x:Name="LeaveReviewViewButton" Content="Leave a Review"
+            VerticalAlignment="Top"
+            HorizontalAlignment="Right"
+            Width="150" Height="50" Margin="0,20,80,0"
+            Click="handleLeaveReviewButton_Click"/>
+        <!-- Temporary Create Review button, should be moved to seeOrders-->
+        
         <!-- Product View Buttons Centered -->
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
             <Button x:Name="AuctionProductListViewButton" Content="View Auction Products"
