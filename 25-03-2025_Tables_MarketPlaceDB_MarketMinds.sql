@@ -243,18 +243,31 @@ VALUES
 ('Used iPhone 12', 'Still works great. Minor scratches.', 1, 2, 1, '2025-03-25 10:00:00', '2025-03-30 10:00:00', 300.00, 300.00) , 	
 ('Gaming Laptop', 'High-end gaming laptop with RTX 3070.', 2, 1, 1, '2025-03-26 09:00:00', '2025-03-29 09:00:00', 800.00, 800.00),
 ('Antique Clock', 'Old collectible wall clock.', 1, 2, 2, '2025-03-24 15:00:00', '2025-03-28 15:00:00', 100.00, 100.00),
-('Smartwatch', 'Waterproof smartwatch with GPS.', 2, 1, 1, '2025-03-27 14:00:00', '2025-03-31 14:00:00', 120.00, 120.00);
-('Bluetooth Speaker', 'Compact speaker with deep bass.', 1, 1, 1, '2025-03-26 11:00:00', '2025-03-29 11:00:00', 40.00, 55.00);
+('Smartwatch', 'Waterproof smartwatch with GPS.', 2, 1, 1, '2025-03-27 14:00:00', '2025-03-31 14:00:00', 120.00, 120.00),
+('Bluetooth Speaker', 'Compact speaker with deep bass.', 1, 1, 1, '2025-03-26 11:00:00', '2025-03-29 11:00:00', 40.00, 40.00);
 
 INSERT INTO AuctionProductsImages (url, product_id)
 VALUES 
 ('https://imgur.com/XBpDHa7', 1),
-('https://imgur.com/u9j0U5Y', 1);
+('https://imgur.com/u9j0U5Y', 1),
+('https://imgur.com/YYXgjHM' , 2),
+('https://imgur.com/Yq7jIzr' , 3),
+('https://imgur.com/4XWqyj5' , 3),
+('https://imgur.com/a/vVvRugv' , 4),
+('https://imgur.com/a/zK6LJX5' , 5),
+('https://imgur.com/srDfm59' , 5);
+
 
 INSERT INTO AuctionProductProductTags (product_id, tag_id)
 VALUES 
 (1, 1),
-(1, 3);
+(1, 3),
+(2, 1),
+(3, 3),
+(4 , 1),
+(4 , 2),
+(5 , 1),
+(5 , 2);
 
 INSERT INTO Bids (bidder_id, product_id, price, timestamp)
 VALUES 
