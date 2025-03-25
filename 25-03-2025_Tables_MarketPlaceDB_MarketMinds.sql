@@ -280,31 +280,44 @@ VALUES
 
 INSERT INTO BorrowProducts (title, description, seller_id, condition_id, category_id, time_limit, start_date, end_date, daily_rate, is_borrowed) 
 VALUES 
-('Office Chair', 'Ergonomic office chair, adjustable height and recline.', 1, 1, 2, '2025-04-15', NULL, NULL, 5.00, 0), 
+('Professional Camera', 'DSLR camera perfect for events.',1, 1, 1,'2025-03-30', '2025-03-25', '2025-03-30',12.00, 1),
+('Toolbox', 'Complete DIY toolkit for home repairs.',2, 2, 2,'2025-03-30', '2025-03-24', '2025-03-28',4.00, 1)
+
 
 
 INSERT INTO BorrowProductImages (url, product_id)
 VALUES 
-('https://example.com/images/office-chair.jpg', 1);
+('https://imgur.com/a/VO3nqbi', 1),
+('https://imgur.com/a/svDJ5AS', 1),
+('https://imgur.com/a/T3dAC1B' , 2),
+('https://imgur.com/a/BdSpUwZ' , 2);
 
 INSERT INTO BorrowProductProductTags (product_id, tag_id)
 VALUES 
-(1, 2);
+(1, 2),
+(1, 1),
+(2, 2);
 
 
 -- INSERT QUERRIES FOR BUY PRODUCTS
 
-INSERT INTO BuyProducts (
-    title, description, seller_id, condition_id, category_id, price
-) VALUES (
-    'Wireless Headphones', 'Brand new noise-cancelling headphones with long battery life.',
-    2, 1, 1, 120.00
-);
+INSERT INTO BuyProducts (title, description, seller_id, condition_id, category_id, price
+) VALUES 
+('Wireless Headphones', 'Brand new noise-cancelling headphones with long battery life.',2, 1, 1, 120.00),
+ ('Wooden Table', 'Solid oak wood dining table.', 1, 2, 2, 250.00),
+ ('Gaming Mouse', 'RGB, programmable buttons.', 2, 1, 1, 45.00);
 
 INSERT INTO BuyProductImages (url, product_id)
 VALUES 
-('https://example.com/images/headphones.jpg', 1);
+('https://imgur.com/a/MzATm9M', 1),
+('https://imgur.com/a/kDxftlC' , 1),
+('https://imgur.com/a/KPIQiuJ' , 2),
+('https://imgur.com/a/SZmkYky' , 2),
+('https://imgur.com/a/kJY3gKi' , 3);
 
 INSERT INTO BuyProductProductTags (product_id, tag_id)
 VALUES 
-(1, 1);
+(1, 1),
+(2, 2),
+(2, 3),
+(3, 1);
