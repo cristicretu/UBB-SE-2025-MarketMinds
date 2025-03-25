@@ -5,15 +5,20 @@ namespace BusinessLogicLayer.Services;
 
 public class BuyProductsService: ProductService
 {
-    private BorrowProductsRepository buyProductsRepository;
+    private BuyProductsRepository buyProductsRepository;
 
-    public BuyProductsService(BorrowProductsRepository repository): base(repository)
+    public BuyProductsService(BuyProductsRepository repository): base(repository)
     {
         this.buyProductsRepository = repository;
     }
     
-    public List<Product> GetAllProducts()
+    public void CreateListing(Product product)
     {
-        return buyProductsRepository.GetProducts();
+        buyProductsRepository.AddProduct(product);
+    }
+
+    public void DeleteListing(Product product)
+    {
+        buyProductsRepository.DeleteProduct(product);
     }
 }
