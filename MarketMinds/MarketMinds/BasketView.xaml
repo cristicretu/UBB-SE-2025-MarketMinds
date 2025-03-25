@@ -89,9 +89,9 @@
                             <!-- Quantity Selection -->
                             <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center" Margin="10,0">
                                 <Button Content="-" Width="30" Height="30" 
-                                        Command="{Binding DecreaseQuantityCommand}" 
-                                        Click="HandleDecreaseQuantityButton_Click" 
-                                        CommandParameter="{Binding Id}"/>
+                                Click="HandleDecreaseQuantityButton_Click" 
+                                CommandParameter="{Binding Id}"/>
+
                                 <TextBox x:Name="QuantityTextBox" Text="{Binding Quantity, Mode=TwoWay}" 
                                          Width="50" TextAlignment="Center" 
                                          LostFocus="QuantityTextBox_LostFocus" 

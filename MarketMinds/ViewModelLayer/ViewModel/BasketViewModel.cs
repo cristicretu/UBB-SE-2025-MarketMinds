@@ -29,7 +29,6 @@ namespace ViewModelLayer.ViewModel
             InitializeDemoData();
         }
 
-        // For demo - this should be replaced with actual service calls
         private void InitializeDemoData()
         {
             // Create a sample seller
@@ -75,7 +74,7 @@ namespace ViewModelLayer.ViewModel
         public void LoadBasket()
         {
             // In a real implementation, this would load from a service
-            // For now, we're using the demo data that was initialized in the constructor
+            // For now it s using the demo data that was initialized in the constructor
             CalculateTotals();
         }
 
@@ -86,9 +85,6 @@ namespace ViewModelLayer.ViewModel
             {
                 BasketItems.Remove(itemToRemove);
                 CalculateTotals();
-
-                // Debug output to verify the item was removed
-                System.Diagnostics.Debug.WriteLine($"Item {basketItemId} removed. Basket now has {BasketItems.Count} items.");
             }
             else
             {
@@ -114,7 +110,7 @@ namespace ViewModelLayer.ViewModel
 
         public void ApplyPromoCode(string code)
         {
-            // Demo implementation - would usually call a service
+            // Demo implementation should call a service
             if (string.IsNullOrEmpty(code))
             {
                 ErrorMessage = "Please enter a promo code.";
@@ -158,8 +154,8 @@ namespace ViewModelLayer.ViewModel
                 return;
             }
 
-            // This would typically start the checkout process
-            // For now, just set a success message
+            // This would start the checkout process
+            // For now just set a success message
             ErrorMessage = string.Empty;
         }
 

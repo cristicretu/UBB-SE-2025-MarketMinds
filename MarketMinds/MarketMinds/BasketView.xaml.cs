@@ -14,14 +14,13 @@ namespace UiLayer
     {
         private BasketViewModel _basketViewModel;
         private List<BasketItem> _basketItems;
-        private User _currentUser; // This would typically come from a logged-in user session
+        private User _currentUser; // This should come from a logged-in user session, for now it s just a demo
 
         public BasketView()
         {
             this.InitializeComponent();
 
-            // Initialize test user for demo purposes
-            // In a real app, this would be from your login/user management system
+            // Initialize test user for demo run
             _currentUser = new User(1, "TestUser", "test@example.com");
 
             // Get the BasketViewModel from the application
@@ -33,8 +32,6 @@ namespace UiLayer
 
         private void InitializeViewModel()
         {
-            // Create a BasketViewModel directly with the current user
-            // This version doesn't rely on services or repositories
             _basketViewModel = new BasketViewModel(_currentUser);
         }
 
@@ -116,8 +113,6 @@ namespace UiLayer
                 ErrorMessageTextBlock.Visibility = Visibility.Collapsed;
             }
         }
-
-        // Event Handlers
 
         private void HandleRemoveItemButton_Click(object sender, RoutedEventArgs e)
         {
@@ -279,7 +274,6 @@ namespace UiLayer
             {
                 _basketViewModel.Checkout();
                 // Navigate to checkout page or process checkout
-                // This would typically be handled by opening a new window or navigating to a different page
                 ShowCheckoutMessage();
             }
             else
