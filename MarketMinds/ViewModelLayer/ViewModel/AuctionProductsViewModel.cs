@@ -16,7 +16,7 @@ public class AuctionProductsViewModel
     public List<AuctionProduct> GetAllAuctionProducts()
     {
         var auctionProducts = new List<AuctionProduct>();
-        foreach (var product in auctionProductsService.GetAllProducts())
+        foreach (var product in auctionProductsService.GetProducts())
         {
             auctionProducts.Add((AuctionProduct)product);
         }

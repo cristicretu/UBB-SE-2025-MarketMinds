@@ -75,12 +75,13 @@ namespace DataAccessLayer.Repositories
 
                         DateTime start = reader.GetDateTime(reader.GetOrdinal("start_datetime"));
                         DateTime end = reader.GetDateTime(reader.GetOrdinal("end_datetime"));
-                        float startingPrice = reader.GetFloat(reader.GetOrdinal("starting_price"));
+                        //float startingPrice = reader.GetFloat(reader.GetOrdinal("starting_price"));
+                        double startingPriceDouble = reader.GetDouble(reader.GetOrdinal("starting_price"));
+                        float startingPrice = (float)startingPriceDouble;
+                        List<ProductTag> tags = GetProductTags(reader , id);
 
-                        List<ProductTag> tags = GetProductTags(id);
-
-                        List<Image> images = GetImages(id);
-
+                        List<Image> images = GetImages(reader, id);
+                      
                         AuctionProduct auction = new AuctionProduct(
                             id,
                             title,
@@ -103,7 +104,7 @@ namespace DataAccessLayer.Repositories
             return auctions;
         }
 
-        private List<Image> GetImages(int productId)
+        private List<Image> GetImages(SqlDataReader reader , int productId)
         {
             var images = new List<Image>();
 
@@ -112,13 +113,12 @@ namespace DataAccessLayer.Repositories
             FROM AuctionProductsImages
             WHERE product_id = @ProductId";
 
-            connection.OpenConnection();
+         
             using (SqlCommand cmd = new SqlCommand(query, connection.GetConnection()))
             {
                 cmd.Parameters.AddWithValue("@ProductId", productId);
 
-                using (SqlDataReader reader = cmd.ExecuteReader())
-                {
+                
                     while (reader.Read())
                     {
                         int imageId = reader.GetInt32(reader.GetOrdinal("id"));
@@ -126,14 +126,12 @@ namespace DataAccessLayer.Repositories
 
                         images.Add(new Image(url));
                     }
-                }
+                
             }
-            connection.CloseConnection();
-
             return images;
         }
 
-        private List<ProductTag> GetProductTags(int productId)
+        private List<ProductTag> GetProductTags(SqlDataReader reader  , int productId)
         {
             var tags = new List<ProductTag>();
 
@@ -143,24 +141,23 @@ namespace DataAccessLayer.Repositories
         INNER JOIN AuctionProductProductTags apt ON pt.id = apt.tag_id
         WHERE apt.product_id = @ProductId";
 
-            connection.OpenConnection();
+           
             using (SqlCommand cmd = new SqlCommand(query, connection.GetConnection()))
             {
                 cmd.Parameters.AddWithValue("@ProductId", productId);
          
 
-                using (SqlDataReader reader = cmd.ExecuteReader())
+         
+                
+                while (reader.Read())
                 {
-                    while (reader.Read())
-                    {
-                        int tagId = reader.GetInt32(reader.GetOrdinal("id"));
-                        string tagTitle = reader.GetString(reader.GetOrdinal("title"));
+                    int tagId = reader.GetInt32(reader.GetOrdinal("id"));
+                    string tagTitle = reader.GetString(reader.GetOrdinal("title"));
 
-                        tags.Add(new ProductTag(tagId, tagTitle));
-                    }
+                    tags.Add(new ProductTag(tagId, tagTitle));
                 }
+                
             }
-
             return tags;
         }
 
@@ -323,9 +320,9 @@ namespace DataAccessLayer.Repositories
                         DateTime end = reader.GetDateTime(reader.GetOrdinal("end_datetime"));
                         float startingPrice = reader.GetFloat(reader.GetOrdinal("starting_price"));
 
-                        List<ProductTag> tags = GetProductTags(id);
+                    List<ProductTag> tags = GetProductTags(reader, id);
 
-                        List<Image> images = GetImages(id);
+                        List<Image> images = GetImages(reader , id);
 
                         auction = new AuctionProduct(
                             id,
