@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DomainLayer.Domain
 {
-    class BorrowProduct : Product
+    public class BorrowProduct : Product
     {
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }

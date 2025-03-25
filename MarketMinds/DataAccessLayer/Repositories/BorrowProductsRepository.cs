@@ -239,9 +239,9 @@ namespace DataAccessLayer.Repositories
             return borrow;
         }
 
-        public override List<BorrowProduct> GetAllBorrowProducts()
+        public List<Product> GetAllProducts()
         {
-            List<BorrowProduct> borrows = new List<BorrowProduct>();
+            var borrows = new List<Product>();
 
             string query = @"
                             SELECT 

@@ -58,25 +58,21 @@ namespace MarketMinds
             //var buyRepository = ... de adaugat
 
             // 4. Instantiate services
-            auctionProductsService = new AuctionProductsService(auctionRepository);
             // buyProductsService = ... de adaugat
             // borrowProductsService = ... de adaugat
 
+            var auctionProductsService = new AuctionProductsService(auctionRepository);
             var categoryService = new ProductCategoryService(categoryRepository);
             var conditionService = new ProductConditionService(conditionRepository);
 
+            auctionProductsViewModel = new AuctionProductsViewModel(auctionProductsService);
             productCategoryViewModel = new ProductCategoryViewModel(categoryService);
             productConditionViewModel = new ProductConditionViewModel(conditionService);
         }
 
         private Window mainWindow;
-        //public static BuyProductsService buyProductsService { get; private set; }
-
-        //public static BorrowProductsService borrowProductsService { get; private set; }
-        public static AuctionProductsService auctionProductsService { get; private set; }
-
-        public static ProductService productService { get; private set; }
         
+        public static AuctionProductsViewModel auctionProductsViewModel { get; private set; }
         public static ProductCategoryViewModel productCategoryViewModel { get; private set; }
         public static ProductConditionViewModel productConditionViewModel { get; private set; }
     }
