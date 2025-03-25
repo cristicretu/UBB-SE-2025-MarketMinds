@@ -150,7 +150,8 @@ namespace DataAccessLayer.Repositories
                 string categoryDescription = (string)row["categoryDescription"];
                 ProductCategory category = new ProductCategory(categoryId, categoryTitle, categoryDescription);
 
-                float price = (float)row["price"];
+                double priceDouble = (double)row["price"];
+                float price = (float)priceDouble;
 
                 // Fetch tags and images in separate queries
                 List<ProductTag> tags = GetProductTags(id);
@@ -202,7 +203,7 @@ namespace DataAccessLayer.Repositories
 
             string query = @"
         SELECT url
-        FROM BuyProductsImages
+        FROM BuyProductImages
         WHERE product_id = @ProductId";
 
             connection.OpenConnection();

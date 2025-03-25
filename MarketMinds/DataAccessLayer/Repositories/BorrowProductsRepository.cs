@@ -122,7 +122,7 @@ namespace DataAccessLayer.Repositories
             bp.start_date,
             bp.end_date,
             bp.is_borrowed
-        FROM BuyProducts bp
+        FROM BorrowProducts bp
         JOIN Users u ON bp.seller_id = u.id
         JOIN ProductConditions pc ON bp.condition_id = pc.id
         JOIN ProductCategories cat ON bp.category_id = cat.id";
@@ -158,7 +158,9 @@ namespace DataAccessLayer.Repositories
                 string categoryDescription = (string)row["categoryDescription"];
                 ProductCategory category = new ProductCategory(categoryId, categoryTitle, categoryDescription);
 
-                float dailyRate = (float)row["daily_rate"];
+                double dailyRateDouble = (double)row["daily_rate"];
+                float dailyRate = (float)dailyRateDouble;
+
                 DateTime timeLimit = (DateTime)row["time_limit"];
                 DateTime startDate = (DateTime)row["start_date"];
                 DateTime endDate = (DateTime)row["end_date"];
@@ -215,7 +217,7 @@ namespace DataAccessLayer.Repositories
 
             string query = @"
         SELECT url
-        FROM BorrowProductsImages
+        FROM BorrowProductImages
         WHERE product_id = @ProductId";
 
             connection.OpenConnection();
@@ -254,7 +256,7 @@ namespace DataAccessLayer.Repositories
                                 cat.title AS categoryTitle,
                                 cat.description AS categoryDescription,
                                 bp.price
-                            FROM BuyProducts bp
+                            FROM BorrowProducts bp
                             JOIN Users u ON bp.seller_id = u.id
                             JOIN ProductConditions pc ON bp.condition_id = pc.id
                             JOIN ProductCategories cat ON bp.category_id = cat.id
