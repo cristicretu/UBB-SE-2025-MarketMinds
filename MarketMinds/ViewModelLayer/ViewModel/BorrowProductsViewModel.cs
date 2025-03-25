@@ -16,7 +16,7 @@ public class BorrowProductsViewModel
     public List<BorrowProduct> GetAllProducts()
     {
         var borrowProducts = new List<BorrowProduct>();
-        foreach (var product in borrowProductsService.GetAllProducts())
+        foreach (var product in borrowProductsService.GetProducts())
         {
             borrowProducts.Add((BorrowProduct)product);
         }

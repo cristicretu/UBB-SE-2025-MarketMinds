@@ -16,7 +16,7 @@ public class BuyProductsViewModel
     public List<BuyProduct> GetAllProducts()
     {
         var buyProducts = new List<BuyProduct>();
-        foreach (var product in buyProductsService.GetAllProducts())
+        foreach (var product in buyProductsService.GetProducts())
         {
             buyProducts.Add((BuyProduct)product);
         }
