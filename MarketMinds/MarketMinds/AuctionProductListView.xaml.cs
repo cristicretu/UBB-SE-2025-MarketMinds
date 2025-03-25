@@ -67,7 +67,9 @@ namespace UiLayer
 
         private void UpdatePaginationDisplay()
         {
-            PaginationTextBlock.Text = $"Page {currentPage} of {totalPages + 1}";
+            PaginationTextBlock.Text = totalPages == 0 ?
+                $"Page {currentPage} of 1" :
+                $"Page {currentPage} of {totalPages}";
             PreviousButton.IsEnabled = currentPage > 1;
             NextButton.IsEnabled = currentPage < totalPages;
         }
