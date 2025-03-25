@@ -93,7 +93,7 @@ namespace DataAccessLayer.Repositories
             connection.CloseConnection();
         }
 
-        private List<ProductTag> GetProductTags(int productId)
+        private List<ProductTag> GetProductTags(SqlDataReader reader, int productId)
         {
             var tags = new List<ProductTag>();
 
@@ -103,14 +103,10 @@ namespace DataAccessLayer.Repositories
                         INNER JOIN BuyProductProductTags bpt ON pt.id = bpt.tag_id
                         WHERE apt.product_id = @ProductId";
 
-            connection.OpenConnection();
             using (SqlCommand cmd = new SqlCommand(query, connection.GetConnection()))
             {
                 cmd.Parameters.AddWithValue("@ProductId", productId);
 
-
-                using (SqlDataReader reader = cmd.ExecuteReader())
-                {
                     while (reader.Read())
                     {
                         int tagId = reader.GetInt32(reader.GetOrdinal("id"));
@@ -118,13 +114,11 @@ namespace DataAccessLayer.Repositories
 
                         tags.Add(new ProductTag(tagId, tagTitle));
                     }
-                }
             }
-            connection.CloseConnection();
             return tags;
         }
 
-        private List<Image> GetProductImages(int productId)
+        private List<Image> GetProductImages(SqlDataReader reader, int productId)
         {
             var images = new List<Image>();
 
@@ -133,13 +127,9 @@ namespace DataAccessLayer.Repositories
             FROM BuyProductsImages
             WHERE product_id = @ProductId";
 
-            connection.OpenConnection();
             using (SqlCommand cmd = new SqlCommand(query, connection.GetConnection()))
             {
                 cmd.Parameters.AddWithValue("@ProductId", productId);
-
-                using (SqlDataReader reader = cmd.ExecuteReader())
-                {
                     while (reader.Read())
                     {
                         int imageId = reader.GetInt32(reader.GetOrdinal("id"));
@@ -147,9 +137,7 @@ namespace DataAccessLayer.Repositories
 
                         images.Add(new Image(url));
                     }
-                }
             }
-            connection.CloseConnection();
 
             return images;
         }
@@ -206,9 +194,9 @@ namespace DataAccessLayer.Repositories
 
                         float price = reader.GetFloat(reader.GetOrdinal("price"));
 
-                        List<ProductTag> tags = GetProductTags(id);
+                        List<ProductTag> tags = GetProductTags(reader, id);
 
-                        List<Image> images = GetProductImages(id);
+                        List<Image> images = GetProductImages(reader,id);
 
                         buy = new BuyProduct(
                             id,
@@ -281,9 +269,9 @@ namespace DataAccessLayer.Repositories
 
                         float price = reader.GetFloat(reader.GetOrdinal("price"));
 
-                        List<ProductTag> tags = GetProductTags(id);
+                        List<ProductTag> tags = GetProductTags(reader, id);
 
-                        List<Image> images = GetProductImages(id);
+                        List<Image> images = GetProductImages(reader, id);
 
                         BuyProduct buy = new BuyProduct(
                             id,
