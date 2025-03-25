@@ -1,4 +1,3 @@
-﻿
 using DomainLayer.Domain;
 using System;
 using System.Collections.Generic;
@@ -9,27 +8,27 @@ using Microsoft.Data.SqlClient;
 
 namespace DataAccessLayer.Repositories
 {
-    public class BuyProductsRepository : ProductsRepository
+    public class BorrowProductsRepository : ProductsRepository
     {
         private DataBaseConnection connection;
 
-        public BuyProductsRepository(DataBaseConnection connection)
+        public BorrowProductsRepository(DataBaseConnection connection)
         {
             this.connection = connection;
         }
 
         public override void AddProduct(Product product)
         {
-            BuyProduct buy = (BuyProduct) product;
-            if (buy == null)
-                throw new ArgumentException("Product must be of type BuyProduct.");
+            BorrowProduct borrow = (BorrowProduct) product;
+            if (borrow == null)
+                throw new ArgumentException("Product must be of type BorrowProduct.");
 
 
             string insertProductQuery = @"
-            INSERT INTO BuyProducts 
-            (title, description, seller_id, condition_id, category_id, price)
+            INSERT INTO BorrowProducts 
+            (title, description, seller_id, condition_id, category_id, time_limit, start_date, end_date, daily_rate, is_borrowed)
             VALUES 
-            (@Title, @Description, @SellerId, @ConditionId, @CategoryId, @Price);
+            (@Title, @Description, @SellerId, @ConditionId, @CategoryId, @TimeLimit, @StartDate, @EndDate, @DailyRate, @IsBorrowed);
             SELECT SCOPE_IDENTITY();";
 
             connection.OpenConnection();
@@ -37,21 +36,25 @@ namespace DataAccessLayer.Repositories
             int newProductId;
             using (SqlCommand cmd = new SqlCommand(insertProductQuery, connection.GetConnection()))
             {
-                cmd.Parameters.AddWithValue("@Title", buy.Title);
-                cmd.Parameters.AddWithValue("@Description", buy.Description);
-                cmd.Parameters.AddWithValue("@SellerId", buy.Seller.Id);
-                cmd.Parameters.AddWithValue("@ConditionId", buy.Condition.id);
-                cmd.Parameters.AddWithValue("@CategoryId", buy.Category.id);
-                cmd.Parameters.AddWithValue("@Price", buy.Price);
+                cmd.Parameters.AddWithValue("@Title", borrow.Title);
+                cmd.Parameters.AddWithValue("@Description", borrow.Description);
+                cmd.Parameters.AddWithValue("@SellerId", borrow.Seller.Id);
+                cmd.Parameters.AddWithValue("@ConditionId", borrow.Condition.id);
+                cmd.Parameters.AddWithValue("@CategoryId", borrow.Category.id);
+                cmd.Parameters.AddWithValue("@TimeLimit", borrow.TimeLimit);
+                cmd.Parameters.AddWithValue("@StartDate", borrow.StartDate);
+                cmd.Parameters.AddWithValue("@EndDate", borrow.EndDate);
+                cmd.Parameters.AddWithValue("@DailyRate", borrow.DailyRate);
+                cmd.Parameters.AddWithValue("@IsBorrowed", borrow.IsBorrowed);
 
                 object result = cmd.ExecuteScalar();
                 newProductId = Convert.ToInt32(result);
             }
 
-            foreach (var tag in buy.Tags)
+            foreach (var tag in borrow.Tags)
             {
                 string insertTagQuery = @"
-            INSERT INTO BuyProductProductTags (product_id, tag_id)
+            INSERT INTO BorrowProductProductTags (product_id, tag_id)
             VALUES (@ProductId, @TagId)";
 
                 using (SqlCommand cmd = new SqlCommand(insertTagQuery, connection.GetConnection()))
@@ -62,10 +65,10 @@ namespace DataAccessLayer.Repositories
                 }
             }
 
-            foreach (var image in buy.Images)
+            foreach (var image in borrow.Images)
             {
                 string insertImageQuery = @"
-            INSERT INTO BuyProductsImages (url, product_id)
+            INSERT INTO BorrowProductsImages (url, product_id)
             VALUES (@Url, @ProductId)";
 
                 using (SqlCommand cmd = new SqlCommand(insertImageQuery, connection.GetConnection()))
@@ -79,9 +82,10 @@ namespace DataAccessLayer.Repositories
             connection.CloseConnection();
         }
 
-        public void DeleteBuyProduct(BuyProduct product)
+        public void DeleteBorrowProduct(BorrowProduct product)
         {
-            string query = "DELETE FROM BuyProducts WHERE id = @Id";
+            int Id = product.Id;
+            string query = "DELETE FROM BorrowProducts WHERE id = @Id";
 
             connection.OpenConnection();
             using (SqlCommand cmd = new SqlCommand(query, connection.GetConnection()))
@@ -99,7 +103,7 @@ namespace DataAccessLayer.Repositories
             string query = @"
                         SELECT pt.id, pt.title
                         FROM ProductTags pt
-                        INNER JOIN BuyProductProductTags bpt ON pt.id = bpt.tag_id
+                        INNER JOIN BorrowProductProductTags bpt ON pt.id = bpt.tag_id
                         WHERE apt.product_id = @ProductId";
 
             connection.OpenConnection();
@@ -129,7 +133,7 @@ namespace DataAccessLayer.Repositories
 
             string query = @"
             SELECT url
-            FROM BuyProductsImages
+            FROM BorrowProductsImages
             WHERE product_id = @ProductId";
 
             connection.OpenConnection();
@@ -155,7 +159,8 @@ namespace DataAccessLayer.Repositories
 
         public override Product GetProductByID(int productId)
         {
-            BuyProduct buy = null;
+            BorrowProduct borrow = null;
+
             string query = @"
                             SELECT 
                                 bp.id,
@@ -203,13 +208,18 @@ namespace DataAccessLayer.Repositories
                         string categoryDescription = reader.GetString(reader.GetOrdinal("categoryDescription"));
                         ProductCategory category = new ProductCategory(categoryId, categoryTitle, categoryDescription);
 
-                        float price = reader.GetFloat(reader.GetOrdinal("price"));
+                        float dailyRate = reader.GetFloat(reader.GetOrdinal("daily_rate"));
+
+                        DateTime timeLimit = reader.GetDateTime(reader.GetOrdinal("time_limit"));
+                        DateTime startDate = reader.GetDateTime(reader.GetOrdinal("start_date"));
+                        DateTime endDate = reader.GetDateTime(reader.GetOrdinal("end_date"));
+                        bool isBorrowed = reader.GetBoolean(reader.GetOrdinal("is_borrowed"));
 
                         List<ProductTag> tags = GetProductTags(id);
 
                         List<Image> images = GetProductImages(id);
 
-                        buy = new BuyProduct(
+                        borrow = new BorrowProduct(
                             id,
                             title,
                             description,
@@ -218,17 +228,21 @@ namespace DataAccessLayer.Repositories
                             category,
                             tags,
                             images,
-                            price
+                            timeLimit,
+                            startDate,
+                            endDate,
+                            dailyRate,
+                            isBorrowed
                         );
                 }
             }
             connection.CloseConnection();
-            return buy;
+            return borrow;
         }
 
         public override List<Product> GetProducts()
         {
-            List<Product> buys = new List<Product>();
+            var borrows = new List<Product>();
 
             string query = @"
                             SELECT 
@@ -278,13 +292,18 @@ namespace DataAccessLayer.Repositories
                         string categoryDescription = reader.GetString(reader.GetOrdinal("categoryDescription"));
                         ProductCategory category = new ProductCategory(categoryId, categoryTitle, categoryDescription);
 
-                        float price = reader.GetFloat(reader.GetOrdinal("price"));
+                        float dailyRate = reader.GetFloat(reader.GetOrdinal("daily_rate"));
+
+                        DateTime timeLimit = reader.GetDateTime(reader.GetOrdinal("time_limit"));
+                        DateTime startDate = reader.GetDateTime(reader.GetOrdinal("start_date"));
+                        DateTime endDate = reader.GetDateTime(reader.GetOrdinal("end_date"));
+                        bool isBorrowed = reader.GetBoolean(reader.GetOrdinal("is_borrowed"));
 
                         List<ProductTag> tags = GetProductTags(id);
 
                         List<Image> images = GetProductImages(id);
 
-                        BuyProduct buy = new BuyProduct(
+                        BorrowProduct borrow = new BorrowProduct(
                             id,
                             title,
                             description,
@@ -293,17 +312,21 @@ namespace DataAccessLayer.Repositories
                             category,
                             tags,
                             images,
-                            price
+                            timeLimit,
+                            startDate,
+                            endDate,
+                            dailyRate,
+                            isBorrowed
                         );
 
-                        buys.Add(buy);
+                        borrows.Add(borrow);
                     }
                 }
             }
             connection.CloseConnection();
-            return buys;
+            return borrows;
         }
-
+        
         public override void UpdateProduct(Product product)
         {
             
