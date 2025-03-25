@@ -7,10 +7,11 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
+    
 
 
-    <Grid Padding="20">
-        <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top" Spacing="10" Width="300">
+    <Grid Padding="20" Background="Transparent">
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top" Spacing="10" Width="1000">
 
             <!-- Seller Name -->
             <TextBlock Text="Seller:" FontWeight="Bold"/>
@@ -18,15 +19,21 @@
 
             <!-- Rating -->
             <TextBlock Text="Rating:" FontWeight="Bold"/>
-            <RatingControl x:Name="RatingStars" Value="{x:Bind ViewModel.Rating, Mode=TwoWay}" IsClearEnabled="True" IsReadOnly="False" MaxRating="5" PlaceholderValue="0.5"/>
+            <RatingControl x:Name="RatingStars" Value="{x:Bind ViewModel.Rating, Mode=TwoWay}" 
+               IsClearEnabled="True" IsReadOnly="False" MaxRating="5" 
+               PlaceholderValue="0.5" />
 
             <!-- Description -->
             <TextBlock Text="Description:" FontWeight="Bold"/>
-            <TextBox Text="{x:Bind ViewModel.Description, Mode=TwoWay}" AcceptsReturn="True" Height="100" TextWrapping="Wrap"/>
+            <TextBox Text="{x:Bind ViewModel.Description, Mode=TwoWay}" AcceptsReturn="True" Height="250"  TextWrapping="Wrap"/>
 
             <!-- Image Links -->
             <TextBlock Text="Image Links:" FontWeight="Bold"/>
-            <TextBox Text="{x:Bind ViewModel.Images, Mode=TwoWay}" AcceptsReturn="True" Height="100" TextWrapping="Wrap"/>
+            <TextBox Text="{x:Bind ViewModel.ImagesString, Mode=TwoWay}" AcceptsReturn="True" Height="100" TextWrapping="Wrap"/>
+
+            <!-- Confirm button -->
+            <Button x:Name="ConfirmButton" Content="Publish Review" VerticalAlignment="Bottom" HorizontalAlignment="Center"
+                Width="150" Height="50" Click="handleSubmit_Click"/>
         </StackPanel>
     </Grid>
 </Window>
