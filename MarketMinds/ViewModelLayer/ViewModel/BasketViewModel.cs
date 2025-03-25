@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using BusinessLogicLayer.Services;
+using System.Linq;
 using DomainLayer.Domain;
 
 namespace ViewModelLayer.ViewModel
 {
     public class BasketViewModel
     {
-        private readonly BasketService basketService;
-        private User currentUser;
-        private Basket basket;
+        private User _currentUser;
 
+        // Properties exposed to the view
         public List<BasketItem> BasketItems { get; private set; }
         public float Subtotal { get; private set; }
         public float Discount { get; private set; }
@@ -18,94 +17,158 @@ namespace ViewModelLayer.ViewModel
         public string PromoCode { get; set; }
         public string ErrorMessage { get; set; }
 
-        public BasketViewModel(BasketService basketService, User currentUser)
+        // Constructor with dependencies
+        public BasketViewModel(User currentUser)
         {
-            this.basketService = basketService;
-            this.currentUser = currentUser;
-            this.BasketItems = new List<BasketItem>();
-            this.PromoCode = string.Empty;
-            this.ErrorMessage = string.Empty;
+            _currentUser = currentUser;
+            BasketItems = new List<BasketItem>();
+            PromoCode = string.Empty;
+            ErrorMessage = string.Empty;
 
-            // Load the basket data
-            LoadBasket();
+            // Initialize with demo data (for testing purposes)
+            InitializeDemoData();
         }
 
-        public void LoadBasket()
+        private void InitializeDemoData()
         {
-            // Get the basket from the service
-            basket = basketService.GetBasketByUser(currentUser);
+            // Create a sample seller
+            var seller = new User(2, "SampleSeller", "seller@example.com");
 
-            // Update the basket items
-            BasketItems = basket.GetItems();
+            // Create sample product condition
+            var condition = new ProductCondition(1, "New", "Unopened, original packaging");
+
+            // Create sample product category
+            var category = new ProductCategory(1, "Electronics", "Electronic devices and accessories");
+
+            // Create sample products
+            var product1 = new BuyProduct(
+                1,
+                "Smartphone XYZ",
+                "Latest model smartphone with high-resolution camera",
+                seller,
+                condition,
+                category,
+                new List<ProductTag>(),
+                new List<Image>() { new Image("/Assets/placeholder.png") },
+                499.99f);
+
+            var product2 = new BuyProduct(
+                2,
+                "Wireless Headphones",
+                "Noise-cancelling wireless headphones",
+                seller,
+                condition,
+                category,
+                new List<ProductTag>(),
+                new List<Image>() { new Image("/Assets/placeholder.png") },
+                129.99f);
+
+            // Create basket items
+            BasketItems.Add(new BasketItem(1, product1, 1) { Price = 499.99f });
+            BasketItems.Add(new BasketItem(2, product2, 2) { Price = 129.99f });
 
             // Calculate totals
             CalculateTotals();
         }
 
+        public void LoadBasket()
+        {
+            // In a real implementation, this would load from a service
+            // For now it s using the demo data that was initialized in the constructor
+            CalculateTotals();
+        }
+
         public void RemoveItem(int basketItemId)
         {
-            basketService.RemoveFromBasket(currentUser.Id, basketItemId);
-
-            // Reload the basket to see the changes
-            LoadBasket();
+            var itemToRemove = BasketItems.FirstOrDefault(item => item.Id == basketItemId);
+            if (itemToRemove != null)
+            {
+                BasketItems.Remove(itemToRemove);
+                CalculateTotals();
+            }
+            else
+            {
+                System.Diagnostics.Debug.WriteLine($"Item {basketItemId} not found in basket.");
+            }
         }
 
         public void UpdateQuantity(int basketItemId, int newQuantity)
         {
-            basketService.UpdateQuantity(currentUser.Id, basketItemId, newQuantity);
+            if (newQuantity <= 0)
+            {
+                RemoveItem(basketItemId);
+                return;
+            }
 
-            // Reload the basket to see the changes
-            LoadBasket();
+            var item = BasketItems.FirstOrDefault(i => i.Id == basketItemId);
+            if (item != null)
+            {
+                item.Quantity = newQuantity;
+                CalculateTotals();
+            }
         }
 
         public void ApplyPromoCode(string code)
         {
-            basketService.ApplyPromoCode(basket.Id, code);
+            // Demo implementation should call a service
+            if (string.IsNullOrEmpty(code))
+            {
+                ErrorMessage = "Please enter a promo code.";
+                return;
+            }
 
-            // Reload the basket to see the changes
-            LoadBasket();
-
-            // Update the promo code
-            PromoCode = code;
+            // Example promo code logic
+            if (code.ToUpper() == "DISCOUNT10")
+            {
+                Discount = Subtotal * 0.1f; // 10% discount
+                PromoCode = code;
+                TotalAmount = Subtotal - Discount;
+                ErrorMessage = string.Empty;
+            }
+            else
+            {
+                ErrorMessage = "Invalid promo code.";
+                Discount = 0;
+                TotalAmount = Subtotal;
+            }
         }
 
         public void ClearBasket()
         {
-            basketService.ClearBasket(currentUser.Id);
-
-            // Reload the basket to see the changes
-            LoadBasket();
-        }
-
-        public void ContinueShopping()
-        {
-            // Redirect to the products page
+            BasketItems.Clear();
+            PromoCode = string.Empty;
+            Discount = 0;
+            CalculateTotals();
         }
 
         public bool CanCheckout()
         {
-            return basketService.ValidateBasketBeforeCheckOut(basket.Id);
+            return BasketItems.Count > 0 && BasketItems.All(item => item.HasValidPrice);
         }
 
         public void Checkout()
         {
-            // Simple validation before proceeding
             if (!CanCheckout())
             {
                 ErrorMessage = "Cannot checkout. Please check your basket items.";
                 return;
             }
 
-            // Redirect to the checkout page
+            // This would start the checkout process
+            // For now just set a success message
+            ErrorMessage = string.Empty;
         }
 
         private void CalculateTotals()
         {
             // Calculate subtotal
-            Subtotal = basket.GetTotal();
+            Subtotal = BasketItems.Sum(item => item.GetPrice());
 
-            // Calculate discount
-            Discount = 0; // For now, no discount is applied
+            // Apply any existing discount
+            if (!string.IsNullOrEmpty(PromoCode) && PromoCode.ToUpper() == "DISCOUNT10")
+            {
+                Discount = Subtotal * 0.1f;
+            }
 
             // Calculate total amount
             TotalAmount = Subtotal - Discount;
