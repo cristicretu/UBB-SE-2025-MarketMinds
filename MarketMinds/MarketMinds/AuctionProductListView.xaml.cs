@@ -9,6 +9,7 @@ using DomainLayer.Domain;
 using ViewModelLayer.ViewModel;
 using BusinessLogicLayer.Services;
 using BusinessLogicLayer.ViewModel;
+using MarketMinds;
 
 namespace UiLayer
 {
@@ -35,6 +36,18 @@ namespace UiLayer
             // Initially load all auction products
             currentFullList = auctionProductsViewModel.GetAllProducts();
             ApplyFiltersAndPagination();
+        }
+
+        private void AuctionListView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var selectedProduct = e.ClickedItem as AuctionProduct;
+            if (selectedProduct != null)
+            {
+                // Create and show the detail view
+                var detailView = new AuctionProductView(selectedProduct);
+                detailView.Activate();
+                
+            }
         }
 
         // Call this method whenever a filter, sort, or search query changes.

@@ -21,7 +21,7 @@ namespace UiLayer
         public AdminView()
         {
             this.InitializeComponent();
-            
+
             _productCategoryViewModel = MarketMinds.App.productCategoryViewModel;
             _productConditionViewModel = MarketMinds.App.productConditionViewModel;
 

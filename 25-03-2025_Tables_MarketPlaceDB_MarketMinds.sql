@@ -256,14 +256,14 @@ VALUES
 
 INSERT INTO AuctionProductsImages (url, product_id)
 VALUES 
-('https://imgur.com/XBpDHa7', 1),
-('https://imgur.com/u9j0U5Y', 1),
-('https://imgur.com/YYXgjHM' , 2),
-('https://imgur.com/Yq7jIzr' , 3),
-('https://imgur.com/4XWqyj5' , 3),
-('https://imgur.com/a/vVvRugv' , 4),
-('https://imgur.com/a/zK6LJX5' , 5),
-('https://imgur.com/srDfm59' , 5);
+('https://i.imgur.com/XBpDHa7.jpeg', 1),
+('https://i.imgur.com/u9j0U5Y.jpeg', 1),
+('https://i.imgur.com/YYXgjHM.jpeg' , 2),
+('https://i.imgur.com/Yq7jIzr.jpeg' , 3),
+('https://i.imgur.com/4XWqyj5.jpeg' , 3),
+('https://i.imgur.com/ZC5UaQZ.jpeg' , 4),
+('https://i.imgur.com/grOzWu8.jpeg' , 5),
+('https://i.imgur.com/srDfm59.jpeg' , 5);
 
 
 INSERT INTO AuctionProductProductTags (product_id, tag_id)
@@ -295,10 +295,10 @@ VALUES
 
 INSERT INTO BorrowProductImages (url, product_id)
 VALUES 
-('https://imgur.com/a/VO3nqbi', 1),
-('https://imgur.com/a/svDJ5AS', 1),
-('https://imgur.com/a/T3dAC1B' , 2),
-('https://imgur.com/a/BdSpUwZ' , 2);
+('https://i.imgur.com/yVSgkw1.jpeg', 1),
+('https://i.imgur.com/gMaRVZN.jpeg', 1),
+('https://i.imgur.com/OTDwYjh.jpeg' , 2),
+('https://i.imgur.com/WL5yCjH.jpeg' , 2);
 
 INSERT INTO BorrowProductProductTags (product_id, tag_id)
 VALUES 
@@ -317,11 +317,11 @@ INSERT INTO BuyProducts (title, description, seller_id, condition_id, category_i
 
 INSERT INTO BuyProductImages (url, product_id)
 VALUES 
-('https://imgur.com/a/MzATm9M', 1),
-('https://imgur.com/a/kDxftlC' , 1),
-('https://imgur.com/a/KPIQiuJ' , 2),
-('https://imgur.com/a/SZmkYky' , 2),
-('https://imgur.com/a/kJY3gKi' , 3);
+('https://i.imgur.com/LhlIBMt.jpeg', 1),
+('https://i.imgur.com/GmWI7GM.jpeg' , 1),
+('https://i.imgur.com/oTYyO1O.jpeg' , 2),
+('https://i.imgur.com/DQbBuGr.jpeg' , 2),
+('https://i.imgur.com/oDwPDES.jpeg' , 3);
 
 INSERT INTO BuyProductProductTags (product_id, tag_id)
 VALUES 
