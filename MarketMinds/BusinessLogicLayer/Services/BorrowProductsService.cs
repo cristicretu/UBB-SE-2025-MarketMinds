@@ -12,8 +12,13 @@ public class BorrowProductsService : ProductService
         this.borrowProductsRepository = repository;
     }
 
-    public List<Product> GetAllProducts()
+    public void CreateListing(Product product)
     {
-        return borrowProductsRepository.GetProducts();
+        borrowProductsRepository.AddProduct(product);
+    }
+
+    public void DeleteListing(Product product)
+    {
+        borrowProductsRepository.DeleteProduct(product);
     }
 }
