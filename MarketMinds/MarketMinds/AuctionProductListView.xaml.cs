@@ -35,6 +35,8 @@ namespace UiLayer
             
             auctionProductsViewModel = MarketMinds.App.auctionProductsViewModel;
             
+            auctionProducts = new ObservableCollection<AuctionProduct>();
+            
             // Load existing data
             LoadAuctionProducts();
         }
