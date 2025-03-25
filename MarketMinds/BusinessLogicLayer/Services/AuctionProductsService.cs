@@ -12,8 +12,8 @@ namespace BusinessLogicLayer.Services
     public class AuctionProductsService : ProductService
     {
         private AuctionProductsRepository _auctionRepository;
-        public AuctionProductsService(AuctionProductsRepository repository)
-            : base(repository)
+        
+        public AuctionProductsService(AuctionProductsRepository repository): base(repository)
         {
             _auctionRepository = repository;
         }
