@@ -89,10 +89,10 @@ namespace DataAccessLayer.Repositories
 
         public void CreateReview(Review review)
         {
+            string insertSql = "INSERT INTO Reviews (reviewer_id, seller_id, description, rating) OUTPUT INSERTED.id VALUES (@reviewer_id, @seller_id, @description, @rating)";
 
-            // TODO: Check if the Review pair of reviewer,seller and description exists already
-            string insertSql = "INSERT INTO Reviews OUTPUT INSERTED.id VALUES (@reviewer_id,@seller_id,@description,@rating)";
             connection.OpenConnection();
+
             using (SqlCommand cmd = new SqlCommand(insertSql, connection.GetConnection()))
             {
                 cmd.Parameters.AddWithValue("@reviewer_id", review.buyerId);
@@ -100,24 +100,30 @@ namespace DataAccessLayer.Repositories
                 cmd.Parameters.AddWithValue("@description", review.description);
                 cmd.Parameters.AddWithValue("@rating", review.rating);
 
-                review.id = cmd.ExecuteNonQuery();
+                // Read the inserted review ID properly
+                review.id = (int)cmd.ExecuteScalar();
             }
 
-            // adding the images
-            string insertImageSql = "INSERT INTO ReviewsPictures VALUES (@url, @review_id)";
-            foreach (Image img in review.images)
+            // Insert images only if there are any
+            if (review.images != null && review.images.Count > 0)
             {
+                string insertImageSql = "INSERT INTO ReviewsPictures (url, review_id) VALUES (@url, @review_id)";
+
                 using (SqlCommand cmd = new SqlCommand(insertImageSql, connection.GetConnection()))
                 {
-                    cmd.Parameters.AddWithValue("@url", img.url);
-                    cmd.Parameters.AddWithValue("@review_id", review.id);
-
-                    cmd.ExecuteNonQuery();
+                    foreach (Image img in review.images)
+                    {
+                        cmd.Parameters.Clear();
+                        cmd.Parameters.AddWithValue("@url", img.url);
+                        cmd.Parameters.AddWithValue("@review_id", review.id);
+                        cmd.ExecuteNonQuery();
+                    }
                 }
             }
 
             connection.CloseConnection();
         }
+
 
         private List<Image> GetImages(int reviewId)
         {
