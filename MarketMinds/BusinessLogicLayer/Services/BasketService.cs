@@ -121,14 +121,6 @@ namespace BusinessLogicLayer.Services
                 {
                     return false;
                 }
-
-                // Simplified product check - assuming all products are valid for now
-                // This avoids the NullReferenceException from buyProductRepository being null
-                bool productExists = true;
-                if (!productExists)
-                {
-                    return false;
-                }
             }
 
             return true;
