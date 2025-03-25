@@ -33,7 +33,7 @@ namespace UiLayer
 
             auctionProducts = new ObservableCollection<AuctionProduct>();
             // Initially load all auction products
-            currentFullList = auctionProductsViewModel.GetAllAuctionProducts();
+            currentFullList = auctionProductsViewModel.GetAllProducts();
             ApplyFiltersAndPagination();
         }
 
