@@ -6,6 +6,7 @@ using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 using DomainLayer.Domain;
+using System.Collections.ObjectModel;
 
 namespace BusinessLogicLayer.Services
 {
@@ -18,17 +19,17 @@ namespace BusinessLogicLayer.Services
             Repository = repository;
         }
 
-        public List<Review> GetReviewsBySeller(User seller)
+        public ObservableCollection<Review> GetReviewsBySeller(User seller)
         {
-            List<Review> reviews = Repository.GetAllReviewsBySeller(seller);
+            ObservableCollection<Review> reviews = Repository.GetAllReviewsBySeller(seller);
             // add to Review date and sort by dates
             //reviews.Sort()
             return reviews;
         }
 
-        public List<Review> GetReviewsByBuyer(User buyer)
+        public ObservableCollection<Review> GetReviewsByBuyer(User buyer)
         {
-            List<Review> reviews = Repository.GetAllReviewsByBuyer(buyer);
+            ObservableCollection<Review> reviews = Repository.GetAllReviewsByBuyer(buyer);
             // same here
             return reviews;
         }

@@ -64,11 +64,19 @@ namespace UiLayer
             leaveReviewViewWindow.Activate();
         }
 
+        private void handleReviewViewButton_Click(Object sender, RoutedEventArgs e)
+        {
+            // if currentUser.type == 2
+            seeBuyerReviewsView = new SeeBuyerReviewsView(App.seeBuyerReviewsViewModel);
+            seeBuyerReviewsView.Activate();
+        }
+
         private Window basketViewWindow;
         private Window auctionProductListViewWindow;
         private Window borrowProductListViewWindow;
         private Window buyProductListViewWindow;
         private Window adminViewWindow;
         private Window leaveReviewViewWindow;
+        private Window seeBuyerReviewsView;
     }
 }

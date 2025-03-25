@@ -48,8 +48,9 @@ namespace MarketMinds
         {
             mainWindow = new UiLayer.MainWindow();
             mainWindow.Activate();
-            User currentUser = new User(1, "random", "random@gmail.com");
-            User testingUser = new User(2, "seller", "sell@gmail.com");
+            User currentUser = 
+                new User(1, "alice", "alice@example.com");
+            User testingUser = new User(2, "bob", "bob@example.com");
             
             // Instantiate database connection
             var dataBaseConnection = new DataBaseConnection();
@@ -63,6 +64,7 @@ namespace MarketMinds
             var buyRepository = new BuyProductsRepository(dataBaseConnection);
             var reviewRepository = new ReviewRepository(dataBaseConnection);
             var basketRepository = new BasketRepository(dataBaseConnection);
+            
 
             // 4. Instantiate services
             var productService = new ProductService(borrowRepository);

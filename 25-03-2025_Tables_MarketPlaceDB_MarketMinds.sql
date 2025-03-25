@@ -289,7 +289,7 @@ VALUES
 INSERT INTO BorrowProducts (title, description, seller_id, condition_id, category_id, time_limit, start_date, end_date, daily_rate, is_borrowed) 
 VALUES 
 ('Professional Camera', 'DSLR camera perfect for events.',1, 1, 1,'2025-03-30', '2025-03-25', '2025-03-30',12.00, 1),
-('Toolbox', 'Complete DIY toolkit for home repairs.',2, 2, 2,'2025-03-30', '2025-03-24', '2025-03-28',4.00, 1)
+('Toolbox', 'Complete DIY toolkit for home repairs.',2, 2, 2,'2025-03-30', '2025-03-24', '2025-03-28',4.00, 1);
 
 
 
@@ -329,3 +329,21 @@ VALUES
 (2, 2),
 (2, 3),
 (3, 1);
+
+
+-- INSERT QUERIES FOR REVIEWS
+INSERT INTO Reviews (reviewer_id, seller_id, description, rating)
+VALUES 
+(1, 2, 'Great seller! The product was exactly as described.', 5.0),
+(2, 1, 'Fast shipping and great communication.', 4.5),
+(1, 2, 'The item had some minor defects but overall good experience.', 4.0),
+(2, 1, 'Excellent service, will buy again.', 5.0);
+
+-- INSERT QUERIES FOR REVIEW IMAGES
+INSERT INTO ReviewsPictures (url, review_id)
+VALUES 
+('https://i.imgur.com/review1.jpg', 1),
+('https://i.imgur.com/review2.jpg', 1),
+('https://i.imgur.com/review3.jpg', 2),
+('https://i.imgur.com/review4.jpg', 3),
+('https://i.imgur.com/review5.jpg', 4);
