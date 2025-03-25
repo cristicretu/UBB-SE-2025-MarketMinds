@@ -21,6 +21,7 @@ using DataAccessLayer;
 using DataAccessLayer.Repositories;
 using DomainLayer.Domain;
 using ViewModelLayer.ViewModel;
+using BusinessLogicLayer.ViewModel;
 
 namespace MarketMinds
 {
@@ -46,6 +47,7 @@ namespace MarketMinds
         {
             mainWindow = new UiLayer.MainWindow();
             mainWindow.Activate();
+            User currentUser = new User(1, "random", "random@gmail.com");
             
             // Instantiate database connection
             var dataBaseConnection = new DataBaseConnection();
@@ -56,6 +58,8 @@ namespace MarketMinds
             var auctionRepository = new AuctionProductsRepository(dataBaseConnection);
             var borrowRepository = new BorrowProductsRepository(dataBaseConnection);
             var buyRepository = new BorrowProductsRepository(dataBaseConnection);
+            var reviewRepository = new ReviewRepository(dataBaseConnection);
+            var basketRepository = new BasketRepository(dataBaseConnection);
 
             // 4. Instantiate services
             var buyProductsService = new BuyProductsService(buyRepository);
@@ -63,15 +67,19 @@ namespace MarketMinds
             var auctionProductsService = new AuctionProductsService(auctionRepository);
             var categoryService = new ProductCategoryService(categoryRepository);
             var conditionService = new ProductConditionService(conditionRepository);
+            var reviewsService = new ReviewsService(reviewRepository);
+            var basketService = new BasketService(basketRepository);
+
+            // Instantiate view models
 
             buyProductsViewModel = new BuyProductsViewModel(buyProductsService);
             auctionProductsViewModel = new AuctionProductsViewModel(auctionProductsService);
             productCategoryViewModel = new ProductCategoryViewModel(categoryService);
             productConditionViewModel = new ProductConditionViewModel(conditionService);
-
-            var basketRepository = new BasketRepository(dataBaseConnection);
-            basketService = new BasketService(basketRepository);
             borrowProductsViewModel = new BorrowProductsViewModel(borrowProductsService);
+            reviewCreateViewModel = new ReviewCreateViewModel(reviewsService, currentUser);
+            //seeSellerReviewsViewModel = new SeeSellerReviewsViewModel(reviewRepository, currentUser); this one in the product window
+            seeBuyerReviewsViewModel = new SeeBuyerReviewsViewModel(reviewsService, currentUser);
         }
 
         private Window mainWindow;
@@ -81,7 +89,8 @@ namespace MarketMinds
         public static AuctionProductsViewModel auctionProductsViewModel { get; private set; }
         public static ProductCategoryViewModel productCategoryViewModel { get; private set; }
         public static ProductConditionViewModel productConditionViewModel { get; private set; }
-
+        public static ReviewCreateViewModel reviewCreateViewModel { get; private set; }
+        public static SeeBuyerReviewsViewModel seeBuyerReviewsViewModel { get; private set; }
         public static BasketService basketService { get; private set; }
     }
 }
