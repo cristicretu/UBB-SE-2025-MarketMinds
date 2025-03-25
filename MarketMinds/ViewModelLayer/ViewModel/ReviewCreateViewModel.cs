@@ -6,24 +6,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BusinessLogicLayer.ViewModel
+namespace ViewModelLayer.ViewModel
 {
     public class ReviewCreateViewModel
     {
         public ReviewsService ReviewsService;
-        public User seller;
-        public User buyer;
-        public string description;
-        public List<Image> images;
-        public float rating;
+        public User seller {  get; set; }
+        public User buyer { get; set; }
+        public string description { get; set; }
+        public List<Image> images { get; set; } 
+        public float rating { get; set; }
 
-        public ReviewCreateViewModel(ReviewsService reviewsService, User seller, User buyer, string description, List<Image> images, float rating) {
+        // see about the warning
+        public ReviewCreateViewModel(ReviewsService reviewsService, User buyer) {
             ReviewsService = reviewsService;
-            this.seller = seller;
             this.buyer = buyer;
-            this.description = description;
-            this.images = images;
-            this.rating = rating;
         }
 
         public void submitReview()

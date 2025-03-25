@@ -13,7 +13,7 @@ namespace BusinessLogicLayer.ViewModel
         public User buyer;
         public ReviewsService reviewsService;
 
-        public SeeBuyerReviewsViewModel(User buyer, ReviewsService reviewsService)
+        public SeeBuyerReviewsViewModel(ReviewsService reviewsService, User buyer)
         {
             this.buyer = buyer;
             this.reviewsService = reviewsService;
