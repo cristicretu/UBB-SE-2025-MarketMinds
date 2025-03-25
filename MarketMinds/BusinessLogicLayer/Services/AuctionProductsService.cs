@@ -18,11 +18,6 @@ namespace BusinessLogicLayer.Services
             _auctionRepository = repository;
         }
 
-        public List<Product> GetAllProducts()
-        {
-            return _auctionRepository.GetProducts();
-        }
-
         public void PlaceBid(AuctionProduct auction, User bidder, float bidAmount)
         {
             ValidateBid(auction, bidder, bidAmount);
