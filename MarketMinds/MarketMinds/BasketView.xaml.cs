@@ -145,15 +145,14 @@ namespace UiLayer
             try
             {
                 Button button = sender as Button;
-                if (button != null && button.CommandParameter is int basketItemId)
+                if (button != null && button.CommandParameter is int itemId)
                 {
-                    // Find the current basket item
-                    var basketItem = _basketItems.FirstOrDefault(item => item.Id == basketItemId);
+                    // Find the corresponding basket item
+                    var basketItem = _basketItems.FirstOrDefault(item => item.Id == itemId);
                     if (basketItem != null)
                     {
-
-                        // Update quantity through the view model
-                        _basketViewModel.UpdateQuantity(basketItemId, basketItem.Quantity + 1);
+                        // Update quantity using product ID
+                        _basketViewModel.UpdateProductQuantity(basketItem.Product.Id, basketItem.Quantity + 1);
 
                         // Reload the basket data
                         LoadBasketData();
@@ -171,31 +170,75 @@ namespace UiLayer
             try
             {
                 Button button = sender as Button;
-                if (button != null && button.CommandParameter is int basketItemId)
+                if (button != null && button.CommandParameter is int itemId)
                 {
-                    // Find the current basket item
-                    var basketItem = _basketItems.FirstOrDefault(item => item.Id == basketItemId);
-                    if (basketItem != null && basketItem.Quantity > 1)
+                    // Find the corresponding basket item
+                    var basketItem = _basketItems.FirstOrDefault(item => item.Id == itemId);
+                    if (basketItem != null)
                     {
-
-                        // Update quantity through the view model
-                        _basketViewModel.UpdateQuantity(basketItemId, basketItem.Quantity - 1);
+                        if (basketItem.Quantity > 1)
+                        {
+                            // Update quantity using product ID
+                            _basketViewModel.UpdateProductQuantity(basketItem.Product.Id, basketItem.Quantity - 1);
+                        }
+                        else
+                        {
+                            // Remove item if quantity would go to 0
+                            _basketViewModel.RemoveProductFromBasket(basketItem.Product.Id);
+                        }
 
                         // Reload the basket data
-                        LoadBasketData();
-                    }
-                    else if (basketItem != null && basketItem.Quantity == 1)
-                    {
-                        // If quantity would go to 0, remove the item
-                        //_basketViewModel.RemoveItem(basketItemId);
                         LoadBasketData();
                     }
                 }
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine($"Error decreasing quantity: {ex.Message}");
                 ShowErrorMessage($"Failed to decrease quantity: {ex.Message}");
+            }
+        }
+
+        private void UpdateQuantityFromTextBox(TextBox textBox)
+        {
+            try
+            {
+                if (textBox != null && textBox.Tag is int itemId)
+                {
+                    if (int.TryParse(textBox.Text, out int newQuantity) && newQuantity >= 0)
+                    {
+                        // Find the corresponding basket item
+                        var basketItem = _basketItems.FirstOrDefault(item => item.Id == itemId);
+                        if (basketItem != null)
+                        {
+                            if (newQuantity == 0)
+                            {
+                                // Remove item if quantity is 0
+                                _basketViewModel.RemoveProductFromBasket(basketItem.Product.Id);
+                            }
+                            else
+                            {
+                                // Update quantity using product ID
+                                _basketViewModel.UpdateProductQuantity(basketItem.Product.Id, newQuantity);
+                            }
+
+                            // Reload the basket data
+                            LoadBasketData();
+                        }
+                    }
+                    else
+                    {
+                        // Invalid input, reset to current quantity
+                        var basketItem = _basketItems.FirstOrDefault(item => item.Id == itemId);
+                        if (basketItem != null)
+                        {
+                            textBox.Text = basketItem.Quantity.ToString();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ShowErrorMessage($"Failed to update quantity: {ex.Message}");
             }
         }
 
@@ -210,46 +253,6 @@ namespace UiLayer
             {
                 UpdateQuantityFromTextBox(sender as TextBox);
                 e.Handled = true;
-            }
-        }
-
-        private void UpdateQuantityFromTextBox(TextBox textBox)
-        {
-            try
-            {
-                if (textBox != null && textBox.Tag is int basketItemId)
-                {
-                    if (int.TryParse(textBox.Text, out int newQuantity) && newQuantity >= 0)
-                    {
-
-                        if (newQuantity == 0)
-                        {
-                            // If quantity is 0, remove the item
-                            //_basketViewModel.RemoveItem(basketItemId);
-                        }
-                        else
-                        {
-                            // Update quantity
-                            _basketViewModel.UpdateQuantity(basketItemId, newQuantity);
-                        }
-
-                        // Reload the basket data
-                        LoadBasketData();
-                    }
-                    else
-                    {
-                        // Invalid input, reset to current quantity
-                        var basketItem = _basketItems.FirstOrDefault(item => item.Id == basketItemId);
-                        if (basketItem != null)
-                        {
-                            textBox.Text = basketItem.Quantity.ToString();
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                ShowErrorMessage($"Failed to update quantity: {ex.Message}");
             }
         }
 

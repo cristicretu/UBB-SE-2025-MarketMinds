@@ -60,19 +60,16 @@ namespace ViewModelLayer.ViewModel
             }
         }
 
-        public void UpdateQuantity(int basketItemId, int newQuantity)
+        public void UpdateProductQuantity(int productId, int quantity)
         {
             try
             {
-                _basketService.UpdateQuantity(_currentUser.Id, basketItemId, newQuantity);
-
-                // Reload the basket to get the updated items
-                LoadBasket();
+                _basketService.UpdateProductQuantity(_currentUser.Id, productId, quantity);
+                LoadBasket(); // Reload the basket to update the UI
             }
             catch (Exception ex)
             {
                 ErrorMessage = $"Failed to update quantity: {ex.Message}";
-                System.Diagnostics.Debug.WriteLine($"Error updating quantity: {ex.Message}");
             }
         }
 

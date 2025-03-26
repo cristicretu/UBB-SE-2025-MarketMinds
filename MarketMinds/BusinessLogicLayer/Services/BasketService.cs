@@ -75,7 +75,7 @@ namespace BusinessLogicLayer.Services
                 }
                 else
                 {
-                    _basketRepository.UpdateItemQuantity(basketItemId, quantity);
+                    //_basketRepository.UpdateItemQuantity(basketItemId, quantity);
                 }
             }
             catch (Exception ex)
@@ -83,6 +83,34 @@ namespace BusinessLogicLayer.Services
                 // Log the exception with more detail
                 Console.WriteLine($"Error updating quantity (Item ID: {basketItemId}): {ex.Message}");
                 Console.WriteLine($"Stack trace: {ex.StackTrace}");
+                throw new InvalidOperationException($"Could not update quantity: {ex.Message}", ex);
+            }
+        }
+        public void UpdateProductQuantity(int userId, int productId, int quantity)
+        {
+            if (userId <= 0) throw new ArgumentException("Invalid user ID");
+            if (productId <= 0) throw new ArgumentException("Invalid product ID");
+            if (quantity < 0) throw new ArgumentException("Quantity cannot be negative");
+
+            try
+            {
+                // Get the user's basket
+                Basket basket = _basketRepository.GetBasketByUser(userId);
+
+                if (quantity == 0)
+                {
+                    // If quantity is zero, remove the item
+                    _basketRepository.RemoveItemByProductId(basket.Id, productId);
+                }
+                else
+                {
+                    // Update the quantity
+                    _basketRepository.UpdateItemQuantityByProductId(basket.Id, productId, quantity);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error updating quantity: {ex.Message}");
                 throw new InvalidOperationException($"Could not update quantity: {ex.Message}", ex);
             }
         }

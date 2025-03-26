@@ -371,32 +371,26 @@ namespace DataAccessLayer.Repositories
 
             connection.CloseConnection();
         }
-       
-        public void UpdateItemQuantity(int basketItemId, int quantity)
+
+        public void UpdateItemQuantityByProductId(int basketId, int productId, int quantity)
         {
-            // Update the quantity of an item in the basket
-            // input: basketItemId, quantity
-            // output: none
-
-            if (quantity <= 0)
-            {
-                // If quantity is zero or negative, remove the item
-                //RemoveItemFromBasket(basketItemId);
-                return;
-            }
-
-            string updateCmd = "UPDATE BasketItemsBuyProducts SET quantity = @quantity WHERE id = @id";
+            string updateCmd = "UPDATE BasketItemsBuyProducts SET quantity = @quantity WHERE basket_id = @basketId AND product_id = @productId";
 
             connection.OpenConnection();
-
-            using (SqlCommand cmd = new SqlCommand(updateCmd, connection.GetConnection()))
+            try
             {
-                cmd.Parameters.AddWithValue("@id", basketItemId);
-                cmd.Parameters.AddWithValue("@quantity", quantity);
-                cmd.ExecuteNonQuery();
+                using (SqlCommand cmd = new SqlCommand(updateCmd, connection.GetConnection()))
+                {
+                    cmd.Parameters.AddWithValue("@basketId", basketId);
+                    cmd.Parameters.AddWithValue("@productId", productId);
+                    cmd.Parameters.AddWithValue("@quantity", quantity);
+                    cmd.ExecuteNonQuery();
+                }
             }
-
-            connection.CloseConnection();
+            finally
+            {
+                connection.CloseConnection();
+            }
         }
 
         public void ClearBasket(int basketId)
