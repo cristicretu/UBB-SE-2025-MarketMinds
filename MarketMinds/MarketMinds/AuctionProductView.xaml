@@ -100,16 +100,18 @@
                             <TextBlock Text="Date" Grid.Column="2" FontWeight="Bold"/>
                         </Grid>
                     </ListView.Header>
+
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <Grid ColumnDefinitions="3*,2*,2*" Padding="5">
-                                <TextBlock Text="{Binding BidderName}" />
-                                <TextBlock Text="{Binding BidPrice}" Grid.Column="1"/>
-                                <TextBlock Text="{Binding BidDate}" Grid.Column="2"/>
+                                <TextBlock Text="{Binding Bidder.Username}" />
+                                <TextBlock Text="{Binding Price}" Grid.Column="1"/>
+                                <TextBlock Text="{Binding Timestamp}" Grid.Column="2"/>
                             </Grid>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
+
             </StackPanel>
         </Grid>
     </ScrollViewer>

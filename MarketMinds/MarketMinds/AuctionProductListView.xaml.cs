@@ -10,6 +10,7 @@ using ViewModelLayer.ViewModel;
 using BusinessLogicLayer.Services;
 using BusinessLogicLayer.ViewModel;
 using MarketMinds;
+using Microsoft.UI.Xaml.Media.Imaging;
 
 namespace UiLayer
 {
@@ -73,7 +74,9 @@ namespace UiLayer
 
             auctionProducts.Clear();
             foreach (var item in pageItems)
+            {
                 auctionProducts.Add(item);
+            }
 
             // Show the empty message if no items exist
             if (auctionProducts.Count == 0)
