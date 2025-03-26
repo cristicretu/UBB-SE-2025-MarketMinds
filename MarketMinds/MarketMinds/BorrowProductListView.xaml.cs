@@ -8,6 +8,7 @@ using DomainLayer.Domain;
 using ViewModelLayer.ViewModel;
 using BusinessLogicLayer.Services;
 using BusinessLogicLayer.ViewModel;
+using MarketMinds;
 
 namespace UiLayer
 {
@@ -34,6 +35,18 @@ namespace UiLayer
             borrowProducts = new ObservableCollection<BorrowProduct>();
             currentFullList = borrowProductsViewModel.GetAllProducts();
             ApplyFiltersAndPagination();
+        }
+
+        private void BorrowListView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var selectedProduct = e.ClickedItem as BorrowProduct;
+            if (selectedProduct != null)
+            {
+                // Create and show the detail view
+                var detailView = new BorrowProductView(selectedProduct);
+                detailView.Activate();
+
+            }
         }
 
         private void ApplyFiltersAndPagination()

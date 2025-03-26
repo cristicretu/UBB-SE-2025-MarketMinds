@@ -8,6 +8,7 @@ using DomainLayer.Domain;
 using ViewModelLayer.ViewModel;
 using BusinessLogicLayer.Services;
 using BusinessLogicLayer.ViewModel;
+using MarketMinds;
 
 namespace UiLayer
 {
@@ -34,6 +35,18 @@ namespace UiLayer
             buyProducts = new ObservableCollection<BuyProduct>();
             currentFullList = buyProductsViewModel.GetAllProducts();
             ApplyFiltersAndPagination();
+        }
+
+        private void BuyListView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var selectedProduct = e.ClickedItem as BuyProduct;
+            if (selectedProduct != null)
+            {
+                // Create and show the detail view
+                var detailView = new BuyProductView(selectedProduct);
+                detailView.Activate();
+
+            }
         }
 
         private void ApplyFiltersAndPagination()
