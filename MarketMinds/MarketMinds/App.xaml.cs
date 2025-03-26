@@ -96,6 +96,7 @@ namespace MarketMinds
             reviewCreateViewModel = new ReviewCreateViewModel(reviewsService, currentUser, testingUser);
             seeSellerReviewsViewModel = new SeeSellerReviewsViewModel(reviewsService, testingUser, testingUser); 
             seeBuyerReviewsViewModel = new SeeBuyerReviewsViewModel(reviewsService, testingUser);
+            basketViewModel = new BasketViewModel(currentUser, basketService);
         }
 
         private Window mainWindow;
@@ -113,7 +114,7 @@ namespace MarketMinds
         public static ReviewCreateViewModel reviewCreateViewModel { get; private set; }
         public static SeeBuyerReviewsViewModel seeBuyerReviewsViewModel { get; private set; }
         public static SeeSellerReviewsViewModel seeSellerReviewsViewModel { get; private set; }
-        public static BasketService basketService { get; private set; }
+        public static BasketViewModel basketViewModel { get; private set; }
 
         public static User currentUser { get; set; }
         public static User testingUser { get; set; }
