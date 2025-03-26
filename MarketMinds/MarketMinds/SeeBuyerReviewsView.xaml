@@ -32,40 +32,55 @@
                     <Border BorderThickness="1" BorderBrush="Gray" Padding="10" Margin="5">
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <!-- Use Auto for the image carousel column so that it sizes to content -->
+                                <!-- Image carousel column -->
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
 
-                            <!-- Image Carousel (smaller version) -->
+                            <!-- Image Carousel -->
                             <FlipView Grid.Column="0" 
-                                Width="100" 
-                                Height="100" 
-                                Margin="0,0,10,0"
-                                ItemsSource="{Binding images}">          
+                              Width="100" 
+                              Height="100" 
+                              Margin="0,0,10,0"
+                              ItemsSource="{Binding images}">
                                 <FlipView.ItemTemplate>
                                     <DataTemplate>
-                                        <!-- Bind to the image URL (adjust the binding property if needed) -->
+                                        <!-- Bind to the image URL -->
                                         <Image 
-                                            Source="{Binding url}" 
-                                            HorizontalAlignment="Center" 
-                                            VerticalAlignment="Center" 
-                                            Stretch="Uniform" />
+                                    Source="{Binding url}" 
+                                    HorizontalAlignment="Center" 
+                                    VerticalAlignment="Center" 
+                                    Stretch="Uniform" />
                                     </DataTemplate>
                                 </FlipView.ItemTemplate>
                             </FlipView>
+
                             <StackPanel Grid.Column="1">
                                 <TextBlock Text="{Binding sellerId}" FontWeight="Bold" FontSize="16"/>
                                 <TextBlock Text="{Binding description}" TextWrapping="Wrap" Margin="0,5,0,5"/>
                                 <RatingControl Value="{Binding rating, Mode=OneWay}" 
-                                           IsClearEnabled="False" IsReadOnly="True" 
-                                           MaxRating="5" Foreground="Gold"/>    
+                                       IsClearEnabled="False" IsReadOnly="True" 
+                                       MaxRating="5" Foreground="Gold"/>
                             </StackPanel>
+
+                            <!-- Delete Button (X) -->
+                            <Button Content="X" 
+                            VerticalAlignment="Top" 
+                            HorizontalAlignment="Right" 
+                            Width="50" Height="50" 
+                            Margin="0,0,-1300,5" 
+                            FontWeight="Bold" 
+                            Foreground="Red"
+                            Background="Transparent" 
+                            BorderBrush="Transparent"
+                            Click="DeleteReviewButton_Click"/>
                         </Grid>
                     </Border>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+
+
 
         <!-- No Reviews Message -->
         <TextBlock x:Name="EmptyMessageTextBlock"

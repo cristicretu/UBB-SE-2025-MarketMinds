@@ -15,6 +15,7 @@
   </PropertyGroup>
   <ItemGroup>
     <None Remove="AuctionProductView.xaml" />
+    <None Remove="CompareProductsView.xaml" />
     <None Remove="FilterDialog.xaml" />
     <None Remove="SeeSellerReviewsView.xaml" />
   </ItemGroup>
@@ -50,6 +51,11 @@
     <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj" />
     <ProjectReference Include="..\DomainLayer\DomainLayer.csproj" />
     <ProjectReference Include="..\ViewModelLayer\ViewModelLayer.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="CompareProductsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="SeeSellerReviewsView.xaml">

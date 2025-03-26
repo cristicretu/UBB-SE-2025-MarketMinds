@@ -19,6 +19,7 @@ namespace UiLayer
         private readonly AuctionProductsViewModel auctionProductsViewModel;
         private readonly SortAndFilterViewModel sortAndFilterViewModel;
         private ObservableCollection<AuctionProduct> auctionProducts;
+        private CompareProductsViewModel compareProductsViewModel;
 
         // Pagination variables
         private int currentPage = 1;
@@ -32,6 +33,7 @@ namespace UiLayer
 
             auctionProductsViewModel = MarketMinds.App.auctionProductsViewModel;
             sortAndFilterViewModel = MarketMinds.App.auctionProductSortAndFilterViewModel;
+            compareProductsViewModel = MarketMinds.App.compareProductsViewModel;
 
             auctionProducts = new ObservableCollection<AuctionProduct>();
             // Initially load all auction products
@@ -180,6 +182,23 @@ namespace UiLayer
                     return new ProductSortType("Current Price", "CurrentPrice", false);
                 default:
                     return null;
+            }
+        }
+
+        private void AddToCompare_Click(object sender, RoutedEventArgs e)
+        {
+            var button = sender as Button;
+            var selectedProduct = button.DataContext as Product;
+            if (selectedProduct != null)
+            {
+                bool twoAdded = compareProductsViewModel.AddProduct(selectedProduct);
+                if(twoAdded == true)
+                {
+                    var compareView = new CompareProductsView(compareProductsViewModel);
+                    compareView.Activate();
+                }
+                
+
             }
         }
     }

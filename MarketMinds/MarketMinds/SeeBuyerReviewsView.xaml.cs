@@ -41,6 +41,22 @@ namespace MarketMinds
             EmptyMessageTextBlock.Visibility = ViewModel.reviews.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
         }
 
+        public void DeleteReviewButton_Click(object sender, RoutedEventArgs e)
+        {
+            var button = sender as Button;
+            var review = button.DataContext as Review; // Assuming 'Review' is the model for the review
 
+            if (review != null)
+            {
+                // Remove the review from the ViewModel's collection
+                ViewModel.DeleteReview(review);
+
+                // Manually refresh the visibility of the reviews
+                ReviewsListView.Visibility = ViewModel.reviews.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
+                EmptyMessageTextBlock.Visibility = ViewModel.reviews.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
+            }
+        }
+
+    
     }
 }
