@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using BusinessLogicLayer.Services;
 using DomainLayer.Domain;
 
 namespace ViewModelLayer.ViewModel
@@ -8,6 +9,8 @@ namespace ViewModelLayer.ViewModel
     public class BasketViewModel
     {
         private User _currentUser;
+        private readonly BasketService _basketService;
+        private Basket _basket;
 
         // Properties exposed to the view
         public List<BasketItem> BasketItems { get; private set; }
@@ -18,116 +21,85 @@ namespace ViewModelLayer.ViewModel
         public string ErrorMessage { get; set; }
 
         // Constructor with dependencies
-        public BasketViewModel(User currentUser)
+        public BasketViewModel(User currentUser, BasketService basketService)
         {
             _currentUser = currentUser;
+            _basketService = basketService;
             BasketItems = new List<BasketItem>();
             PromoCode = string.Empty;
             ErrorMessage = string.Empty;
-
-            // Initialize with demo data (for testing purposes)
-            InitializeDemoData();
-        }
-
-        private void InitializeDemoData()
-        {
-            // Create a sample seller
-            var seller = new User(2, "SampleSeller", "seller@example.com");
-
-            // Create sample product condition
-            var condition = new ProductCondition(1, "New", "Unopened, original packaging");
-
-            // Create sample product category
-            var category = new ProductCategory(1, "Electronics", "Electronic devices and accessories");
-
-            // Create sample products
-            var product1 = new BuyProduct(
-                1,
-                "Smartphone XYZ",
-                "Latest model smartphone with high-resolution camera",
-                seller,
-                condition,
-                category,
-                new List<ProductTag>(),
-                new List<Image>() { new Image("/Assets/placeholder.png") },
-                499.99f);
-
-            var product2 = new BuyProduct(
-                2,
-                "Wireless Headphones",
-                "Noise-cancelling wireless headphones",
-                seller,
-                condition,
-                category,
-                new List<ProductTag>(),
-                new List<Image>() { new Image("/Assets/placeholder.png") },
-                129.99f);
-
-            // Create basket items
-            BasketItems.Add(new BasketItem(1, product1, 1) { Price = 499.99f });
-            BasketItems.Add(new BasketItem(2, product2, 2) { Price = 129.99f });
-
-            // Calculate totals
-            CalculateTotals();
         }
 
         public void LoadBasket()
         {
-            // In a real implementation, this would load from a service
-            // For now it s using the demo data that was initialized in the constructor
-            CalculateTotals();
+            try
+            {
+                // Load basket from database through the service
+                _basket = _basketService.GetBasketByUser(_currentUser);
+                BasketItems = _basket.GetItems();
+
+                // Calculate totals
+                CalculateTotals();
+            }
+            catch (Exception ex)
+            {
+                ErrorMessage = $"Failed to load basket: {ex.Message}";
+                System.Diagnostics.Debug.WriteLine($"Error loading basket: {ex.Message}");
+            }
         }
 
         public void RemoveItem(int basketItemId)
         {
-            var itemToRemove = BasketItems.FirstOrDefault(item => item.Id == basketItemId);
-            if (itemToRemove != null)
+            try
             {
-                BasketItems.Remove(itemToRemove);
-                CalculateTotals();
+                _basketService.RemoveFromBasket(_currentUser.Id, basketItemId);
+
+                // Reload the basket to get the updated items
+                LoadBasket();
             }
-            else
+            catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine($"Item {basketItemId} not found in basket.");
+                ErrorMessage = $"Failed to remove item: {ex.Message}";
+                System.Diagnostics.Debug.WriteLine($"Error removing item: {ex.Message}");
             }
         }
 
         public void UpdateQuantity(int basketItemId, int newQuantity)
         {
-            if (newQuantity <= 0)
+            try
             {
-                RemoveItem(basketItemId);
-                return;
-            }
+                _basketService.UpdateQuantity(_currentUser.Id, basketItemId, newQuantity);
 
-            var item = BasketItems.FirstOrDefault(i => i.Id == basketItemId);
-            if (item != null)
+                // Reload the basket to get the updated items
+                LoadBasket();
+            }
+            catch (Exception ex)
             {
-                item.Quantity = newQuantity;
-                CalculateTotals();
+                ErrorMessage = $"Failed to update quantity: {ex.Message}";
+                System.Diagnostics.Debug.WriteLine($"Error updating quantity: {ex.Message}");
             }
         }
 
         public void ApplyPromoCode(string code)
         {
-            // Demo implementation should call a service
-            if (string.IsNullOrEmpty(code))
+            try
             {
-                ErrorMessage = "Please enter a promo code.";
-                return;
-            }
+                if (string.IsNullOrEmpty(code))
+                {
+                    ErrorMessage = "Please enter a promo code.";
+                    return;
+                }
 
-            // Example promo code logic
-            if (code.ToUpper() == "DISCOUNT10")
-            {
-                Discount = Subtotal * 0.1f; // 10% discount
+                _basketService.ApplyPromoCode(_basket.Id, code);
                 PromoCode = code;
-                TotalAmount = Subtotal - Discount;
+
+                // Reload the basket to get the updated pricing
+                LoadBasket();
                 ErrorMessage = string.Empty;
             }
-            else
+            catch (Exception ex)
             {
-                ErrorMessage = "Invalid promo code.";
+                ErrorMessage = $"Failed to apply promo code: {ex.Message}";
                 Discount = 0;
                 TotalAmount = Subtotal;
             }
@@ -135,15 +107,24 @@ namespace ViewModelLayer.ViewModel
 
         public void ClearBasket()
         {
-            BasketItems.Clear();
-            PromoCode = string.Empty;
-            Discount = 0;
-            CalculateTotals();
+            try
+            {
+                _basketService.ClearBasket(_currentUser.Id);
+
+                // Reload the basket after clearing it
+                LoadBasket();
+                PromoCode = string.Empty;
+            }
+            catch (Exception ex)
+            {
+                ErrorMessage = $"Failed to clear basket: {ex.Message}";
+                System.Diagnostics.Debug.WriteLine($"Error clearing basket: {ex.Message}");
+            }
         }
 
         public bool CanCheckout()
         {
-            return BasketItems.Count > 0 && BasketItems.All(item => item.HasValidPrice);
+            return _basketService.ValidateBasketBeforeCheckOut(_basket.Id);
         }
 
         public void Checkout()
@@ -165,9 +146,13 @@ namespace ViewModelLayer.ViewModel
             Subtotal = BasketItems.Sum(item => item.GetPrice());
 
             // Apply any existing discount
-            if (!string.IsNullOrEmpty(PromoCode) && PromoCode.ToUpper() == "DISCOUNT10")
+            if (!string.IsNullOrEmpty(PromoCode))
             {
-                Discount = Subtotal * 0.1f;
+                // This would be handled by the service in a real implementation
+                if (PromoCode.ToUpper() == "DISCOUNT10")
+                {
+                    Discount = Subtotal * 0.1f;
+                }
             }
 
             // Calculate total amount

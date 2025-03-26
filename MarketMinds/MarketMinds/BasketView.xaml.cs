@@ -13,26 +13,27 @@ namespace UiLayer
     public sealed partial class BasketView : Window
     {
         private BasketViewModel _basketViewModel;
-        private List<BasketItem> _basketItems;
-        private User _currentUser; // This should come from a logged-in user session, for now it s just a demo
+        private ObservableCollection<BasketItem> _basketItems;
+        private User _currentUser;
 
         public BasketView()
         {
             this.InitializeComponent();
 
-            // Initialize test user for demo run
-            _currentUser = new User(1, "TestUser", "test@example.com");
+            // Get the current user from the app
+            _currentUser = MarketMinds.App.currentUser;
 
-            // Get the BasketViewModel from the application
-            InitializeViewModel();
+            // Get the BasketViewModel from the app
+            _basketViewModel = MarketMinds.App.basketViewModel;
+
+            // Initialize basket items as ObservableCollection for auto-UI updates
+            _basketItems = new ObservableCollection<BasketItem>();
+
+            // Set the ListView's data source
+            BasketItemsListView.ItemsSource = _basketItems;
 
             // Load basket data
             LoadBasketData();
-        }
-
-        private void InitializeViewModel()
-        {
-            _basketViewModel = new BasketViewModel(_currentUser);
         }
 
         private async void ShowErrorMessage(string message)
@@ -55,12 +56,14 @@ namespace UiLayer
                 // Refresh basket data from the view model
                 _basketViewModel.LoadBasket();
 
-                // Get the updated basket items
-                _basketItems = new List<BasketItem>(_basketViewModel.BasketItems);
+                // Clear the current basket items
+                _basketItems.Clear();
 
-                // Set the ListView's data source
-                BasketItemsListView.ItemsSource = null;
-                BasketItemsListView.ItemsSource = _basketItems;
+                // Add all items from the viewmodel
+                foreach (var item in _basketViewModel.BasketItems)
+                {
+                    _basketItems.Add(item);
+                }
 
                 // Update UI elements
                 UpdateUIElements();
@@ -116,64 +119,81 @@ namespace UiLayer
 
         private void HandleRemoveItemButton_Click(object sender, RoutedEventArgs e)
         {
-            Button button = sender as Button;
-            if (button != null && button.CommandParameter is int basketItemId)
+            try
             {
-                // Remove the item through the view model
-                _basketViewModel.RemoveItem(basketItemId);
+                Button button = sender as Button;
+                if (button != null && button.CommandParameter is int basketItemId)
+                {
+                    // Remove the item through the view model
+                    _basketViewModel.RemoveItem(basketItemId);
 
-                // Reload basket data to fully refresh the UI
-                LoadBasketData();
+                    // Reload basket data to fully refresh the UI
+                    LoadBasketData();
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error removing item: {ex.Message}");
+                ShowErrorMessage($"Failed to remove item: {ex.Message}");
             }
         }
 
         private void HandleIncreaseQuantityButton_Click(object sender, RoutedEventArgs e)
         {
-            Button button = sender as Button;
-            if (button != null && button.CommandParameter is int basketItemId)
+            try
             {
-                // Find the current basket item
-                var basketItem = _basketItems.FirstOrDefault(item => item.Id == basketItemId);
-                if (basketItem != null)
+                Button button = sender as Button;
+                if (button != null && button.CommandParameter is int basketItemId)
                 {
-                    // Update quantity through the view model
-                    _basketViewModel.UpdateQuantity(basketItemId, basketItem.Quantity + 1);
+                    // Find the current basket item
+                    var basketItem = _basketItems.FirstOrDefault(item => item.Id == basketItemId);
+                    if (basketItem != null)
+                    {
 
-                    // Force UI update by completely reloading the ListView
-                    BasketItemsListView.ItemsSource = null;
-                    BasketItemsListView.ItemsSource = _basketItems;
+                        // Update quantity through the view model
+                        _basketViewModel.UpdateQuantity(basketItemId, basketItem.Quantity + 1);
 
-                    // Update other UI elements (totals, etc.)
-                    UpdateUIElements();
+                        // Reload the basket data
+                        LoadBasketData();
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                ShowErrorMessage($"Failed to increase quantity: {ex.Message}");
             }
         }
 
         private void HandleDecreaseQuantityButton_Click(object sender, RoutedEventArgs e)
         {
-            Button button = sender as Button;
-            if (button != null && button.CommandParameter is int basketItemId)
+            try
             {
-                // Find the current basket item
-                var basketItem = _basketItems.FirstOrDefault(item => item.Id == basketItemId);
-                if (basketItem != null && basketItem.Quantity > 1)
+                Button button = sender as Button;
+                if (button != null && button.CommandParameter is int basketItemId)
                 {
-                    // Update quantity through the view model
-                    _basketViewModel.UpdateQuantity(basketItemId, basketItem.Quantity - 1);
+                    // Find the current basket item
+                    var basketItem = _basketItems.FirstOrDefault(item => item.Id == basketItemId);
+                    if (basketItem != null && basketItem.Quantity > 1)
+                    {
 
-                    // Force UI update by completely reloading the ListView
-                    BasketItemsListView.ItemsSource = null;
-                    BasketItemsListView.ItemsSource = _basketItems;
+                        // Update quantity through the view model
+                        _basketViewModel.UpdateQuantity(basketItemId, basketItem.Quantity - 1);
 
-                    // Update other UI elements (totals, etc.)
-                    UpdateUIElements();
+                        // Reload the basket data
+                        LoadBasketData();
+                    }
+                    else if (basketItem != null && basketItem.Quantity == 1)
+                    {
+                        // If quantity would go to 0, remove the item
+                        _basketViewModel.RemoveItem(basketItemId);
+                        LoadBasketData();
+                    }
                 }
-                else if (basketItem != null && basketItem.Quantity == 1)
-                {
-                    // If quantity would go to 0, remove the item
-                    _basketViewModel.RemoveItem(basketItemId);
-                    LoadBasketData(); // Complete refresh for removals
-                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error decreasing quantity: {ex.Message}");
+                ShowErrorMessage($"Failed to decrease quantity: {ex.Message}");
             }
         }
 
@@ -193,36 +213,41 @@ namespace UiLayer
 
         private void UpdateQuantityFromTextBox(TextBox textBox)
         {
-            if (textBox != null && textBox.Tag is int basketItemId)
+            try
             {
-                if (int.TryParse(textBox.Text, out int newQuantity) && newQuantity >= 0)
+                if (textBox != null && textBox.Tag is int basketItemId)
                 {
-                    if (newQuantity == 0)
+                    if (int.TryParse(textBox.Text, out int newQuantity) && newQuantity >= 0)
                     {
-                        // If quantity is 0, remove the item
-                        _basketViewModel.RemoveItem(basketItemId);
-                        LoadBasketData(); // Full refresh for item removal
+
+                        if (newQuantity == 0)
+                        {
+                            // If quantity is 0, remove the item
+                            _basketViewModel.RemoveItem(basketItemId);
+                        }
+                        else
+                        {
+                            // Update quantity
+                            _basketViewModel.UpdateQuantity(basketItemId, newQuantity);
+                        }
+
+                        // Reload the basket data
+                        LoadBasketData();
                     }
                     else
                     {
-                        // Update quantity
-                        _basketViewModel.UpdateQuantity(basketItemId, newQuantity);
-
-                        // Force UI update
-                        BasketItemsListView.ItemsSource = null;
-                        BasketItemsListView.ItemsSource = _basketItems;
-                        UpdateUIElements();
+                        // Invalid input, reset to current quantity
+                        var basketItem = _basketItems.FirstOrDefault(item => item.Id == basketItemId);
+                        if (basketItem != null)
+                        {
+                            textBox.Text = basketItem.Quantity.ToString();
+                        }
                     }
                 }
-                else
-                {
-                    // Invalid input, reset to current quantity
-                    var basketItem = _basketItems.FirstOrDefault(item => item.Id == basketItemId);
-                    if (basketItem != null)
-                    {
-                        textBox.Text = basketItem.Quantity.ToString();
-                    }
-                }
+            }
+            catch (Exception ex)
+            {
+                ShowErrorMessage($"Failed to update quantity: {ex.Message}");
             }
         }
 

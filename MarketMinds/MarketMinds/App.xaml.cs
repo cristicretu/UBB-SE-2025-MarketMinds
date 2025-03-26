@@ -96,7 +96,7 @@ namespace MarketMinds
             reviewCreateViewModel = new ReviewCreateViewModel(reviewsService, currentUser, testingUser);
             seeSellerReviewsViewModel = new SeeSellerReviewsViewModel(reviewsService, testingUser, testingUser); 
             seeBuyerReviewsViewModel = new SeeBuyerReviewsViewModel(reviewsService, testingUser);
-            basketViewModel = new BasketViewModel(currentUser, basketService);
+            basketViewModel = new BasketViewModel(currentUser, basketService );
         }
 
         private Window mainWindow;
