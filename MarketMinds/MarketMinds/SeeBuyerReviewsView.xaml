@@ -46,7 +46,11 @@
                                 <FlipView.ItemTemplate>
                                     <DataTemplate>
                                         <!-- Bind to the image URL (adjust the binding property if needed) -->
-                                        <Image Source="{Binding url}" Stretch="UniformToFill"/>
+                                        <Image 
+                                            Source="{Binding url}" 
+                                            HorizontalAlignment="Center" 
+                                            VerticalAlignment="Center" 
+                                            Stretch="Uniform" />
                                     </DataTemplate>
                                 </FlipView.ItemTemplate>
                             </FlipView>
