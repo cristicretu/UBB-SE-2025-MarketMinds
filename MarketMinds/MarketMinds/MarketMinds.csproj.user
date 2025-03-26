@@ -8,10 +8,7 @@
     <None Update="App.xaml">
       <SubType>Designer</SubType>
     </None>
-    <Page Update="CompareProductsView.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="SeeSellerReviewsView.xaml">
+    <Page Update="CreateListingView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="AuctionProductView.xaml">
@@ -22,6 +19,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="BasketView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="ReviewCreateView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <None Update="Package.appxmanifest">
