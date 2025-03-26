@@ -334,18 +334,18 @@ VALUES
 -- INSERT QUERIES FOR REVIEWS
 INSERT INTO Reviews (reviewer_id, seller_id, description, rating)
 VALUES 
-(1, 2, 'Great seller! The product was exactly as described.', 5.0),
+(1, 2, 'Great seller! The product was exactly as described. My son loves it!', 5.0),
 (2, 1, 'Fast shipping and great communication.', 4.5),
-(1, 2, 'The item had some minor defects but overall good experience.', 4.0),
+(1, 2, 'It said that this was a football, not a rugby ball or whatever. Damn you americans and your football/soccer thing. Football is football, a BALL', 1.0),
 (2, 1, 'Excellent service, will buy again.', 5.0);
 
 -- INSERT QUERIES FOR REVIEW IMAGES
 INSERT INTO ReviewsPictures (url, review_id)
 VALUES 
-('https://i.imgur.com/review1.jpg', 1),
-('https://i.imgur.com/review2.jpg', 1),
-('https://i.imgur.com/review3.jpg', 2),
-('https://i.imgur.com/review4.jpg', 3),
-('https://i.imgur.com/review5.jpg', 4);
+('https://i.imgur.com/a/ugWEPFI.jpeg', 2),
+('https://i.imgur.com/a/irTNwqP.jpeg', 1),
+('https://i.imgur.com/a/7zcVVVV.jpeg', 1),
+('https://i.imgur.com/a/xixh3cV.jpeg', 3),
+('https://i.imgur.com/a/qcu8biC.jpeg', 4);
 
 select * from Reviews
