@@ -9,6 +9,8 @@ using DomainLayer.Domain;
 using ViewModelLayer.ViewModel;
 using BusinessLogicLayer.Services;
 using BusinessLogicLayer.ViewModel;
+using MarketMinds;
+using Microsoft.UI.Xaml.Media.Imaging;
 
 namespace UiLayer
 {
@@ -17,6 +19,7 @@ namespace UiLayer
         private readonly AuctionProductsViewModel auctionProductsViewModel;
         private readonly SortAndFilterViewModel sortAndFilterViewModel;
         private ObservableCollection<AuctionProduct> auctionProducts;
+        private CompareProductsViewModel compareProductsViewModel;
 
         // Pagination variables
         private int currentPage = 1;
@@ -30,11 +33,24 @@ namespace UiLayer
 
             auctionProductsViewModel = MarketMinds.App.auctionProductsViewModel;
             sortAndFilterViewModel = MarketMinds.App.auctionProductSortAndFilterViewModel;
+            compareProductsViewModel = MarketMinds.App.compareProductsViewModel;
 
             auctionProducts = new ObservableCollection<AuctionProduct>();
             // Initially load all auction products
             currentFullList = auctionProductsViewModel.GetAllProducts();
             ApplyFiltersAndPagination();
+        }
+
+        private void AuctionListView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var selectedProduct = e.ClickedItem as AuctionProduct;
+            if (selectedProduct != null)
+            {
+                // Create and show the detail view
+                var detailView = new AuctionProductView(selectedProduct);
+                detailView.Activate();
+                
+            }
         }
 
         // Call this method whenever a filter, sort, or search query changes.
@@ -60,7 +76,9 @@ namespace UiLayer
 
             auctionProducts.Clear();
             foreach (var item in pageItems)
+            {
                 auctionProducts.Add(item);
+            }
 
             // Show the empty message if no items exist
             if (auctionProducts.Count == 0)
@@ -164,6 +182,23 @@ namespace UiLayer
                     return new ProductSortType("Current Price", "CurrentPrice", false);
                 default:
                     return null;
+            }
+        }
+
+        private void AddToCompare_Click(object sender, RoutedEventArgs e)
+        {
+            var button = sender as Button;
+            var selectedProduct = button.DataContext as Product;
+            if (selectedProduct != null)
+            {
+                bool twoAdded = compareProductsViewModel.AddProduct(selectedProduct);
+                if(twoAdded == true)
+                {
+                    var compareView = new CompareProductsView(compareProductsViewModel);
+                    compareView.Activate();
+                }
+                
+
             }
         }
     }

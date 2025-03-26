@@ -25,44 +25,23 @@ namespace MarketMinds
     /// <summary>
     /// An empty window that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class AuctionProductView : Window
+    public sealed partial class BuyProductView : Window
     {
-        private readonly AuctionProduct _product;
+        private readonly BuyProduct _product;
         private readonly User _currentUser;
-        private readonly AuctionProductsViewModel _auctionProductsViewModel;
+        private readonly BasketViewModel _basketViewModel = App.basketViewModel;
 
-        private DispatcherTimer countdownTimer;
         private Window seeSellerReviewsView;
-        public AuctionProductView(AuctionProduct product)
+        public BuyProductView(BuyProduct product)
         {
             this.InitializeComponent();
             _product = product;
             _currentUser = MarketMinds.App.currentUser;
-            _auctionProductsViewModel = MarketMinds.App.auctionProductsViewModel;
+            //_buyProductsViewModel = MarketMinds.App.buyProductsViewModel;
             LoadProductDetails();
             LoadImages();
-            LoadBidHistory();
-            StartCountdownTimer();
         }
 
-        private void StartCountdownTimer()
-        {
-            countdownTimer = new DispatcherTimer();
-            countdownTimer.Interval = TimeSpan.FromSeconds(1);
-            countdownTimer.Tick += CountdownTimer_Tick;
-            countdownTimer.Start();
-        }
-        private void CountdownTimer_Tick(object sender, object e)
-        {
-            string timeText = GetTimeLeft();
-            TimeLeftTextBlock.Text = timeText;
-
-            if (timeText == "Auction Ended")
-            {
-                countdownTimer.Stop();
-                _auctionProductsViewModel.ConcludeAuction(_product);
-            }
-        }
 
 
         private void LoadProductDetails()
@@ -71,9 +50,7 @@ namespace MarketMinds
             TitleTextBlock.Text = _product.Title;
             CategoryTextBlock.Text = _product.Category.displayTitle;
             ConditionTextBlock.Text = _product.Condition.displayTitle;
-            StartingPriceTextBlock.Text = $"{_product.StartingPrice:C}";
-            CurrentPriceTextBlock.Text = $"{_product.CurrentPrice:C}"; // Just an example
-            TimeLeftTextBlock.Text = GetTimeLeft();
+            PriceTextBlock.Text = $"{_product.Price:C}";
 
             // Seller Info
             SellerTextBlock.Text = _product.Seller.Username;
@@ -114,47 +91,28 @@ namespace MarketMinds
             }
         }
 
-        private void LoadBidHistory()
-        {
-            BidHistoryListView.ItemsSource = _product.BidHistory
-                .OrderByDescending(b => b.Timestamp)
-                .ToList();
-        }
-
-
-        private string GetTimeLeft()
-        {
-            var timeLeft = _product.EndAuctionDate - DateTime.Now;
-            return timeLeft > TimeSpan.Zero ? timeLeft.ToString(@"dd\:hh\:mm\:ss") : "Auction Ended";
-        }
-
-        private void OnPlaceBidClicked(object sender, RoutedEventArgs e)
+        private void OnAddtoBascketClicked(object sender, RoutedEventArgs e)
         {
             try
             {
-                _auctionProductsViewModel.PlaceBid(_product, _currentUser, BidTextBox.Text);
+                _basketViewModel.AddToBasket(_product.Id);
 
-                // Update UI after successful bid
-                CurrentPriceTextBlock.Text = $"{_product.CurrentPrice:C}";
-                LoadBidHistory(); // Refresh bid list
+                // Show success notification
+                BasketNotificationTip.Title = "Success";
+                BasketNotificationTip.Subtitle = "Product added to basket successfully!";
+                BasketNotificationTip.IconSource = new SymbolIconSource() { Symbol = Symbol.Accept };
+                BasketNotificationTip.IsOpen = true;
             }
             catch (Exception ex)
             {
-                ShowErrorDialog(ex.Message);
+                Debug.WriteLine($"Failed to add product to basket: {ex.Message}");
+
+                // Show error notification
+                BasketNotificationTip.Title = "Error";
+                BasketNotificationTip.Subtitle = $"Failed to add product: {ex.Message}";
+                BasketNotificationTip.IconSource = new SymbolIconSource() { Symbol = Symbol.Accept };
+                BasketNotificationTip.IsOpen = true;
             }
-        }
-
-        private async void ShowErrorDialog(string message)
-        {
-            var dialog = new ContentDialog
-            {
-                Title = "Bid Error",
-                Content = message,
-                CloseButtonText = "OK",
-                XamlRoot = this.Content.XamlRoot
-            };
-
-            await dialog.ShowAsync();
         }
 
         private void OnSeeReviewsClicked(object sender, RoutedEventArgs e)

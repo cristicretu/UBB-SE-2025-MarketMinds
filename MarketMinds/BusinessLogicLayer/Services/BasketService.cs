@@ -9,11 +9,27 @@ namespace BusinessLogicLayer.Services
     public class BasketService
     {
         private readonly BasketRepository _basketRepository;
+        public const int MaxQuantityPerItem = 10;
 
         // Constructor with just the basket repository
         public BasketService(BasketRepository basketRepository)
         {
             _basketRepository = basketRepository;
+        }
+
+        public void AddToBasket(int userId, int productId, int quantity)
+        {
+            if (userId <= 0) throw new ArgumentException("Invalid user ID");
+            if (productId <= 0) throw new ArgumentException("Invalid product ID");
+
+            // Apply the maximum quantity limit
+            int limitedQuantity = Math.Min(quantity, MaxQuantityPerItem);
+
+            // Get the user's basket
+            Basket basket = _basketRepository.GetBasketByUser(userId);
+
+            // Add the item with the limited quantity
+            _basketRepository.AddItemToBasket(basket.Id, productId, limitedQuantity);
         }
 
         public Basket GetBasketByUser(User user)
@@ -34,52 +50,52 @@ namespace BusinessLogicLayer.Services
             }
         }
 
-        public void RemoveFromBasket(int userId, int basketItemId)
+        public void RemoveProductFromBasket(int userId, int productId)
         {
             if (userId <= 0) throw new ArgumentException("Invalid user ID");
-            if (basketItemId <= 0) throw new ArgumentException("Invalid basket item ID");
+            if (productId <= 0) throw new ArgumentException("Invalid product ID");
 
             try
             {
                 // Get the user's basket
                 Basket basket = _basketRepository.GetBasketByUser(userId);
 
-                // Remove the item directly - skip the verification check that was causing errors
-                _basketRepository.RemoveItemFromBasket(basketItemId);
+                // Remove the product
+                _basketRepository.RemoveItemByProductId(basket.Id, productId);
             }
             catch (Exception ex)
             {
-                // Log the exception
-                Console.WriteLine($"Error removing item: {ex.Message}");
-                throw new InvalidOperationException($"Could not remove item: {ex.Message}", ex);
+                Console.WriteLine($"Error removing product: {ex.Message}");
+                throw new InvalidOperationException($"Could not remove product: {ex.Message}", ex);
             }
         }
 
-        public void UpdateQuantity(int userId, int basketItemId, int quantity)
+        public void UpdateProductQuantity(int userId, int productId, int quantity)
         {
             if (userId <= 0) throw new ArgumentException("Invalid user ID");
-            if (basketItemId <= 0) throw new ArgumentException("Invalid basket item ID");
+            if (productId <= 0) throw new ArgumentException("Invalid product ID");
             if (quantity < 0) throw new ArgumentException("Quantity cannot be negative");
+
+            int limitedQuantity = Math.Min(quantity, MaxQuantityPerItem);
 
             try
             {
                 // Get the user's basket
                 Basket basket = _basketRepository.GetBasketByUser(userId);
 
-                // Update the item quantity directly - skip the verification check that was causing errors
-                if (quantity == 0)
+                if (limitedQuantity == 0)
                 {
-                    _basketRepository.RemoveItemFromBasket(basketItemId);
+                    // If quantity is zero, remove the item
+                    _basketRepository.RemoveItemByProductId(basket.Id, productId);
                 }
                 else
                 {
-                    _basketRepository.UpdateItemQuantity(basketItemId, quantity);
+                    // Update the quantity
+                    _basketRepository.UpdateItemQuantityByProductId(basket.Id, productId, limitedQuantity);
                 }
             }
             catch (Exception ex)
-            {
-                // Log the exception
-                Console.WriteLine($"Error updating quantity: {ex.Message}");
+            { 
                 throw new InvalidOperationException($"Could not update quantity: {ex.Message}", ex);
             }
         }
@@ -131,16 +147,49 @@ namespace BusinessLogicLayer.Services
             if (basketId <= 0) throw new ArgumentException("Invalid basket ID");
             if (string.IsNullOrWhiteSpace(code)) throw new ArgumentException("Promo code cannot be empty");
 
-            // Simplified implementation - this would typically check against a database of valid codes
-            if (code.ToUpper() == "DISCOUNT10")
+            // Convert to uppercase for case-insensitive comparison
+            string normalizedCode = code.ToUpper().Trim();
+
+            // Dictionary of valid promo codes
+            Dictionary<string, float> validCodes = new Dictionary<string, float>
             {
-                // Apply a 10% discount
-                // This would normally update the basket in the database
-                // For now, just indicate success
+                { "DISCOUNT10", 0.10f },  // 10% discount
+                { "WELCOME20", 0.20f },   // 20% discount 
+                { "FLASH30", 0.30f },     // 30% discount
+            };
+
+            // Check if the code exists in the valid codes
+            if (validCodes.TryGetValue(normalizedCode, out float discountRate))
+            {
                 return;
             }
 
             throw new InvalidOperationException("Invalid promo code");
+        }
+
+        // Add a new method to get the discount for a promo code
+        public float GetPromoCodeDiscount(string code, float subtotal)
+        {
+            if (string.IsNullOrWhiteSpace(code)) return 0;
+
+            // Convert to uppercase for case-insensitive comparison
+            string normalizedCode = code.ToUpper().Trim();
+
+            // Dictionary of valid promo codes
+            Dictionary<string, float> validCodes = new Dictionary<string, float>
+            {
+                { "DISCOUNT10", 0.10f },  // 10% discount
+                { "WELCOME20", 0.20f },   // 20% discount 
+                { "FLASH30", 0.30f },     // 30% discount
+            };
+
+            // Check if the code exists in the valid codes
+            if (validCodes.TryGetValue(normalizedCode, out float discountRate))
+            {
+                return subtotal * discountRate;
+            }
+
+            return 0; // No discount 
         }
     }
 }

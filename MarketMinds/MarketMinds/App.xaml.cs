@@ -44,13 +44,18 @@ namespace MarketMinds
         /// Invoked when the application is launched.
         /// </summary>
         /// <param name="args">Details about the launch request and process.</param>
+        
+
         protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
         {
             mainWindow = new UiLayer.MainWindow();
             mainWindow.Activate();
-            User currentUser = new User(1, "random", "random@gmail.com");
-            User testingUser = new User(2, "seller", "sell@gmail.com");
-            
+            testingUser = 
+                new User(1, "alice123", "alice@example.com" );
+            testingUser.UserType = 2; // Seller
+            currentUser = new User(2, "bob321", "bob@example.com");
+            currentUser.UserType = 3; //Buyer
+
             // Instantiate database connection
             var dataBaseConnection = new DataBaseConnection();
             
@@ -63,6 +68,7 @@ namespace MarketMinds
             var buyRepository = new BuyProductsRepository(dataBaseConnection);
             var reviewRepository = new ReviewRepository(dataBaseConnection);
             var basketRepository = new BasketRepository(dataBaseConnection);
+            
 
             // 4. Instantiate services
             var productService = new ProductService(borrowRepository);
@@ -88,8 +94,11 @@ namespace MarketMinds
             borrowProductSortAndFilterViewModel = new SortAndFilterViewModel(borrowProductsService);
             buyProductSortAndFilterViewModel = new SortAndFilterViewModel(buyProductsService);
             reviewCreateViewModel = new ReviewCreateViewModel(reviewsService, currentUser, testingUser);
-            //seeSellerReviewsViewModel = new SeeSellerReviewsViewModel(reviewRepository, currentUser); this one in the product window
+            seeSellerReviewsViewModel = new SeeSellerReviewsViewModel(reviewsService, testingUser, testingUser); 
+            seeBuyerReviewsViewModel = new SeeBuyerReviewsViewModel(reviewsService, testingUser);
+            basketViewModel = new BasketViewModel(currentUser, basketService );
             seeBuyerReviewsViewModel = new SeeBuyerReviewsViewModel(reviewsService, currentUser);
+            compareProductsViewModel = new CompareProductsViewModel();
         }
 
         private Window mainWindow;
@@ -106,6 +115,13 @@ namespace MarketMinds
         public static SortAndFilterViewModel buyProductSortAndFilterViewModel { get; private set; }
         public static ReviewCreateViewModel reviewCreateViewModel { get; private set; }
         public static SeeBuyerReviewsViewModel seeBuyerReviewsViewModel { get; private set; }
-        public static BasketService basketService { get; private set; }
+        public static SeeSellerReviewsViewModel seeSellerReviewsViewModel { get; private set; }
+        public static BasketViewModel basketViewModel { get; private set; }
+
+        public static CompareProductsViewModel compareProductsViewModel { get; private set; }
+
+        public static User currentUser { get; set; }
+        public static User testingUser { get; set; }
+
     }
 }

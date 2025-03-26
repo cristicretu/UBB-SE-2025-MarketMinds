@@ -26,7 +26,7 @@ namespace BusinessLogicLayer.Services
 
             RefundPreviousBidder(auction);
 
-            var bid = new Bid { Bidder = bidder, Price = bidAmount, Timestamp = DateTime.Now };
+            var bid = new Bid (bidder, bidAmount, DateTime.Now);
             auction.AddBid(bid);
             auction.CurrentPrice = bidAmount;
 
@@ -34,7 +34,6 @@ namespace BusinessLogicLayer.Services
 
             _auctionRepository.UpdateProduct(auction);
 
-            Notify(bidder, $"Your bid of ${bidAmount} is placed successfully.");
         }
 
         private void ValidateBid(AuctionProduct auction, User bidder, float bidAmount)
@@ -58,7 +57,6 @@ namespace BusinessLogicLayer.Services
                 var previousBid = auction.BidHistory.Last();
                 previousBid.Bidder.Balance += previousBid.Price;
 
-                Notify(previousBid.Bidder, $"You've been outbid. ${previousBid.Price} has been refunded to your account.");
             }
         }
 
@@ -72,32 +70,10 @@ namespace BusinessLogicLayer.Services
             }
         }
 
-        private void Notify(User user, string message)
+        public void ConcludeAuction(AuctionProduct auction)
         {
-            return;
+            this._auctionRepository.DeleteProduct(auction);
         }
 
-        public void ConcludeAuction(AuctionProduct auction, User seller)
-        {
-            if (auction.BidHistory.Count == 0)
-            {
-                Notify(seller, $"The auction for {auction.Id} has ended. Unfortunately, no bids were placed.");
-                return;
-            }
-
-            var winningBid = auction.BidHistory.Last();
-            Notify(winningBid.Bidder, $"Congratulations! You have won the auction for {auction.Id} with a bid of ${winningBid.Price}.");
-            Notify(seller, $"The auction for {auction.Id} has ended. The highest bid was ${winningBid.Price} placed by {winningBid.Bidder.Username}.");
-
-            seller.Balance += winningBid.Price;
-
-            CreateOrder(winningBid.Bidder, auction);
-        }
-
-        private void CreateOrder(User buyer, AuctionProduct product)
-        {
-            return;
-        }
-       
     }
 }

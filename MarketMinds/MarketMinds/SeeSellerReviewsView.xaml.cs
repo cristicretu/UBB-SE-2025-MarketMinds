@@ -1,3 +1,4 @@
+using BusinessLogicLayer.ViewModel;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -19,13 +20,19 @@ using Windows.Foundation.Collections;
 namespace MarketMinds
 {
     /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
+    /// An empty window that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class BlankPage1 : Page
+    public sealed partial class SeeSellerReviewsView : Window
     {
-        public BlankPage1()
+        SeeSellerReviewsViewModel ViewModel;
+        public SeeSellerReviewsView(SeeSellerReviewsViewModel viewModel)
         {
+            ViewModel = viewModel;
+            viewModel.refreshData();
             this.InitializeComponent();
+            // Show/hide elements based on review count
+            ReviewsListView.Visibility = ViewModel.reviews.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
+            EmptyMessageTextBlock.Visibility = ViewModel.reviews.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
         }
     }
 }

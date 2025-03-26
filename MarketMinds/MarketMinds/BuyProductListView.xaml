@@ -46,16 +46,40 @@
         </ComboBox>
 
         <!-- Buy Product Listings -->
-        <ListView x:Name="BuyListView" Grid.Row="2" ItemsSource="{x:Bind buyProducts, Mode=OneWay}">
+        <ListView x:Name="BuyListView" Grid.Row="2" ItemsSource="{x:Bind buyProducts, Mode=OneWay}" IsItemClickEnabled="True"
+          ItemClick="BuyListView_ItemClick">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Border BorderThickness="1" BorderBrush="Gray" Padding="10" Margin="5">
-                        <StackPanel>
-                            <TextBlock Text="{Binding Title}" FontWeight="Bold" FontSize="16"/>
-                            <TextBlock Text="{Binding Description}" TextWrapping="Wrap" Margin="0,5,0,5"/>
-                            <TextBlock Text="Price: $" FontWeight="SemiBold" Margin="0,5,0,0"/>
-                            <TextBlock Text="{Binding Price}" />
-                        </StackPanel>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Image Carousel (smaller version) -->
+                            <FlipView Grid.Column="0" 
+                                      Width="100" Height="100" 
+                                      Margin="0,0,10,0"
+                                      ItemsSource="{Binding Images}">
+                                <FlipView.ItemTemplate>
+                                    <DataTemplate>
+                                        <!-- Bind to the image URL -->
+                                        <Image Source="{Binding url}" Stretch="UniformToFill"/>
+                                    </DataTemplate>
+                                </FlipView.ItemTemplate>
+                            </FlipView>
+
+                            <!-- Product Details -->
+                            <StackPanel Grid.Column="1">
+                                <TextBlock Text="{Binding Title}" FontWeight="Bold" FontSize="16"/>
+                                <TextBlock Text="{Binding Description}" TextWrapping="Wrap" Margin="0,5,0,5"/>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Price: $" FontWeight="SemiBold"/>
+                                    <TextBlock Text="{Binding Price}" />
+                                </StackPanel>
+                            </StackPanel>
+                        </Grid>
                     </Border>
                 </DataTemplate>
             </ListView.ItemTemplate>

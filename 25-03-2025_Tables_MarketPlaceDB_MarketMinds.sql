@@ -256,14 +256,14 @@ VALUES
 
 INSERT INTO AuctionProductsImages (url, product_id)
 VALUES 
-('https://imgur.com/XBpDHa7', 1),
-('https://imgur.com/u9j0U5Y', 1),
-('https://imgur.com/YYXgjHM' , 2),
-('https://imgur.com/Yq7jIzr' , 3),
-('https://imgur.com/4XWqyj5' , 3),
-('https://imgur.com/a/vVvRugv' , 4),
-('https://imgur.com/a/zK6LJX5' , 5),
-('https://imgur.com/srDfm59' , 5);
+('https://i.imgur.com/XBpDHa7.jpeg', 1),
+('https://i.imgur.com/u9j0U5Y.jpeg', 1),
+('https://i.imgur.com/YYXgjHM.jpeg' , 2),
+('https://i.imgur.com/Yq7jIzr.jpeg' , 3),
+('https://i.imgur.com/4XWqyj5.jpeg' , 3),
+('https://i.imgur.com/ZC5UaQZ.jpeg' , 4),
+('https://i.imgur.com/grOzWu8.jpeg' , 5),
+('https://i.imgur.com/srDfm59.jpeg' , 5);
 
 
 INSERT INTO AuctionProductProductTags (product_id, tag_id)
@@ -289,16 +289,16 @@ VALUES
 INSERT INTO BorrowProducts (title, description, seller_id, condition_id, category_id, time_limit, start_date, end_date, daily_rate, is_borrowed) 
 VALUES 
 ('Professional Camera', 'DSLR camera perfect for events.',1, 1, 1,'2025-03-30', '2025-03-25', '2025-03-30',12.00, 1),
-('Toolbox', 'Complete DIY toolkit for home repairs.',2, 2, 2,'2025-03-30', '2025-03-24', '2025-03-28',4.00, 1)
+('Toolbox', 'Complete DIY toolkit for home repairs.',2, 2, 2,'2025-03-30', '2025-03-24', '2025-03-28',4.00, 1);
 
 
 
 INSERT INTO BorrowProductImages (url, product_id)
 VALUES 
-('https://imgur.com/a/VO3nqbi', 1),
-('https://imgur.com/a/svDJ5AS', 1),
-('https://imgur.com/a/T3dAC1B' , 2),
-('https://imgur.com/a/BdSpUwZ' , 2);
+('https://i.imgur.com/yVSgkw1.jpeg', 1),
+('https://i.imgur.com/gMaRVZN.jpeg', 1),
+('https://i.imgur.com/OTDwYjh.jpeg' , 2),
+('https://i.imgur.com/WL5yCjH.jpeg' , 2);
 
 INSERT INTO BorrowProductProductTags (product_id, tag_id)
 VALUES 
@@ -317,11 +317,11 @@ INSERT INTO BuyProducts (title, description, seller_id, condition_id, category_i
 
 INSERT INTO BuyProductImages (url, product_id)
 VALUES 
-('https://imgur.com/a/MzATm9M', 1),
-('https://imgur.com/a/kDxftlC' , 1),
-('https://imgur.com/a/KPIQiuJ' , 2),
-('https://imgur.com/a/SZmkYky' , 2),
-('https://imgur.com/a/kJY3gKi' , 3);
+('https://i.imgur.com/LhlIBMt.jpeg', 1),
+('https://i.imgur.com/GmWI7GM.jpeg' , 1),
+('https://i.imgur.com/oTYyO1O.jpeg' , 2),
+('https://i.imgur.com/DQbBuGr.jpeg' , 2),
+('https://i.imgur.com/oDwPDES.jpeg' , 3);
 
 INSERT INTO BuyProductProductTags (product_id, tag_id)
 VALUES 
@@ -329,3 +329,23 @@ VALUES
 (2, 2),
 (2, 3),
 (3, 1);
+
+
+-- INSERT QUERIES FOR REVIEWS
+INSERT INTO Reviews (reviewer_id, seller_id, description, rating)
+VALUES 
+(1, 2, 'Great seller! The product was exactly as described. My son loves it!', 5.0),
+(2, 1, 'Fast shipping and great communication.', 4.5),
+(1, 2, 'It said that this was a football, not a rugby ball or whatever. Damn you americans and your football/soccer thing. Football is football, a BALL', 1.0),
+(2, 1, 'Excellent service, will buy again.', 5.0);
+
+-- INSERT QUERIES FOR REVIEW IMAGES
+INSERT INTO ReviewsPictures (url, review_id)
+VALUES 
+('https://i.imgur.com/Wr7FSB0.jpeg', 2),
+('https://i.imgur.com/yOMoqoS.jpeg', 1),
+('https://i.imgur.com/4ikPbty.jpeg', 1),
+('https://i.imgur.com/vG2ozCz.jpeg', 3),
+('https://i.imgur.com/r3q6HKj.jpeg', 4);
+
+select * from Reviews

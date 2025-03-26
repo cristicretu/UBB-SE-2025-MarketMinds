@@ -13,5 +13,11 @@ namespace DomainLayer.Domain
 
         public DateTime Timestamp { get; set; }
 
+        public Bid (User bidder, float price, DateTime timestamp)
+        {
+            Bidder = bidder;
+            Price = price;
+            Timestamp = timestamp;
+        }
     }
 }

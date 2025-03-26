@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using DomainLayer.Domain;
 using Microsoft.Data.SqlClient;
 using DataAccessLayer;
+using System.Collections.ObjectModel;
 
 namespace DataAccessLayer.Repositories
 {
-    // TODO: Check the functions again now that id is also in review
     public class ReviewRepository
     {
         private DataBaseConnection connection;
@@ -19,122 +16,153 @@ namespace DataAccessLayer.Repositories
             this.connection = connection;
         }
 
-        public List<Review> GetAllReviewsByBuyer(User buyer)
+        public ObservableCollection<Review> GetAllReviewsByBuyer(User buyer)
         {
-            // Returns all the reviews done by the provided user 
-            // input: buyer
-            // output: all the buyer's reviews
-
-            List<Review> reviews = new List<Review>();
+            ObservableCollection<Review> reviews = new ObservableCollection<Review>();
             string query = "SELECT * FROM Reviews WHERE reviewer_id = @id";
+
             connection.OpenConnection();
-            using (SqlCommand cmd = new SqlCommand(query, connection.GetConnection()))
+            try
             {
-                // attach to the parameter the id
-                cmd.Parameters.AddWithValue("@id", buyer.Id);
-                using (SqlDataReader reader = cmd.ExecuteReader())
+                using (SqlCommand cmd = new SqlCommand(query, connection.GetConnection()))
                 {
-                    while (reader.Read())
+                    cmd.Parameters.AddWithValue("@id", buyer.Id);
+
+                    ObservableCollection<int> reviewIds = new ObservableCollection<int>();
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
                     {
-                        List<Image> images = GetImages(reader.GetInt32(0));
-                        // creates a new Review object
-                        reviews.Add(new Review(
-                            reader.GetInt32(0),
-                            reader.GetString(3),  // description - 4th in sql table
-                            images,
-                            reader.GetFloat(4), //rating - 5th in sql table
-                            reader.GetInt32(2), //seller
-                            reader.GetInt32(1)  //buyer
-                        ));
+                        while (reader.Read())
+                        {
+                            int reviewId = reader.GetInt32(0);
+                            reviewIds.Add(reviewId);
+
+                            // Add the review directly to the ObservableCollection
+                            var review = new Review(
+                                reviewId,
+                                reader.GetString(3),
+                                new List<Image>(), // Use ObservableCollection for images
+                                Convert.ToSingle(reader.GetDouble(4)),
+                                reader.GetInt32(2),
+                                reader.GetInt32(1)
+                            );
+
+                            reviews.Add(review);
+                        }
+                    }
+
+                    // Load images for each review after reading the reviews
+                    foreach (var review in reviews)
+                    {
+                        review.images = new List<Image>(GetImages(review.id)); // Convert List<Image> to ObservableCollection<Image>
                     }
                 }
             }
-            connection.CloseConnection(); // close the connection after use
+            finally
+            {
+                connection.CloseConnection();
+            }
+
             return reviews;
         }
 
-        public List<Review> GetAllReviewsBySeller(User seller)
+
+        public ObservableCollection<Review> GetAllReviewsBySeller(User seller)
         {
-            // Returns all the reviews got by the provided user 
-            // input: seller
-            // output: all the seller's reviews
-
-            List<Review> reviews = new List<Review>();
+            ObservableCollection<Review> reviews = new ObservableCollection<Review>();
             string query = "SELECT * FROM Reviews WHERE seller_id = @id";
+
             connection.OpenConnection();
-            using (SqlCommand cmd = new SqlCommand(query, connection.GetConnection()))
+            try
             {
-                // attach to the parameter the id
-                cmd.Parameters.AddWithValue("@id", seller.Id);
-                using (SqlDataReader reader = cmd.ExecuteReader())
+                using (SqlCommand cmd = new SqlCommand(query, connection.GetConnection()))
                 {
-                    while (reader.Read())
+                    cmd.Parameters.AddWithValue("@id", seller.Id);
+
+                    ObservableCollection<int> reviewIds = new ObservableCollection<int>();
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
                     {
-                        List<Image> images = GetImages(reader.GetInt32(0));
-                        // creates a new Review object
-                        reviews.Add(new Review(
-                            reader.GetInt32(0),
-                            reader.GetString(3),  // description - 4th in sql table
-                            images,
-                            reader.GetFloat(4), //rating - 5th in sql table
-                            reader.GetInt32(2), //seller
-                            reader.GetInt32(1)  //buyer
-                        ));
+                        while (reader.Read())
+                        {
+                            int reviewId = reader.GetInt32(0);
+                            reviewIds.Add(reviewId);
+
+                            // Add the review directly to the ObservableCollection
+                            var review = new Review(
+                                reviewId,
+                                reader.GetString(3),
+                                new List<Image>(), // Use ObservableCollection for images
+                                Convert.ToSingle(reader.GetDouble(4)),
+                                reader.GetInt32(2),
+                                reader.GetInt32(1)
+                            );
+
+                            reviews.Add(review);
+                        }
+                    }
+
+                    // Load images for each review after reading the reviews
+                    foreach (var review in reviews)
+                    {
+                        review.images = new List<Image>(GetImages(review.id)); // Convert List<Image> to ObservableCollection<Image>
                     }
                 }
             }
-            connection.CloseConnection(); // close the connection after use
+            finally
+            {
+                connection.CloseConnection();
+            }
+
             return reviews;
         }
+
 
         public void CreateReview(Review review)
         {
             string insertSql = "INSERT INTO Reviews (reviewer_id, seller_id, description, rating) OUTPUT INSERTED.id VALUES (@reviewer_id, @seller_id, @description, @rating)";
 
             connection.OpenConnection();
-
-            using (SqlCommand cmd = new SqlCommand(insertSql, connection.GetConnection()))
+            try
             {
-                cmd.Parameters.AddWithValue("@reviewer_id", review.buyerId);
-                cmd.Parameters.AddWithValue("@seller_id", review.sellerId);
-                cmd.Parameters.AddWithValue("@description", review.description);
-                cmd.Parameters.AddWithValue("@rating", review.rating);
-
-                // Read the inserted review ID properly
-                review.id = (int)cmd.ExecuteScalar();
-            }
-
-            // Insert images only if there are any
-            if (review.images != null && review.images.Count > 0)
-            {
-                string insertImageSql = "INSERT INTO ReviewsPictures (url, review_id) VALUES (@url, @review_id)";
-
-                using (SqlCommand cmd = new SqlCommand(insertImageSql, connection.GetConnection()))
+                using (SqlCommand cmd = new SqlCommand(insertSql, connection.GetConnection()))
                 {
-                    foreach (Image img in review.images)
+                    cmd.Parameters.AddWithValue("@reviewer_id", review.buyerId);
+                    cmd.Parameters.AddWithValue("@seller_id", review.sellerId);
+                    cmd.Parameters.AddWithValue("@description", review.description);
+                    cmd.Parameters.AddWithValue("@rating", review.rating);
+
+                    review.id = (int)cmd.ExecuteScalar();
+                }
+
+                // Insert images if they exist
+                if (review.images != null && review.images.Count > 0)
+                {
+                    string insertImageSql = "INSERT INTO ReviewsPictures (url, review_id) VALUES (@url, @review_id)";
+                    foreach (var img in review.images)
                     {
-                        cmd.Parameters.Clear();
-                        cmd.Parameters.AddWithValue("@url", img.url);
-                        cmd.Parameters.AddWithValue("@review_id", review.id);
-                        cmd.ExecuteNonQuery();
+                        using (SqlCommand cmd = new SqlCommand(insertImageSql, connection.GetConnection()))
+                        {
+                            cmd.Parameters.AddWithValue("@url", img.url);
+                            cmd.Parameters.AddWithValue("@review_id", review.id);
+                            cmd.ExecuteNonQuery();
+                        }
                     }
                 }
             }
-
-            connection.CloseConnection();
+            finally
+            {
+                connection.CloseConnection();
+            }
         }
-
 
         private List<Image> GetImages(int reviewId)
         {
-            string query = "SELECT * FROM ReviewsPictures WHERE review_id = @id";
             List<Image> images = new List<Image>();
-
-            // connection is already made from the function that calls this one
+            string query = "SELECT * FROM ReviewsPictures WHERE review_id = @id";
 
             using (SqlCommand cmd = new SqlCommand(query, connection.GetConnection()))
             {
-
                 cmd.Parameters.AddWithValue("@id", reviewId);
 
                 using (SqlDataReader reader = cmd.ExecuteReader())
@@ -162,7 +190,6 @@ namespace DataAccessLayer.Repositories
 
                 using (SqlCommand cmd = new SqlCommand(updateQuery, connection.GetConnection()))
                 {
-
                     cmd.Parameters.AddWithValue("@id", review.id);
                     cmd.Parameters.AddWithValue("@rating", rating);
                     cmd.ExecuteNonQuery();
@@ -175,7 +202,6 @@ namespace DataAccessLayer.Repositories
 
                 using (SqlCommand cmd = new SqlCommand(updateQuery, connection.GetConnection()))
                 {
-
                     cmd.Parameters.AddWithValue("@id", review.id);
                     cmd.Parameters.AddWithValue("@description", description);
                     cmd.ExecuteNonQuery();
@@ -186,7 +212,6 @@ namespace DataAccessLayer.Repositories
 
         public void DeleteReview(Review review)
         {
-            // first get the id, delete the images, then the review
             if (review.id == -1)
             {
                 review.id = GetReviewId(review);
@@ -194,11 +219,9 @@ namespace DataAccessLayer.Repositories
             connection.OpenConnection();
             DeleteImages(review.id);
 
-            // deleting from the Reviews Table
             string query = "DELETE FROM Reviews WHERE id = @id";
             using (SqlCommand cmd = new SqlCommand(query, connection.GetConnection()))
             {
-
                 cmd.Parameters.AddWithValue("@id", review.id);
                 cmd.ExecuteNonQuery();
             }
@@ -209,13 +232,13 @@ namespace DataAccessLayer.Repositories
         {
             string query = "SELECT id FROM Reviews WHERE reviewer_id = @reviewer AND seller_id = @seller AND description = @desc";
             int id = -1;
+
             using (SqlCommand cmd = new SqlCommand(query, connection.GetConnection()))
             {
-
                 cmd.Parameters.AddWithValue("@reviewer", review.buyerId);
                 cmd.Parameters.AddWithValue("@seller", review.sellerId);
                 cmd.Parameters.AddWithValue("@desc", review.description);
-
+                connection.OpenConnection();
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
                     while (reader.Read())
@@ -224,15 +247,15 @@ namespace DataAccessLayer.Repositories
                     }
                 }
             }
+            connection.CloseConnection();
             return id;
         }
 
         private void DeleteImages(int reviewId)
         {
-            string query = "DELETE FROM ReviewsPictures WHERE id = @id";
+            string query = "DELETE FROM ReviewsPictures WHERE review_id = @id";
             using (SqlCommand cmd = new SqlCommand(query, connection.GetConnection()))
             {
-
                 cmd.Parameters.AddWithValue("@id", reviewId);
                 cmd.ExecuteNonQuery();
             }
