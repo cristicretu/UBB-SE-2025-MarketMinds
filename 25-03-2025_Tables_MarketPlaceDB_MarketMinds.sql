@@ -347,3 +347,5 @@ VALUES
 ('https://i.imgur.com/review3.jpg', 2),
 ('https://i.imgur.com/review4.jpg', 3),
 ('https://i.imgur.com/review5.jpg', 4);
+
+select * from Reviews

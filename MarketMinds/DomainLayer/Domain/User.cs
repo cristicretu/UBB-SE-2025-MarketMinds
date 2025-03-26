@@ -11,10 +11,11 @@ namespace DomainLayer.Domain
         public int Id { get; set; }
         public string Username { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;
-        public string UserType { get; set; } = string.Empty;
+        public int UserType { get; set; } 
         public float Balance { get; set; }
         public float Rating { get; set; }
         public float Password { get; set; }
+
 
         public User(int id , string username , string email)
         {
