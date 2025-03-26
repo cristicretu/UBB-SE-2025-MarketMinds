@@ -15,6 +15,7 @@ using Microsoft.UI.Xaml.Navigation;
 using DomainLayer.Domain;
 using Microsoft.UI.Xaml.Media.Imaging;
 using System.Diagnostics;
+using ViewModelLayer.ViewModel;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -27,12 +28,16 @@ namespace MarketMinds
     public sealed partial class AuctionProductView : Window
     {
         private readonly AuctionProduct _product;
+        private readonly User _currentUser;
+        private readonly AuctionProductsViewModel _auctionProductsViewModel;
+
         private DispatcherTimer countdownTimer;
         public AuctionProductView(AuctionProduct product)
         {
             this.InitializeComponent();
             _product = product;
-
+            _currentUser = MarketMinds.App.currentUser;
+            _auctionProductsViewModel = MarketMinds.App.auctionProductsViewModel;
             LoadProductDetails();
             LoadImages();
             LoadBidHistory();
@@ -94,7 +99,6 @@ namespace MarketMinds
 
             foreach (var image in _product.Images)
             {
-                Debug.WriteLine("Loading image: " + image.url);
 
                 var img = new Microsoft.UI.Xaml.Controls.Image
                 {
@@ -125,8 +129,31 @@ namespace MarketMinds
 
         private void OnPlaceBidClicked(object sender, RoutedEventArgs e)
         {
-            var enteredBid = BidTextBox.Text;
-            // TODO: Add bid logic
+            try
+            {
+                _auctionProductsViewModel.PlaceBid(_product, _currentUser, BidTextBox.Text);
+
+                // Update UI after successful bid
+                CurrentPriceTextBlock.Text = $"{_product.CurrentPrice:C}";
+                LoadBidHistory(); // Refresh bid list
+            }
+            catch (Exception ex)
+            {
+                ShowErrorDialog(ex.Message);
+            }
+        }
+
+        private async void ShowErrorDialog(string message)
+        {
+            var dialog = new ContentDialog
+            {
+                Title = "Bid Error",
+                Content = message,
+                CloseButtonText = "OK",
+                XamlRoot = this.Content.XamlRoot
+            };
+
+            await dialog.ShowAsync();
         }
 
         private void OnSeeReviewsClicked(object sender, RoutedEventArgs e)

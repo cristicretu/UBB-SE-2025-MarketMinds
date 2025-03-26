@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using BusinessLogicLayer.Services;
 using DomainLayer.Domain;
+using System;
 
 namespace ViewModelLayer.ViewModel;
 
@@ -21,5 +22,13 @@ public class AuctionProductsViewModel
             auctionProducts.Add((AuctionProduct)product);
         }
         return auctionProducts;
+    }
+
+    public void PlaceBid(AuctionProduct product, User bidder, string enteredBidText)
+    {
+        if (!float.TryParse(enteredBidText, out float bidAmount))
+            throw new Exception("Invalid bid amount");
+
+        auctionProductsService.PlaceBid(product, bidder, bidAmount);
     }
 }
