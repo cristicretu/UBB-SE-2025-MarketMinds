@@ -59,7 +59,7 @@ namespace UiLayer
                 // Clear the current basket items
                 _basketItems.Clear();
 
-                // Add all items from the viewmodel
+                // Add all items from the view model
                 foreach (var item in _basketViewModel.BasketItems)
                 {
                     _basketItems.Add(item);
@@ -122,18 +122,20 @@ namespace UiLayer
             try
             {
                 Button button = sender as Button;
-                if (button != null && button.CommandParameter is int basketItemId)
+                if (button != null && button.CommandParameter is int itemId)
                 {
-                    // Remove the item through the view model
-                    _basketViewModel.RemoveItem(basketItemId);
-
-                    // Reload basket data to fully refresh the UI
+                    // Find the corresponding basket item
+                    var item = _basketItems.FirstOrDefault(i => i.Id == itemId);
+                    if (item != null)
+                    {
+                        // Remove using product ID instead of item ID
+                        _basketViewModel.RemoveProductFromBasket(item.Product.Id);
+                    }
                     LoadBasketData();
                 }
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine($"Error removing item: {ex.Message}");
                 ShowErrorMessage($"Failed to remove item: {ex.Message}");
             }
         }
@@ -185,7 +187,7 @@ namespace UiLayer
                     else if (basketItem != null && basketItem.Quantity == 1)
                     {
                         // If quantity would go to 0, remove the item
-                        _basketViewModel.RemoveItem(basketItemId);
+                        //_basketViewModel.RemoveItem(basketItemId);
                         LoadBasketData();
                     }
                 }
@@ -223,7 +225,7 @@ namespace UiLayer
                         if (newQuantity == 0)
                         {
                             // If quantity is 0, remove the item
-                            _basketViewModel.RemoveItem(basketItemId);
+                            //_basketViewModel.RemoveItem(basketItemId);
                         }
                         else
                         {

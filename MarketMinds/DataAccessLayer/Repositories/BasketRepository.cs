@@ -104,6 +104,57 @@ namespace DataAccessLayer.Repositories
             connection.CloseConnection();
         }
 
+        public List<(int id, int basketId, int productId, int quantity, float price)> GetAllBasketItems()
+        {
+            var items = new List<(int, int, int, int, float)>();
+            string query = "SELECT id, basket_id, product_id, quantity, price FROM BasketItemsBuyProducts";
+
+            connection.OpenConnection();
+            try
+            {
+                using (SqlCommand cmd = new SqlCommand(query, connection.GetConnection()))
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        items.Add((
+                            reader.GetInt32(0),  // id
+                            reader.GetInt32(1),  // basket_id
+                            reader.GetInt32(2),  // product_id
+                            reader.GetInt32(3),  // quantity
+                            Convert.ToSingle(reader.GetDouble(4))  // price
+                        ));
+                    }
+                }
+            }
+            finally
+            {
+                connection.CloseConnection();
+            }
+
+            return items;
+        }
+
+        public void RemoveItemByProductId(int basketId, int productId)
+        {
+            string deleteCmd = "DELETE FROM BasketItemsBuyProducts WHERE basket_id = @basketId AND product_id = @productId";
+
+            connection.OpenConnection();
+            try
+            {
+                using (SqlCommand cmd = new SqlCommand(deleteCmd, connection.GetConnection()))
+                {
+                    cmd.Parameters.AddWithValue("@basketId", basketId);
+                    cmd.Parameters.AddWithValue("@productId", productId);
+                    int rowsAffected = cmd.ExecuteNonQuery();
+                }
+            }
+            finally
+            {
+                connection.CloseConnection();
+            }
+        }
+
         public List<BasketItem> GetBasketItems(int basketId)
         {
             List<BasketItem> items = new List<BasketItem>();
@@ -320,26 +371,7 @@ namespace DataAccessLayer.Repositories
 
             connection.CloseConnection();
         }
-
-        public void RemoveItemFromBasket(int basketItemId)
-        {
-            // Remove an item from the basket
-            // input: basketItemId
-            // output: none
-
-            string deleteCmd = "DELETE FROM BasketItemsBuyProducts WHERE id = @id";
-
-            connection.OpenConnection();
-
-            using (SqlCommand cmd = new SqlCommand(deleteCmd, connection.GetConnection()))
-            {
-                cmd.Parameters.AddWithValue("@id", basketItemId);
-                cmd.ExecuteNonQuery();
-            }
-
-            connection.CloseConnection();
-        }
-
+       
         public void UpdateItemQuantity(int basketItemId, int quantity)
         {
             // Update the quantity of an item in the basket
@@ -349,7 +381,7 @@ namespace DataAccessLayer.Repositories
             if (quantity <= 0)
             {
                 // If quantity is zero or negative, remove the item
-                RemoveItemFromBasket(basketItemId);
+                //RemoveItemFromBasket(basketItemId);
                 return;
             }
 

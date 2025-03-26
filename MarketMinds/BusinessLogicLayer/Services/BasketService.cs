@@ -34,24 +34,23 @@ namespace BusinessLogicLayer.Services
             }
         }
 
-        public void RemoveFromBasket(int userId, int basketItemId)
+        public void RemoveProductFromBasket(int userId, int productId)
         {
             if (userId <= 0) throw new ArgumentException("Invalid user ID");
-            if (basketItemId <= 0) throw new ArgumentException("Invalid basket item ID");
+            if (productId <= 0) throw new ArgumentException("Invalid product ID");
 
             try
             {
                 // Get the user's basket
                 Basket basket = _basketRepository.GetBasketByUser(userId);
 
-                // Remove the item directly - skip the verification check that was causing errors
-                _basketRepository.RemoveItemFromBasket(basketItemId);
+                // Remove the product
+                _basketRepository.RemoveItemByProductId(basket.Id, productId);
             }
             catch (Exception ex)
             {
-                // Log the exception
-                Console.WriteLine($"Error removing item: {ex.Message}");
-                throw new InvalidOperationException($"Could not remove item: {ex.Message}", ex);
+                Console.WriteLine($"Error removing product: {ex.Message}");
+                throw new InvalidOperationException($"Could not remove product: {ex.Message}", ex);
             }
         }
 
@@ -66,10 +65,13 @@ namespace BusinessLogicLayer.Services
                 // Get the user's basket
                 Basket basket = _basketRepository.GetBasketByUser(userId);
 
-                // Update the item quantity directly - skip the verification check that was causing errors
+                // Debug log to verify the basket and item IDs
+                Console.WriteLine($"Updating item ID: {basketItemId} in basket ID: {basket.Id} to quantity: {quantity}");
+
+                // Update the item quantity directly
                 if (quantity == 0)
                 {
-                    _basketRepository.RemoveItemFromBasket(basketItemId);
+                    //_basketRepository.RemoveItemFromBasket(basketItemId);
                 }
                 else
                 {
@@ -78,8 +80,9 @@ namespace BusinessLogicLayer.Services
             }
             catch (Exception ex)
             {
-                // Log the exception
-                Console.WriteLine($"Error updating quantity: {ex.Message}");
+                // Log the exception with more detail
+                Console.WriteLine($"Error updating quantity (Item ID: {basketItemId}): {ex.Message}");
+                Console.WriteLine($"Stack trace: {ex.StackTrace}");
                 throw new InvalidOperationException($"Could not update quantity: {ex.Message}", ex);
             }
         }

@@ -44,23 +44,19 @@ namespace ViewModelLayer.ViewModel
             catch (Exception ex)
             {
                 ErrorMessage = $"Failed to load basket: {ex.Message}";
-                System.Diagnostics.Debug.WriteLine($"Error loading basket: {ex.Message}");
             }
         }
 
-        public void RemoveItem(int basketItemId)
+        public void RemoveProductFromBasket(int productId)
         {
             try
             {
-                _basketService.RemoveFromBasket(_currentUser.Id, basketItemId);
-
-                // Reload the basket to get the updated items
+                _basketService.RemoveProductFromBasket(_currentUser.Id, productId);
                 LoadBasket();
             }
             catch (Exception ex)
             {
-                ErrorMessage = $"Failed to remove item: {ex.Message}";
-                System.Diagnostics.Debug.WriteLine($"Error removing item: {ex.Message}");
+                ErrorMessage = $"Failed to remove product: {ex.Message}";
             }
         }
 
