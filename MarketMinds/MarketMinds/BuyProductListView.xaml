@@ -46,7 +46,8 @@
         </ComboBox>
 
         <!-- Buy Product Listings -->
-        <ListView x:Name="BuyListView" Grid.Row="2" ItemsSource="{x:Bind buyProducts, Mode=OneWay}">
+        <ListView x:Name="BuyListView" Grid.Row="2" ItemsSource="{x:Bind buyProducts, Mode=OneWay}" IsItemClickEnabled="True"
+          ItemClick="BuyListView_ItemClick">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Border BorderThickness="1" BorderBrush="Gray" Padding="10" Margin="5">
