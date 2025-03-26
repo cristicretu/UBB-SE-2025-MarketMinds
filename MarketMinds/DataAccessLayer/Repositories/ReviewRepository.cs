@@ -238,7 +238,7 @@ namespace DataAccessLayer.Repositories
                 cmd.Parameters.AddWithValue("@reviewer", review.buyerId);
                 cmd.Parameters.AddWithValue("@seller", review.sellerId);
                 cmd.Parameters.AddWithValue("@desc", review.description);
-
+                connection.OpenConnection();
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
                     while (reader.Read())
@@ -247,6 +247,7 @@ namespace DataAccessLayer.Repositories
                     }
                 }
             }
+            connection.CloseConnection();
             return id;
         }
 
