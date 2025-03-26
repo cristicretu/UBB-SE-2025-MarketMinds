@@ -21,7 +21,6 @@ namespace BusinessLogicLayer.Services
         {
             if (userId <= 0) throw new ArgumentException("Invalid user ID");
             if (productId <= 0) throw new ArgumentException("Invalid product ID");
-            if (quantity <= 0) throw new ArgumentException("Quantity must be greater than zero");
 
             // Apply the maximum quantity limit
             int limitedQuantity = Math.Min(quantity, MaxQuantityPerItem);
