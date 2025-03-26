@@ -65,7 +65,7 @@ namespace ViewModelLayer.ViewModel
             try
             {
                 _basketService.UpdateProductQuantity(_currentUser.Id, productId, quantity);
-                LoadBasket(); // Reload the basket to update the UI
+                LoadBasket();
             }
             catch (Exception ex)
             {
@@ -86,7 +86,6 @@ namespace ViewModelLayer.ViewModel
                 _basketService.ApplyPromoCode(_basket.Id, code);
                 PromoCode = code;
 
-                // Reload the basket to get the updated pricing
                 LoadBasket();
                 ErrorMessage = string.Empty;
             }
@@ -103,15 +102,12 @@ namespace ViewModelLayer.ViewModel
             try
             {
                 _basketService.ClearBasket(_currentUser.Id);
-
-                // Reload the basket after clearing it
                 LoadBasket();
                 PromoCode = string.Empty;
             }
             catch (Exception ex)
             {
                 ErrorMessage = $"Failed to clear basket: {ex.Message}";
-                System.Diagnostics.Debug.WriteLine($"Error clearing basket: {ex.Message}");
             }
         }
 
@@ -128,8 +124,6 @@ namespace ViewModelLayer.ViewModel
                 return;
             }
 
-            // This would start the checkout process
-            // For now just set a success message
             ErrorMessage = string.Empty;
         }
 
@@ -141,7 +135,6 @@ namespace ViewModelLayer.ViewModel
             // Apply any existing discount
             if (!string.IsNullOrEmpty(PromoCode))
             {
-                // This would be handled by the service in a real implementation
                 if (PromoCode.ToUpper() == "DISCOUNT10")
                 {
                     Discount = Subtotal * 0.1f;

@@ -54,38 +54,6 @@ namespace BusinessLogicLayer.Services
             }
         }
 
-        public void UpdateQuantity(int userId, int basketItemId, int quantity)
-        {
-            if (userId <= 0) throw new ArgumentException("Invalid user ID");
-            if (basketItemId <= 0) throw new ArgumentException("Invalid basket item ID");
-            if (quantity < 0) throw new ArgumentException("Quantity cannot be negative");
-
-            try
-            {
-                // Get the user's basket
-                Basket basket = _basketRepository.GetBasketByUser(userId);
-
-                // Debug log to verify the basket and item IDs
-                Console.WriteLine($"Updating item ID: {basketItemId} in basket ID: {basket.Id} to quantity: {quantity}");
-
-                // Update the item quantity directly
-                if (quantity == 0)
-                {
-                    //_basketRepository.RemoveItemFromBasket(basketItemId);
-                }
-                else
-                {
-                    //_basketRepository.UpdateItemQuantity(basketItemId, quantity);
-                }
-            }
-            catch (Exception ex)
-            {
-                // Log the exception with more detail
-                Console.WriteLine($"Error updating quantity (Item ID: {basketItemId}): {ex.Message}");
-                Console.WriteLine($"Stack trace: {ex.StackTrace}");
-                throw new InvalidOperationException($"Could not update quantity: {ex.Message}", ex);
-            }
-        }
         public void UpdateProductQuantity(int userId, int productId, int quantity)
         {
             if (userId <= 0) throw new ArgumentException("Invalid user ID");
@@ -109,8 +77,7 @@ namespace BusinessLogicLayer.Services
                 }
             }
             catch (Exception ex)
-            {
-                Console.WriteLine($"Error updating quantity: {ex.Message}");
+            { 
                 throw new InvalidOperationException($"Could not update quantity: {ex.Message}", ex);
             }
         }
