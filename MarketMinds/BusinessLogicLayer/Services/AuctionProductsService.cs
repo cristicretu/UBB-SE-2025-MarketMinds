@@ -26,7 +26,7 @@ namespace BusinessLogicLayer.Services
 
             RefundPreviousBidder(auction);
 
-            var bid = new Bid { Bidder = bidder, Price = bidAmount, Timestamp = DateTime.Now };
+            var bid = new Bid (bidder, bidAmount, DateTime.Now);
             auction.AddBid(bid);
             auction.CurrentPrice = bidAmount;
 

@@ -22,4 +22,5 @@ public class AuctionProductsViewModel
         }
         return auctionProducts;
     }
+
 }
