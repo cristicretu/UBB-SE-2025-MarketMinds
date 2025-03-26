@@ -50,7 +50,7 @@ namespace MarketMinds
             mainWindow.Activate();
             User currentUser = 
                 new User(1, "alice", "alice@example.com");
-            User testingUser = new User(2, "bob", "bob@example.com");
+            User testingUser = new User(2, "bob321", "bob@example.com");
             
             // Instantiate database connection
             var dataBaseConnection = new DataBaseConnection();
@@ -90,7 +90,7 @@ namespace MarketMinds
             borrowProductSortAndFilterViewModel = new SortAndFilterViewModel(borrowProductsService);
             buyProductSortAndFilterViewModel = new SortAndFilterViewModel(buyProductsService);
             reviewCreateViewModel = new ReviewCreateViewModel(reviewsService, currentUser, testingUser);
-            //seeSellerReviewsViewModel = new SeeSellerReviewsViewModel(reviewRepository, currentUser); this one in the product window
+            seeSellerReviewsViewModel = new SeeSellerReviewsViewModel(reviewsService, testingUser, testingUser); 
             seeBuyerReviewsViewModel = new SeeBuyerReviewsViewModel(reviewsService, currentUser);
         }
 
@@ -108,6 +108,8 @@ namespace MarketMinds
         public static SortAndFilterViewModel buyProductSortAndFilterViewModel { get; private set; }
         public static ReviewCreateViewModel reviewCreateViewModel { get; private set; }
         public static SeeBuyerReviewsViewModel seeBuyerReviewsViewModel { get; private set; }
+        public static SeeSellerReviewsViewModel seeSellerReviewsViewModel { get; private set; }
         public static BasketService basketService { get; private set; }
+
     }
 }

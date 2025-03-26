@@ -27,7 +27,7 @@ namespace MarketMinds
     public sealed partial class AuctionProductView : Window
     {
         private readonly AuctionProduct _product;
-
+        private Window seeSellerReviewWindow;
         public AuctionProductView(AuctionProduct product)
         {
             this.InitializeComponent();
@@ -113,7 +113,9 @@ namespace MarketMinds
 
         private void OnSeeReviewsClicked(object sender, RoutedEventArgs e)
         {
-            // TODO: Show reviews
+            App.seeSellerReviewsViewModel.seller = _product.Seller;
+            seeSellerReviewWindow = new SeeSellerReviewsView(App.seeSellerReviewsViewModel);
+            seeSellerReviewWindow.Activate();
         }
     }
 
