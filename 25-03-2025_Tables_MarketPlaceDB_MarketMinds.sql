@@ -342,10 +342,10 @@ VALUES
 -- INSERT QUERIES FOR REVIEW IMAGES
 INSERT INTO ReviewsPictures (url, review_id)
 VALUES 
-('https://i.imgur.com/a/ugWEPFI.jpeg', 2),
-('https://i.imgur.com/a/irTNwqP.jpeg', 1),
-('https://i.imgur.com/a/7zcVVVV.jpeg', 1),
-('https://i.imgur.com/a/xixh3cV.jpeg', 3),
-('https://i.imgur.com/a/qcu8biC.jpeg', 4);
+('https://i.imgur.com/Wr7FSB0.jpeg', 2),
+('https://i.imgur.com/yOMoqoS.jpeg', 1),
+('https://i.imgur.com/4ikPbty.jpeg', 1),
+('https://i.imgur.com/vG2ozCz.jpeg', 3),
+('https://i.imgur.com/r3q6HKj.jpeg', 4);
 
 select * from Reviews

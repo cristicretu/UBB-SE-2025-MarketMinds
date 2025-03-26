@@ -8,7 +8,7 @@
     mc:Ignorable="d">
 
     <!-- TODO: Make the window look good if updating the size -->
-    <Grid Padding="20" Background="LightBlue" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+    <Grid Padding="20" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Top" Spacing="10">
             <!-- Seller Name -->
             <TextBlock Text="Seller:" FontWeight="Bold"/>
@@ -25,8 +25,8 @@
             <TextBox Text="{x:Bind ViewModel.Description, Mode=TwoWay}" AcceptsReturn="True" Height="250" TextWrapping="Wrap"/>
 
             <!-- Image Links -->
-            <TextBlock Text="Image Links:" FontWeight="Bold"/>
-            <TextBox Text="{x:Bind ViewModel.ImagesString, Mode=TwoWay}" AcceptsReturn="True" Height="100" TextWrapping="Wrap"/>
+            <TextBlock Text="Images:" FontWeight="Bold"/>
+            <Button Content="Upload Image" Click="OnUploadImageClick" Width="150"/>
 
             <!-- Confirm button -->
             <Button x:Name="ConfirmButton" Content="Publish Review" VerticalAlignment="Bottom" HorizontalAlignment="Center"

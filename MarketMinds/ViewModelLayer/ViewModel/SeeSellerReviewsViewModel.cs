@@ -43,6 +43,11 @@ namespace BusinessLogicLayer.ViewModel
         public void refreshData()
         {
             reviews = reviewsService.GetReviewsBySeller(seller);
+            reviewCount = reviews.Count();
+            if (reviewCount > 0)
+            {
+                rating = reviews.Average(r => r.rating);
+            }
         }
     }
 }
