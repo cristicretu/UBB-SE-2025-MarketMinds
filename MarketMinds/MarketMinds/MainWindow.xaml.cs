@@ -64,11 +64,19 @@ namespace UiLayer
             leaveReviewViewWindow.Activate();
         }
 
+        private void handleCreateListingButton_Click(Object sender, RoutedEventArgs e)
+        {
+            createListingViewWindow = new Window();
+            createListingViewWindow.Content = new CreateListingView();
+            createListingViewWindow.Activate();
+        }
+
         private Window basketViewWindow;
         private Window auctionProductListViewWindow;
         private Window borrowProductListViewWindow;
         private Window buyProductListViewWindow;
         private Window adminViewWindow;
         private Window leaveReviewViewWindow;
+        private Window createListingViewWindow;
     }
 }
