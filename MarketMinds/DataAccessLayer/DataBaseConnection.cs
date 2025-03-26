@@ -17,6 +17,7 @@ namespace DataAccessLayer
         //COSTIN: Data Source = COSTIN\SQLEXPRESS; Initial Catalog = MarketPlace; Integrated Security = True; TrustServerCertificate=True;
         private string connectionString = "Data Source = TESTHPLEL\\SQLEXPRESS; Initial Catalog = MarketPlace; Integrated Security = True; TrustServerCertificate=True";
         //private string connectionString = "Server=GHASTERLAPTOP;Database=MarketPlace;User Id=sa;Password=1808;TrustServerCertificate=True";
+        private string connectionString = "Data Source = PAULHITICAS0594; Initial Catalog = MarketPlace; Integrated Security = True; TrustServerCertificate=True;";
 
         public DataBaseConnection()
         {
