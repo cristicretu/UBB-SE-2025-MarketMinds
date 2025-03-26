@@ -148,16 +148,49 @@ namespace BusinessLogicLayer.Services
             if (basketId <= 0) throw new ArgumentException("Invalid basket ID");
             if (string.IsNullOrWhiteSpace(code)) throw new ArgumentException("Promo code cannot be empty");
 
-            // Simplified implementation - this would typically check against a database of valid codes
-            if (code.ToUpper() == "DISCOUNT10")
+            // Convert to uppercase for case-insensitive comparison
+            string normalizedCode = code.ToUpper().Trim();
+
+            // Dictionary of valid promo codes
+            Dictionary<string, float> validCodes = new Dictionary<string, float>
             {
-                // Apply a 10% discount
-                // This would normally update the basket in the database
-                // For now, just indicate success
+                { "DISCOUNT10", 0.10f },  // 10% discount
+                { "WELCOME20", 0.20f },   // 20% discount 
+                { "FLASH30", 0.30f },     // 30% discount
+            };
+
+            // Check if the code exists in the valid codes
+            if (validCodes.TryGetValue(normalizedCode, out float discountRate))
+            {
                 return;
             }
 
             throw new InvalidOperationException("Invalid promo code");
+        }
+
+        // Add a new method to get the discount for a promo code
+        public float GetPromoCodeDiscount(string code, float subtotal)
+        {
+            if (string.IsNullOrWhiteSpace(code)) return 0;
+
+            // Convert to uppercase for case-insensitive comparison
+            string normalizedCode = code.ToUpper().Trim();
+
+            // Dictionary of valid promo codes
+            Dictionary<string, float> validCodes = new Dictionary<string, float>
+            {
+                { "DISCOUNT10", 0.10f },  // 10% discount
+                { "WELCOME20", 0.20f },   // 20% discount 
+                { "FLASH30", 0.30f },     // 30% discount
+            };
+
+            // Check if the code exists in the valid codes
+            if (validCodes.TryGetValue(normalizedCode, out float discountRate))
+            {
+                return subtotal * discountRate;
+            }
+
+            return 0; // No discount 
         }
     }
 }

@@ -255,13 +255,35 @@ namespace UiLayer
                 try
                 {
                     _basketViewModel.ApplyPromoCode(promoCode);
-                    LoadBasketData(); // Refresh the data
+
+                    // The promo code was applied successfully if it gets here
+                    if (_basketViewModel.Discount > 0)
+                    {
+                        ErrorMessageTextBlock.Text = $"Promo code '{promoCode}' applied successfully!";
+                        ErrorMessageTextBlock.Foreground = new Microsoft.UI.Xaml.Media.SolidColorBrush(Microsoft.UI.Colors.Green);
+                        ErrorMessageTextBlock.Visibility = Visibility.Visible;
+                    }
+                    else
+                    {
+                        ErrorMessageTextBlock.Text = "Promo code applied, but no discount was awarded.";
+                        ErrorMessageTextBlock.Foreground = new Microsoft.UI.Xaml.Media.SolidColorBrush(Microsoft.UI.Colors.Orange);
+                        ErrorMessageTextBlock.Visibility = Visibility.Visible;
+                    }
+
+                    LoadBasketData(); 
                 }
                 catch (Exception ex)
                 {
                     ErrorMessageTextBlock.Text = $"Error applying promo code: {ex.Message}";
+                    ErrorMessageTextBlock.Foreground = new Microsoft.UI.Xaml.Media.SolidColorBrush(Microsoft.UI.Colors.Red);
                     ErrorMessageTextBlock.Visibility = Visibility.Visible;
                 }
+            }
+            else
+            {
+                ErrorMessageTextBlock.Text = "Please enter a promo code.";
+                ErrorMessageTextBlock.Foreground = new Microsoft.UI.Xaml.Media.SolidColorBrush(Microsoft.UI.Colors.Red);
+                ErrorMessageTextBlock.Visibility = Visibility.Visible;
             }
         }
 
@@ -320,11 +342,6 @@ namespace UiLayer
         private void HandleContinueShoppingButton_Click(object sender, RoutedEventArgs e)
         {
             // This would typically navigate back to the product listing page
-            this.Close();
-        }
-
-        private void handleCloseButton_Click(object sender, RoutedEventArgs e)
-        {
             this.Close();
         }
     }

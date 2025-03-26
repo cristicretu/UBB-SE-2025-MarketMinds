@@ -47,6 +47,20 @@ namespace ViewModelLayer.ViewModel
             }
         }
 
+        public void AddToBasket(int productId)
+        {
+            try
+            {
+                _basketService.AddToBasket(_currentUser.Id, productId, 1);
+                LoadBasket();
+                ErrorMessage = string.Empty;
+            }
+            catch (Exception ex)
+            {
+                ErrorMessage = $"Failed to add product to basket: {ex.Message}";
+            }
+        }
+
         public void RemoveProductFromBasket(int productId)
         {
             try
@@ -97,8 +111,8 @@ namespace ViewModelLayer.ViewModel
                 _basketService.ApplyPromoCode(_basket.Id, code);
                 PromoCode = code;
 
-                LoadBasket();
-                ErrorMessage = string.Empty;
+                CalculateTotals();
+                ErrorMessage = $"Promo code '{code}' applied successfully.";
             }
             catch (Exception ex)
             {
@@ -146,14 +160,15 @@ namespace ViewModelLayer.ViewModel
             // Apply any existing discount
             if (!string.IsNullOrEmpty(PromoCode))
             {
-                if (PromoCode.ToUpper() == "DISCOUNT10")
-                {
-                    Discount = Subtotal * 0.1f;
-                }
+                Discount = _basketService.GetPromoCodeDiscount(PromoCode, Subtotal);
+            }
+            else
+            {
+                Discount = 0;
             }
 
-            // Calculate total amount
-            TotalAmount = Subtotal - Discount;
+                // Calculate total amount
+                TotalAmount = Subtotal - Discount;
         }
     }
 }
