@@ -27,7 +27,7 @@ namespace MarketMinds
     public sealed partial class AuctionProductView : Window
     {
         private readonly AuctionProduct _product;
-        private DispatcherTimer countdownTimer;
+        private Window seeSellerReviewWindow;
         public AuctionProductView(AuctionProduct product)
         {
             this.InitializeComponent();
@@ -36,28 +36,7 @@ namespace MarketMinds
             LoadProductDetails();
             LoadImages();
             LoadBidHistory();
-            StartCountdownTimer();
         }
-
-        private void StartCountdownTimer()
-        {
-            countdownTimer = new DispatcherTimer();
-            countdownTimer.Interval = TimeSpan.FromSeconds(1);
-            countdownTimer.Tick += CountdownTimer_Tick;
-            countdownTimer.Start();
-        }
-        private void CountdownTimer_Tick(object sender, object e)
-        {
-            string timeText = GetTimeLeft();
-            TimeLeftTextBlock.Text = timeText;
-
-            if (timeText == "Auction Ended")
-            {
-                countdownTimer.Stop();
-                //DeleteAuction(); // Or disable UI, etc.
-            }
-        }
-
 
         private void LoadProductDetails()
         {
@@ -66,7 +45,7 @@ namespace MarketMinds
             CategoryTextBlock.Text = _product.Category.displayTitle;
             ConditionTextBlock.Text = _product.Condition.displayTitle;
             StartingPriceTextBlock.Text = $"{_product.StartingPrice:C}";
-            CurrentPriceTextBlock.Text = $"{_product.CurrentPrice :C}"; // Just an example
+            CurrentPriceTextBlock.Text = $"{_product.StartingPrice + 50:C}"; // Just an example
             TimeLeftTextBlock.Text = GetTimeLeft();
 
             // Seller Info
@@ -111,11 +90,14 @@ namespace MarketMinds
 
         private void LoadBidHistory()
         {
-            BidHistoryListView.ItemsSource = _product.BidHistory
-                .OrderByDescending(b => b.Timestamp)
-                .ToList();
-        }
+            var history = new List<BidHistoryItem>
+        {
+            new BidHistoryItem { BidderName = "Alice", BidPrice = 150.0f, BidDate = DateTime.Now.AddMinutes(-30)},
+            new BidHistoryItem { BidderName = "Bob", BidPrice = 160.0f, BidDate = DateTime.Now.AddMinutes(-10)},
+        };
 
+            BidHistoryListView.ItemsSource = history;
+        }
 
         private string GetTimeLeft()
         {
@@ -131,7 +113,16 @@ namespace MarketMinds
 
         private void OnSeeReviewsClicked(object sender, RoutedEventArgs e)
         {
-            // TODO: Show reviews
+            App.seeSellerReviewsViewModel.seller = _product.Seller;
+            seeSellerReviewWindow = new SeeSellerReviewsView(App.seeSellerReviewsViewModel);
+            seeSellerReviewWindow.Activate();
         }
+    }
+
+    public class BidHistoryItem
+    {
+        public string BidderName { get; set; }
+        public float BidPrice { get; set; }
+        public DateTime BidDate { get; set; }
     }
 }
