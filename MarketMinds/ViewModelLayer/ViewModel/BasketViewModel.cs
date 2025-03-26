@@ -64,7 +64,18 @@ namespace ViewModelLayer.ViewModel
         {
             try
             {
-                _basketService.UpdateProductQuantity(_currentUser.Id, productId, quantity);
+                if (quantity > BasketService.MaxQuantityPerItem)
+                {
+                    ErrorMessage = $"Quantity cannot exceed {BasketService.MaxQuantityPerItem}";
+
+                    // Still update to the max quantity allowed
+                    _basketService.UpdateProductQuantity(_currentUser.Id, productId, BasketService.MaxQuantityPerItem);
+                }
+                else
+                {
+                    ErrorMessage = string.Empty;
+                    _basketService.UpdateProductQuantity(_currentUser.Id, productId, quantity);
+                }
                 LoadBasket();
             }
             catch (Exception ex)

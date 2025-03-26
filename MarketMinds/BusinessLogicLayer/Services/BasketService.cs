@@ -9,11 +9,28 @@ namespace BusinessLogicLayer.Services
     public class BasketService
     {
         private readonly BasketRepository _basketRepository;
+        public const int MaxQuantityPerItem = 10;
 
         // Constructor with just the basket repository
         public BasketService(BasketRepository basketRepository)
         {
             _basketRepository = basketRepository;
+        }
+
+        public void AddToBasket(int userId, int productId, int quantity)
+        {
+            if (userId <= 0) throw new ArgumentException("Invalid user ID");
+            if (productId <= 0) throw new ArgumentException("Invalid product ID");
+            if (quantity <= 0) throw new ArgumentException("Quantity must be greater than zero");
+
+            // Apply the maximum quantity limit
+            int limitedQuantity = Math.Min(quantity, MaxQuantityPerItem);
+
+            // Get the user's basket
+            Basket basket = _basketRepository.GetBasketByUser(userId);
+
+            // Add the item with the limited quantity
+            _basketRepository.AddItemToBasket(basket.Id, productId, limitedQuantity);
         }
 
         public Basket GetBasketByUser(User user)
@@ -60,12 +77,14 @@ namespace BusinessLogicLayer.Services
             if (productId <= 0) throw new ArgumentException("Invalid product ID");
             if (quantity < 0) throw new ArgumentException("Quantity cannot be negative");
 
+            int limitedQuantity = Math.Min(quantity, MaxQuantityPerItem);
+
             try
             {
                 // Get the user's basket
                 Basket basket = _basketRepository.GetBasketByUser(userId);
 
-                if (quantity == 0)
+                if (limitedQuantity == 0)
                 {
                     // If quantity is zero, remove the item
                     _basketRepository.RemoveItemByProductId(basket.Id, productId);
@@ -73,7 +92,7 @@ namespace BusinessLogicLayer.Services
                 else
                 {
                     // Update the quantity
-                    _basketRepository.UpdateItemQuantityByProductId(basket.Id, productId, quantity);
+                    _basketRepository.UpdateItemQuantityByProductId(basket.Id, productId, limitedQuantity);
                 }
             }
             catch (Exception ex)

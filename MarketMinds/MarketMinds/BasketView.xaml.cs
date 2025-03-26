@@ -210,16 +210,7 @@ namespace UiLayer
                         var basketItem = _basketItems.FirstOrDefault(item => item.Id == itemId);
                         if (basketItem != null)
                         {
-                            if (newQuantity == 0)
-                            {
-                                // Remove item if quantity is 0
-                                _basketViewModel.RemoveProductFromBasket(basketItem.Product.Id);
-                            }
-                            else
-                            {
-                                // Update quantity using product ID
-                                _basketViewModel.UpdateProductQuantity(basketItem.Product.Id, newQuantity);
-                            }
+                            _basketViewModel.UpdateProductQuantity(basketItem.Product.Id, newQuantity);
 
                             // Reload the basket data
                             LoadBasketData();
