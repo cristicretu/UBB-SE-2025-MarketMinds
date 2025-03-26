@@ -32,6 +32,7 @@ namespace MarketMinds
         private readonly AuctionProductsViewModel _auctionProductsViewModel;
 
         private DispatcherTimer countdownTimer;
+        private Window seeSellerReviewsView;
         public AuctionProductView(AuctionProduct product)
         {
             this.InitializeComponent();
@@ -158,7 +159,9 @@ namespace MarketMinds
 
         private void OnSeeReviewsClicked(object sender, RoutedEventArgs e)
         {
-            // TODO: Show reviews
+            App.seeSellerReviewsViewModel.seller = _product.Seller;
+            seeSellerReviewsView = new SeeSellerReviewsView(App.seeSellerReviewsViewModel);
+            seeSellerReviewsView.Activate();
         }
     }
 }

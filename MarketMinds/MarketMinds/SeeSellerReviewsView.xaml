@@ -17,12 +17,14 @@
         </Grid.RowDefinitions>
 
         <!-- User and Rating Section -->
-        <StackPanel Orientation="Horizontal" Grid.Row="0" VerticalAlignment="Center" Spacing="10">
-            <TextBlock Text="{x:Bind ViewModel.seller.Username, Mode=OneWay}" FontSize="24" FontWeight="Bold"/>
-            <RatingControl x:Name="AverageRatingStars"
-                   Value="{x:Bind ViewModel.rating, Mode=OneWay}"
-                   IsClearEnabled="False" IsReadOnly="True" MaxRating="5" Foreground="Gold"/>
-            <TextBlock Text="({x:Bind ViewModel.reviews.Count, Mode=OneWay})" FontSize="16" Foreground="Gray"/>
+        <StackPanel Orientation="Horizontal" Grid.Row="0" VerticalAlignment="Center" Spacing="5" Margin="10,0,0,0">
+            <TextBlock Text="{x:Bind ViewModel.seller.Username, Mode=OneWay}" FontSize="24" FontWeight="Bold" Margin="10,5,0,5"/>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                <RatingControl x:Name="AverageRatingStars"
+               Value="{x:Bind ViewModel.rating, Mode=OneWay}"
+               IsClearEnabled="False" IsReadOnly="True" MaxRating="5" Foreground="Gold"/>
+                <TextBlock Text="{x:Bind ViewModel.reviews.Count, Mode=OneWay}" FontSize="16" Foreground="Gray" VerticalAlignment="Center" Margin="5,0,0,0"/>
+            </StackPanel>
         </StackPanel>
 
         <!-- Reviews List -->

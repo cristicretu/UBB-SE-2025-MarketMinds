@@ -51,7 +51,7 @@ namespace MarketMinds
             mainWindow = new UiLayer.MainWindow();
             mainWindow.Activate();
             testingUser = 
-                new User(1, "alice", "alice@example.com");
+                new User(1, "alice123", "alice@example.com");
             testingUser.UserType = 2; // Seller
             currentUser = new User(2, "bob321", "bob@example.com");
             currentUser.UserType = 3; //Buyer

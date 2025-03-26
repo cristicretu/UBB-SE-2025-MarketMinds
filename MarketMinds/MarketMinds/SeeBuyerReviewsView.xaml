@@ -24,7 +24,7 @@
             <TextBlock Text="({x:Bind ViewModel.reviews.Count, Mode=OneWay})" FontSize="16" Foreground="Gray"/>
         </StackPanel>!-->
 
-        <TextBlock Text="{x:Bind ViewModel.user.Username, Mode=OneWay}" FontSize="24" FontWeight="Bold"/>
+        <TextBlock Text="{x:Bind ViewModel.user.Username, Mode=OneWay}" FontSize="24" FontWeight="Bold" Margin="20,5,0,5"/>
         <!-- Reviews List -->
         <ListView x:Name="ReviewsListView" Grid.Row="1" ItemsSource="{x:Bind ViewModel.reviews, Mode=OneWay}">
             <ListView.ItemTemplate>
