@@ -29,9 +29,8 @@ namespace MarketMinds
     {
         private readonly BuyProduct _product;
         private readonly User _currentUser;
-        private readonly BuyProductsViewModel _buyProductsViewModel;
+        private readonly BasketViewModel _basketViewModel = App.basketViewModel;
 
-        private DispatcherTimer countdownTimer;
         private Window seeSellerReviewsView;
         public BuyProductView(BuyProduct product)
         {
@@ -96,14 +95,25 @@ namespace MarketMinds
         {
             try
             {
-                //_buyProductsViewModel.AddToBasket(_product, _currentUser);
+                _basketViewModel.AddToBasket(_product.Id);
+
+                // Show success notification
+                BasketNotificationTip.Title = "Success";
+                BasketNotificationTip.Subtitle = "Product added to basket successfully!";
+                BasketNotificationTip.IconSource = new SymbolIconSource() { Symbol = Symbol.Accept };
+                BasketNotificationTip.IsOpen = true;
             }
             catch (Exception ex)
             {
-                //ShowErrorDialog(ex.Message);
+                Debug.WriteLine($"Failed to add product to basket: {ex.Message}");
+
+                // Show error notification
+                BasketNotificationTip.Title = "Error";
+                BasketNotificationTip.Subtitle = $"Failed to add product: {ex.Message}";
+                BasketNotificationTip.IconSource = new SymbolIconSource() { Symbol = Symbol.Accept };
+                BasketNotificationTip.IsOpen = true;
             }
         }
-
 
         private void OnSeeReviewsClicked(object sender, RoutedEventArgs e)
         {
