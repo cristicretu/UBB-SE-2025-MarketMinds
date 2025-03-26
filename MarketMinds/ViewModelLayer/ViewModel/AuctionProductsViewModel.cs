@@ -31,4 +31,9 @@ public class AuctionProductsViewModel
 
         auctionProductsService.PlaceBid(product, bidder, bidAmount);
     }
+
+    public void ConcludeAuction(AuctionProduct product)
+    {
+        auctionProductsService.ConcludeAuction(product);
+    }
 }

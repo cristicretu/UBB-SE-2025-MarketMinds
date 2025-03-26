@@ -60,7 +60,7 @@ namespace MarketMinds
             if (timeText == "Auction Ended")
             {
                 countdownTimer.Stop();
-                //DeleteAuction(); // Or disable UI, etc.
+                _auctionProductsViewModel.ConcludeAuction(_product);
             }
         }
 

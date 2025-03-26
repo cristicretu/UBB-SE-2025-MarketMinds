@@ -22,6 +22,7 @@ namespace DomainLayer.Domain
             this.Id = id;
             this.Username = username;
             this.Email = email;
+            this.Balance = 999999;
         }
 
 
