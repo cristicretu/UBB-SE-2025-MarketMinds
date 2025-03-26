@@ -16,6 +16,7 @@ using ViewModelLayer.ViewModel;
 using DomainLayer.Domain;
 using Microsoft.UI.Xaml.Media.Imaging;
 using System.Diagnostics;
+using Windows.ApplicationModel.Wallet;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -93,6 +94,54 @@ namespace MarketMinds
                 };
 
                 RightImageCarousel.Items.Add(img);
+            }
+        }
+
+        private void OnSelectLeftProductClicked(object sender, RoutedEventArgs e)
+        {
+            // Checks if leftProduct is auctionProduct and if it is assigns it to product
+            if (ViewModel.LeftProduct is AuctionProduct auctionProduct)
+            {
+                var detailView = new AuctionProductView(auctionProduct);
+                detailView.Activate();
+                this.Close();
+            }
+            else if (ViewModel.LeftProduct is BorrowProduct borrowProduct)
+            {
+                //var detailView = new BorrowProductsView(borrowProduct)
+                //detailView.Activate();
+                this.Close();
+            }
+            else
+            {
+                BuyProduct buyProduct = (BuyProduct) ViewModel.LeftProduct;
+                //var detailView = BuyProductsView(buyProduct)
+                //detailView.Activate();
+                this.Close();
+            }
+        }
+
+        private void OnSelectRightProductClicked(object sender, RoutedEventArgs e)
+        {
+            // Checks if RightProduct is auctionProduct and if it is assigns it to product
+            if (ViewModel.RightProduct is AuctionProduct auctionProduct)
+            {
+                var detailView = new AuctionProductView(auctionProduct);
+                detailView.Activate();
+                this.Close();
+            }
+            else if (ViewModel.RightProduct is BorrowProduct borrowProduct)
+            {
+                //var detailView = new BorrowProductsView(borrowProduct)
+                //detailView.Activate();
+                this.Close();
+            }
+            else
+            {
+                BuyProduct buyProduct = (BuyProduct)ViewModel.RightProduct;
+                //var detailView = BuyProductsView(buyProduct)
+                //detailView.Activate();
+                this.Close();
             }
         }
     }
