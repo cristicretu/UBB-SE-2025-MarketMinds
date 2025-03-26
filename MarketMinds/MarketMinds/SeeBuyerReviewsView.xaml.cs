@@ -1,14 +1,17 @@
 using BusinessLogicLayer.Services;
 using BusinessLogicLayer.ViewModel;
+using DomainLayer.Domain;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
 using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
+using Microsoft.UI.Xaml.Media.Imaging;
 using Microsoft.UI.Xaml.Navigation;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -37,5 +40,7 @@ namespace MarketMinds
             ReviewsListView.Visibility = ViewModel.reviews.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
             EmptyMessageTextBlock.Visibility = ViewModel.reviews.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
         }
+
+
     }
 }
