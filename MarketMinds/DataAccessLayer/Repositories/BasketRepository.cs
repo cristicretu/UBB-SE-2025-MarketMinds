@@ -68,40 +68,24 @@ namespace DataAccessLayer.Repositories
             return basket;
         }
 
-        public void SaveBasket(Basket basket)
+        public void RemoveItemByProductId(int basketId, int productId)
         {
-            // Save the entire basket
-            // input: basket object
-            // output: none
-
-            // Since the basket might have been modified (items added/removed),
-            // the program will clear all basket items and reinsert them
+            string deleteCmd = "DELETE FROM BasketItemsBuyProducts WHERE basket_id = @basketId AND product_id = @productId";
 
             connection.OpenConnection();
-
-            // First, clear all existing items
-            string clearCmd = "DELETE FROM BasketItemsBuyProducts WHERE basket_id = @basketId";
-            using (SqlCommand cmd = new SqlCommand(clearCmd, connection.GetConnection()))
+            try
             {
-                cmd.Parameters.AddWithValue("@basketId", basket.Id);
-                cmd.ExecuteNonQuery();
-            }
-
-            // Then, insert all current items
-            foreach (BasketItem item in basket.GetItems())
-            {
-                string insertCmd = "INSERT INTO BasketItemsBuyProducts (basket_id, product_id, quantity, price) VALUES (@basketId, @productId, @quantity, @price)";
-                using (SqlCommand cmd = new SqlCommand(insertCmd, connection.GetConnection()))
+                using (SqlCommand cmd = new SqlCommand(deleteCmd, connection.GetConnection()))
                 {
-                    cmd.Parameters.AddWithValue("@basketId", basket.Id);
-                    cmd.Parameters.AddWithValue("@productId", item.Product.Id);
-                    cmd.Parameters.AddWithValue("@quantity", item.Quantity);
-                    cmd.Parameters.AddWithValue("@price", item.Price);
-                    cmd.ExecuteNonQuery();
+                    cmd.Parameters.AddWithValue("@basketId", basketId);
+                    cmd.Parameters.AddWithValue("@productId", productId);
+                    int rowsAffected = cmd.ExecuteNonQuery();
                 }
             }
-
-            connection.CloseConnection();
+            finally
+            {
+                connection.CloseConnection();
+            }
         }
 
         public List<BasketItem> GetBasketItems(int basketId)
@@ -321,50 +305,25 @@ namespace DataAccessLayer.Repositories
             connection.CloseConnection();
         }
 
-        public void RemoveItemFromBasket(int basketItemId)
+        public void UpdateItemQuantityByProductId(int basketId, int productId, int quantity)
         {
-            // Remove an item from the basket
-            // input: basketItemId
-            // output: none
-
-            string deleteCmd = "DELETE FROM BasketItemsBuyProducts WHERE id = @id";
+            string updateCmd = "UPDATE BasketItemsBuyProducts SET quantity = @quantity WHERE basket_id = @basketId AND product_id = @productId";
 
             connection.OpenConnection();
-
-            using (SqlCommand cmd = new SqlCommand(deleteCmd, connection.GetConnection()))
+            try
             {
-                cmd.Parameters.AddWithValue("@id", basketItemId);
-                cmd.ExecuteNonQuery();
+                using (SqlCommand cmd = new SqlCommand(updateCmd, connection.GetConnection()))
+                {
+                    cmd.Parameters.AddWithValue("@basketId", basketId);
+                    cmd.Parameters.AddWithValue("@productId", productId);
+                    cmd.Parameters.AddWithValue("@quantity", quantity);
+                    cmd.ExecuteNonQuery();
+                }
             }
-
-            connection.CloseConnection();
-        }
-
-        public void UpdateItemQuantity(int basketItemId, int quantity)
-        {
-            // Update the quantity of an item in the basket
-            // input: basketItemId, quantity
-            // output: none
-
-            if (quantity <= 0)
+            finally
             {
-                // If quantity is zero or negative, remove the item
-                RemoveItemFromBasket(basketItemId);
-                return;
+                connection.CloseConnection();
             }
-
-            string updateCmd = "UPDATE BasketItemsBuyProducts SET quantity = @quantity WHERE id = @id";
-
-            connection.OpenConnection();
-
-            using (SqlCommand cmd = new SqlCommand(updateCmd, connection.GetConnection()))
-            {
-                cmd.Parameters.AddWithValue("@id", basketItemId);
-                cmd.Parameters.AddWithValue("@quantity", quantity);
-                cmd.ExecuteNonQuery();
-            }
-
-            connection.CloseConnection();
         }
 
         public void ClearBasket(int basketId)

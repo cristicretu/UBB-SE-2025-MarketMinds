@@ -12,7 +12,7 @@ namespace DomainLayer.Domain
         public int Id { get; set; }
         public Product Product { get; set; }
         public int Quantity { get; set; }
-        public float Price { get; set; }
+        public double Price { get; set; }
 
         public bool HasValidPrice { get; private set; }
 
@@ -39,7 +39,8 @@ namespace DomainLayer.Domain
         public float GetPrice()
         {
             // Calculates the total price for this basket item (unit price × quantity)
-            return Price * Quantity;
+            return (float)(Price * Quantity);
         }
+
     }
 }
