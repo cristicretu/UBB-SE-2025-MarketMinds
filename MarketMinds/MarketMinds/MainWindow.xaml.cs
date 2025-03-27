@@ -67,7 +67,7 @@ namespace UiLayer
         private void handleCreateListingButton_Click(Object sender, RoutedEventArgs e)
         {
             createListingViewWindow = new Window();
-            createListingViewWindow.Content = new CreateListingView();
+            createListingViewWindow.Content = new CreateListingView(this);
             createListingViewWindow.Activate();
         }
 
@@ -91,7 +91,7 @@ namespace UiLayer
         private Window buyProductListViewWindow;
         private Window adminViewWindow;
         private Window leaveReviewViewWindow;
-        private Window createListingViewWindow;
+        public Window createListingViewWindow { get; set; }
         private Window seeReviewsWindow;
     }
 }
