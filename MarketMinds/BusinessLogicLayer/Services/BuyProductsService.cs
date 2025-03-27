@@ -14,7 +14,16 @@ public class BuyProductsService: ProductService
     
     public void CreateListing(Product product)
     {
-        buyProductsRepository.AddProduct(product);
+        try
+        {
+            System.Diagnostics.Debug.WriteLine("BuyProductsService.CreateListing started");
+            buyProductsRepository.AddProduct(product);
+            System.Diagnostics.Debug.WriteLine("BuyProductsService.CreateListing ended");
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"Exception in BuyProductsService.CreateListing: {ex.Message}");
+        }
     }
 
     public void DeleteListing(Product product)
