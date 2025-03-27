@@ -8,20 +8,23 @@
     mc:Ignorable="d">
 
     <Grid Padding="20" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-        <StackPanel>
-            <TextBlock Text="Create a Listing" Margin="40,10,0,10" FontSize="28" FontWeight="Bold"/>
-            <TextBlock Text="What type of listing do you wish to create?" Margin="15,10,10,10" FontSize="24"/>
-            <ComboBox x:Name="ListingTypeComboBox" Width="200" SelectionChanged="ListingTypeComboBox_SelectionChanged" Margin="15,10,10,10">
-                <ComboBoxItem Content="Buy"/>
-                <ComboBoxItem Content="Borrow"/>
-                <ComboBoxItem Content="Auction"/>
-            </ComboBox>
+        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <TextBlock Text="Create a Listing" Margin="40,10,0,10" FontSize="28" FontWeight="Bold"/>
+                <TextBlock Text="What type of listing do you wish to create?" Margin="15,10,10,10" FontSize="24"/>
+                <ComboBox x:Name="ListingTypeComboBox" Width="200" SelectionChanged="ListingTypeComboBox_SelectionChanged" Margin="15,10,10,10">
+                    <ComboBoxItem Content="Buy"/>
+                    <ComboBoxItem Content="Borrow"/>
+                    <ComboBoxItem Content="Auction"/>
+                </ComboBox>
+                <TextBlock x:Name="listingTypeErrorTextBlock" Text="Please select a listing type." Foreground="Red" Visibility="Collapsed" Margin="15,0,0,10"/>
 
-            <StackPanel x:Name="FormContainer" Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Top" Spacing="10">
-                <!-- Fields will be added here dynamically -->
+                <StackPanel x:Name="FormContainer" Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Top" Spacing="10">
+                    <!-- Fields will be added here dynamically -->
+                </StackPanel>
+
+                <Button Content="Create Listing" Click="CreateListingButton_Click" Margin="0,10,0,0"/>
             </StackPanel>
-
-            <Button Content="Create Listing" Click="CreateListingButton_Click" Margin="0,10,0,0"/>
-        </StackPanel>
+        </ScrollViewer>
     </Grid>
 </Page>
