@@ -348,4 +348,7 @@ VALUES
 ('https://i.imgur.com/vG2ozCz.jpeg', 3),
 ('https://i.imgur.com/r3q6HKj.jpeg', 4);
 
-select * from Reviews
+UPDATE BorrowProducts
+SET is_borrowed = 0,
+    start_date = '2025-03-27',
+    time_limit = '2025-04-20';
