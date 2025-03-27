@@ -72,7 +72,7 @@ namespace MarketMinds
                 {
                     Source = new BitmapImage(new Uri(image.url)),
                     Stretch = Stretch.Uniform, // ✅ shows full image without cropping
-                    Height = 250,
+                    Height = 200,
                     HorizontalAlignment = HorizontalAlignment.Stretch,
                     VerticalAlignment = VerticalAlignment.Center
                 };
