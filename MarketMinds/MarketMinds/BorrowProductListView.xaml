@@ -92,7 +92,7 @@
                                 VerticalAlignment="Top" 
                                 HorizontalAlignment="Right" 
                                 Width="50" Height="50" 
-                                Margin="0,0,-1230,5" 
+                                Margin="0,0,-1030,5" 
                                 FontWeight="Bold" 
                                 Foreground="gray"
                                 Background="Transparent" 
