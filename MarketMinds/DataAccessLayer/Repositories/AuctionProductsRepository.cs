@@ -175,9 +175,9 @@ namespace DataAccessLayer.Repositories
 
             string insertProductQuery = @"
             INSERT INTO AuctionProducts 
-            (description, seller_id, condition_id, category_id, start_datetime, end_datetime, starting_price , title)
+            (description, seller_id, condition_id, category_id, start_datetime, end_datetime, starting_price, current_price , title)
             VALUES 
-            (@Description, @SellerId, @ConditionId, @CategoryId, @StartDateTime, @EndDateTime, @StartingPrice , @Title);
+            (@Description, @SellerId, @ConditionId, @CategoryId, @StartDateTime, @EndDateTime, @StartingPrice, @CurrentPrice, @Title);
             SELECT SCOPE_IDENTITY();";
 
             connection.OpenConnection();
@@ -192,6 +192,7 @@ namespace DataAccessLayer.Repositories
                 cmd.Parameters.AddWithValue("@StartDateTime", auction.StartAuctionDate);
                 cmd.Parameters.AddWithValue("@EndDateTime", auction.EndAuctionDate);
                 cmd.Parameters.AddWithValue("@StartingPrice", auction.StartingPrice);
+                cmd.Parameters.AddWithValue("@CurrentPrice", auction.StartingPrice);
                 cmd.Parameters.AddWithValue("@Title", auction.Title);
 
                 object result = cmd.ExecuteScalar();
