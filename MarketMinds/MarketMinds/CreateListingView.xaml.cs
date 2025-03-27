@@ -184,7 +184,13 @@ namespace UiLayer
         {
             AddCommonFields();
             FormContainer.Children.Add(new TextBox { PlaceholderText = "Starting Price", Name = "StartingPriceTextBox" });
-            FormContainer.Children.Add(new CalendarDatePicker { PlaceholderText = "End Auction Date", Name = "EndAuctionDatePicker" });
+            var endAuctionDatePicker = new CalendarDatePicker
+            {
+                PlaceholderText = "End Auction Date",
+                Name = "EndAuctionDatePicker",
+                MinDate = DateTimeOffset.Now
+            };
+            FormContainer.Children.Add(endAuctionDatePicker);
         }
 
         private void TagsTextBox_KeyDown(object sender, KeyRoutedEventArgs e)
