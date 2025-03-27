@@ -341,7 +341,6 @@ namespace UiLayer
 
         private void HandleContinueShoppingButton_Click(object sender, RoutedEventArgs e)
         {
-            // This would typically navigate back to the product listing page
             this.Close();
         }
     }
