@@ -13,6 +13,13 @@ using System.Linq;
 using System;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI;
+using Newtonsoft.Json;
+using System.Net.Http.Headers;
+using System.Net.Http;
+using System.Threading.Tasks;
+using Windows.Storage.Pickers;
+using Windows.Storage.Streams;
+using Windows.Storage;
 
 namespace UiLayer
 {
@@ -35,6 +42,8 @@ namespace UiLayer
         private ComboBox conditionComboBox;
         private TextBlock conditionErrorTextBlock;
         private ObservableCollection<string> tags;
+        private Button uploadImageButton;
+        private TextBlock imagesTextBlock;
 
         public CreateListingView()
         {
@@ -52,6 +61,10 @@ namespace UiLayer
             conditionComboBox = new ComboBox();
             conditionErrorTextBlock = new TextBlock { Text = "Please select a condition.", Foreground = new SolidColorBrush(Colors.Red), Visibility = Visibility.Collapsed };
             tags = new ObservableCollection<string>();
+
+            uploadImageButton = new Button { Content = "Upload Image", Width = 150 };
+            uploadImageButton.Click += OnUploadImageClick;
+            imagesTextBlock = new TextBlock { TextWrapping = TextWrapping.Wrap };
 
             // Initialize ProductCategoryViewModel
             var productCategoryService = new ProductCategoryService(new ProductCategoryRepository(new DataBaseConnection()));
@@ -97,6 +110,8 @@ namespace UiLayer
 
         private void ListingTypeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            listingTypeErrorTextBlock.Visibility = Visibility.Collapsed;
+
             var selectedType = (e.AddedItems[0] as ComboBoxItem)?.Content.ToString();
             FormContainer.Children.Clear();
 
@@ -131,7 +146,8 @@ namespace UiLayer
             FormContainer.Children.Add(tagsTextBox);
             FormContainer.Children.Add(tagsErrorTextBlock);
             FormContainer.Children.Add(tagsListView);
-            FormContainer.Children.Add(imagesTextBox);
+            FormContainer.Children.Add(uploadImageButton);
+            FormContainer.Children.Add(imagesTextBlock);
             FormContainer.Children.Add(conditionComboBox);
             FormContainer.Children.Add(conditionErrorTextBlock);
         }
@@ -195,6 +211,68 @@ namespace UiLayer
             }
         }
 
+        private async void OnUploadImageClick(object sender, RoutedEventArgs e)
+        {
+            var hwnd = WinRT.Interop.WindowNative.GetWindowHandle(this);
+            var picker = new FileOpenPicker();
+            WinRT.Interop.InitializeWithWindow.Initialize(picker, hwnd);
+
+            picker.ViewMode = PickerViewMode.Thumbnail;
+            picker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
+            picker.FileTypeFilter.Add(".jpg");
+            picker.FileTypeFilter.Add(".png");
+
+            StorageFile file = await picker.PickSingleFileAsync();
+            if (file != null)
+            {
+                string imgurLink = await UploadToImgur(file);
+                if (!string.IsNullOrEmpty(imgurLink))
+                {
+                    viewModel.ImagesString = string.IsNullOrEmpty(viewModel.ImagesString)
+                        ? imgurLink
+                        : viewModel.ImagesString + "\n" + imgurLink;
+
+                    imagesTextBlock.Text = viewModel.ImagesString;
+                }
+            }
+        }
+
+        private async Task<string> UploadToImgur(StorageFile file)
+        {
+            viewModel.ImagesString += "\nUploading...";
+
+            using (IRandomAccessStream stream = await file.OpenAsync(FileAccessMode.Read))
+            {
+                byte[] buffer = new byte[stream.Size];
+                using (var reader = new DataReader(stream))
+                {
+                    await reader.LoadAsync((uint)stream.Size);
+                    reader.ReadBytes(buffer);
+                }
+
+                using (HttpClient client = new HttpClient())
+                {
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Client-ID", "YOUR_IMGUR_CLIENT_ID");
+
+                    var content = new MultipartFormDataContent
+                    {
+                        { new ByteArrayContent(buffer), "image" }
+                    };
+
+                    HttpResponseMessage response = await client.PostAsync("https://api.imgur.com/3/image", content);
+                    string responseBody = await response.Content.ReadAsStringAsync();
+
+                    dynamic jsonResponse = JsonConvert.DeserializeObject(responseBody);
+                    string link = jsonResponse?.data?.link;
+
+                    // Remove "Uploading..." placeholder
+                    viewModel.ImagesString = viewModel.ImagesString.Replace("\nUploading...", "");
+
+                    return link;
+                }
+            }
+        }
+
         private void CreateListingButton_Click(object sender, RoutedEventArgs e)
         {
             // Reset error messages
@@ -203,6 +281,14 @@ namespace UiLayer
             descriptionErrorTextBlock.Visibility = Visibility.Collapsed;
             tagsErrorTextBlock.Visibility = Visibility.Collapsed;
             conditionErrorTextBlock.Visibility = Visibility.Collapsed;
+            listingTypeErrorTextBlock.Visibility = Visibility.Collapsed;
+
+            // Check if a listing type is selected
+            if (ListingTypeComboBox.SelectedItem == null)
+            {
+                listingTypeErrorTextBlock.Visibility = Visibility.Visible;
+                return;
+            }
 
             // Collect common data
             string title = titleTextBox.Text;
@@ -292,3 +378,4 @@ namespace UiLayer
         }
     }
 }
+
