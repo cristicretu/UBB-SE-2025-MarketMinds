@@ -45,12 +45,15 @@ namespace UiLayer
         private ObservableCollection<string> tags;
         private Button uploadImageButton;
         private TextBlock imagesTextBlock;
+        private TextBlock categoryTextBlock;
+        private TextBlock conditionTextBlock;
 
         public CreateListingView()
         {
             this.InitializeComponent();
             titleTextBox = new TextBox { PlaceholderText = "Title" };
             titleErrorTextBlock = new TextBlock { Text = "Title cannot be empty.", Foreground = new SolidColorBrush(Colors.Red), Visibility = Visibility.Collapsed };
+            categoryTextBlock = new TextBlock { Text = "Select Category" };
             categoryComboBox = new ComboBox();
             categoryErrorTextBlock = new TextBlock { Text = "Please select a category.", Foreground = new SolidColorBrush(Colors.Red), Visibility = Visibility.Collapsed };
             descriptionTextBox = new TextBox { PlaceholderText = "Description" };
@@ -59,6 +62,7 @@ namespace UiLayer
             tagsErrorTextBlock = new TextBlock { Text = "Please add at least one tag.", Foreground = new SolidColorBrush(Colors.Red), Visibility = Visibility.Collapsed };
             tagsListView = new ListView();
             imagesTextBox = new TextBox { PlaceholderText = "Images" };
+            conditionTextBlock = new TextBlock { Text = "Select Condition" };
             conditionComboBox = new ComboBox();
             conditionErrorTextBlock = new TextBlock { Text = "Please select a condition.", Foreground = new SolidColorBrush(Colors.Red), Visibility = Visibility.Collapsed };
             tags = new ObservableCollection<string>();
@@ -140,6 +144,7 @@ namespace UiLayer
         {
             FormContainer.Children.Add(titleTextBox);
             FormContainer.Children.Add(titleErrorTextBlock);
+            FormContainer.Children.Add(categoryTextBlock);
             FormContainer.Children.Add(categoryComboBox);
             FormContainer.Children.Add(categoryErrorTextBlock);
             FormContainer.Children.Add(descriptionTextBox);
@@ -149,6 +154,7 @@ namespace UiLayer
             FormContainer.Children.Add(tagsListView);
             FormContainer.Children.Add(uploadImageButton);
             FormContainer.Children.Add(imagesTextBlock);
+            FormContainer.Children.Add(conditionTextBlock);
             FormContainer.Children.Add(conditionComboBox);
             FormContainer.Children.Add(conditionErrorTextBlock);
         }
@@ -162,8 +168,13 @@ namespace UiLayer
         private void AddBorrowProductFields()
         {
             AddCommonFields();
-            FormContainer.Children.Add(new CalendarDatePicker { PlaceholderText = "End Date", Name = "EndDatePicker" });
-            FormContainer.Children.Add(new TextBox { PlaceholderText = "Time Limit (Days)", Name = "TimeLimitTextBox" });
+            var timeLimistDatePicker = new CalendarDatePicker
+            {
+                PlaceholderText = "Time Limit",
+                Name = "TimeLimitDatePicker",
+                MinDate = DateTimeOffset.Now
+            };
+            FormContainer.Children.Add(timeLimistDatePicker);
             FormContainer.Children.Add(new TextBox { PlaceholderText = "Daily Rate", Name = "DailyRateTextBox" });
         }
 
@@ -343,20 +354,14 @@ namespace UiLayer
             }
             else if (viewModel is CreateBorrowListingViewModel)
             {
-                if (!((CalendarDatePicker)FormContainer.FindName("EndDatePicker")).Date.HasValue)
+                var timeLimitDatePicker = (CalendarDatePicker)FormContainer.FindName("TimeLimitDatePicker");
+                if (!timeLimitDatePicker.Date.HasValue)
                 {
-                    titleErrorTextBlock.Text = "Please select an end date.";
+                    titleErrorTextBlock.Text = "Please select a time limit.";
                     titleErrorTextBlock.Visibility = Visibility.Visible;
                     return;
                 }
-                DateTime endDate = ((CalendarDatePicker)FormContainer.FindName("EndDatePicker")).Date.Value.DateTime;
-
-                if (!int.TryParse(((TextBox)FormContainer.FindName("TimeLimitTextBox")).Text, out int timeLimit))
-                {
-                    titleErrorTextBlock.Text = "Please enter a valid time limit.";
-                    titleErrorTextBlock.Visibility = Visibility.Visible;
-                    return;
-                }
+                DateTime endDate = timeLimitDatePicker.Date.Value.DateTime;
 
                 if (!float.TryParse(((TextBox)FormContainer.FindName("DailyRateTextBox")).Text, out float dailyRate))
                 {
@@ -365,7 +370,7 @@ namespace UiLayer
                     return;
                 }
 
-                var product = new BorrowProduct(0, title, description, App.currentUser, condition, category, tags, new List<DomainLayer.Domain.Image>(), DateTime.Now, endDate, DateTime.Now.AddDays(timeLimit), dailyRate, false);
+                var product = new BorrowProduct(0, title, description, App.currentUser, condition, category, tags, new List<DomainLayer.Domain.Image>(), DateTime.Now, endDate, endDate, dailyRate, false);
                 viewModel.CreateListing(product);
             }
             else if (viewModel is CreateAuctionListingViewModel)
