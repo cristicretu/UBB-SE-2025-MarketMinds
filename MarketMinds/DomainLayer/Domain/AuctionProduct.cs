@@ -37,15 +37,8 @@ namespace DomainLayer.Domain
 
         public void AddBid(Bid bid)
         {
-            if (bid.Price > this.CurrentPrice)
-            {
-                this.CurrentPrice = bid.Price;
-                this.BidHistory.Add(bid);
-            }
-            else
-            {
-                throw new Exception("Bid must be higher than the current price.");
-            }
+            this.CurrentPrice = bid.Price;
+            this.BidHistory.Add(bid);
         }
     }
 }
