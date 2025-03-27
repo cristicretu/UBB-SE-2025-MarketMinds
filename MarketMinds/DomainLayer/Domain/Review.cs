@@ -12,7 +12,7 @@ namespace DomainLayer.Domain
         // The review doesn't take into account the product for which the review has been made,
         // it can be mentioned in the description, and images
         public int id { get; set; }
-        public string description { get; set; } = string.Empty;
+        public string description { get; set; } = "";
         public List<Image> images { get; set; }
         public float rating {  get; set; }
         public int sellerId { get; set; }

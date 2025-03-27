@@ -122,7 +122,10 @@ namespace DataAccessLayer.Repositories
         public void CreateReview(Review review)
         {
             string insertSql = "INSERT INTO Reviews (reviewer_id, seller_id, description, rating) OUTPUT INSERTED.id VALUES (@reviewer_id, @seller_id, @description, @rating)";
-
+            if (review.description == null)
+            {
+                review.description = string.Empty;
+            }
             connection.OpenConnection();
             try
             {
