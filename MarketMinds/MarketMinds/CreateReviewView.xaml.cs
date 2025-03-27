@@ -18,12 +18,22 @@ namespace MarketMinds
     public sealed partial class CreateReviewView : Window
     {
         public ReviewCreateViewModel ViewModel { get; set; }
+        private readonly bool _isEditing;
 
-        public CreateReviewView(ReviewCreateViewModel viewModel)
+        public CreateReviewView(ReviewCreateViewModel viewModel, Review existingReview = null)
         {
             ViewModel = viewModel;
             this.InitializeComponent();
             this.Closed += OnWindowClosed;
+
+            if (existingReview != null)
+            {
+                _isEditing = true;
+                ViewModel.Description = existingReview.description;
+                ViewModel.Images = existingReview.images;
+                ViewModel.Rating = existingReview.rating;
+                ViewModel.CurrentReview = existingReview;
+            }
         }
 
         private async void OnUploadImageClick(object sender, RoutedEventArgs e)
@@ -58,14 +68,21 @@ namespace MarketMinds
                 return;
             }
 
-            // Ensure all images are uploaded before submitting
             if (ViewModel.ImagesString.Contains("uploading...", StringComparison.OrdinalIgnoreCase))
             {
                 Debug.WriteLine("Please wait for image upload to complete.");
                 return;
             }
 
-            ViewModel.SubmitReview();
+            if (_isEditing)
+            {
+                ViewModel.UpdateReview();  // Call an update method instead of submitting a new review
+            }
+            else
+            {
+                ViewModel.SubmitReview();
+            }
+
             this.Close();
         }
 

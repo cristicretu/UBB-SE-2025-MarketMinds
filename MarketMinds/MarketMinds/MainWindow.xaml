@@ -17,6 +17,13 @@
                 HorizontalAlignment="Right"
                 Width="200" Height="50" Margin="0,20,450,0"
                 Click="handleAdminViewButton_Click"/>
+        
+        <!-- See reviews Button at Top-Right, it can be the same as Admin and appear depending on user type-->
+        <Button x:Name="ReviewViewButton" Content="See Reviews"
+                VerticalAlignment="Top"
+                HorizontalAlignment="Right"
+                Width="200" Height="50" Margin="0,20,650,0"
+                Click="handleSeeReviewViewButton_Click"/>
 
         <!-- Create Listing Button at Top-Right -->
         <Button x:Name="CreateListingButton" Content="Create Listing"

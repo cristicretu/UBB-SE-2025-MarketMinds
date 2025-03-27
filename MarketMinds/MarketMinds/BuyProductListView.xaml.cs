@@ -17,6 +17,7 @@ namespace UiLayer
         private readonly BuyProductsViewModel buyProductsViewModel;
         private readonly SortAndFilterViewModel sortAndFilterViewModel;
         private ObservableCollection<BuyProduct> buyProducts;
+        private CompareProductsViewModel compareProductsViewModel;
 
         // Pagination variables
         private int currentPage = 1;
@@ -31,6 +32,7 @@ namespace UiLayer
             // Assume you have a view model for buy products
             buyProductsViewModel = MarketMinds.App.buyProductsViewModel;
             sortAndFilterViewModel = MarketMinds.App.buyProductSortAndFilterViewModel;
+            compareProductsViewModel = MarketMinds.App.compareProductsViewModel;
 
             buyProducts = new ObservableCollection<BuyProduct>();
             currentFullList = buyProductsViewModel.GetAllProducts();
@@ -159,6 +161,23 @@ namespace UiLayer
                     return new ProductSortType("Price", "Price", false);
                 default:
                     return null;
+            }
+        }
+
+        private void AddToCompare_Click(object sender, RoutedEventArgs e)
+        {
+            var button = sender as Button;
+            var selectedProduct = button.DataContext as Product;
+            if (selectedProduct != null)
+            {
+                bool twoAdded = compareProductsViewModel.AddProduct(selectedProduct);
+                if (twoAdded == true)
+                {
+                    var compareView = new CompareProductsView(compareProductsViewModel);
+                    compareView.Activate();
+                }
+
+
             }
         }
     }

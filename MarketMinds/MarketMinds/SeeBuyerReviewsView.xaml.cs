@@ -57,6 +57,21 @@ namespace MarketMinds
             }
         }
 
-    
+        public void EditReviewButton_Click(object sender, RoutedEventArgs e)
+        {
+            var button = sender as Button;
+            var review = button.DataContext as Review; // Assuming 'Review' is the model for the review
+
+            if (review != null)
+            {
+                
+                var reviewCreateView = new CreateReviewView(App.reviewCreateViewModel,review);
+                reviewCreateView.Activate();
+                ViewModel.refreshData();
+                this.Close();
+            }
+        }
+
+
     }
 }

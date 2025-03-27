@@ -95,7 +95,7 @@ namespace MarketMinds
             buyProductSortAndFilterViewModel = new SortAndFilterViewModel(buyProductsService);
             reviewCreateViewModel = new ReviewCreateViewModel(reviewsService, currentUser, testingUser);
             seeSellerReviewsViewModel = new SeeSellerReviewsViewModel(reviewsService, testingUser, testingUser); 
-            seeBuyerReviewsViewModel = new SeeBuyerReviewsViewModel(reviewsService, testingUser);
+            seeBuyerReviewsViewModel = new SeeBuyerReviewsViewModel(reviewsService, currentUser);
             basketViewModel = new BasketViewModel(currentUser, basketService );
             seeBuyerReviewsViewModel = new SeeBuyerReviewsViewModel(reviewsService, currentUser);
             compareProductsViewModel = new CompareProductsViewModel();

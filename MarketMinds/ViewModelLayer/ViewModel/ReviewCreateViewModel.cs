@@ -8,6 +8,7 @@ namespace ViewModelLayer.ViewModel
 {
     public class ReviewCreateViewModel
     {
+        public Review CurrentReview { get; set; }
         public ReviewsService ReviewsService { get; set; }
         public User Seller { get; set; }
         public User Buyer { get; set; }
@@ -46,6 +47,16 @@ namespace ViewModelLayer.ViewModel
                 return;
             }
             ReviewsService.AddReview(Description, Images, Rating, Seller, Buyer);
+            CurrentReview = new Review(-1,Description,Images,Rating, Seller.Id, Buyer.Id);
+        }
+
+        public void UpdateReview()
+        {
+            if (CurrentReview == null) return;
+            ReviewsService.EditReview(CurrentReview.description,CurrentReview.images,CurrentReview.rating,CurrentReview.sellerId,CurrentReview.buyerId, Description, Rating);  // Call the service layer to update
+
+            
+
         }
 
     }
