@@ -20,6 +20,7 @@ using System.Threading.Tasks;
 using Windows.Storage.Pickers;
 using Windows.Storage.Streams;
 using Windows.Storage;
+using System.Diagnostics;
 
 namespace UiLayer
 {
@@ -273,6 +274,18 @@ namespace UiLayer
             }
         }
 
+        private async void ShowSuccessMessage(string message)
+        {
+            ContentDialog successDialog = new ContentDialog
+            {
+                Title = "Success",
+                Content = message,
+                CloseButtonText = "Ok",
+                XamlRoot = this.XamlRoot
+            };
+            await successDialog.ShowAsync();
+        }
+
         private void CreateListingButton_Click(object sender, RoutedEventArgs e)
         {
             // Reset error messages
@@ -375,6 +388,7 @@ namespace UiLayer
                 var product = new AuctionProduct(0, title, description, App.currentUser, condition, category, tags, new List<DomainLayer.Domain.Image>(), DateTime.Now, endAuctionDate, startingPrice);
                 viewModel.CreateListing(product);
             }
+            ShowSuccessMessage("Listing created successfully!");
         }
     }
 }
