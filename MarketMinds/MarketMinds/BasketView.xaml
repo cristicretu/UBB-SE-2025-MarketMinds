@@ -104,8 +104,7 @@
 
                             <!-- Price and Remove -->
                             <StackPanel Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Right">
-                                <TextBlock Text="{Binding Price}" FontWeight="SemiBold" 
-                                           HorizontalAlignment="Right"/>
+                                <TextBlock Text="{Binding FormattedPrice}" FontWeight="SemiBold" HorizontalAlignment="Right"/>
                                 <TextBlock Text="{Binding Quantity}" Foreground="Gray" 
                                            HorizontalAlignment="Right" Margin="0,5,0,0"/>
                                 <Button Content="Remove" Margin="0,10,0,0" 
@@ -175,7 +174,7 @@
                     <Button x:Name="CheckoutButton" Content="Proceed to Checkout" HorizontalAlignment="Stretch" 
                             Margin="0,20,0,0" Padding="0,10" FontWeight="SemiBold"
                             Click="HandleCheckoutButton_Click"/>
-
+ 
                     <!-- Clear Basket Button -->
                     <Button Content="Clear Basket" HorizontalAlignment="Stretch" 
                             Margin="0,10,0,0" Padding="0,10"

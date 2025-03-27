@@ -94,16 +94,16 @@ namespace DataAccessLayer.Repositories
 
             // Query to get basket items with product details, conditions, and categories in one go
             string query = @"
-                SELECT bi.id, bi.product_id, bi.quantity, bi.price, p.description, 
-                    pc.id AS condition_id, pc.title AS condition_title, pc.description AS condition_description,
-                    pcat.id AS category_id, pcat.title AS category_title, pcat.description AS category_description,
-                    u.id AS seller_id, u.username AS seller_username, u.email AS seller_email
-                FROM BasketItemsBuyProducts bi
-                JOIN BuyProducts p ON bi.product_id = p.id
-                LEFT JOIN ProductConditions pc ON p.condition_id = pc.id
-                LEFT JOIN ProductCategories pcat ON p.category_id = pcat.id
-                LEFT JOIN Users u ON p.seller_id = u.id
-                WHERE bi.basket_id = @basketId";
+            SELECT bi.id, bi.product_id, bi.quantity, bi.price, p.description, p.title,
+                pc.id AS condition_id, pc.title AS condition_title, pc.description AS condition_description,
+                pcat.id AS category_id, pcat.title AS category_title, pcat.description AS category_description,
+                u.id AS seller_id, u.username AS seller_username, u.email AS seller_email
+            FROM BasketItemsBuyProducts bi
+            JOIN BuyProducts p ON bi.product_id = p.id
+            LEFT JOIN ProductConditions pc ON p.condition_id = pc.id
+            LEFT JOIN ProductCategories pcat ON p.category_id = pcat.id
+            LEFT JOIN Users u ON p.seller_id = u.id
+            WHERE bi.basket_id = @basketId";
 
 
             connection.OpenConnection();
@@ -115,26 +115,26 @@ namespace DataAccessLayer.Repositories
                 {
                     while (reader.Read())
                     {
+                        // Inside your while(reader.Read()) loop:
                         int itemId = reader.GetInt32(0);
                         int productId = reader.GetInt32(1);
                         int quantity = reader.GetInt32(2);
                         double price = reader.GetDouble(3);
                         string description = reader.GetString(4);
+                        string productTitle = reader.GetString(5);
 
-                        // Read condition details directly from query
-                        int conditionId = reader.IsDBNull(5) ? -1 : reader.GetInt32(5);
-                        string conditionTitle = reader.IsDBNull(6) ? string.Empty : reader.GetString(6);
-                        string conditionDesc = reader.IsDBNull(7) ? string.Empty : reader.GetString(7);
+                        // The rest of your reader code needs to be updated with new indices
+                        int conditionId = reader.IsDBNull(6) ? -1 : reader.GetInt32(6);
+                        string conditionTitle = reader.IsDBNull(7) ? string.Empty : reader.GetString(7);
+                        string conditionDesc = reader.IsDBNull(8) ? string.Empty : reader.GetString(8);
 
-                        // Read category details directly from query
-                        int categoryId = reader.IsDBNull(8) ? -1 : reader.GetInt32(8);
-                        string categoryTitle = reader.IsDBNull(9) ? string.Empty : reader.GetString(9);
-                        string categoryDesc = reader.IsDBNull(10) ? string.Empty : reader.GetString(10);
+                        int categoryId = reader.IsDBNull(9) ? -1 : reader.GetInt32(9);
+                        string categoryTitle = reader.IsDBNull(10) ? string.Empty : reader.GetString(10);
+                        string categoryDesc = reader.IsDBNull(11) ? string.Empty : reader.GetString(11);
 
-                        // Read seller details directly from query
-                        int sellerId = reader.IsDBNull(11) ? -1 : reader.GetInt32(11);
-                        string sellerUsername = reader.IsDBNull(12) ? string.Empty : reader.GetString(12);
-                        string sellerEmail = reader.IsDBNull(13) ? string.Empty : reader.GetString(13);
+                        int sellerId = reader.IsDBNull(12) ? -1 : reader.GetInt32(12);
+                        string sellerUsername = reader.IsDBNull(13) ? string.Empty : reader.GetString(13);
+                        string sellerEmail = reader.IsDBNull(14) ? string.Empty : reader.GetString(14);
 
                         // Create condition and category objects
                         ProductCondition condition = conditionId > 0 ?
@@ -151,7 +151,7 @@ namespace DataAccessLayer.Repositories
 
                         BuyProduct product = new BuyProduct(
                             productId,                   // Id
-                            "Product #" + productId,     // Title
+                            productTitle,                // Title
                             description,                 // Description
                             seller,                      // Seller
                             condition,                   // ProductCondition
