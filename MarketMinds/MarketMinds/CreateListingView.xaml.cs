@@ -47,8 +47,9 @@ namespace UiLayer
         private TextBlock imagesTextBlock;
         private TextBlock categoryTextBlock;
         private TextBlock conditionTextBlock;
+        private MainWindow window;
 
-        public CreateListingView()
+        public CreateListingView(MainWindow mainWindow)
         {
             this.InitializeComponent();
             titleTextBox = new TextBox { PlaceholderText = "Title" };
@@ -66,7 +67,7 @@ namespace UiLayer
             conditionComboBox = new ComboBox();
             conditionErrorTextBlock = new TextBlock { Text = "Please select a condition.", Foreground = new SolidColorBrush(Colors.Red), Visibility = Visibility.Collapsed };
             tags = new ObservableCollection<string>();
-
+            
             uploadImageButton = new Button { Content = "Upload Image", Width = 150 };
             uploadImageButton.Click += OnUploadImageClick;
             imagesTextBlock = new TextBlock { TextWrapping = TextWrapping.Wrap };
@@ -95,6 +96,7 @@ namespace UiLayer
             tagsListView.IsItemClickEnabled = true;
 
             tagsListView.ItemsSource = tags;
+            window = mainWindow;
         }
 
         private void LoadCategories()
@@ -182,7 +184,13 @@ namespace UiLayer
         {
             AddCommonFields();
             FormContainer.Children.Add(new TextBox { PlaceholderText = "Starting Price", Name = "StartingPriceTextBox" });
-            FormContainer.Children.Add(new CalendarDatePicker { PlaceholderText = "End Auction Date", Name = "EndAuctionDatePicker" });
+            var endAuctionDatePicker = new CalendarDatePicker
+            {
+                PlaceholderText = "End Auction Date",
+                Name = "EndAuctionDatePicker",
+                MinDate = DateTimeOffset.Now
+            };
+            FormContainer.Children.Add(endAuctionDatePicker);
         }
 
         private void TagsTextBox_KeyDown(object sender, KeyRoutedEventArgs e)
@@ -225,7 +233,8 @@ namespace UiLayer
 
         private async void OnUploadImageClick(object sender, RoutedEventArgs e)
         {
-            var hwnd = WinRT.Interop.WindowNative.GetWindowHandle(this);
+            IntPtr hwnd = WinRT.Interop.WindowNative.GetWindowHandle(window.createListingViewWindow);
+
             var picker = new FileOpenPicker();
             WinRT.Interop.InitializeWithWindow.Initialize(picker, hwnd);
 
@@ -349,7 +358,7 @@ namespace UiLayer
                     titleErrorTextBlock.Visibility = Visibility.Visible;
                     return;
                 }
-                var product = new BuyProduct(0, title, description, App.currentUser, condition, category, tags, new List<DomainLayer.Domain.Image>(), price);
+                var product = new BuyProduct(0, title, description, App.currentUser, condition, category, tags, viewModel.Images, price);
                 viewModel.CreateListing(product);
             }
             else if (viewModel is CreateBorrowListingViewModel)
@@ -370,7 +379,7 @@ namespace UiLayer
                     return;
                 }
 
-                var product = new BorrowProduct(0, title, description, App.currentUser, condition, category, tags, new List<DomainLayer.Domain.Image>(), DateTime.Now, endDate, endDate, dailyRate, false);
+                var product = new BorrowProduct(0, title, description, App.currentUser, condition, category, tags, viewModel.Images, DateTime.Now, endDate, endDate, dailyRate, false);
                 viewModel.CreateListing(product);
             }
             else if (viewModel is CreateAuctionListingViewModel)
@@ -390,7 +399,7 @@ namespace UiLayer
                 }
                 DateTime endAuctionDate = ((CalendarDatePicker)FormContainer.FindName("EndAuctionDatePicker")).Date.Value.DateTime;
 
-                var product = new AuctionProduct(0, title, description, App.currentUser, condition, category, tags, new List<DomainLayer.Domain.Image>(), DateTime.Now, endAuctionDate, startingPrice);
+                var product = new AuctionProduct(0, title, description, App.currentUser, condition, category, tags, viewModel.Images, DateTime.Now, endAuctionDate, startingPrice);
                 viewModel.CreateListing(product);
             }
             ShowSuccessMessage("Listing created successfully!");

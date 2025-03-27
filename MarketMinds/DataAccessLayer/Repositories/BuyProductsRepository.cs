@@ -66,7 +66,7 @@ namespace DataAccessLayer.Repositories
             foreach (var image in buy.Images)
             {
                 string insertImageQuery = @"
-            INSERT INTO BuyProductsImages (url, product_id)
+            INSERT INTO BuyProductImages (url, product_id)
             VALUES (@Url, @ProductId)";
 
                 using (SqlCommand cmd = new SqlCommand(insertImageQuery, connection.GetConnection()))
