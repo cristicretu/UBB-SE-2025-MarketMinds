@@ -10652,6 +10652,24 @@
 											"height": 13,
 											"text": "+HasValidPrice: bool",
 											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLAttributeView",
+											"_id": "AAAAAAGV2DCwd6FqHCs=",
+											"_parent": {
+												"$ref": "AAAAAAGVi+W7Hhs0ImM="
+											},
+											"model": {
+												"$ref": "AAAAAAGV2DCwX6Fn7cU="
+											},
+											"font": "Arial;13;0",
+											"parentStyle": true,
+											"left": 8901,
+											"top": 2833,
+											"width": 199,
+											"height": 13,
+											"text": "+FormattedPrice: string",
+											"horizontalAlignment": 0
 										}
 									],
 									"font": "Arial;13;0",
@@ -10659,7 +10677,7 @@
 									"left": 8896,
 									"top": 2753,
 									"width": 209,
-									"height": 83
+									"height": 98
 								},
 								{
 									"_type": "UMLOperationCompartmentView",
@@ -10683,17 +10701,17 @@
 											"font": "Arial;13;0",
 											"parentStyle": true,
 											"left": 8901,
-											"top": 2841,
+											"top": 2856,
 											"width": 199,
 											"height": 13,
-											"text": "+getPrice(): float",
+											"text": "+GetPrice(): float",
 											"horizontalAlignment": 0
 										}
 									],
 									"font": "Arial;13;0",
 									"parentStyle": true,
 									"left": 8896,
-									"top": 2836,
+									"top": 2851,
 									"width": 209,
 									"height": 23
 								},
@@ -52000,6 +52018,15 @@
 							},
 							"name": "HasValidPrice",
 							"type": "bool"
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGV2DCwX6Fn7cU=",
+							"_parent": {
+								"$ref": "AAAAAAGVi+W7HhsshiQ="
+							},
+							"name": "FormattedPrice",
+							"type": "string"
 						}
 					],
 					"operations": [
@@ -52009,7 +52036,7 @@
 							"_parent": {
 								"$ref": "AAAAAAGVi+W7HhsshiQ="
 							},
-							"name": "getPrice",
+							"name": "GetPrice",
 							"parameters": [
 								{
 									"_type": "UMLParameter",
@@ -54987,7 +55014,8 @@
 									"_parent": {
 										"$ref": "AAAAAAGV2Cr+nO2X+oo="
 									},
-									"name": "Object sender"
+									"name": "Object sender",
+									"type": ""
 								},
 								{
 									"_type": "UMLParameter",
@@ -54995,7 +55023,8 @@
 									"_parent": {
 										"$ref": "AAAAAAGV2Cr+nO2X+oo="
 									},
-									"name": "SelectionChangedEventArgs e"
+									"name": "SelectionChangedEventArgs e",
+									"type": ""
 								},
 								{
 									"_type": "UMLParameter",
@@ -55239,7 +55268,8 @@
 									"_parent": {
 										"$ref": "AAAAAAGV2C1byUzxTSc="
 									},
-									"name": "StorageFile file"
+									"name": "StorageFile file",
+									"type": ""
 								},
 								{
 									"_type": "UMLParameter",
