@@ -17,6 +17,7 @@ namespace UiLayer
         private readonly BorrowProductsViewModel borrowProductsViewModel;
         private readonly SortAndFilterViewModel sortAndFilterViewModel;
         private ObservableCollection<BorrowProduct> borrowProducts;
+        private CompareProductsViewModel compareProductsViewModel;
 
         // Pagination variables
         private int currentPage = 1;
@@ -31,6 +32,7 @@ namespace UiLayer
             // Assume you have similar view models for borrow products
             borrowProductsViewModel = MarketMinds.App.borrowProductsViewModel;
             sortAndFilterViewModel = MarketMinds.App.borrowProductSortAndFilterViewModel;
+            compareProductsViewModel = MarketMinds.App.compareProductsViewModel;
 
             borrowProducts = new ObservableCollection<BorrowProduct>();
             currentFullList = borrowProductsViewModel.GetAllProducts();
@@ -163,6 +165,23 @@ namespace UiLayer
                     return new ProductSortType("Start Date", "StartDate", false);
                 default:
                     return null;
+            }
+        }
+
+        private void AddToCompare_Click(object sender, RoutedEventArgs e)
+        {
+            var button = sender as Button;
+            var selectedProduct = button.DataContext as Product;
+            if (selectedProduct != null)
+            {
+                bool twoAdded = compareProductsViewModel.AddProduct(selectedProduct);
+                if (twoAdded == true)
+                {
+                    var compareView = new CompareProductsView(compareProductsViewModel);
+                    compareView.Activate();
+                }
+
+
             }
         }
     }

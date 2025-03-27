@@ -4,6 +4,7 @@ using DomainLayer.Domain;
 using Microsoft.Data.SqlClient;
 using DataAccessLayer;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 
 namespace DataAccessLayer.Repositories
 {
@@ -178,7 +179,8 @@ namespace DataAccessLayer.Repositories
 
         public void EditReview(Review review, float rating, string description)
         {
-            connection.OpenConnection();
+            
+            
             if (review.id == -1)
             {
                 review.id = GetReviewId(review);
@@ -187,27 +189,31 @@ namespace DataAccessLayer.Repositories
             if (rating != 0)
             {
                 string updateQuery = "UPDATE Reviews SET rating = @rating WHERE id = @id";
-
+                connection.OpenConnection();
+                Debug.WriteLine("Connected to: " + connection.GetConnection().ServerVersion);
                 using (SqlCommand cmd = new SqlCommand(updateQuery, connection.GetConnection()))
                 {
                     cmd.Parameters.AddWithValue("@id", review.id);
                     cmd.Parameters.AddWithValue("@rating", rating);
                     cmd.ExecuteNonQuery();
                 }
+                connection.CloseConnection();
             }
 
             if (!string.IsNullOrEmpty(description))
             {
                 string updateQuery = "UPDATE Reviews SET description = @description WHERE id = @id";
-
+                connection.OpenConnection();
+                Debug.WriteLine("Connected to: " + connection.GetConnection().ServerVersion);
                 using (SqlCommand cmd = new SqlCommand(updateQuery, connection.GetConnection()))
                 {
                     cmd.Parameters.AddWithValue("@id", review.id);
                     cmd.Parameters.AddWithValue("@description", description);
                     cmd.ExecuteNonQuery();
                 }
+                connection.CloseConnection();
             }
-            connection.CloseConnection();
+            
         }
 
         public void DeleteReview(Review review)

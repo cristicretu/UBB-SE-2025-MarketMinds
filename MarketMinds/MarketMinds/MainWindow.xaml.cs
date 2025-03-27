@@ -71,6 +71,20 @@ namespace UiLayer
             createListingViewWindow.Activate();
         }
 
+        private void handleSeeReviewViewButton_Click(Object sender, RoutedEventArgs e)
+        {
+            if (App.currentUser.UserType == 3) // buyer
+            {
+                seeReviewsWindow = new SeeBuyerReviewsView(App.seeBuyerReviewsViewModel);
+                seeReviewsWindow.Activate();
+            }
+            else if (App.currentUser.UserType == 2)
+            {
+                seeReviewsWindow = new SeeSellerReviewsView(App.seeSellerReviewsViewModel);
+                seeReviewsWindow.Activate();
+            }
+        }
+
         private Window basketViewWindow;
         private Window auctionProductListViewWindow;
         private Window borrowProductListViewWindow;
@@ -78,5 +92,6 @@ namespace UiLayer
         private Window adminViewWindow;
         private Window leaveReviewViewWindow;
         private Window createListingViewWindow;
+        private Window seeReviewsWindow;
     }
 }

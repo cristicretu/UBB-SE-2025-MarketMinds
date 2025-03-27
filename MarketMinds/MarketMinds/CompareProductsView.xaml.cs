@@ -108,15 +108,15 @@ namespace MarketMinds
             }
             else if (ViewModel.LeftProduct is BorrowProduct borrowProduct)
             {
-                //var detailView = new BorrowProductsView(borrowProduct)
-                //detailView.Activate();
+                var detailView = new BorrowProductView(borrowProduct);
+                detailView.Activate();
                 this.Close();
             }
             else
             {
                 BuyProduct buyProduct = (BuyProduct) ViewModel.LeftProduct;
-                //var detailView = BuyProductsView(buyProduct)
-                //detailView.Activate();
+                var detailView = new BuyProductView(buyProduct);
+                detailView.Activate();
                 this.Close();
             }
         }
@@ -132,15 +132,15 @@ namespace MarketMinds
             }
             else if (ViewModel.RightProduct is BorrowProduct borrowProduct)
             {
-                //var detailView = new BorrowProductsView(borrowProduct)
-                //detailView.Activate();
+                var detailView = new BorrowProductView(borrowProduct);
+                detailView.Activate();
                 this.Close();
             }
             else
             {
                 BuyProduct buyProduct = (BuyProduct)ViewModel.RightProduct;
-                //var detailView = BuyProductsView(buyProduct)
-                //detailView.Activate();
+                var detailView = new BuyProductView(buyProduct);
+                detailView.Activate();
                 this.Close();
             }
         }
