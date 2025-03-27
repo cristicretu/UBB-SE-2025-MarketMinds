@@ -12,7 +12,6 @@ namespace ViewModelLayer.ViewModel
         private readonly BasketService _basketService;
         private Basket _basket;
 
-        // Properties exposed to the view
         public List<BasketItem> BasketItems { get; private set; }
         public float Subtotal { get; private set; }
         public float Discount { get; private set; }
@@ -20,7 +19,6 @@ namespace ViewModelLayer.ViewModel
         public string PromoCode { get; set; }
         public string ErrorMessage { get; set; }
 
-        // Constructor with dependencies
         public BasketViewModel(User currentUser, BasketService basketService)
         {
             _currentUser = currentUser;
@@ -34,7 +32,6 @@ namespace ViewModelLayer.ViewModel
         {
             try
             {
-                // Load basket from database through the service
                 _basket = _basketService.GetBasketByUser(_currentUser);
                 BasketItems = _basket.GetItems();
 
@@ -82,7 +79,6 @@ namespace ViewModelLayer.ViewModel
                 {
                     ErrorMessage = $"Quantity cannot exceed {BasketService.MaxQuantityPerItem}";
 
-                    // Still update to the max quantity allowed
                     _basketService.UpdateProductQuantity(_currentUser.Id, productId, BasketService.MaxQuantityPerItem);
                 }
                 else
@@ -154,10 +150,8 @@ namespace ViewModelLayer.ViewModel
 
         private void CalculateTotals()
         {
-            // Calculate subtotal
             Subtotal = BasketItems.Sum(item => item.GetPrice());
 
-            // Apply any existing discount
             if (!string.IsNullOrEmpty(PromoCode))
             {
                 Discount = _basketService.GetPromoCodeDiscount(PromoCode, Subtotal);
@@ -166,9 +160,7 @@ namespace ViewModelLayer.ViewModel
             {
                 Discount = 0;
             }
-
-                // Calculate total amount
-                TotalAmount = Subtotal - Discount;
+            TotalAmount = Subtotal - Discount;
         }
     }
 }
