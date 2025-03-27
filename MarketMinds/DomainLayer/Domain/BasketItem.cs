@@ -16,6 +16,8 @@ namespace DomainLayer.Domain
 
         public bool HasValidPrice { get; private set; }
 
+        public string FormattedPrice => $"${Price:F2}";
+
         public BasketItem(int id, Product product, int quantity)
         {
             this.Id = id;

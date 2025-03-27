@@ -70,9 +70,6 @@ namespace UiLayer
             }
             catch (Exception ex)
             {
-                // Log the exception
-                System.Diagnostics.Debug.WriteLine($"Error loading basket data: {ex.Message}");
-
                 // Show error message to user
                 ErrorMessageTextBlock.Text = $"Error loading basket: {ex.Message}";
                 ErrorMessageTextBlock.Visibility = Visibility.Visible;
@@ -305,7 +302,7 @@ namespace UiLayer
                     DispatcherQueue.TryEnqueue(() =>
                     {
                         _basketViewModel.ClearBasket();
-                        LoadBasketData(); // Refresh the data
+                        LoadBasketData();
                     });
                 }
             });
@@ -316,7 +313,7 @@ namespace UiLayer
             if (_basketViewModel.CanCheckout())
             {
                 _basketViewModel.Checkout();
-                // Navigate to checkout page or process checkout
+                // Navigate to checkout page
                 ShowCheckoutMessage();
             }
             else
