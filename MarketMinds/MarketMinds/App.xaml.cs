@@ -123,5 +123,7 @@ namespace MarketMinds
         public static User currentUser { get; set; }
         public static User testingUser { get; set; }
 
+        
+
     }
 }

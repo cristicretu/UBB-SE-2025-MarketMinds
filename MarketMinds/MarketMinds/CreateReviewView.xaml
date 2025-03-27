@@ -29,8 +29,10 @@
             <Button Content="Upload Image" Click="OnUploadImageClick" Width="150"/>
 
             <!-- Confirm button -->
-            <Button x:Name="ConfirmButton" Content="Publish Review" VerticalAlignment="Bottom" HorizontalAlignment="Center"
-                Width="150" Height="50" Click="handleSubmit_Click"/>
+            <Button x:Name="ConfirmButton" Content="Publish Review"
+                VerticalAlignment="Bottom" HorizontalAlignment="Center"
+                Width="150" Height="50" Margin="0,0,0,20"
+                Click="handleSubmit_Click"/>
         </StackPanel>
     </Grid>
 </Window>
