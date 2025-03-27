@@ -3857,7 +3857,7 @@
 											"top": 3054,
 											"width": 943,
 											"height": 13,
-											"text": "+CreateReview(buyer: User, seller: User, rating: int, images[]: image, description: string): void",
+											"text": "+CreateReview(buyer: User, seller: User, rating: float, images[]: image, description: string): void",
 											"horizontalAlignment": 0
 										},
 										{
@@ -3875,7 +3875,7 @@
 											"top": 3069,
 											"width": 943,
 											"height": 13,
-											"text": "+EditReview(buyerId: int, sellerId: int, rating: int, images[]: image, description: string): void",
+											"text": "+EditReview(buyerId: int, sellerId: int, rating: float, images[]: image, description: string): void",
 											"horizontalAlignment": 0
 										},
 										{
@@ -5241,6 +5241,24 @@
 											"height": 13,
 											"text": "#sqlOrderByStatement",
 											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLAttributeView",
+											"_id": "AAAAAAGV2IwTu66SOcU=",
+											"_parent": {
+												"$ref": "AAAAAAGVi10ROW/aUl0="
+											},
+											"model": {
+												"$ref": "AAAAAAGV2IwTna6PpNc="
+											},
+											"font": "Arial;13;0",
+											"parentStyle": true,
+											"left": 7853,
+											"top": 2858,
+											"width": 620.35986328125,
+											"height": 13,
+											"text": "-nextId: int",
+											"horizontalAlignment": 0
 										}
 									],
 									"font": "Arial;13;0",
@@ -5248,7 +5266,7 @@
 									"left": 7848,
 									"top": 2793,
 									"width": 630.35986328125,
-									"height": 68
+									"height": 83
 								},
 								{
 									"_type": "UMLOperationCompartmentView",
@@ -5272,7 +5290,7 @@
 											"font": "Arial;13;0",
 											"parentStyle": true,
 											"left": 7853,
-											"top": 2866,
+											"top": 2881,
 											"width": 620.35986328125,
 											"height": 13,
 											"text": "+getSqlOrderByStatement(): string",
@@ -5290,7 +5308,7 @@
 											"font": "Arial;13;0",
 											"parentStyle": true,
 											"left": 7853,
-											"top": 2881,
+											"top": 2896,
 											"width": 620.35986328125,
 											"height": 13,
 											"text": "+getDisplayTitle(): string",
@@ -5308,7 +5326,7 @@
 											"font": "Arial;13;0",
 											"parentStyle": true,
 											"left": 7853,
-											"top": 2896,
+											"top": 2911,
 											"width": 620.35986328125,
 											"height": 13,
 											"text": "+getInternalAttributeFieldTitle(): string",
@@ -5326,7 +5344,7 @@
 											"font": "Arial;13;0",
 											"parentStyle": true,
 											"left": 7853,
-											"top": 2911,
+											"top": 2926,
 											"width": 620.35986328125,
 											"height": 13,
 											"text": "+setInternalAttributeFieldTitle(internalAttributeFieldTitle: string): void",
@@ -5344,7 +5362,7 @@
 											"font": "Arial;13;0",
 											"parentStyle": true,
 											"left": 7853,
-											"top": 2926,
+											"top": 2941,
 											"width": 620.35986328125,
 											"height": 13,
 											"text": "+ProductSortType(externalAttributeFieldTitle: string, internalAttributeFieldTitle: string, isAscending: boolean)",
@@ -5354,7 +5372,7 @@
 									"font": "Arial;13;0",
 									"parentStyle": true,
 									"left": 7848,
-									"top": 2861,
+									"top": 2876,
 									"width": 630.35986328125,
 									"height": 83
 								},
@@ -5399,7 +5417,7 @@
 							"left": 7848,
 							"top": 2768,
 							"width": 629.35986328125,
-							"height": 176,
+							"height": 191,
 							"nameCompartment": {
 								"$ref": "AAAAAAGVi10ROW/VjzU="
 							},
@@ -47301,7 +47319,7 @@
 										"$ref": "AAAAAAGVioa4Oc/rF6E="
 									},
 									"name": "rating",
-									"type": "int"
+									"type": "float"
 								},
 								{
 									"_type": "UMLParameter",
@@ -47365,7 +47383,7 @@
 										"$ref": "AAAAAAGVioe+/M/8xPk="
 									},
 									"name": "rating",
-									"type": "int"
+									"type": "float"
 								},
 								{
 									"_type": "UMLParameter",
@@ -48178,6 +48196,16 @@
 							"name": "sqlOrderByStatement",
 							"visibility": "protected",
 							"type": ""
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGV2IwTna6PpNc=",
+							"_parent": {
+								"$ref": "AAAAAAGVi10ROG/S9DI="
+							},
+							"name": "nextId",
+							"visibility": "private",
+							"type": "int"
 						}
 					],
 					"operations": [
