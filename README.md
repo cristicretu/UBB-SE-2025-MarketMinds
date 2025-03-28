@@ -66,7 +66,7 @@ UBB-SE-2025-MarketMinds/
 │   ├── 📄 MarketMinds.csproj         # Project file
 │   ├── 📄 MarketMinds.sln            # Solution file
 │   └── 📄 appsettings.json           # Application settings
-
+```
 ## Demo
 
 Hand made GUI video - Seminar 2: [Watch on YouTube](https://youtu.be/OBPRiNfDDVs?si=lRMacDvDzZtjhuQG)
