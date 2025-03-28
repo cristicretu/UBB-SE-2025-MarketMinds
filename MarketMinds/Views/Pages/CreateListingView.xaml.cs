@@ -72,17 +72,10 @@ namespace UiLayer
             uploadImageButton.Click += OnUploadImageClick;
             imagesTextBlock = new TextBlock { TextWrapping = TextWrapping.Wrap };
 
-            // Initialize ProductCategoryViewModel
-            var productCategoryService = new ProductCategoryService(new ProductCategoryRepository(new DataBaseConnection()));
-            productCategoryViewModel = new ProductCategoryViewModel(productCategoryService);
-
-            // Initialize ProductConditionViewModel
-            var productConditionService = new ProductConditionService(new ProductConditionRepository(new DataBaseConnection()));
-            productConditionViewModel = new ProductConditionViewModel(productConditionService);
-
-            // Initialize ProductTagViewModel
-            var productTagService = new ProductTagService(new ProductTagRepository(new DataBaseConnection()));
-            productTagViewModel = new ProductTagViewModel(productTagService);
+            // Use singleton instances from App class
+            productCategoryViewModel = App.productCategoryViewModel;
+            productConditionViewModel = App.productConditionViewModel;
+            productTagViewModel = App.productTagViewModel;
 
             // Load categories and conditions into ComboBoxes
             LoadCategories();
@@ -125,18 +118,15 @@ namespace UiLayer
             switch (selectedType)
             {
                 case "Buy":
-                    var BuyProductsService = new BuyProductsService(new BuyProductsRepository(new DataBaseConnection()));
-                    viewModel = new CreateBuyListingViewModel { BuyProductsService = BuyProductsService };
+                    viewModel = new CreateBuyListingViewModel { BuyProductsService = App.buyProductsService };
                     AddBuyProductFields();
                     break;
                 case "Borrow":
-                    var BorrowProductsService = new BorrowProductsService(new BorrowProductsRepository(new DataBaseConnection()));
-                    viewModel = new CreateBorrowListingViewModel { BorrowProductsService = BorrowProductsService };
+                    viewModel = new CreateBorrowListingViewModel { BorrowProductsService = App.borrowProductsService };
                     AddBorrowProductFields();
                     break;
                 case "Auction":
-                    var AuctionProductsService = new AuctionProductsService(new AuctionProductsRepository(new DataBaseConnection()));
-                    viewModel = new CreateAuctionListingViewModel { auctionProductsService = AuctionProductsService };
+                    viewModel = new CreateAuctionListingViewModel { auctionProductsService = App.auctionProductsService };
                     AddAuctionProductFields();
                     break;
             }

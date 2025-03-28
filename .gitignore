@@ -181,6 +181,8 @@ DocProject/Help/html
 
 # Click-Once directory
 publish/
+appsettings.json
+/MarketMinds/appsettings.json
 
 # Publish Web Output
 *.[Pp]ublish.xml
