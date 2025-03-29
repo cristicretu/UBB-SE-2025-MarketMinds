@@ -1,5 +1,6 @@
-﻿using DataAccessLayer.Repositories;
-using DomainLayer.Domain;
+﻿using DomainLayer.Domain;
+using MarketMinds.Repositories.AuctionProductsRepository;
+using MarketMinds.Services.ProductTagService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,13 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
-namespace BusinessLogicLayer.Services
+namespace MarketMinds.Services.AuctionProductsService
 {
-    public class AuctionProductsService : ProductService
+    public class AuctionProductsService : ProductService, IAuctionProductsService
     {
-        private AuctionProductsRepository _auctionRepository;
+        private IAuctionProductsRepository _auctionRepository;
         
-        public AuctionProductsService(AuctionProductsRepository repository): base(repository)
+        public AuctionProductsService(IAuctionProductsRepository repository): base(repository)
         {
             _auctionRepository = repository;
         }
@@ -72,7 +73,7 @@ namespace BusinessLogicLayer.Services
 
         public void ConcludeAuction(AuctionProduct auction)
         {
-            this._auctionRepository.DeleteProduct(auction);
+            _auctionRepository.DeleteProduct(auction);
         }
 
     }

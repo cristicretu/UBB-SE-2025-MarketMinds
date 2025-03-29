@@ -6,9 +6,9 @@ using DataAccessLayer;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 
-namespace DataAccessLayer.Repositories
+namespace MarketMinds.Repositories.ReviewRepository
 {
-    public class ReviewRepository
+    public class ReviewRepository : IReviewRepository
     {
         private DataBaseConnection connection;
 

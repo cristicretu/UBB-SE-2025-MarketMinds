@@ -1,5 +1,5 @@
-﻿using BusinessLogicLayer.Services;
-using DomainLayer.Domain;
+﻿using DomainLayer.Domain;
+using MarketMinds.Services.ReviewService;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

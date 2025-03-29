@@ -4,18 +4,18 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using DataAccessLayer.Repositories;
 using DomainLayer.Domain;
+using MarketMinds.Repositories;
 
-namespace BusinessLogicLayer.Services
+namespace MarketMinds.Services.ProductTagService
 {
-    public class ProductService
+    public class ProductService : IProductService
     {
-        private ProductsRepository productRepository;
+        private IProductsRepository productRepository;
 
-        public ProductService(ProductsRepository repository)
+        public ProductService(IProductsRepository repository)
         {
-            this.productRepository = repository;
+            productRepository = repository;
         }
 
         public List<Product> GetProducts()

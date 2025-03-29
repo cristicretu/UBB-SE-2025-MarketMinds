@@ -1,16 +1,13 @@
-﻿
-using DomainLayer.Domain;
+﻿using DomainLayer.Domain;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Data.SqlClient;
 using System.Data;
+using Microsoft.Data.SqlClient;
+using DataAccessLayer;
 
-namespace DataAccessLayer.Repositories
+namespace MarketMinds.Repositories.BuyProductsRepository
 {
-    public class BuyProductsRepository : ProductsRepository
+    public class BuyProductsRepository : IBuyProductsRepository
     {
         private DataBaseConnection connection;
 
@@ -19,12 +16,11 @@ namespace DataAccessLayer.Repositories
             this.connection = connection;
         }
 
-        public override void AddProduct(Product product)
+        public void AddProduct(Product product)
         {
-            BuyProduct buy = (BuyProduct) product;
+            BuyProduct buy = (BuyProduct)product;
             if (buy == null)
                 throw new ArgumentException("Product must be of type BuyProduct.");
-
 
             string insertProductQuery = @"
             INSERT INTO BuyProducts 
@@ -80,7 +76,7 @@ namespace DataAccessLayer.Repositories
             connection.CloseConnection();
         }
 
-        public override void DeleteProduct(Product product)
+        public void DeleteProduct(Product product)
         {
             string query = "DELETE FROM BuyProducts WHERE id = @Id";
 
@@ -94,7 +90,7 @@ namespace DataAccessLayer.Repositories
             connection.CloseConnection();
         }
 
-        public override List<Product> GetProducts()
+        public List<Product> GetProducts()
         {
             List<Product> buys = new List<Product>();
             DataTable productsTable = new DataTable();
@@ -222,7 +218,8 @@ namespace DataAccessLayer.Repositories
             connection.CloseConnection();
             return images;
         }
-        public override Product GetProductByID(int productId)
+
+        public Product GetProductByID(int productId)
         {
             BuyProduct buy = null;
             string query = @"
@@ -251,6 +248,8 @@ namespace DataAccessLayer.Repositories
             {
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
+                    if (reader.Read())
+                    {
                         int id = reader.GetInt32(reader.GetOrdinal("id"));
                         string title = reader.GetString(reader.GetOrdinal("title"));
                         string description = reader.GetString(reader.GetOrdinal("description"));
@@ -260,12 +259,10 @@ namespace DataAccessLayer.Repositories
                         string email = reader.GetString(reader.GetOrdinal("email"));
                         User seller = new User(sellerId, username, email);
 
-
                         int conditionId = reader.GetInt32(reader.GetOrdinal("condition_id"));
                         string conditionTitle = reader.GetString(reader.GetOrdinal("conditionTitle"));
                         string conditionDescription = reader.GetString(reader.GetOrdinal("conditionDescription"));
                         ProductCondition condition = new ProductCondition(conditionId, conditionTitle, conditionDescription);
-
 
                         int categoryId = reader.GetInt32(reader.GetOrdinal("category_id"));
                         string categoryTitle = reader.GetString(reader.GetOrdinal("categoryTitle"));
@@ -274,8 +271,7 @@ namespace DataAccessLayer.Repositories
 
                         float price = reader.GetFloat(reader.GetOrdinal("price"));
 
-                        List<ProductTag> tags = GetProductTags( id);
-
+                        List<ProductTag> tags = GetProductTags(id);
                         List<Image> images = GetProductImages(id);
 
                         buy = new BuyProduct(
@@ -289,15 +285,13 @@ namespace DataAccessLayer.Repositories
                             images,
                             price
                         );
+                    }
                 }
             }
             connection.CloseConnection();
             return buy;
         }
 
-       
-
-        public override void UpdateProduct(Product product) { }
-
+        public void UpdateProduct(Product product) { }
     }
 }

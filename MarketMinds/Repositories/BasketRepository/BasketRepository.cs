@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DataAccessLayer;
 using DomainLayer.Domain;
 using Microsoft.Data.SqlClient;
 
-namespace DataAccessLayer.Repositories
+namespace MarketMinds.Repositories.BasketRepository
 {
-    public class BasketRepository
+    public class BasketRepository : IBasketRepository
     {
         private DataBaseConnection connection;
 

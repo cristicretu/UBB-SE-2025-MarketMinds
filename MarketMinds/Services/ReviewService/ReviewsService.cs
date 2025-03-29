@@ -1,5 +1,4 @@
-﻿using DataAccessLayer.Repositories;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Metadata;
@@ -7,10 +6,11 @@ using System.Text;
 using System.Threading.Tasks;
 using DomainLayer.Domain;
 using System.Collections.ObjectModel;
+using MarketMinds.Repositories.ReviewRepository;
 
-namespace BusinessLogicLayer.Services
+namespace MarketMinds.Services.ReviewService
 {
-    public class ReviewsService
+    public class ReviewsService : IReviewsService
     {
         public ReviewRepository Repository;
 

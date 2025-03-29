@@ -3,27 +3,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DataAccessLayer;
 using DomainLayer.Domain;
 using Microsoft.Data.SqlClient;
 
-namespace DataAccessLayer.Repositories
+namespace MarketMinds.Repositories.ProductTagRepository
 {
-    public class ProductCategoryRepository
+    public class ProductTagRepository : IProductTagRepository
     {
         private DataBaseConnection connection;
 
-        public ProductCategoryRepository(DataBaseConnection connection)
+        public ProductTagRepository(DataBaseConnection connection)
         {
             this.connection = connection;
         }
 
-        public List<ProductCategory> GetAllProductCategories()
+        public List<ProductTag> GetAllProductTags()
         {
-            // Returns all the product categories
-            // output: all the product categories
+            // Returns all the product tags
+            // output: all the product tags
 
-            List<ProductCategory> productCategories = new List<ProductCategory>();
-            string query = "SELECT * FROM ProductCategories";
+            List<ProductTag> productTags = new List<ProductTag>();
+            string query = "SELECT * FROM ProductTags";
             connection.OpenConnection();
             using (SqlCommand cmd = new SqlCommand(query, connection.GetConnection()))
             {
@@ -31,51 +32,49 @@ namespace DataAccessLayer.Repositories
                 {
                     while (reader.Read())
                     {
-                        productCategories.Add(new ProductCategory(
+                        productTags.Add(new ProductTag(
                             reader.GetInt32(0),
-                            reader.GetString(1),
-                            reader.GetString(2)
+                            reader.GetString(1)
                         ));
                     }
                 }
             }
-            connection.CloseConnection();
-            return productCategories;
+            connection.CloseConnection(); 
+            return productTags;
         }
 
-        public ProductCategory CreateProductCategory(string displayTitle, string description)
+        public ProductTag CreateProductTag(string displayTitle)
         {
-            // Creates a new product category
-            // input: displayTitle, description
+            // creates a new product tag
+            // input: displayTitle
             // output: the created product tag
 
             int newId = -1;
 
-            string cmd = "INSERT INTO ProductCategories (title, description) VALUES (@displayTitle, @description); SELECT CAST(SCOPE_IDENTITY() as int);";
+            string cmd = "INSERT INTO ProductTags (title) VALUES (@displayTitle); SELECT CAST(SCOPE_IDENTITY() as int);";
             connection.OpenConnection();
 
             using (SqlCommand command = new SqlCommand(cmd, connection.GetConnection()))
             {
                 command.Parameters.AddWithValue("@displayTitle", displayTitle);
-                command.Parameters.AddWithValue("@description", description);
                 newId = (int)command.ExecuteScalar();
             }
             connection.CloseConnection();
 
-            if (newId == -1)
+            if(newId == -1)
             {
-                throw new Exception("Error creating product category");
+                throw new Exception("Error creating product tag");
             }
-            return new ProductCategory(newId, displayTitle, description);
+            return new ProductTag(newId, displayTitle);
         }
 
-        public void DeleteProductCategory(string displayTitle)
+        public void DeleteProductTag(string displayTitle)
         {
-            // Deletes a product category
+            // deletes a product tag
             // input: displayTitle
             // output: none
 
-            string cmd = "DELETE FROM ProductCategories WHERE title = @displayTitle";
+            string cmd = "DELETE FROM ProductTags WHERE title = @displayTitle";
             connection.OpenConnection();
             using (SqlCommand command = new SqlCommand(cmd, connection.GetConnection()))
             {

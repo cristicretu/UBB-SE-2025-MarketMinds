@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DomainLayer.Domain;
-using BusinessLogicLayer.Services;
+using MarketMinds.Services.AuctionProductsService;
 
 namespace ViewModelLayer.ViewModel
 {
