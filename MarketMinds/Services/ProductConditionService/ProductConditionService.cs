@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DomainLayer.Domain;
-using DataAccessLayer.Repositories;
+using MarketMinds.Repositories.ProductConditionRepository;
 
-namespace BusinessLogicLayer.Services
+namespace MarketMinds.Services.ProductConditionService
 {
     public class ProductConditionService
     {

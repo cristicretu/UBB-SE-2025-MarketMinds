@@ -16,14 +16,28 @@ using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using UiLayer;
-using BusinessLogicLayer.Services;
 using BusinessLogicLayer.ViewModel;
 using DataAccessLayer;
-using DataAccessLayer.Repositories;
 using DomainLayer.Domain;
 using ViewModelLayer.ViewModel;
 using BusinessLogicLayer.ViewModel;
 using Microsoft.Extensions.Configuration;
+using MarketMinds.Repositories.AuctionProductsRepository;
+using MarketMinds.Repositories.BasketRepository;
+using MarketMinds.Repositories.BorrowProductsRepository;
+using MarketMinds.Repositories.BuyProductsRepository;
+using MarketMinds.Repositories.ProductCategoryRepository;
+using MarketMinds.Repositories.ProductConditionRepository;
+using MarketMinds.Repositories.ProductTagRepository;
+using MarketMinds.Repositories.ReviewRepository;
+using MarketMinds.Services.AuctionProductsService;
+using MarketMinds.Services.BorrowProductsService;
+using MarketMinds.Services.BasketService;
+using MarketMinds.Services.BuyProductsService;
+using MarketMinds.Services.ProductCategoryService;
+using MarketMinds.Services.ProductConditionService;
+using MarketMinds.Services.ReviewService;
+using MarketMinds.Services.ProductTagService;
 
 namespace MarketMinds
 {
@@ -89,7 +103,7 @@ namespace MarketMinds
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
 
             configuration = builder.Build();
         }

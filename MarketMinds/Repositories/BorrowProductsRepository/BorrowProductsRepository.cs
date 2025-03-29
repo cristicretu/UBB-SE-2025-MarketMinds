@@ -6,10 +6,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Data.SqlClient;
 using System.Data;
+using DataAccessLayer;
 
-namespace DataAccessLayer.Repositories
+namespace MarketMinds.Repositories.BorrowProductsRepository
 {
-    public class BorrowProductsRepository : ProductsRepository
+    public class BorrowProductsRepository : IBorrowProductsRepository
     {
         private DataBaseConnection connection;
 
@@ -18,7 +19,7 @@ namespace DataAccessLayer.Repositories
             this.connection = connection;
         }
 
-        public override void AddProduct(Product product)
+        public void AddProduct(Product product)
         {
             BorrowProduct borrow = (BorrowProduct) product;
             if (borrow == null)
@@ -83,7 +84,7 @@ namespace DataAccessLayer.Repositories
             connection.CloseConnection();
         }
 
-        public override void DeleteProduct(Product product)
+        public void DeleteProduct(Product product)
         {
             int Id = product.Id;
             string query = "DELETE FROM BorrowProducts WHERE id = @Id";
@@ -98,7 +99,7 @@ namespace DataAccessLayer.Repositories
             connection.CloseConnection();
         }
 
-        public override List<Product> GetProducts()
+        public List<Product> GetProducts()
         {
             var borrows = new List<Product>();
             DataTable productsTable = new DataTable();
@@ -237,7 +238,7 @@ namespace DataAccessLayer.Repositories
             return images;
         }
 
-        public override Product GetProductByID(int productId)
+        public Product GetProductByID(int productId)
         {
             BorrowProduct borrow = null;
 
@@ -322,6 +323,6 @@ namespace DataAccessLayer.Repositories
 
         
         
-        public override void UpdateProduct(Product product){}
+        public void UpdateProduct(Product product){}
     }
 }
