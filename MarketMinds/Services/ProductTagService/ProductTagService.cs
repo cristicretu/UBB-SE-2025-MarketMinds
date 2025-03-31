@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BusinessLogicLayer.Services;
 using DomainLayer.Domain;
-using DataAccessLayer.Repositories;
+using MarketMinds.Repositories.ProductTagRepository;
 
-namespace BusinessLogicLayer.Services
+namespace MarketMinds.Services.ProductTagService
 {
-    public class ProductTagService
+    public class ProductTagService : IProductTagService
     {
         private ProductTagRepository repository;
 

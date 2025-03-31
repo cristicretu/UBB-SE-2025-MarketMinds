@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using BusinessLogicLayer.Services;
 using DomainLayer.Domain;
+using MarketMinds.Services.BorrowProductsService;
 
 namespace ViewModelLayer.ViewModel;
 

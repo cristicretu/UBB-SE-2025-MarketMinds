@@ -1,5 +1,4 @@
-
-﻿using DomainLayer.Domain;
+using DomainLayer.Domain;
 using System;
 
 using System.Collections.Generic;
@@ -8,10 +7,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Data.SqlClient;
 using System.Data;
+using DataAccessLayer;
 
-namespace DataAccessLayer.Repositories
+namespace MarketMinds.Repositories.AuctionProductsRepository
 {
-    public class AuctionProductsRepository : ProductsRepository
+    public class AuctionProductsRepository : IAuctionProductsRepository
     {
         private DataBaseConnection connection;
 
@@ -20,7 +20,7 @@ namespace DataAccessLayer.Repositories
             this.connection = connection;
         }
 
-        public override List<Product> GetProducts()
+        public List<Product> GetProducts()
         {
             List<Product> auctions = new List<Product>();
             DataTable productsTable = new DataTable();
@@ -148,7 +148,7 @@ namespace DataAccessLayer.Repositories
             return tags;
         }
 
-        public override void DeleteProduct(Product product)
+        public void DeleteProduct(Product product)
         {
             AuctionProduct auction = product as AuctionProduct;
             if (auction == null)
@@ -166,7 +166,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public override void AddProduct(Product product)
+        public void AddProduct(Product product)
         {
             AuctionProduct auction = (AuctionProduct)product;
             if (auction == null)
@@ -231,7 +231,7 @@ namespace DataAccessLayer.Repositories
         }
 
 
-        public override void UpdateProduct(Product product)
+        public void UpdateProduct(Product product)
         {
             AuctionProduct auction = (AuctionProduct)product;
             if (auction == null)
@@ -250,40 +250,47 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public override AuctionProduct GetProductByID(int APid)
+        Product IProductsRepository.GetProductByID(int id)
+        {
+            return GetProductByID(id);
+        }
+
+        public AuctionProduct GetProductByID(int id)
         {
             AuctionProduct auction = null;
 
             string query = @"
-            SELECT 
-                ap.id,
-                ap.title,
-                ap.description,
-                ap.seller_id,
-                u.username,
-                u.email,
-                ap.condition_id,
-                pc.title AS conditionTitle,
-                pc.description AS conditionDescription,
-                ap.category_id,
-                cat.title AS categoryTitle,
-                cat.description AS categoryDescription,
-                ap.start_datetime,
-                ap.end_datetime,
-                ap.starting_price
-            FROM AuctionProducts ap
-            JOIN Users u ON ap.seller_id = u.id
-            JOIN ProductConditions pc ON ap.condition_id = pc.id
-            JOIN ProductCategories cat ON ap.category_id = cat.id
-               WHERE ap.id = @APid";
+        SELECT 
+            ap.id,
+            ap.title,
+            ap.description,
+            ap.seller_id,
+            u.username,
+            u.email,
+            ap.condition_id,
+            pc.title AS conditionTitle,
+            pc.description AS conditionDescription,
+            ap.category_id,
+            cat.title AS categoryTitle,
+            cat.description AS categoryDescription,
+            ap.start_datetime,
+            ap.end_datetime,
+            ap.starting_price
+        FROM AuctionProducts ap
+        JOIN Users u ON ap.seller_id = u.id
+        JOIN ProductConditions pc ON ap.condition_id = pc.id
+        JOIN ProductCategories cat ON ap.category_id = cat.id
+           WHERE ap.id = @APid";
 
             connection.OpenConnection();
             using (SqlCommand cmd = new SqlCommand(query, connection.GetConnection()))
             {
-                cmd.Parameters.AddWithValue("@APid", APid);
+                cmd.Parameters.AddWithValue("@APid", id);
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
-                        int id = reader.GetInt32(reader.GetOrdinal("id"));
+                    if (reader.Read())
+                    {
+                        int productId = reader.GetInt32(reader.GetOrdinal("id"));
                         string title = reader.GetString(reader.GetOrdinal("title"));
                         string description = reader.GetString(reader.GetOrdinal("description"));
 
@@ -292,12 +299,10 @@ namespace DataAccessLayer.Repositories
                         string email = reader.GetString(reader.GetOrdinal("email"));
                         User seller = new User(sellerId, username, email);
 
-
                         int conditionId = reader.GetInt32(reader.GetOrdinal("condition_id"));
                         string conditionTitle = reader.GetString(reader.GetOrdinal("conditionTitle"));
                         string conditionDescription = reader.GetString(reader.GetOrdinal("conditionDescription"));
                         ProductCondition condition = new ProductCondition(conditionId, conditionTitle, conditionDescription);
-
 
                         int categoryId = reader.GetInt32(reader.GetOrdinal("category_id"));
                         string categoryTitle = reader.GetString(reader.GetOrdinal("categoryTitle"));
@@ -308,12 +313,11 @@ namespace DataAccessLayer.Repositories
                         DateTime end = reader.GetDateTime(reader.GetOrdinal("end_datetime"));
                         float startingPrice = reader.GetFloat(reader.GetOrdinal("starting_price"));
 
-                    List<ProductTag> tags = GetProductTags(id);
-
-                        List<Image> images = GetImages( id);
+                        List<ProductTag> tags = GetProductTags(productId);
+                        List<Image> images = GetImages(productId);
 
                         auction = new AuctionProduct(
-                            id,
+                            productId,
                             title,
                             description,
                             seller,
@@ -325,13 +329,12 @@ namespace DataAccessLayer.Repositories
                             end,
                             startingPrice
                         );
-                    
+                    }
                 }
             }
             connection.CloseConnection();
 
             return auction;
         }
-
     }
 }

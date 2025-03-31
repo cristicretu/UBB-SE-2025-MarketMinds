@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using BusinessLogicLayer.Services;
 using DomainLayer.Domain;
 using System;
+using MarketMinds.Services.AuctionProductsService;
 
 namespace ViewModelLayer.ViewModel;
 

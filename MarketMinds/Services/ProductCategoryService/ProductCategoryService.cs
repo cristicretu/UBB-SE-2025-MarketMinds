@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DomainLayer.Domain;
-using DataAccessLayer.Repositories;
+using MarketMinds.Repositories.ProductCategoryRepository;
 
-namespace BusinessLogicLayer.Services
+namespace MarketMinds.Services.ProductCategoryService
 {
-    public class ProductCategoryService
+    public class ProductCategoryService : IProductCategoryService
     {
         private ProductCategoryRepository repository;
 

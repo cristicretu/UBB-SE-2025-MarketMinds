@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using DomainLayer.Domain;
-using DataAccessLayer.Repositories;
+using MarketMinds.Repositories.BasketRepository;
 
-namespace BusinessLogicLayer.Services
+namespace MarketMinds.Services.BasketService
 {
-    public class BasketService
+    public class BasketService : IBasketService
     {
         private readonly BasketRepository _basketRepository;
         public const int MaxQuantityPerItem = 10;

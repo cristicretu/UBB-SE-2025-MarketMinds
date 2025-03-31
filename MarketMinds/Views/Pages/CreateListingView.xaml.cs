@@ -3,9 +3,6 @@ using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
 using ViewModelLayer.ViewModel;
 using System.Collections.Generic;
-using BusinessLogicLayer.Services;
-using DataAccessLayer.Repositories;
-using DataAccessLayer;
 using DomainLayer.Domain;
 using System.Collections.ObjectModel;
 using MarketMinds;
@@ -20,7 +17,6 @@ using System.Threading.Tasks;
 using Windows.Storage.Pickers;
 using Windows.Storage.Streams;
 using Windows.Storage;
-using System.Diagnostics;
 
 namespace UiLayer
 {
