@@ -17,6 +17,7 @@ using System.Threading.Tasks;
 using Windows.Storage.Pickers;
 using Windows.Storage.Streams;
 using Windows.Storage;
+using Microsoft.Extensions.Configuration;
 
 namespace UiLayer
 {
@@ -44,10 +45,13 @@ namespace UiLayer
         private TextBlock categoryTextBlock;
         private TextBlock conditionTextBlock;
         private MainWindow window;
+        private readonly string imgurClientId;
+        private static readonly HttpClient _httpClient = new HttpClient();
 
         public CreateListingView(MainWindow mainWindow)
         {
             this.InitializeComponent();
+            imgurClientId = App.configuration.GetSection("ImgurSettings:ClientId").Value;
             titleTextBox = new TextBox { PlaceholderText = "Title" };
             titleErrorTextBlock = new TextBlock { Text = "Title cannot be empty.", Foreground = new SolidColorBrush(Colors.Red), Visibility = Visibility.Collapsed };
             categoryTextBlock = new TextBlock { Text = "Select Category" };
@@ -246,38 +250,150 @@ namespace UiLayer
 
         private async Task<string> UploadToImgur(StorageFile file)
         {
-            viewModel.ImagesString += "\nUploading...";
-
-            using (IRandomAccessStream stream = await file.OpenAsync(FileAccessMode.Read))
+            string uploadingText = "\nUploading...";
+            try
             {
-                byte[] buffer = new byte[stream.Size];
-                using (var reader = new DataReader(stream))
+                // Log file details
+                var properties = await file.GetBasicPropertiesAsync();
+                
+
+                string clientId = App.configuration.GetSection("ImgurSettings:ClientId").Value;
+                
+                // Validate Client ID format
+                if (string.IsNullOrEmpty(clientId))
                 {
-                    await reader.LoadAsync((uint)stream.Size);
-                    reader.ReadBytes(buffer);
+                    
+                    await ShowErrorDialog("Imgur Upload Error", "Client ID is not configured. Please check your appsettings.json file.");
+                    return null;
+                }
+                
+                if (clientId.Length > 20) // Typical Imgur Client IDs are around 15 chars
+                {
+                    
+                    await ShowErrorDialog("Imgur Upload Error", "Client ID format appears invalid. Please ensure you're using the Client ID, not the Client Secret.");
+                    return null;
                 }
 
-                using (HttpClient client = new HttpClient())
+                
+                
+                // Add uploading text to UI
+                viewModel.ImagesString = (string.IsNullOrEmpty(viewModel.ImagesString) ? "" : viewModel.ImagesString + "\n") + uploadingText;
+                imagesTextBlock.Text = viewModel.ImagesString;
+
+                using (var stream = await file.OpenAsync(FileAccessMode.Read))
                 {
-                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Client-ID", "YOUR_IMGUR_CLIENT_ID");
-
-                    var content = new MultipartFormDataContent
+                    if (stream.Size > 10 * 1024 * 1024)
                     {
-                        { new ByteArrayContent(buffer), "image" }
-                    };
+                        
+                        await ShowErrorDialog("Imgur Upload Error", "File size exceeds Imgur's 10MB limit.");
+                        return null;
+                    }
 
-                    HttpResponseMessage response = await client.PostAsync("https://api.imgur.com/3/image", content);
-                    string responseBody = await response.Content.ReadAsStringAsync();
+                    byte[] buffer = new byte[stream.Size];
+                    using (var reader = new DataReader(stream))
+                    {
+                        await reader.LoadAsync((uint)stream.Size);
+                        reader.ReadBytes(buffer);
+                    }
 
-                    dynamic jsonResponse = JsonConvert.DeserializeObject(responseBody);
-                    string link = jsonResponse?.data?.link;
+                    int maxRetries = 3;
+                    int currentRetry = 0;
+                    TimeSpan delay = TimeSpan.FromSeconds(2);
 
-                    // Remove "Uploading..." placeholder
-                    viewModel.ImagesString = viewModel.ImagesString.Replace("\nUploading...", "");
+                    while (currentRetry < maxRetries)
+                    {
+                        try
+                        {
+                            _httpClient.DefaultRequestHeaders.Clear();
+                            _httpClient.DefaultRequestHeaders.Add("Authorization", $"Client-ID {clientId}");
 
-                    return link;
+                            using (var content = new MultipartFormDataContent())
+                            {
+                                var imageContent = new ByteArrayContent(buffer);
+                                imageContent.Headers.ContentType = MediaTypeHeaderValue.Parse("image/png");
+                                content.Add(imageContent, "image", "image.png");
+
+                                
+                                
+                                var response = await _httpClient.PostAsync("https://api.imgur.com/3/image", content);
+                                var responseBody = await response.Content.ReadAsStringAsync();
+                                
+                                
+                                
+
+                                if (response.IsSuccessStatusCode)
+                                {
+                                    dynamic jsonResponse = JsonConvert.DeserializeObject(responseBody);
+                                    string link = jsonResponse?.data?.link;
+                                    if (!string.IsNullOrEmpty(link))
+                                    {
+                                        
+                                        
+                                        // Remove uploading text and add the new URL
+                                        viewModel.ImagesString = viewModel.ImagesString.Replace(uploadingText, link);
+                                        imagesTextBlock.Text = viewModel.ImagesString;
+                                        
+                                        return link;
+                                    }
+                                }
+                            }
+                        }
+                        catch (HttpRequestException ex)
+                        {
+                            
+                            
+                            if (ex.InnerException != null)
+                            {
+                                
+                            }
+                        }
+
+                        if (currentRetry < maxRetries - 1)
+                        {
+                            
+                            await Task.Delay(delay);
+                            delay = TimeSpan.FromSeconds(delay.TotalSeconds * 2);
+                        }
+                        currentRetry++;
+                    }
+
+                    
+                    return null;
                 }
             }
+            catch (Exception ex)
+            {
+                
+                
+                
+                if (ex.InnerException != null)
+                {
+                    
+                }
+                await ShowErrorDialog("Imgur Upload Error", $"Upload failed: {ex.Message}");
+                return null;
+            }
+            finally
+            {
+                // Always remove the uploading text if it's still there
+                if (viewModel.ImagesString?.Contains(uploadingText) == true)
+                {
+                    viewModel.ImagesString = viewModel.ImagesString.Replace(uploadingText, "").Trim();
+                    imagesTextBlock.Text = viewModel.ImagesString;
+                }
+            }
+        }
+
+        private async Task ShowErrorDialog(string title, string message)
+        {
+            ContentDialog errorDialog = new ContentDialog
+            {
+                Title = title,
+                Content = message,
+                CloseButtonText = "OK",
+                XamlRoot = this.XamlRoot
+            };
+            await errorDialog.ShowAsync();
         }
 
         private async void ShowSuccessMessage(string message)

@@ -46,7 +46,7 @@ namespace MarketMinds
     /// </summary>
     public partial class App : Application
     {
-        private static IConfiguration configuration;
+        public static IConfiguration configuration;
         public static DataBaseConnection dataBaseConnection;
         
         // Repository declarations
@@ -95,17 +95,18 @@ namespace MarketMinds
         /// </summary>
         public App()
         {
-            this.InitializeComponent();
             InitializeConfiguration();
+            this.InitializeComponent();
         }
 
-        private void InitializeConfiguration()
+        private IConfiguration InitializeConfiguration()
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
 
             configuration = builder.Build();
+            return configuration;
         }
 
         /// <summary>
@@ -118,10 +119,12 @@ namespace MarketMinds
         {
             mainWindow = new UiLayer.MainWindow();
             mainWindow.Activate();
+            
+            // Create test users that match the database
             testingUser = new User(1, "alice123", "alice@example.com");
-            testingUser.UserType = 2; // Seller
+            testingUser.UserType = 1; // Matches database value
             currentUser = new User(2, "bob321", "bob@example.com");
-            currentUser.UserType = 3; //Buyer
+            currentUser.UserType = 2; // Matches database value
 
             // Instantiate database connection with configuration
             dataBaseConnection = new DataBaseConnection(configuration);
