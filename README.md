@@ -25,7 +25,11 @@ Create an `appsettings.json` file in the `MarketMinds` directory with the follow
 ```json
 {
   "LocalDataSource": "np:\\\\.\\pipe\\your_pipe_name\\tsql\\query",
-  "InitialCatalog": "your_database_name"
+  "InitialCatalog": "your_database_name",
+  "ImgurSettings": {
+    "ClientId": "your_client_id",
+    "ClientSecret": "your_client_secret"
+  }
 }
 ```
 

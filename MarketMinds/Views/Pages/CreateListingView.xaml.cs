@@ -304,36 +304,32 @@ namespace UiLayer
                     {
                         try
                         {
-                            _httpClient.DefaultRequestHeaders.Clear();
-                            _httpClient.DefaultRequestHeaders.Add("Authorization", $"Client-ID {clientId}");
-
                             using (var content = new MultipartFormDataContent())
                             {
                                 var imageContent = new ByteArrayContent(buffer);
                                 imageContent.Headers.ContentType = MediaTypeHeaderValue.Parse("image/png");
                                 content.Add(imageContent, "image", "image.png");
 
-                                
-                                
-                                var response = await _httpClient.PostAsync("https://api.imgur.com/3/image", content);
-                                var responseBody = await response.Content.ReadAsStringAsync();
-                                
-                                
-                                
-
-                                if (response.IsSuccessStatusCode)
+                                using (var request = new HttpRequestMessage(HttpMethod.Post, "https://api.imgur.com/3/image"))
                                 {
-                                    dynamic jsonResponse = JsonConvert.DeserializeObject(responseBody);
-                                    string link = jsonResponse?.data?.link;
-                                    if (!string.IsNullOrEmpty(link))
+                                    request.Headers.Add("Authorization", $"Client-ID {clientId}");
+                                    request.Content = content;
+                                    
+                                    var response = await _httpClient.SendAsync(request);
+                                    var responseBody = await response.Content.ReadAsStringAsync();
+
+                                    if (response.IsSuccessStatusCode)
                                     {
-                                        
-                                        
-                                        // Remove uploading text and add the new URL
-                                        viewModel.ImagesString = viewModel.ImagesString.Replace(uploadingText, link);
-                                        imagesTextBlock.Text = viewModel.ImagesString;
-                                        
-                                        return link;
+                                        dynamic jsonResponse = JsonConvert.DeserializeObject(responseBody);
+                                        string link = jsonResponse?.data?.link;
+                                        if (!string.IsNullOrEmpty(link))
+                                        {
+                                            // Remove uploading text and add the new URL
+                                            viewModel.ImagesString = viewModel.ImagesString.Replace(uploadingText, link);
+                                            imagesTextBlock.Text = viewModel.ImagesString;
+                                            
+                                            return link;
+                                        }
                                     }
                                 }
                             }
