@@ -16,15 +16,12 @@ namespace DomainLayer.Domain
         public float Rating { get; set; }
         public float Password { get; set; }
 
-
-        public User(int id , string username , string email)
+        public User(int id, string username, string email)
         {
             this.Id = id;
             this.Username = username;
             this.Email = email;
             this.Balance = 999999;
         }
-
-
     }
 }

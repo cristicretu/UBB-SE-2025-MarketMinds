@@ -14,11 +14,11 @@ namespace DomainLayer.Domain
         public int id { get; set; }
         public string description { get; set; } = "";
         public List<Image> images { get; set; }
-        public float rating {  get; set; }
+        public float rating { get; set; }
         public int sellerId { get; set; }
-        public int buyerId { get; set; } 
+        public int buyerId { get; set; }
 
-        //public int productId { get; set; }
+        // public int productId { get; set; }
 
         public Review(int id, string description, List<Image> images, float rating, int sellerId, int buyerId)
         {

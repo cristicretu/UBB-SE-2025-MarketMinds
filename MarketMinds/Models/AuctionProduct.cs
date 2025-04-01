@@ -17,7 +17,6 @@ namespace DomainLayer.Domain
 
         public AuctionProduct(int Id, string Title, string Description, User Seller, ProductCondition ProductCondition, ProductCategory ProductCategory,
             List<ProductTag> ProductTags, List<Image> Images, DateTime StartAuctionDate, DateTime EndAuctionDate, float StartingPrice)
-
         {
             this.Id = Id;
             this.Description = Description;

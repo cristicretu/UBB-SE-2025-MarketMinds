@@ -24,7 +24,7 @@ namespace DomainLayer.Domain
 
         public string getDisplayTitle()
         {
-            return "Sort by " + this.externalAttributeFieldTitle + "(" + (this.isAscending ? "Ascending": "Descending") + ")";
+            return "Sort by " + this.externalAttributeFieldTitle + " (" + (this.isAscending ? "Ascending" : "Descending") + ")";
         }
 
         public string getSqlOrderByStatement()

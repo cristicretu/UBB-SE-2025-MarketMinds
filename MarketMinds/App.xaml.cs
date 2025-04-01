@@ -139,7 +139,7 @@ namespace MarketMinds
             BorrowProductSortAndFilterViewModel = new SortAndFilterViewModel(BorrowProductsService);
             BuyProductSortAndFilterViewModel = new SortAndFilterViewModel(BuyProductsService);
             ReviewCreateViewModel = new ReviewCreateViewModel(ReviewsService, CurrentUser, TestingUser);
-            SeeSellerReviewsViewModel = new SeeSellerReviewsViewModel(ReviewsService, TestingUser, TestingUser); 
+            SeeSellerReviewsViewModel = new SeeSellerReviewsViewModel(ReviewsService, TestingUser, TestingUser);
             SeeBuyerReviewsViewModel = new SeeBuyerReviewsViewModel(ReviewsService, CurrentUser);
             BasketViewModel = new BasketViewModel(CurrentUser, BasketService);
             CompareProductsViewModel = new CompareProductsViewModel();
