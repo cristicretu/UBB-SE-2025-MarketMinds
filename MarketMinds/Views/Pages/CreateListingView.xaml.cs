@@ -51,7 +51,7 @@ namespace UiLayer
         public CreateListingView(MainWindow mainWindow)
         {
             this.InitializeComponent();
-            imgurClientId = App.configuration.GetSection("ImgurSettings:ClientId").Value;
+            imgurClientId = App.Configuration.GetSection("ImgurSettings:ClientId").Value;
             titleTextBox = new TextBox { PlaceholderText = "Title" };
             titleErrorTextBlock = new TextBlock { Text = "Title cannot be empty.", Foreground = new SolidColorBrush(Colors.Red), Visibility = Visibility.Collapsed };
             categoryTextBlock = new TextBlock { Text = "Select Category" };
@@ -73,9 +73,9 @@ namespace UiLayer
             imagesTextBlock = new TextBlock { TextWrapping = TextWrapping.Wrap };
 
             // Use singleton instances from App class
-            productCategoryViewModel = App.productCategoryViewModel;
-            productConditionViewModel = App.productConditionViewModel;
-            productTagViewModel = App.productTagViewModel;
+            productCategoryViewModel = App.ProductCategoryViewModel;
+            productConditionViewModel = App.ProductConditionViewModel;
+            productTagViewModel = App.ProductTagViewModel;
 
             // Load categories and conditions into ComboBoxes
             LoadCategories();
@@ -118,15 +118,15 @@ namespace UiLayer
             switch (selectedType)
             {
                 case "Buy":
-                    viewModel = new CreateBuyListingViewModel { BuyProductsService = App.buyProductsService };
+                    viewModel = new CreateBuyListingViewModel { BuyProductsService = App.BuyProductsService };
                     AddBuyProductFields();
                     break;
                 case "Borrow":
-                    viewModel = new CreateBorrowListingViewModel { BorrowProductsService = App.borrowProductsService };
+                    viewModel = new CreateBorrowListingViewModel { BorrowProductsService = App.BorrowProductsService };
                     AddBorrowProductFields();
                     break;
                 case "Auction":
-                    viewModel = new CreateAuctionListingViewModel { auctionProductsService = App.auctionProductsService };
+                    viewModel = new CreateAuctionListingViewModel { auctionProductsService = App.AuctionProductsService };
                     AddAuctionProductFields();
                     break;
             }
@@ -257,7 +257,7 @@ namespace UiLayer
                 var properties = await file.GetBasicPropertiesAsync();
                 
 
-                string clientId = App.configuration.GetSection("ImgurSettings:ClientId").Value;
+                string clientId = App.Configuration.GetSection("ImgurSettings:ClientId").Value;
                 
                 // Validate Client ID format
                 if (string.IsNullOrEmpty(clientId))
@@ -456,7 +456,7 @@ namespace UiLayer
                     titleErrorTextBlock.Visibility = Visibility.Visible;
                     return;
                 }
-                var product = new BuyProduct(0, title, description, App.currentUser, condition, category, tags, viewModel.Images, price);
+                var product = new BuyProduct(0, title, description, App.CurrentUser, condition, category, tags, viewModel.Images, price);
                 viewModel.CreateListing(product);
             }
             else if (viewModel is CreateBorrowListingViewModel)
@@ -477,7 +477,7 @@ namespace UiLayer
                     return;
                 }
 
-                var product = new BorrowProduct(0, title, description, App.currentUser, condition, category, tags, viewModel.Images, DateTime.Now, endDate, endDate, dailyRate, false);
+                var product = new BorrowProduct(0, title, description, App.CurrentUser, condition, category, tags, viewModel.Images, DateTime.Now, endDate, endDate, dailyRate, false);
                 viewModel.CreateListing(product);
             }
             else if (viewModel is CreateAuctionListingViewModel)
@@ -497,7 +497,7 @@ namespace UiLayer
                 }
                 DateTime endAuctionDate = ((CalendarDatePicker)FormContainer.FindName("EndAuctionDatePicker")).Date.Value.DateTime;
 
-                var product = new AuctionProduct(0, title, description, App.currentUser, condition, category, tags, viewModel.Images, DateTime.Now, endAuctionDate, startingPrice);
+                var product = new AuctionProduct(0, title, description, App.CurrentUser, condition, category, tags, viewModel.Images, DateTime.Now, endAuctionDate, startingPrice);
                 viewModel.CreateListing(product);
             }
             ShowSuccessMessage("Listing created successfully!");

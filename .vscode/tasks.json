@@ -22,6 +22,24 @@
             }
         },
         {
+            "label": "build-without-analysis",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/MarketMinds/MarketMinds.csproj",
+                "-c",
+                "Debug",
+                "-r",
+                "win-arm64",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary",
+                "/p:RunAnalyzersDuringBuild=false"
+            ],
+            "problemMatcher": "$msCompile",
+            "group": "build"
+        },
+        {
             "label": "clean",
             "command": "dotnet",
             "type": "process",

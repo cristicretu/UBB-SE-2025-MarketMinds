@@ -31,9 +31,9 @@ namespace UiLayer
         {
             this.InitializeComponent();
 
-            auctionProductsViewModel = MarketMinds.App.auctionProductsViewModel;
-            sortAndFilterViewModel = MarketMinds.App.auctionProductSortAndFilterViewModel;
-            compareProductsViewModel = MarketMinds.App.compareProductsViewModel;
+            auctionProductsViewModel = MarketMinds.App.AuctionProductsViewModel;
+            sortAndFilterViewModel = MarketMinds.App.AuctionProductSortAndFilterViewModel;
+            compareProductsViewModel = MarketMinds.App.CompareProductsViewModel;
 
             auctionProducts = new ObservableCollection<AuctionProduct>();
             // Initially load all auction products

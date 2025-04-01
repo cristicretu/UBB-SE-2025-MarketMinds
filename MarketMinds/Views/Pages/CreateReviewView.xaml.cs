@@ -101,7 +101,7 @@ namespace MarketMinds
 
                 using (HttpClient client = new HttpClient())
                 {
-                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Client-ID", App.configuration.GetSection("ImgurSettings:ClientId").Value);
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Client-ID", App.Configuration.GetSection("ImgurSettings:ClientId").Value);
 
                     var content = new MultipartFormDataContent
             {

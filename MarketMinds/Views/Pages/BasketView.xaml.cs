@@ -21,10 +21,10 @@ namespace UiLayer
             this.InitializeComponent();
 
             // Get the current user from the app
-            _currentUser = MarketMinds.App.currentUser;
+            _currentUser = MarketMinds.App.CurrentUser;
 
             // Get the BasketViewModel from the app
-            _basketViewModel = MarketMinds.App.basketViewModel;
+            _basketViewModel = MarketMinds.App.BasketViewModel;
 
             // Initialize basket items as ObservableCollection for auto-UI updates
             _basketItems = new ObservableCollection<BasketItem>();

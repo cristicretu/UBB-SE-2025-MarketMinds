@@ -29,14 +29,14 @@ namespace MarketMinds
     {
         private readonly BuyProduct _product;
         private readonly User _currentUser;
-        private readonly BasketViewModel _basketViewModel = App.basketViewModel;
+        private readonly BasketViewModel _basketViewModel = App.BasketViewModel;
 
         private Window seeSellerReviewsView;
         public BuyProductView(BuyProduct product)
         {
             this.InitializeComponent();
             _product = product;
-            _currentUser = MarketMinds.App.currentUser;
+            _currentUser = MarketMinds.App.CurrentUser;
             //_buyProductsViewModel = MarketMinds.App.buyProductsViewModel;
             LoadProductDetails();
             LoadImages();
@@ -117,8 +117,8 @@ namespace MarketMinds
 
         private void OnSeeReviewsClicked(object sender, RoutedEventArgs e)
         {
-            App.seeSellerReviewsViewModel.seller = _product.Seller;
-            seeSellerReviewsView = new SeeSellerReviewsView(App.seeSellerReviewsViewModel);
+            App.SeeSellerReviewsViewModel.seller = _product.Seller;
+            seeSellerReviewsView = new SeeSellerReviewsView(App.SeeSellerReviewsViewModel);
             seeSellerReviewsView.Activate();
         }
     }

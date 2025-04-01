@@ -22,8 +22,8 @@ namespace UiLayer
         {
             this.InitializeComponent();
 
-            _productCategoryViewModel = MarketMinds.App.productCategoryViewModel;
-            _productConditionViewModel = MarketMinds.App.productConditionViewModel;
+            _productCategoryViewModel = MarketMinds.App.ProductCategoryViewModel;
+            _productConditionViewModel = MarketMinds.App.ProductConditionViewModel;
 
             _productCategories = new ObservableCollection<ProductCategory>();
             _productConditions = new ObservableCollection<ProductCondition>();

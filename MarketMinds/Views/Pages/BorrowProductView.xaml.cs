@@ -30,7 +30,7 @@ namespace MarketMinds
         {
             this.InitializeComponent();
             _product = product;
-            _currentUser = MarketMinds.App.currentUser;
+            _currentUser = MarketMinds.App.CurrentUser;
 
             // Initialize date controls
             StartDateTextBlock.Text = _product.StartDate.ToString("d");
@@ -94,8 +94,8 @@ namespace MarketMinds
 
         private void OnSeeReviewsClicked(object sender, RoutedEventArgs e)
         {
-            App.seeSellerReviewsViewModel.seller = _product.Seller;
-            seeSellerReviewsView = new SeeSellerReviewsView(App.seeSellerReviewsViewModel);
+            App.SeeSellerReviewsViewModel.seller = _product.Seller;
+            seeSellerReviewsView = new SeeSellerReviewsView(App.SeeSellerReviewsViewModel);
             seeSellerReviewsView.Activate();
         }
 

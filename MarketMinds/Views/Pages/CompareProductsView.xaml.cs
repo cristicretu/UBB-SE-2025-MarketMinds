@@ -47,15 +47,15 @@ namespace MarketMinds
 
         public void OnSeeReviewsLeftProductClicked(object sender, RoutedEventArgs e)
         {
-            App.seeSellerReviewsViewModel.seller = ViewModel.LeftProduct.Seller;
-            var seeSellerReviewsView = new SeeSellerReviewsView(App.seeSellerReviewsViewModel);
+            App.SeeSellerReviewsViewModel.seller = ViewModel.LeftProduct.Seller;
+            var seeSellerReviewsView = new SeeSellerReviewsView(App.SeeSellerReviewsViewModel);
             seeSellerReviewsView.Activate();
         }
 
         public void OnSeeReviewsRightProductClicked(object sender, RoutedEventArgs e)
         {
-            App.seeSellerReviewsViewModel.seller = ViewModel.RightProduct.Seller;
-            var seeSellerReviewsView = new SeeSellerReviewsView(App.seeSellerReviewsViewModel);
+            App.SeeSellerReviewsViewModel.seller = ViewModel.RightProduct.Seller;
+            var seeSellerReviewsView = new SeeSellerReviewsView(App.SeeSellerReviewsViewModel);
             seeSellerReviewsView.Activate();
         }
 

@@ -30,9 +30,9 @@ namespace UiLayer
             this.InitializeComponent();
 
             // Assume you have similar view models for borrow products
-            borrowProductsViewModel = MarketMinds.App.borrowProductsViewModel;
-            sortAndFilterViewModel = MarketMinds.App.borrowProductSortAndFilterViewModel;
-            compareProductsViewModel = MarketMinds.App.compareProductsViewModel;
+            borrowProductsViewModel = MarketMinds.App.BorrowProductsViewModel;
+            sortAndFilterViewModel = MarketMinds.App.BorrowProductSortAndFilterViewModel;
+            compareProductsViewModel = MarketMinds.App.CompareProductsViewModel;
 
             borrowProducts = new ObservableCollection<BorrowProduct>();
             currentFullList = borrowProductsViewModel.GetAllProducts();

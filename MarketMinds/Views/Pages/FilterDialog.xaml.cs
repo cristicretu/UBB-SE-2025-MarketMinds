@@ -36,9 +36,9 @@ namespace UiLayer
             this.sortAndFilterViewModel = sortAndFilterViewModel;
 
             // Initialize the view models.
-            productConditionViewModel = MarketMinds.App.productConditionViewModel;
-            productCategoryViewModel = MarketMinds.App.productCategoryViewModel;
-            productTagViewModel = MarketMinds.App.productTagViewModel;
+            productConditionViewModel = MarketMinds.App.ProductConditionViewModel;
+            productCategoryViewModel = MarketMinds.App.ProductCategoryViewModel;
+            productTagViewModel = MarketMinds.App.ProductTagViewModel;
 
             // Initialize full lists
             ProductConditions = new ObservableCollection<ProductCondition>(productConditionViewModel.GetAllProductConditions());

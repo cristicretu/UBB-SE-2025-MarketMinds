@@ -60,7 +60,7 @@ namespace UiLayer
 
         private void handleLeaveReviewButton_Click(Object sender, RoutedEventArgs e)
         {
-            leaveReviewViewWindow = new CreateReviewView(App.reviewCreateViewModel);
+            leaveReviewViewWindow = new CreateReviewView(App.ReviewCreateViewModel);
             leaveReviewViewWindow.Activate();
         }
 
@@ -73,14 +73,14 @@ namespace UiLayer
 
         private void handleSeeReviewViewButton_Click(Object sender, RoutedEventArgs e)
         {
-            if (App.currentUser.UserType == 3) // buyer
+            if (App.CurrentUser.UserType == 3) // buyer
             {
-                seeReviewsWindow = new SeeBuyerReviewsView(App.seeBuyerReviewsViewModel);
+                seeReviewsWindow = new SeeBuyerReviewsView(App.SeeBuyerReviewsViewModel);
                 seeReviewsWindow.Activate();
             }
-            else if (App.currentUser.UserType == 2)
+            else if (App.CurrentUser.UserType == 2)
             {
-                seeReviewsWindow = new SeeSellerReviewsView(App.seeSellerReviewsViewModel);
+                seeReviewsWindow = new SeeSellerReviewsView(App.SeeSellerReviewsViewModel);
                 seeReviewsWindow.Activate();
             }
         }

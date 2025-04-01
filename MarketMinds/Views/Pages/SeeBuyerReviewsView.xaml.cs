@@ -65,7 +65,7 @@ namespace MarketMinds
             if (review != null)
             {
                 
-                var reviewCreateView = new CreateReviewView(App.reviewCreateViewModel,review);
+                var reviewCreateView = new CreateReviewView(App.ReviewCreateViewModel,review);
                 reviewCreateView.Activate();
                 ViewModel.refreshData();
                 this.Close();

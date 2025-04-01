@@ -30,9 +30,9 @@ namespace UiLayer
             this.InitializeComponent();
 
             // Assume you have a view model for buy products
-            buyProductsViewModel = MarketMinds.App.buyProductsViewModel;
-            sortAndFilterViewModel = MarketMinds.App.buyProductSortAndFilterViewModel;
-            compareProductsViewModel = MarketMinds.App.compareProductsViewModel;
+            buyProductsViewModel = MarketMinds.App.BuyProductsViewModel;
+            sortAndFilterViewModel = MarketMinds.App.BuyProductSortAndFilterViewModel;
+            compareProductsViewModel = MarketMinds.App.CompareProductsViewModel;
 
             buyProducts = new ObservableCollection<BuyProduct>();
             currentFullList = buyProductsViewModel.GetAllProducts();
