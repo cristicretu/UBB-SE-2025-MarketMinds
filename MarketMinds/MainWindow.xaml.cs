@@ -28,50 +28,46 @@ namespace UiLayer
         {
             this.InitializeComponent();
         }
-            
-        private void handleAuctionProductListViewButton_Click(object sender, RoutedEventArgs e)
+        private void HandleAuctionProductListViewButton_Click(object sender, RoutedEventArgs e)
         {
             auctionProductListViewWindow = new AuctionProductListView();
             auctionProductListViewWindow.Activate();
         }
-        
-        private void handleBorrowProductListViewButton_Click(object sender, RoutedEventArgs e)
+        private void HandleBorrowProductListViewButton_Click(object sender, RoutedEventArgs e)
         {
             borrowProductListViewWindow = new BorrowProductListView();
             borrowProductListViewWindow.Activate();
         }
-        
-        private void handleBuyProductListViewButton_Click(object sender, RoutedEventArgs e)
+        private void HandleBuyProductListViewButton_Click(object sender, RoutedEventArgs e)
         {
             buyProductListViewWindow = new BuyProductListView();
             buyProductListViewWindow.Activate();
         }
-        
-        private void handleAdminViewButton_Click(object sender, RoutedEventArgs e)
+        private void HandleAdminViewButton_Click(object sender, RoutedEventArgs e)
         {
             adminViewWindow = new AdminView();
             adminViewWindow.Activate();
         }
-        private void handleBasketViewButton_Click(object sender, RoutedEventArgs e)
+        private void HandleBasketViewButton_Click(object sender, RoutedEventArgs e)
         {
             basketViewWindow = new BasketView();
             basketViewWindow.Activate();
         }
 
-        private void handleLeaveReviewButton_Click(Object sender, RoutedEventArgs e)
+        private void HandleLeaveReviewButton_Click(Object sender, RoutedEventArgs e)
         {
             leaveReviewViewWindow = new CreateReviewView(App.ReviewCreateViewModel);
             leaveReviewViewWindow.Activate();
         }
 
-        private void handleCreateListingButton_Click(Object sender, RoutedEventArgs e)
+        private void HandleCreateListingButton_Click(Object sender, RoutedEventArgs e)
         {
-            createListingViewWindow = new Window();
-            createListingViewWindow.Content = new CreateListingView(this);
-            createListingViewWindow.Activate();
+            CreateListingViewWindow = new Window();
+            CreateListingViewWindow.Content = new CreateListingView(this);
+            CreateListingViewWindow.Activate();
         }
 
-        private void handleSeeReviewViewButton_Click(Object sender, RoutedEventArgs e)
+        private void HandleSeeReviewViewButton_Click(Object sender, RoutedEventArgs e)
         {
             if (App.CurrentUser.UserType == 3) // buyer
             {
@@ -91,7 +87,7 @@ namespace UiLayer
         private Window buyProductListViewWindow;
         private Window adminViewWindow;
         private Window leaveReviewViewWindow;
-        public Window createListingViewWindow { get; set; }
+        public Window CreateListingViewWindow { get; set; }
         private Window seeReviewsWindow;
     }
 }

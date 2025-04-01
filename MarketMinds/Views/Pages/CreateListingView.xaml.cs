@@ -223,7 +223,7 @@ namespace UiLayer
 
         private async void OnUploadImageClick(object sender, RoutedEventArgs e)
         {
-            IntPtr hwnd = WinRT.Interop.WindowNative.GetWindowHandle(window.createListingViewWindow);
+            IntPtr hwnd = WinRT.Interop.WindowNative.GetWindowHandle(window.CreateListingViewWindow);
 
             var picker = new FileOpenPicker();
             WinRT.Interop.InitializeWithWindow.Initialize(picker, hwnd);
