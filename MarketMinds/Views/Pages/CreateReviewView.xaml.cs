@@ -111,13 +111,13 @@ namespace MarketMinds
                     HttpResponseMessage response = await client.PostAsync("https://api.imgur.com/3/image", content);
                     string responseBody = await response.Content.ReadAsStringAsync();
 
-                    dynamic jsonResponse = JsonConvert.DeserializeObject(responseBody);
-                    string link = jsonResponse?.data?.link;
+                    dynamic? jsonResponse = JsonConvert.DeserializeObject(responseBody);
+                    string? link = jsonResponse?.data?.link;
 
                     // Remove "Uploading..." placeholder
                     ViewModel.ImagesString = ViewModel.ImagesString.Replace("\nUploading...", "");
 
-                    return link;
+                    return link ?? string.Empty;
                 }
             }
         }

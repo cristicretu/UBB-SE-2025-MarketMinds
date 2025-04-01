@@ -147,14 +147,10 @@ namespace UiLayer
             }
         }
 
-        private ProductSortType ParseSortType(string sortTag)
+        private ProductSortType? ParseSortType(string sortTag)
         {
             switch (sortTag)
             {
-                case "SellerRatingAsc":
-                    return new ProductSortType("Seller Rating", "SellerRating", true);
-                case "SellerRatingDesc":
-                    return new ProductSortType("Seller Rating", "SellerRating", false);
                 case "PriceAsc":
                     return new ProductSortType("Price", "Price", true);
                 case "PriceDesc":
@@ -166,18 +162,14 @@ namespace UiLayer
 
         private void AddToCompare_Click(object sender, RoutedEventArgs e)
         {
-            var button = sender as Button;
-            var selectedProduct = button.DataContext as Product;
-            if (selectedProduct != null)
+            if (sender is Button button && button.DataContext is Product selectedProduct)
             {
                 bool twoAdded = compareProductsViewModel.AddProduct(selectedProduct);
-                if (twoAdded == true)
+                if (twoAdded)
                 {
                     var compareView = new CompareProductsView(compareProductsViewModel);
                     compareView.Activate();
                 }
-
-
             }
         }
     }

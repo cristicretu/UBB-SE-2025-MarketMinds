@@ -31,7 +31,7 @@ namespace MarketMinds
         private readonly User _currentUser;
         private readonly BasketViewModel _basketViewModel = App.BasketViewModel;
 
-        private Window seeSellerReviewsView;
+        private Window? seeSellerReviewsView;
         public BuyProductView(BuyProduct product)
         {
             this.InitializeComponent();

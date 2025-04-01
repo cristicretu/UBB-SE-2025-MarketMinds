@@ -24,7 +24,7 @@ namespace MarketMinds.Repositories.BasketRepository
             // input: userId
             // output: user's basket
 
-            Basket basket = null;
+            Basket? basket = null;
             int basketId = -1;
 
             // First try to find existing basket for the user
@@ -138,25 +138,24 @@ namespace MarketMinds.Repositories.BasketRepository
                         string sellerEmail = reader.IsDBNull(14) ? string.Empty : reader.GetString(14);
 
                         // Create condition and category objects
-                        ProductCondition condition = conditionId > 0 ?
+                        ProductCondition? condition = conditionId > 0 ?
                             new ProductCondition(conditionId, conditionTitle, conditionDesc) : null;
 
-                        ProductCategory category = categoryId > 0 ?
+                        ProductCategory? category = categoryId > 0 ?
                             new ProductCategory(categoryId, categoryTitle, categoryDesc) : null;
 
                         // Create the seller object
-                        User seller = sellerId > 0 ?
+                        User? seller = sellerId > 0 ?
                             new User(sellerId, sellerUsername, sellerEmail) : null;
 
                         // Create the product with basic information 
-
                         BuyProduct product = new BuyProduct(
                             productId,                   // Id
-                            productTitle,                // Title
-                            description,                 // Description
-                            seller,                      // Seller
-                            condition,                   // ProductCondition
-                            category,                    // ProductCategory
+                            productTitle ?? "",          // Title
+                            description ?? "",           // Description
+                            seller ?? new User(0, "", ""),  // Seller with default values if null
+                            condition ?? new ProductCondition(0, "", ""),  // Default condition if null
+                            category ?? new ProductCategory(0, "", ""),    // Default category if null
                             new List<ProductTag>(),      // Tags
                             new List<Image>(),           // Images
                             (float)price                 // Price

@@ -65,11 +65,17 @@ namespace MarketMinds.Services.ProductTagService
             {
                 if (sortCondition.isAscending)
                 {
-                    productResultSet = productResultSet.OrderBy(p => p.GetType().GetProperty(sortCondition.internalAttributeFieldTitle).GetValue(p, null)).ToList();
+                    productResultSet = productResultSet.OrderBy(p => {
+                        var prop = p?.GetType().GetProperty(sortCondition.internalAttributeFieldTitle);
+                        return prop?.GetValue(p);
+                    }).ToList();
                 }
                 else
                 {
-                    productResultSet = productResultSet.OrderByDescending(p => p.GetType().GetProperty(sortCondition.internalAttributeFieldTitle).GetValue(p, null)).ToList();
+                    productResultSet = productResultSet.OrderByDescending(p => {
+                        var prop = p?.GetType().GetProperty(sortCondition.internalAttributeFieldTitle);
+                        return prop?.GetValue(p);
+                    }).ToList();
                 }
             }
 

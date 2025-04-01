@@ -31,8 +31,8 @@ namespace MarketMinds
         private readonly User _currentUser;
         private readonly AuctionProductsViewModel _auctionProductsViewModel;
 
-        private DispatcherTimer countdownTimer;
-        private Window seeSellerReviewsView;
+        private DispatcherTimer? countdownTimer;
+        private Window? seeSellerReviewsView;
         public AuctionProductView(AuctionProduct product)
         {
             this.InitializeComponent();
@@ -52,12 +52,12 @@ namespace MarketMinds
             countdownTimer.Tick += CountdownTimer_Tick;
             countdownTimer.Start();
         }
-        private void CountdownTimer_Tick(object sender, object e)
+        private void CountdownTimer_Tick(object? sender, object e)
         {
             string timeText = GetTimeLeft();
             TimeLeftTextBlock.Text = timeText;
 
-            if (timeText == "Auction Ended")
+            if (timeText == "Auction Ended" && countdownTimer != null)
             {
                 countdownTimer.Stop();
                 _auctionProductsViewModel.ConcludeAuction(_product);

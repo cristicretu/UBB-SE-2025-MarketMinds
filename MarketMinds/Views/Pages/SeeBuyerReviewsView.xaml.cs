@@ -43,10 +43,7 @@ namespace MarketMinds
 
         public void DeleteReviewButton_Click(object sender, RoutedEventArgs e)
         {
-            var button = sender as Button;
-            var review = button.DataContext as Review; // Assuming 'Review' is the model for the review
-
-            if (review != null)
+            if (sender is Button button && button.DataContext is Review review)
             {
                 // Remove the review from the ViewModel's collection
                 ViewModel.DeleteReview(review);
@@ -59,13 +56,9 @@ namespace MarketMinds
 
         public void EditReviewButton_Click(object sender, RoutedEventArgs e)
         {
-            var button = sender as Button;
-            var review = button.DataContext as Review; // Assuming 'Review' is the model for the review
-
-            if (review != null)
+            if (sender is Button button && button.DataContext is Review review)
             {
-                
-                var reviewCreateView = new CreateReviewView(App.ReviewCreateViewModel,review);
+                var reviewCreateView = new CreateReviewView(App.ReviewCreateViewModel, review);
                 reviewCreateView.Activate();
                 ViewModel.refreshData();
                 this.Close();

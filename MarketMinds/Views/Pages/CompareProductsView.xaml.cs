@@ -41,8 +41,11 @@ namespace MarketMinds
         private void OnWindowClosed(object sender, WindowEventArgs e)
         {
             // Clear product data when window closes
-            ViewModel.LeftProduct = null;
-            ViewModel.RightProduct = null;
+            if (ViewModel != null)
+            {
+                ViewModel.LeftProduct = null!;  // Using null-forgiving operator since these properties are expected to be reset
+                ViewModel.RightProduct = null!;
+            }
         }
 
         public void OnSeeReviewsLeftProductClicked(object sender, RoutedEventArgs e)

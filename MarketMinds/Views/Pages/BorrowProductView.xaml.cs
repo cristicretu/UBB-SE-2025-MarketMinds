@@ -22,7 +22,7 @@ namespace MarketMinds
     public sealed partial class BorrowProductView : Window
     {
         private readonly BorrowProduct _product;
-        private Window seeSellerReviewsView;
+        private Window? seeSellerReviewsView;
         private readonly User _currentUser;
         public DateTime? SelectedEndDate { get; private set; }
 
