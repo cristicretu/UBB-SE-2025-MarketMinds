@@ -151,11 +151,11 @@ namespace MarketMinds.Repositories.BasketRepository
                         // Create the product with basic information 
                         BuyProduct product = new BuyProduct(
                             productId,                   // Id
-                            productTitle ?? "",          // Title
-                            description ?? "",           // Description
-                            seller ?? new User(0, "", ""),  // Seller with default values if null
-                            condition ?? new ProductCondition(0, "", ""),  // Default condition if null
-                            category ?? new ProductCategory(0, "", ""),    // Default category if null
+                            productTitle ?? string.Empty,          // Title
+                            description ?? string.Empty,           // Description
+                            seller ?? new User(0, string.Empty, string.Empty),  // Seller with default values if null
+                            condition ?? new ProductCondition(0, string.Empty, string.Empty),  // Default condition if null
+                            category ?? new ProductCategory(0, string.Empty, string.Empty),    // Default category if null
                             new List<ProductTag>(),      // Tags
                             new List<Image>(),           // Images
                             (float)price                 // Price

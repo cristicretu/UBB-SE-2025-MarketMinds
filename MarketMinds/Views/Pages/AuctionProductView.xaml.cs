@@ -1,4 +1,5 @@
-﻿using System;
+﻿using System.Diagnostics;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -14,11 +15,7 @@ using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
 using DomainLayer.Domain;
 using Microsoft.UI.Xaml.Media.Imaging;
-using System.Diagnostics;
 using ViewModelLayer.ViewModel;
-
-// To learn more about WinUI, the WinUI project structure,
-// and more about our project templates, see: http://aka.ms/winui-project-info.
 
 namespace MarketMinds
 {
@@ -27,18 +24,18 @@ namespace MarketMinds
     /// </summary>
     public sealed partial class AuctionProductView : Window
     {
-        private readonly AuctionProduct _product;
-        private readonly User _currentUser;
-        private readonly AuctionProductsViewModel _auctionProductsViewModel;
+        private readonly AuctionProduct Product;
+        private readonly User CurrentUser;
+        private readonly AuctionProductsViewModel AuctionProductsViewModel;
 
         private DispatcherTimer? countdownTimer;
         private Window? seeSellerReviewsView;
         public AuctionProductView(AuctionProduct product)
         {
             this.InitializeComponent();
-            _product = product;
-            _currentUser = MarketMinds.App.CurrentUser;
-            _auctionProductsViewModel = MarketMinds.App.AuctionProductsViewModel;
+            Product = product;
+            CurrentUser = MarketMinds.App.CurrentUser;
+            AuctionProductsViewModel = MarketMinds.App.AuctionProductsViewModel;
             LoadProductDetails();
             LoadImages();
             LoadBidHistory();
@@ -60,7 +57,7 @@ namespace MarketMinds
             if (timeText == "Auction Ended" && countdownTimer != null)
             {
                 countdownTimer.Stop();
-                _auctionProductsViewModel.ConcludeAuction(_product);
+                AuctionProductsViewModel.ConcludeAuction(Product);
             }
         }
 
@@ -68,28 +65,24 @@ namespace MarketMinds
         private void LoadProductDetails()
         {
             // Basic Info
-            TitleTextBlock.Text = _product.Title;
-            CategoryTextBlock.Text = _product.Category.displayTitle;
-            ConditionTextBlock.Text = _product.Condition.displayTitle;
-            StartingPriceTextBlock.Text = $"{_product.StartingPrice:C}";
-            CurrentPriceTextBlock.Text = $"{_product.CurrentPrice:C}"; // Just an example
+            TitleTextBlock.Text = Product.Title;
+            CategoryTextBlock.Text = Product.Category.displayTitle;
+            ConditionTextBlock.Text = Product.Condition.displayTitle;
+            StartingPriceTextBlock.Text = $"{Product.StartingPrice:C}";
+            CurrentPriceTextBlock.Text = $"{Product.CurrentPrice:C}"; // Just an example
             TimeLeftTextBlock.Text = GetTimeLeft();
 
             // Seller Info
-            SellerTextBlock.Text = _product.Seller.Username;
-            DescriptionTextBox.Text = _product.Description;
+            SellerTextBlock.Text = Product.Seller.Username;
+            DescriptionTextBox.Text = Product.Description;
 
-            // Tags
-
-            TagsItemsControl.ItemsSource = _product.Tags.Select(tag =>
+            TagsItemsControl.ItemsSource = Product.Tags.Select(tag =>
             {
                 return new TextBlock
                 {
                     Text = tag.displayTitle,
                     Margin = new Thickness(4),
                     Padding = new Thickness(8, 4, 8, 4),
-                    //Background = new SolidColorBrush(Windows.UI.Colors.LightGray),
-                    //CornerRadius = new CornerRadius(8)
                 };
             }).ToList();
         }
@@ -98,7 +91,7 @@ namespace MarketMinds
         {
             ImageCarousel.Items.Clear();
 
-            foreach (var image in _product.Images)
+            foreach (var image in Product.Images)
             {
 
                 var img = new Microsoft.UI.Xaml.Controls.Image
@@ -116,7 +109,7 @@ namespace MarketMinds
 
         private void LoadBidHistory()
         {
-            BidHistoryListView.ItemsSource = _product.BidHistory
+            BidHistoryListView.ItemsSource = Product.BidHistory
                 .OrderByDescending(b => b.Timestamp)
                 .ToList();
         }
@@ -124,7 +117,7 @@ namespace MarketMinds
 
         private string GetTimeLeft()
         {
-            var timeLeft = _product.EndAuctionDate - DateTime.Now;
+            var timeLeft = Product.EndAuctionDate - DateTime.Now;
             return timeLeft > TimeSpan.Zero ? timeLeft.ToString(@"dd\:hh\:mm\:ss") : "Auction Ended";
         }
 
@@ -132,10 +125,10 @@ namespace MarketMinds
         {
             try
             {
-                _auctionProductsViewModel.PlaceBid(_product, _currentUser, BidTextBox.Text);
+                AuctionProductsViewModel.PlaceBid(Product, CurrentUser, BidTextBox.Text);
 
                 // Update UI after successful bid
-                CurrentPriceTextBlock.Text = $"{_product.CurrentPrice:C}";
+                CurrentPriceTextBlock.Text = $"{Product.CurrentPrice:C}";
                 LoadBidHistory(); // Refresh bid list
             }
             catch (Exception ex)
@@ -159,7 +152,7 @@ namespace MarketMinds
 
         private void OnSeeReviewsClicked(object sender, RoutedEventArgs e)
         {
-            App.SeeSellerReviewsViewModel.seller = _product.Seller;
+            App.SeeSellerReviewsViewModel.seller = Product.Seller;
             seeSellerReviewsView = new SeeSellerReviewsView(App.SeeSellerReviewsViewModel);
             seeSellerReviewsView.Activate();
         }

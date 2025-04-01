@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using DomainLayer.Domain;
-using System;
 using MarketMinds.Services.AuctionProductsService;
 
 namespace ViewModelLayer.ViewModel;

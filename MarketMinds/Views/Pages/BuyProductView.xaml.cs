@@ -1,4 +1,5 @@
-﻿using System;
+﻿using System.Diagnostics;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -14,11 +15,7 @@ using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
 using DomainLayer.Domain;
 using Microsoft.UI.Xaml.Media.Imaging;
-using System.Diagnostics;
 using ViewModelLayer.ViewModel;
-
-// To learn more about WinUI, the WinUI project structure,
-// and more about our project templates, see: http://aka.ms/winui-project-info.
 
 namespace MarketMinds
 {
@@ -37,7 +34,6 @@ namespace MarketMinds
             this.InitializeComponent();
             _product = product;
             _currentUser = MarketMinds.App.CurrentUser;
-            //_buyProductsViewModel = MarketMinds.App.buyProductsViewModel;
             LoadProductDetails();
             LoadImages();
         }
@@ -56,8 +52,6 @@ namespace MarketMinds
             SellerTextBlock.Text = _product.Seller.Username;
             DescriptionTextBox.Text = _product.Description;
 
-            // Tags
-
             TagsItemsControl.ItemsSource = _product.Tags.Select(tag =>
             {
                 return new TextBlock
@@ -65,8 +59,6 @@ namespace MarketMinds
                     Text = tag.displayTitle,
                     Margin = new Thickness(4),
                     Padding = new Thickness(8, 4, 8, 4),
-                    //Background = new SolidColorBrush(Windows.UI.Colors.LightGray),
-                    //CornerRadius = new CornerRadius(8)
                 };
             }).ToList();
         }

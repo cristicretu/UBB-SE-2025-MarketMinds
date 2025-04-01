@@ -1,8 +1,8 @@
-﻿using BusinessLogicLayer.Services;
-using DomainLayer.Domain;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using BusinessLogicLayer.Services;
+using DomainLayer.Domain;
 
 namespace ViewModelLayer.ViewModel
 {

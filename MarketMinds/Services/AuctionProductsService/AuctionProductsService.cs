@@ -1,22 +1,21 @@
-﻿using DomainLayer.Domain;
+﻿using System.Threading.Tasks;
+using System.Text;
+using DomainLayer.Domain;
+using System;
+using System.Linq;
+using System.Collections.Generic;
 using MarketMinds.Repositories.AuctionProductsRepository;
 using MarketMinds.Services.ProductTagService;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace MarketMinds.Services.AuctionProductsService
 {
     public class AuctionProductsService : ProductService, IAuctionProductsService
     {
-        private IAuctionProductsRepository _auctionRepository;
-        
-        public AuctionProductsService(IAuctionProductsRepository repository): base(repository)
+        private IAuctionProductsRepository AuctionRepository;
+        public AuctionProductsService(IAuctionProductsRepository repository) : base(repository)
         {
-            _auctionRepository = repository;
+            AuctionRepository = repository;
         }
 
         public void PlaceBid(AuctionProduct auction, User bidder, float bidAmount)
@@ -33,7 +32,7 @@ namespace MarketMinds.Services.AuctionProductsService
 
             ExtendAuctionTime(auction);
 
-            _auctionRepository.UpdateProduct(auction);
+            AuctionRepository.UpdateProduct(auction);
 
         }
 
@@ -42,13 +41,19 @@ namespace MarketMinds.Services.AuctionProductsService
             float minBid = auction.BidHistory.Count == 0 ? auction.StartingPrice : auction.CurrentPrice + 1;
 
             if (bidAmount < minBid)
+            {
                 throw new Exception($"Bid must be at least ${minBid}");
+            }
 
             if (bidAmount > bidder.Balance)
+            {
                 throw new Exception("Insufficient balance");
+            }
 
             if (DateTime.Now > auction.EndAuctionDate)
+            {
                 throw new Exception("Auction already ended");
+            }
         }
 
         private void RefundPreviousBidder(AuctionProduct auction)
@@ -73,8 +78,7 @@ namespace MarketMinds.Services.AuctionProductsService
 
         public void ConcludeAuction(AuctionProduct auction)
         {
-            _auctionRepository.DeleteProduct(auction);
+            AuctionRepository.DeleteProduct(auction);
         }
-
     }
 }

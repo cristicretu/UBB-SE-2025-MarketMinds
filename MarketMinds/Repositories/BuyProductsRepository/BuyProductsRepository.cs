@@ -1,8 +1,8 @@
-﻿using DomainLayer.Domain;
+﻿using System.Collections.Generic;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using Microsoft.Data.SqlClient;
+using DomainLayer.Domain;
 using DataAccessLayer;
 
 namespace MarketMinds.Repositories.BuyProductsRepository
@@ -20,7 +20,9 @@ namespace MarketMinds.Repositories.BuyProductsRepository
         {
             BuyProduct buy = (BuyProduct)product;
             if (buy == null)
+            {
                 throw new ArgumentException("Product must be of type BuyProduct.");
+            }
 
             string insertProductQuery = @"
             INSERT INTO BuyProducts 
@@ -283,8 +285,7 @@ namespace MarketMinds.Repositories.BuyProductsRepository
                             category,
                             tags,
                             images,
-                            price
-                        );
+                            price);
                     }
                 }
             }

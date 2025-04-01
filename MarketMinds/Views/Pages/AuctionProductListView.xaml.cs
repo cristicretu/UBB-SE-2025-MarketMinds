@@ -10,7 +10,6 @@ using ViewModelLayer.ViewModel;
 using BusinessLogicLayer.Services;
 using BusinessLogicLayer.ViewModel;
 using MarketMinds;
-using Microsoft.UI.Xaml.Media.Imaging;
 
 namespace UiLayer
 {
@@ -25,7 +24,7 @@ namespace UiLayer
         private int currentPage = 1;
         private int itemsPerPage = 20;
         private int totalPages = 1;
-        private List<AuctionProduct> currentFullList; 
+        private List<AuctionProduct> currentFullList;
 
         public AuctionProductListView()
         {
@@ -49,7 +48,6 @@ namespace UiLayer
                 // Create and show the detail view
                 var detailView = new AuctionProductView(selectedProduct);
                 detailView.Activate();
-                
             }
         }
 
@@ -132,7 +130,7 @@ namespace UiLayer
         {
             // Show a ContentDialog for filtering
             FilterDialog filterDialog = new FilterDialog(sortAndFilterViewModel);
-            filterDialog.XamlRoot = Content.XamlRoot;  
+            filterDialog.XamlRoot = Content.XamlRoot;
             var result = await filterDialog.ShowAsync();
             if (result == ContentDialogResult.Primary)
             {
@@ -197,8 +195,6 @@ namespace UiLayer
                     var compareView = new CompareProductsView(compareProductsViewModel);
                     compareView.Activate();
                 }
-                
-
             }
         }
     }

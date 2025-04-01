@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using DomainLayer.Domain;
-using Microsoft.Data.SqlClient;
-using DataAccessLayer;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using DataAccessLayer;
+using DomainLayer.Domain;
+using Microsoft.Data.SqlClient;
 
 namespace MarketMinds.Repositories.ReviewRepository
 {

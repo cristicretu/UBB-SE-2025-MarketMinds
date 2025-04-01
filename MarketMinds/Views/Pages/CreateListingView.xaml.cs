@@ -1,19 +1,19 @@
+using System;
+using System.Linq;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Net.Http.Headers;
+using System.Net.Http;
+using System.Threading.Tasks;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
 using ViewModelLayer.ViewModel;
-using System.Collections.Generic;
 using DomainLayer.Domain;
-using System.Collections.ObjectModel;
 using MarketMinds;
-using System.Linq;
-using System;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI;
 using Newtonsoft.Json;
-using System.Net.Http.Headers;
-using System.Net.Http;
-using System.Threading.Tasks;
 using Windows.Storage.Pickers;
 using Windows.Storage.Streams;
 using Windows.Storage;
@@ -46,7 +46,7 @@ namespace UiLayer
         private TextBlock conditionTextBlock;
         private MainWindow window;
         private readonly string imgurClientId;
-        private static readonly HttpClient _httpClient = new HttpClient();
+        private static readonly HttpClient HttpClient = new HttpClient();
 
         public CreateListingView(MainWindow mainWindow)
         {
@@ -67,7 +67,6 @@ namespace UiLayer
             conditionComboBox = new ComboBox();
             conditionErrorTextBlock = new TextBlock { Text = "Please select a condition.", Foreground = new SolidColorBrush(Colors.Red), Visibility = Visibility.Collapsed };
             tags = new ObservableCollection<string>();
-            
             uploadImageButton = new Button { Content = "Upload Image", Width = 150 };
             uploadImageButton.Click += OnUploadImageClick;
             imagesTextBlock = new TextBlock { TextWrapping = TextWrapping.Wrap };
@@ -255,27 +254,18 @@ namespace UiLayer
             {
                 // Log file details
                 var properties = await file.GetBasicPropertiesAsync();
-                
-
                 string clientId = App.Configuration.GetSection("ImgurSettings:ClientId").Value;
-                
                 // Validate Client ID format
                 if (string.IsNullOrEmpty(clientId))
                 {
-                    
                     await ShowErrorDialog("Imgur Upload Error", "Client ID is not configured. Please check your appsettings.json file.");
                     return null;
                 }
-                
                 if (clientId.Length > 20) // Typical Imgur Client IDs are around 15 chars
                 {
-                    
                     await ShowErrorDialog("Imgur Upload Error", "Client ID format appears invalid. Please ensure you're using the Client ID, not the Client Secret.");
                     return null;
                 }
-
-                
-                
                 // Add uploading text to UI
                 viewModel.ImagesString = (string.IsNullOrEmpty(viewModel.ImagesString) ? "" : viewModel.ImagesString + "\n") + uploadingText;
                 imagesTextBlock.Text = viewModel.ImagesString;
@@ -284,7 +274,6 @@ namespace UiLayer
                 {
                     if (stream.Size > 10 * 1024 * 1024)
                     {
-                        
                         await ShowErrorDialog("Imgur Upload Error", "File size exceeds Imgur's 10MB limit.");
                         return null;
                     }
@@ -314,8 +303,7 @@ namespace UiLayer
                                 {
                                     request.Headers.Add("Authorization", $"Client-ID {clientId}");
                                     request.Content = content;
-                                    
-                                    var response = await _httpClient.SendAsync(request);
+                                    var response = await HttpClient.SendAsync(request);
                                     var responseBody = await response.Content.ReadAsStringAsync();
 
                                     if (response.IsSuccessStatusCode)
@@ -324,10 +312,8 @@ namespace UiLayer
                                         string link = jsonResponse?.data?.link;
                                         if (!string.IsNullOrEmpty(link))
                                         {
-                                            // Remove uploading text and add the new URL
                                             viewModel.ImagesString = viewModel.ImagesString.Replace(uploadingText, link);
                                             imagesTextBlock.Text = viewModel.ImagesString;
-                                            
                                             return link;
                                         }
                                     }
@@ -336,35 +322,25 @@ namespace UiLayer
                         }
                         catch (HttpRequestException ex)
                         {
-                            
-                            
                             if (ex.InnerException != null)
                             {
-                                
                             }
                         }
 
                         if (currentRetry < maxRetries - 1)
                         {
-                            
                             await Task.Delay(delay);
                             delay = TimeSpan.FromSeconds(delay.TotalSeconds * 2);
                         }
                         currentRetry++;
                     }
-
-                    
                     return null;
                 }
             }
             catch (Exception ex)
             {
-                
-                
-                
                 if (ex.InnerException != null)
                 {
-                    
                 }
                 await ShowErrorDialog("Imgur Upload Error", $"Upload failed: {ex.Message}");
                 return null;
