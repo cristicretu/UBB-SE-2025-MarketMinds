@@ -8,9 +8,9 @@ using Microsoft.UI.Xaml.Input;
 using ViewModelLayer.ViewModel;
 using DomainLayer.Domain;
 
-namespace UiLayer
+namespace MarketMinds.Views.Pages
 {
-    public sealed partial class BasketView : Window
+    public sealed partial class BasketView : Page
     {
         private BasketViewModel var_basketViewModel;
         private ObservableCollection<BasketItem> var_basketItems;
@@ -337,7 +337,12 @@ namespace UiLayer
 
         private void HandleContinueShoppingButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            // Navigate back or to product listing page
+            // Since this is a Page, we use Frame navigation instead of Close()
+            if (this.Frame != null)
+            {
+                this.Frame.GoBack();
+            }
         }
     }
 }

@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Window
-    x:Class="UiLayer.BasketView"
+<Page
+    x:Class="MarketMinds.Views.Pages.BasketView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:UiLayer"
+    xmlns:local="using:MarketMinds.Views.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:converters="using:MarketMinds.Converters"
-    mc:Ignorable="d"
-    Title="Your Basket - MarketMinds">
+    mc:Ignorable="d">
 
-    <Window.Resources>
+    <Page.Resources>
         <converters:FirstImageUrlConverter x:Key="FirstImageUrlConverter"/>
-    </Window.Resources>
+    </Page.Resources>
 
     <Grid Padding="20">
         <Grid.RowDefinitions>
@@ -187,4 +186,4 @@
             </Border>
         </Grid>
     </Grid>
-</Window>
+</Page>

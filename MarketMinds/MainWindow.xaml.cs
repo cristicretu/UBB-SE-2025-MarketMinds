@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using MarketMinds;
+using MarketMinds.Views.Pages;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -49,7 +50,9 @@ namespace UiLayer
         }
         private void HandleBasketViewButton_Click(object sender, RoutedEventArgs e)
         {
-            basketViewWindow = new BasketView();
+            // Create a window that hosts the BasketView page
+            basketViewWindow = new Window();
+            basketViewWindow.Content = new BasketView();
             basketViewWindow.Activate();
         }
 
