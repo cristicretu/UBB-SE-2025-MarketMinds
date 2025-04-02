@@ -13,7 +13,8 @@
                 "-r",
                 "win-arm64",
                 "/property:GenerateFullPaths=true",
-                "/consoleloggerparameters:NoSummary"
+                "/consoleloggerparameters:NoSummary",
+                "-verbosity:diag"
             ],
             "problemMatcher": "$msCompile",
             "group": {
@@ -36,7 +37,8 @@
                 "/consoleloggerparameters:NoSummary",
                 "/p:RunAnalyzersDuringBuild=false",
                 "/p:RunAnalyzers=false",
-                "/p:AnalysisLevel=none"
+                "/p:AnalysisLevel=none",
+                "-verbosity:diag"
             ],
             "problemMatcher": "$msCompile",
             "group": "build"

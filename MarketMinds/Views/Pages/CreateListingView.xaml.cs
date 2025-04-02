@@ -125,7 +125,7 @@ namespace UiLayer
                     AddBorrowProductFields();
                     break;
                 case "Auction":
-                    viewModel = new CreateAuctionListingViewModel { auctionProductsService = App.AuctionProductsService };
+                    viewModel = new CreateAuctionListingViewModel { AuctionProductsService = App.AuctionProductsService };
                     AddAuctionProductFields();
                     break;
             }
@@ -208,7 +208,7 @@ namespace UiLayer
         private ProductTag EnsureTagExists(string tagName)
         {
             var allTags = productTagViewModel.GetAllProductTags();
-            var existingTag = allTags.FirstOrDefault(tag => tag.displayTitle.Equals(tagName, StringComparison.OrdinalIgnoreCase));
+            var existingTag = allTags.FirstOrDefault(tag => tag.DisplayTitle.Equals(tagName, StringComparison.OrdinalIgnoreCase));
 
             if (existingTag != null)
             {
@@ -261,13 +261,14 @@ namespace UiLayer
                     await ShowErrorDialog("Imgur Upload Error", "Client ID is not configured. Please check your appsettings.json file.");
                     return null;
                 }
-                if (clientId.Length > 20) // Typical Imgur Client IDs are around 15 chars
+                // Typical Imgur Client IDs are around 15 chars
+                if (clientId.Length > 20)
                 {
                     await ShowErrorDialog("Imgur Upload Error", "Client ID format appears invalid. Please ensure you're using the Client ID, not the Client Secret.");
                     return null;
                 }
                 // Add uploading text to UI
-                viewModel.ImagesString = (string.IsNullOrEmpty(viewModel.ImagesString) ? "" : viewModel.ImagesString + "\n") + uploadingText;
+                viewModel.ImagesString = (string.IsNullOrEmpty(viewModel.ImagesString) ? string.Empty : viewModel.ImagesString + "\n") + uploadingText;
                 imagesTextBlock.Text = viewModel.ImagesString;
 
                 using (var stream = await file.OpenAsync(FileAccessMode.Read))
@@ -350,7 +351,7 @@ namespace UiLayer
                 // Always remove the uploading text if it's still there
                 if (viewModel.ImagesString?.Contains(uploadingText) == true)
                 {
-                    viewModel.ImagesString = viewModel.ImagesString.Replace(uploadingText, "").Trim();
+                    viewModel.ImagesString = viewModel.ImagesString.Replace(uploadingText, string.Empty).Trim();
                     imagesTextBlock.Text = viewModel.ImagesString;
                 }
             }

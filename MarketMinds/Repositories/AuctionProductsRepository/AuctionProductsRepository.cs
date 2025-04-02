@@ -181,8 +181,8 @@ namespace MarketMinds.Repositories.AuctionProductsRepository
             {
                 cmd.Parameters.AddWithValue("@Description", auction.Description);
                 cmd.Parameters.AddWithValue("@SellerId", auction.Seller.Id);
-                cmd.Parameters.AddWithValue("@ConditionId", auction.Condition.id);
-                cmd.Parameters.AddWithValue("@CategoryId", auction.Category.id);
+                cmd.Parameters.AddWithValue("@ConditionId", auction.Condition.Id);
+                cmd.Parameters.AddWithValue("@CategoryId", auction.Category.Id);
                 cmd.Parameters.AddWithValue("@StartDateTime", auction.StartAuctionDate);
                 cmd.Parameters.AddWithValue("@EndDateTime", auction.EndAuctionDate);
                 cmd.Parameters.AddWithValue("@StartingPrice", auction.StartingPrice);
@@ -201,7 +201,7 @@ namespace MarketMinds.Repositories.AuctionProductsRepository
                 using (SqlCommand cmd = new SqlCommand(insertTagQuery, connection.GetConnection()))
                 {
                     cmd.Parameters.AddWithValue("@ProductId", newProductId);
-                    cmd.Parameters.AddWithValue("@TagId", tag.id);
+                    cmd.Parameters.AddWithValue("@TagId", tag.Id);
                     cmd.ExecuteNonQuery();
                 }
             }
@@ -213,7 +213,7 @@ namespace MarketMinds.Repositories.AuctionProductsRepository
 
                 using (SqlCommand cmd = new SqlCommand(insertImageQuery, connection.GetConnection()))
                 {
-                    cmd.Parameters.AddWithValue("@Url", image.url);
+                    cmd.Parameters.AddWithValue("@Url", image.Url);
                     cmd.Parameters.AddWithValue("@ProductId", newProductId);
                     cmd.ExecuteNonQuery();
                 }

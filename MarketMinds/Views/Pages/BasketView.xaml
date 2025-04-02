@@ -6,8 +6,13 @@
     xmlns:local="using:UiLayer"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:converters="using:MarketMinds.Converters"
     mc:Ignorable="d"
     Title="Your Basket - MarketMinds">
+
+    <Window.Resources>
+        <converters:FirstImageUrlConverter x:Key="FirstImageUrlConverter"/>
+    </Window.Resources>
 
     <Grid Padding="20">
         <Grid.RowDefinitions>
@@ -75,14 +80,13 @@
                             <!-- Product Image -->
                             <Border Grid.Column="0" Width="100" Height="100" Background="LightGray" 
                                     Margin="0,0,15,0" CornerRadius="5">
-                                <Image Source="{Binding Product.Images[0].url, FallbackValue='/Assets/placeholder.png'}" 
-                                       Stretch="UniformToFill"/>
+                                <Image Source="/Assets/placeholder.png" Stretch="UniformToFill"/>
                             </Border>
 
                             <!-- Product Details -->
                             <StackPanel Grid.Column="1" VerticalAlignment="Center">
                                 <TextBlock Text="{Binding Product.Title}" FontWeight="SemiBold" FontSize="16"/>
-                                <TextBlock Text="{Binding Product.Condition.displayTitle}" Foreground="Gray" Margin="0,5,0,0"/>
+                                <TextBlock Text="{Binding Product.Condition.DisplayTitle}" Foreground="Gray" Margin="0,5,0,0"/>
                                 <TextBlock Text="{Binding Product.Seller.Username}" Foreground="Gray"/>
                             </StackPanel>
 

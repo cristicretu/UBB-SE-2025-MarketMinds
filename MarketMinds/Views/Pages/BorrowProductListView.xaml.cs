@@ -47,14 +47,12 @@ namespace UiLayer
                 // Create and show the detail view
                 var detailView = new BorrowProductView(selectedProduct);
                 detailView.Activate();
-
             }
         }
-
         private void ApplyFiltersAndPagination()
         {
             // Retrieve filtered and sorted products (cast as needed)
-            var filteredProducts = sortAndFilterViewModel.handleSearch()
+            var filteredProducts = sortAndFilterViewModel.HandleSearch()
                                          .Cast<BorrowProduct>().ToList();
             currentFullList = filteredProducts;
             currentPage = 1;
@@ -71,8 +69,9 @@ namespace UiLayer
 
             borrowProducts.Clear();
             foreach (var item in pageItems)
+            {
                 borrowProducts.Add(item);
-            
+            }
             if (borrowProducts.Count == 0)
             {
                 EmptyMessageTextBlock.Visibility = Visibility.Visible;
@@ -114,19 +113,20 @@ namespace UiLayer
 
         private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            sortAndFilterViewModel.handleSearchQueryChange(SearchTextBox.Text);
+            sortAndFilterViewModel.HandleSearchQueryChange(SearchTextBox.Text);
             ApplyFiltersAndPagination();
         }
 
         private async void FilterButton_Click(object sender, RoutedEventArgs e)
         {
             FilterDialog filterDialog = new FilterDialog(sortAndFilterViewModel);
-            filterDialog.XamlRoot = Content.XamlRoot;  
+            filterDialog.XamlRoot = Content.XamlRoot;
             var result = await filterDialog.ShowAsync();
             if (result == ContentDialogResult.Primary)
+            {
                 ApplyFiltersAndPagination();
+            }
         }
-
         private void SortButton_Click(object sender, RoutedEventArgs e)
         {
             SortingComboBox.Visibility = SortingComboBox.Visibility == Visibility.Visible ?
@@ -141,7 +141,7 @@ namespace UiLayer
                 var sortType = ParseSortType(sortTag);
                 if (sortType != null)
                 {
-                    sortAndFilterViewModel.handleSortChange(sortType);
+                    sortAndFilterViewModel.HandleSortChange(sortType);
                     ApplyFiltersAndPagination();
                 }
             }
@@ -180,8 +180,6 @@ namespace UiLayer
                     var compareView = new CompareProductsView(compareProductsViewModel);
                     compareView.Activate();
                 }
-
-
             }
         }
     }

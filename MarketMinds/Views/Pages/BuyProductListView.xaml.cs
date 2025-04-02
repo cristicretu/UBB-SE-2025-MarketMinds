@@ -38,7 +38,6 @@ namespace UiLayer
             currentFullList = buyProductsViewModel.GetAllProducts();
             ApplyFiltersAndPagination();
         }
-
         private void BuyListView_ItemClick(object sender, ItemClickEventArgs e)
         {
             var selectedProduct = e.ClickedItem as BuyProduct;
@@ -47,13 +46,11 @@ namespace UiLayer
                 // Create and show the detail view
                 var detailView = new BuyProductView(selectedProduct);
                 detailView.Activate();
-
             }
         }
-
         private void ApplyFiltersAndPagination()
         {
-            var filteredProducts = sortAndFilterViewModel.handleSearch()
+            var filteredProducts = sortAndFilterViewModel.HandleSearch()
                                          .Cast<BuyProduct>().ToList();
             currentFullList = filteredProducts;
             currentPage = 1;
@@ -70,8 +67,9 @@ namespace UiLayer
 
             buyProducts.Clear();
             foreach (var item in pageItems)
+            {
                 buyProducts.Add(item);
-            
+            }
             // Show the empty message if no items exist
             if (buyProducts.Count == 0)
             {
@@ -114,7 +112,7 @@ namespace UiLayer
 
         private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            sortAndFilterViewModel.handleSearchQueryChange(SearchTextBox.Text);
+            sortAndFilterViewModel.HandleSearchQueryChange(SearchTextBox.Text);
             ApplyFiltersAndPagination();
         }
 
@@ -124,7 +122,9 @@ namespace UiLayer
             filterDialog.XamlRoot = Content.XamlRoot;
             var result = await filterDialog.ShowAsync();
             if (result == ContentDialogResult.Primary)
+            {
                 ApplyFiltersAndPagination();
+            }
         }
 
         private void SortButton_Click(object sender, RoutedEventArgs e)
@@ -141,7 +141,7 @@ namespace UiLayer
                 var sortType = ParseSortType(sortTag);
                 if (sortType != null)
                 {
-                    sortAndFilterViewModel.handleSortChange(sortType);
+                    sortAndFilterViewModel.HandleSortChange(sortType);
                     ApplyFiltersAndPagination();
                 }
             }

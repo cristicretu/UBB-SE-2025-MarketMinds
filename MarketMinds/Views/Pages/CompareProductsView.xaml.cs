@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Diagnostics;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Microsoft.UI.Xaml;
@@ -15,12 +16,10 @@ using Microsoft.UI.Xaml.Navigation;
 using ViewModelLayer.ViewModel;
 using DomainLayer.Domain;
 using Microsoft.UI.Xaml.Media.Imaging;
-using System.Diagnostics;
 using Windows.ApplicationModel.Wallet;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
-
 namespace MarketMinds
 {
     /// <summary>
@@ -35,9 +34,7 @@ namespace MarketMinds
             this.InitializeComponent();
             this.Closed += OnWindowClosed;
             LoadImages();
-            
         }
-
         private void OnWindowClosed(object sender, WindowEventArgs e)
         {
             // Clear product data when window closes
@@ -50,14 +47,14 @@ namespace MarketMinds
 
         public void OnSeeReviewsLeftProductClicked(object sender, RoutedEventArgs e)
         {
-            App.SeeSellerReviewsViewModel.seller = ViewModel.LeftProduct.Seller;
+            App.SeeSellerReviewsViewModel.Seller = ViewModel.LeftProduct.Seller;
             var seeSellerReviewsView = new SeeSellerReviewsView(App.SeeSellerReviewsViewModel);
             seeSellerReviewsView.Activate();
         }
 
         public void OnSeeReviewsRightProductClicked(object sender, RoutedEventArgs e)
         {
-            App.SeeSellerReviewsViewModel.seller = ViewModel.RightProduct.Seller;
+            App.SeeSellerReviewsViewModel.Seller = ViewModel.RightProduct.Seller;
             var seeSellerReviewsView = new SeeSellerReviewsView(App.SeeSellerReviewsViewModel);
             seeSellerReviewsView.Activate();
         }
@@ -69,11 +66,11 @@ namespace MarketMinds
 
             foreach (var image in ViewModel.LeftProduct.Images)
             {
-                Debug.WriteLine("Loading image: " + image.url);
+                Debug.WriteLine("Loading image: " + image.Url);
 
                 var img = new Microsoft.UI.Xaml.Controls.Image
                 {
-                    Source = new BitmapImage(new Uri(image.url)),
+                    Source = new BitmapImage(new Uri(image.Url)),
                     Stretch = Stretch.Uniform, // ✅ shows full image without cropping
                     Height = 200,
                     HorizontalAlignment = HorizontalAlignment.Stretch,
@@ -85,11 +82,11 @@ namespace MarketMinds
 
             foreach (var image in ViewModel.RightProduct.Images)
             {
-                Debug.WriteLine("Loading image: " + image.url);
+                Debug.WriteLine("Loading image: " + image.Url);
 
                 var img = new Microsoft.UI.Xaml.Controls.Image
                 {
-                    Source = new BitmapImage(new Uri(image.url)),
+                    Source = new BitmapImage(new Uri(image.Url)),
                     Stretch = Stretch.Uniform, // ✅ shows full image without cropping
                     Height = 250,
                     HorizontalAlignment = HorizontalAlignment.Stretch,
@@ -117,7 +114,7 @@ namespace MarketMinds
             }
             else
             {
-                BuyProduct buyProduct = (BuyProduct) ViewModel.LeftProduct;
+                BuyProduct buyProduct = (BuyProduct)ViewModel.LeftProduct;
                 var detailView = new BuyProductView(buyProduct);
                 detailView.Activate();
                 this.Close();

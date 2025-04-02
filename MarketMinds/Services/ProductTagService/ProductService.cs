@@ -48,9 +48,9 @@ namespace MarketMinds.Services.ProductTagService
             List<Product> productResultSet = new List<Product>();
             foreach (Product product in products)
             {
-                bool matchesConditions = selectedConditions == null || selectedConditions.Count == 0 || selectedConditions.Any(c => c.id == product.Condition.id);
-                bool matchesCategories = selectedCategories == null || selectedCategories.Count == 0 || selectedCategories.Any(c => c.id == product.Category.id);
-                bool matchesTags = selectedTags == null || selectedTags.Count == 0 || selectedTags.Any(t => product.Tags.Any(pt => pt.id == t.id));
+                bool matchesConditions = selectedConditions == null || selectedConditions.Count == 0 || selectedConditions.Any(c => c.Id == product.Condition.Id);
+                bool matchesCategories = selectedCategories == null || selectedCategories.Count == 0 || selectedCategories.Any(c => c.Id == product.Category.Id);
+                bool matchesTags = selectedTags == null || selectedTags.Count == 0 || selectedTags.Any(t => product.Tags.Any(pt => pt.Id == t.Id));
                 bool matchesSearchQuery = string.IsNullOrEmpty(searchQuery) || product.Title.ToLower().Contains(searchQuery.ToLower());
 
                 if (matchesConditions && matchesCategories && matchesTags && matchesSearchQuery)

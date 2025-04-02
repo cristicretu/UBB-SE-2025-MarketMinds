@@ -56,7 +56,7 @@ namespace UiLayer
         {
             // Get the filtered and sorted list from view model
             // (Assume handleSearch returns List<Product> that we can cast to AuctionProduct)
-            var filteredProducts = sortAndFilterViewModel.handleSearch().Cast<AuctionProduct>().ToList();
+            var filteredProducts = sortAndFilterViewModel.HandleSearch().Cast<AuctionProduct>().ToList();
             currentFullList = filteredProducts;
 
             // Reset current page if necessary
@@ -90,8 +90,6 @@ namespace UiLayer
 
             UpdatePaginationDisplay();
         }
-
-
         private void UpdatePaginationDisplay()
         {
             PaginationTextBlock.Text = totalPages == 0 ?
@@ -122,7 +120,7 @@ namespace UiLayer
         private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             // Update the search query in the view model and reapply filters
-            sortAndFilterViewModel.handleSearchQueryChange(SearchTextBox.Text);
+            sortAndFilterViewModel.HandleSearchQueryChange(SearchTextBox.Text);
             ApplyFiltersAndPagination();
         }
 
@@ -155,7 +153,7 @@ namespace UiLayer
                 var sortType = ParseSortType(sortTag);
                 if (sortType != null)
                 {
-                    sortAndFilterViewModel.handleSortChange(sortType);
+                    sortAndFilterViewModel.HandleSortChange(sortType);
                     ApplyFiltersAndPagination();
                 }
             }
@@ -190,7 +188,7 @@ namespace UiLayer
             if (selectedProduct != null)
             {
                 bool twoAdded = compareProductsViewModel.AddProduct(selectedProduct);
-                if(twoAdded == true)
+                if (twoAdded == true)
                 {
                     var compareView = new CompareProductsView(compareProductsViewModel);
                     compareView.Activate();

@@ -17,18 +17,18 @@
         </Grid.RowDefinitions>
 
         <!-- User and Rating Section -->
-        <StackPanel Orientation="Horizontal" Grid.Row="0" VerticalAlignment="Center" Spacing="5" Margin="10,0,0,0">
-            <TextBlock Text="{x:Bind ViewModel.seller.Username, Mode=OneWay}" FontSize="24" FontWeight="Bold" Margin="10,5,0,5"/>
+        <StackPanel Orientation="Horizontal" Grid.Row="0" VerticalAlignment="Center" Margin="10,0,0,0">
+            <TextBlock Text="{x:Bind ViewModel.Seller.Username, Mode=OneWay}" FontSize="24" FontWeight="Bold" Margin="10,5,5,5"/>
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                 <RatingControl x:Name="AverageRatingStars"
-               Value="{x:Bind ViewModel.rating, Mode=OneWay}"
+               Value="{x:Bind ViewModel.Rating, Mode=OneWay}"
                IsClearEnabled="False" IsReadOnly="True" MaxRating="5" Foreground="Gold"/>
-                <TextBlock Text="{x:Bind ViewModel.reviews.Count, Mode=OneWay}" FontSize="16" Foreground="Gray" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                <TextBlock Text="{x:Bind ViewModel.Reviews.Count, Mode=OneWay}" FontSize="16" Foreground="Gray" VerticalAlignment="Center" Margin="5,0,0,0"/>
             </StackPanel>
         </StackPanel>
 
         <!-- Reviews List -->
-        <ListView x:Name="ReviewsListView" Grid.Row="1" ItemsSource="{x:Bind ViewModel.reviews, Mode=OneWay}">
+        <ListView x:Name="ReviewsListView" Grid.Row="1" ItemsSource="{x:Bind ViewModel.Reviews, Mode=OneWay}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Border BorderThickness="1" BorderBrush="Gray" Padding="10" Margin="5">
@@ -44,12 +44,12 @@
                                    Width="100" 
                                    Height="100" 
                                    Margin="0,0,10,0"
-                                   ItemsSource="{Binding images}">  
+                                   ItemsSource="{Binding Images}">  
                                 <FlipView.ItemTemplate>
                                     <DataTemplate>
                                         <!-- Bind to the image URL (adjust the binding property if needed) -->
                                         <Image 
-                                            Source="{Binding url}" 
+                                            Source="{Binding Url}" 
                                             HorizontalAlignment="Center" 
                                             VerticalAlignment="Center" 
                                             Stretch="Uniform" />
@@ -57,9 +57,9 @@
                                 </FlipView.ItemTemplate>
                             </FlipView>
                             <StackPanel Grid.Column="1">
-                                <TextBlock Text="{Binding sellerId}" FontWeight="Bold" FontSize="16"/>
-                                <TextBlock Text="{Binding description}" TextWrapping="Wrap" Margin="0,5,0,5"/>
-                                <RatingControl Value="{Binding rating, Mode=OneWay}" 
+                                <TextBlock Text="Seller ID" FontWeight="Bold" FontSize="16"/>
+                                <TextBlock Text="{Binding Description}" TextWrapping="Wrap" Margin="0,5,0,5"/>
+                                <RatingControl Value="{Binding Rating, Mode=OneWay}" 
                                        IsClearEnabled="False" IsReadOnly="True" 
                                        MaxRating="5" Foreground="Gold"/>
                             </StackPanel>

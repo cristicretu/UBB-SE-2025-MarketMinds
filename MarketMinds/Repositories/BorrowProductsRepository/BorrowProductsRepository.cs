@@ -42,8 +42,8 @@ namespace MarketMinds.Repositories.BorrowProductsRepository
                 cmd.Parameters.AddWithValue("@Title", borrow.Title);
                 cmd.Parameters.AddWithValue("@Description", borrow.Description);
                 cmd.Parameters.AddWithValue("@SellerId", borrow.Seller.Id);
-                cmd.Parameters.AddWithValue("@ConditionId", borrow.Condition.id);
-                cmd.Parameters.AddWithValue("@CategoryId", borrow.Category.id);
+                cmd.Parameters.AddWithValue("@ConditionId", borrow.Condition.Id);
+                cmd.Parameters.AddWithValue("@CategoryId", borrow.Category.Id);
                 cmd.Parameters.AddWithValue("@TimeLimit", borrow.TimeLimit);
                 cmd.Parameters.AddWithValue("@StartDate", borrow.StartDate);
                 cmd.Parameters.AddWithValue("@EndDate", borrow.EndDate);
@@ -63,7 +63,7 @@ namespace MarketMinds.Repositories.BorrowProductsRepository
                 using (SqlCommand cmd = new SqlCommand(insertTagQuery, connection.GetConnection()))
                 {
                     cmd.Parameters.AddWithValue("@ProductId", newProductId);
-                    cmd.Parameters.AddWithValue("@TagId", tag.id);
+                    cmd.Parameters.AddWithValue("@TagId", tag.Id);
                     cmd.ExecuteNonQuery();
                 }
             }
@@ -76,7 +76,7 @@ namespace MarketMinds.Repositories.BorrowProductsRepository
 
                 using (SqlCommand cmd = new SqlCommand(insertImageQuery, connection.GetConnection()))
                 {
-                    cmd.Parameters.AddWithValue("@Url", image.url);
+                    cmd.Parameters.AddWithValue("@Url", image.Url);
                     cmd.Parameters.AddWithValue("@ProductId", newProductId);
                     cmd.ExecuteNonQuery();
                 }

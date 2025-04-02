@@ -60,14 +60,12 @@ namespace MarketMinds
                 AuctionProductsViewModel.ConcludeAuction(Product);
             }
         }
-
-
         private void LoadProductDetails()
         {
             // Basic Info
             TitleTextBlock.Text = Product.Title;
-            CategoryTextBlock.Text = Product.Category.displayTitle;
-            ConditionTextBlock.Text = Product.Condition.displayTitle;
+            CategoryTextBlock.Text = Product.Category.DisplayTitle;
+            ConditionTextBlock.Text = Product.Condition.DisplayTitle;
             StartingPriceTextBlock.Text = $"{Product.StartingPrice:C}";
             CurrentPriceTextBlock.Text = $"{Product.CurrentPrice:C}"; // Just an example
             TimeLeftTextBlock.Text = GetTimeLeft();
@@ -80,7 +78,7 @@ namespace MarketMinds
             {
                 return new TextBlock
                 {
-                    Text = tag.displayTitle,
+                    Text = tag.DisplayTitle,
                     Margin = new Thickness(4),
                     Padding = new Thickness(8, 4, 8, 4),
                 };
@@ -90,13 +88,11 @@ namespace MarketMinds
         private void LoadImages()
         {
             ImageCarousel.Items.Clear();
-
             foreach (var image in Product.Images)
             {
-
                 var img = new Microsoft.UI.Xaml.Controls.Image
                 {
-                    Source = new BitmapImage(new Uri(image.url)),
+                    Source = new BitmapImage(new Uri(image.Url)),
                     Stretch = Stretch.Uniform, // ✅ shows full image without cropping
                     Height = 250,
                     HorizontalAlignment = HorizontalAlignment.Stretch,
@@ -106,21 +102,17 @@ namespace MarketMinds
                 ImageCarousel.Items.Add(img);
             }
         }
-
         private void LoadBidHistory()
         {
             BidHistoryListView.ItemsSource = Product.BidHistory
                 .OrderByDescending(b => b.Timestamp)
                 .ToList();
         }
-
-
         private string GetTimeLeft()
         {
             var timeLeft = Product.EndAuctionDate - DateTime.Now;
             return timeLeft > TimeSpan.Zero ? timeLeft.ToString(@"dd\:hh\:mm\:ss") : "Auction Ended";
         }
-
         private void OnPlaceBidClicked(object sender, RoutedEventArgs e)
         {
             try
@@ -152,8 +144,8 @@ namespace MarketMinds
 
         private void OnSeeReviewsClicked(object sender, RoutedEventArgs e)
         {
-            App.SeeSellerReviewsViewModel.seller = Product.Seller;
-            seeSellerReviewsView = new SeeSellerReviewsView(App.SeeSellerReviewsViewModel);
+            App.SeeSellerReviewsViewModel.Seller = Product.Seller;
+            var seeSellerReviewsView = new SeeSellerReviewsView(App.SeeSellerReviewsViewModel);
             seeSellerReviewsView.Activate();
         }
     }

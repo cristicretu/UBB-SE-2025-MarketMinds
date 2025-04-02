@@ -14,7 +14,6 @@ namespace ViewModelLayer.ViewModel
 
         public CompareProductsViewModel()
         {
-
         }
 
         public bool AddProduct(Product product)
@@ -25,7 +24,9 @@ namespace ViewModelLayer.ViewModel
                 return false;
             }
             if (product != LeftProduct)
+            {
                 RightProduct = product;
+            }
             return true;
         }
     }

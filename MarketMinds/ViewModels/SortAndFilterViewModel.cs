@@ -12,12 +12,11 @@ namespace BusinessLogicLayer.ViewModel
     {
         private ProductService productService;
 
-        public List<ProductCondition> selectedConditions { get; set;}
-        public List<ProductCategory> selectedCategories { get; set;}
-        public List<ProductTag> selectedTags { get; set;}
+        public List<ProductCondition> selectedConditions { get; set; }
+        public List<ProductCategory> selectedCategories { get; set; }
+        public List<ProductTag> selectedTags { get; set; }
         public ProductSortType? sortCondition { get; set; }
         public string searchQuery { get; set; }
-        
         public SortAndFilterViewModel(ProductService productService)
         {
             this.productService = productService;
@@ -26,59 +25,59 @@ namespace BusinessLogicLayer.ViewModel
             this.selectedCategories = new List<ProductCategory>();
             this.selectedTags = new List<ProductTag>();
             this.sortCondition = null;
-            this.searchQuery = "";
+            this.searchQuery = string.Empty;
         }
 
-        public List<Product> handleSearch()
+        public List<Product> HandleSearch()
         {
             return ProductService.GetSortedFilteredProducts(this.productService.GetProducts(), selectedConditions, selectedCategories, selectedTags, sortCondition, searchQuery);
         }
 
-        public void handleClearAllFilters()
+        public void HandleClearAllFilters()
         {
             this.selectedConditions.Clear();
             this.selectedCategories.Clear();
             this.selectedTags.Clear();
             this.sortCondition = null;
-            this.searchQuery = "";
+            this.searchQuery = string.Empty;
         }
 
-        public void handleSortChange(ProductSortType newSortCondition)
+        public void HandleSortChange(ProductSortType newSortCondition)
         {
             this.sortCondition = newSortCondition;
         }
 
-        public void handleSearchQueryChange(string searchQuery)
+        public void HandleSearchQueryChange(string searchQuery)
         {
             this.searchQuery = searchQuery;
         }
 
-        public void handleAddProductCondition(ProductCondition condition)
+        public void HandleAddProductCondition(ProductCondition condition)
         {
             this.selectedConditions.Add(condition);
         }
 
-        public void handleRemoveProductCondition(ProductCondition condition)
+        public void HandleRemoveProductCondition(ProductCondition condition)
         {
             this.selectedConditions.Remove(condition);
         }
 
-        public void handleAddProductCategory(ProductCategory category)
+        public void HandleAddProductCategory(ProductCategory category)
         {
             this.selectedCategories.Add(category);
         }
 
-        public void handleRemoveProductCategory(ProductCategory category)
+        public void HandleRemoveProductCategory(ProductCategory category)
         {
             this.selectedCategories.Remove(category);
         }
 
-        public void handleAddProductTag(ProductTag tag)
+        public void HandleAddProductTag(ProductTag tag)
         {
             this.selectedTags.Add(tag);
         }
 
-        public void handleRemoveProductTag(ProductTag tag)
+        public void HandleRemoveProductTag(ProductTag tag)
         {
             this.selectedTags.Remove(tag);
         }

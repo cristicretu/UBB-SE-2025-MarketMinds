@@ -68,25 +68,31 @@ namespace UiLayer
             // Pre-select Conditions
             foreach (var condition in sortAndFilterViewModel.selectedConditions)
             {
-                var item = ProductConditions.FirstOrDefault(c => c.displayTitle == condition.displayTitle);
+                var item = ProductConditions.FirstOrDefault(c => c.DisplayTitle == condition.DisplayTitle);
                 if (item != null && !ConditionListView.SelectedItems.Contains(item))
+                {
                     ConditionListView.SelectedItems.Add(item);
+                }
             }
 
             // Pre-select Categories (if they are in fullCategories)
             foreach (var category in sortAndFilterViewModel.selectedCategories)
             {
-                var item = fullCategories.FirstOrDefault(c => c.displayTitle == category.displayTitle);
+                var item = fullCategories.FirstOrDefault(c => c.DisplayTitle == category.DisplayTitle);
                 if (item != null && !CategoryListView.SelectedItems.Contains(item))
+                {
                     CategoryListView.SelectedItems.Add(item);
+                }
             }
 
             // Pre-select Tags
             foreach (var tag in sortAndFilterViewModel.selectedTags)
             {
-                var item = fullTags.FirstOrDefault(t => t.displayTitle == tag.displayTitle);
+                var item = fullTags.FirstOrDefault(t => t.DisplayTitle == tag.DisplayTitle);
                 if (item != null && !TagListView.SelectedItems.Contains(item))
+                {
                     TagListView.SelectedItems.Add(item);
+                }
             }
         }
 
@@ -99,22 +105,22 @@ namespace UiLayer
         private void FilterDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
             // Clear existing selections in the view model
-            sortAndFilterViewModel.handleClearAllFilters();
+            sortAndFilterViewModel.HandleClearAllFilters();
 
             // Add currently selected Conditions
             foreach (ProductCondition condition in ConditionListView.SelectedItems)
             {
-                sortAndFilterViewModel.handleAddProductCondition(condition);
+                sortAndFilterViewModel.HandleAddProductCondition(condition);
             }
             // Add selected Categories
             foreach (ProductCategory category in CategoryListView.SelectedItems)
             {
-                sortAndFilterViewModel.handleAddProductCategory(category);
+                sortAndFilterViewModel.HandleAddProductCategory(category);
             }
             // Add selected Tags
             foreach (ProductTag tag in TagListView.SelectedItems)
             {
-                sortAndFilterViewModel.handleAddProductTag(tag);
+                sortAndFilterViewModel.HandleAddProductTag(tag);
             }
         }
 
@@ -124,14 +130,14 @@ namespace UiLayer
             ConditionListView.SelectedItems.Clear();
             CategoryListView.SelectedItems.Clear();
             TagListView.SelectedItems.Clear();
-            sortAndFilterViewModel.handleClearAllFilters();
+            sortAndFilterViewModel.HandleClearAllFilters();
         }
 
         // Category Search handling
         private void CategorySearchBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             var query = CategorySearchBox.Text.ToLower();
-            var filtered = fullCategories.Where(c => c.displayTitle.ToLower().Contains(query)).ToList();
+            var filtered = fullCategories.Where(c => c.DisplayTitle.ToLower().Contains(query)).ToList();
             DisplayedCategories.Clear();
             foreach (var cat in filtered.Take(initialDisplayCount))
             {
@@ -144,7 +150,7 @@ namespace UiLayer
         private void TagSearchBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             var query = TagSearchBox.Text.ToLower();
-            var filtered = fullTags.Where(t => t.displayTitle.ToLower().Contains(query)).ToList();
+            var filtered = fullTags.Where(t => t.DisplayTitle.ToLower().Contains(query)).ToList();
             DisplayedTags.Clear();
             foreach (var tag in filtered.Take(initialDisplayCount))
             {
@@ -158,7 +164,7 @@ namespace UiLayer
         {
             var currentCount = DisplayedCategories.Count;
             var query = CategorySearchBox.Text.ToLower();
-            var filtered = fullCategories.Where(c => c.displayTitle.ToLower().Contains(query)).ToList();
+            var filtered = fullCategories.Where(c => c.DisplayTitle.ToLower().Contains(query)).ToList();
             foreach (var cat in filtered.Skip(currentCount).Take(additionalDisplayCount))
             {
                 DisplayedCategories.Add(cat);
@@ -171,7 +177,7 @@ namespace UiLayer
         {
             var currentCount = DisplayedTags.Count;
             var query = TagSearchBox.Text.ToLower();
-            var filtered = fullTags.Where(t => t.displayTitle.ToLower().Contains(query)).ToList();
+            var filtered = fullTags.Where(t => t.DisplayTitle.ToLower().Contains(query)).ToList();
             foreach (var tag in filtered.Skip(currentCount).Take(additionalDisplayCount))
             {
                 DisplayedTags.Add(tag);

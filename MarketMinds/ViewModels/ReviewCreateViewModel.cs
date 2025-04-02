@@ -17,7 +17,7 @@ namespace ViewModelLayer.ViewModel
         public float Rating { get; set; }
         public string ImagesString
         {
-            get => Images != null ? string.Join("\n", Images.Select(img => img.url)) : string.Empty;
+            get => Images != null ? string.Join("\n", Images.Select(img => img.Url)) : string.Empty;
             set
             {
                 if (!string.IsNullOrEmpty(value))
@@ -56,8 +56,7 @@ namespace ViewModelLayer.ViewModel
             {
                  return;
             }
-            ReviewsService.EditReview(CurrentReview.description, CurrentReview.images, CurrentReview.rating, CurrentReview.sellerId, CurrentReview.buyerId, Description, Rating);  // Call the service layer to update
+            ReviewsService.EditReview(CurrentReview.Description, CurrentReview.Images, CurrentReview.Rating, CurrentReview.SellerId, CurrentReview.BuyerId, Description, Rating);  // Call the service layer to update
         }
-
     }
 }

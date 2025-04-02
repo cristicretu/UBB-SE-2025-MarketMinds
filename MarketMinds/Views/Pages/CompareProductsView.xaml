@@ -22,18 +22,18 @@
                 <Button Content="See Reviews" Width="160" Click="OnSeeReviewsLeftProductClicked" />
                 <StackPanel Orientation="Horizontal" Spacing="10">
                     <TextBlock Text="Category:" FontWeight="Bold"/>
-                    <TextBlock Text="{x:Bind ViewModel.LeftProduct.Category.displayTitle}" />
+                    <TextBlock Text="{x:Bind ViewModel.LeftProduct.Category.DisplayTitle}" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Spacing="10">
                     <TextBlock Text="Condition:" FontWeight="Bold"/>
-                    <TextBlock Text="{x:Bind ViewModel.LeftProduct.Condition.displayTitle}" />
+                    <TextBlock Text="{x:Bind ViewModel.LeftProduct.Condition.DisplayTitle}" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Spacing="10">
                     <TextBlock Text="Tags:" FontWeight="Bold"/>
                     <ItemsControl ItemsSource="{x:Bind ViewModel.LeftProduct.Tags}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding displayTitle}" Margin="5,0,5,0"/>
+                                <TextBlock Text="{Binding DisplayTitle}" Margin="5,0,5,0"/>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
@@ -56,18 +56,18 @@
                 <Button Content="See Reviews" Width="160" Click="OnSeeReviewsRightProductClicked" />
                 <StackPanel Orientation="Horizontal" Spacing="10">
                     <TextBlock Text="Category:" FontWeight="Bold"/>
-                    <TextBlock Text="{x:Bind ViewModel.RightProduct.Category.displayTitle}" />
+                    <TextBlock Text="{x:Bind ViewModel.RightProduct.Category.DisplayTitle}" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Spacing="10">
                     <TextBlock Text="Condition:" FontWeight="Bold"/>
-                    <TextBlock Text="{x:Bind ViewModel.RightProduct.Condition.displayTitle}" />
+                    <TextBlock Text="{x:Bind ViewModel.RightProduct.Condition.DisplayTitle}" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Spacing="10">
                     <TextBlock Text="Tags:" FontWeight="Bold"/>
                     <ItemsControl ItemsSource="{x:Bind ViewModel.RightProduct.Tags}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding displayTitle}" Margin="5,0,5,0"/>
+                                <TextBlock Text="{Binding DisplayTitle}" Margin="5,0,5,0"/>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>

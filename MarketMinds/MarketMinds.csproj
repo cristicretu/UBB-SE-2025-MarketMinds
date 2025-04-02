@@ -14,6 +14,9 @@
     <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
     <EnableWindowsTargeting>true</EnableWindowsTargeting>
     <CodeAnalysisRuleSet>SE.ruleset</CodeAnalysisRuleSet>
+    <!-- Diagnostics -->
+    <XamlCompilerDiagnostics>true</XamlCompilerDiagnostics>
+    <MsxamlCompilerDiagnostics>true</MsxamlCompilerDiagnostics>
   </PropertyGroup>
 
   <!-- Platform-specific settings -->

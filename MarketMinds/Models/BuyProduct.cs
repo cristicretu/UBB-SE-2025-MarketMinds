@@ -20,7 +20,7 @@ namespace DomainLayer.Domain
             this.Category = productCategory;
             this.Tags = productTags;
             this.Seller = seller;
-            this.Images = Images;
+            this.Images = images;
             this.Price = price;
         }
     }

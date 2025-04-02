@@ -8,13 +8,13 @@ namespace DomainLayer.Domain
 {
     public class ProductTag
     {
-        public int id { get; set; }
-        public string displayTitle { get; set; } = string.Empty;
+        public int Id { get; set; }
+        public string DisplayTitle { get; set; } = string.Empty;
 
         public ProductTag(int id, string displayTitle)
         {
-            this.id = id;
-            this.displayTitle = displayTitle;
+            this.Id = id;
+            this.DisplayTitle = displayTitle;
         }
     }
 }
