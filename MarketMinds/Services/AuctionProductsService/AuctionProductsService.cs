@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
 using System.Text;
-using DomainLayer.Domain;
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using DomainLayer.Domain;
 using MarketMinds.Repositories.AuctionProductsRepository;
 using MarketMinds.Services.ProductTagService;
 using static System.Runtime.InteropServices.JavaScript.JSType;
@@ -12,10 +12,10 @@ namespace MarketMinds.Services.AuctionProductsService
 {
     public class AuctionProductsService : ProductService, IAuctionProductsService
     {
-        private IAuctionProductsRepository AuctionRepository;
+        private IAuctionProductsRepository auctionRepository;
         public AuctionProductsService(IAuctionProductsRepository repository) : base(repository)
         {
-            AuctionRepository = repository;
+            auctionRepository = repository;
         }
 
         public void PlaceBid(AuctionProduct auction, User bidder, float bidAmount)
@@ -26,16 +26,14 @@ namespace MarketMinds.Services.AuctionProductsService
 
             RefundPreviousBidder(auction);
 
-            var bid = new Bid (bidder, bidAmount, DateTime.Now);
+            var bid = new Bid(bidder, bidAmount, DateTime.Now);
             auction.AddBid(bid);
             auction.CurrentPrice = bidAmount;
 
             ExtendAuctionTime(auction);
 
-            AuctionRepository.UpdateProduct(auction);
-
+            auctionRepository.UpdateProduct(auction);
         }
-
         private void ValidateBid(AuctionProduct auction, User bidder, float bidAmount)
         {
             float minBid = auction.BidHistory.Count == 0 ? auction.StartingPrice : auction.CurrentPrice + 1;
@@ -62,10 +60,8 @@ namespace MarketMinds.Services.AuctionProductsService
             {
                 var previousBid = auction.BidHistory.Last();
                 previousBid.Bidder.Balance += previousBid.Price;
-
             }
         }
-
         private void ExtendAuctionTime(AuctionProduct auction)
         {
             var timeRemaining = auction.EndAuctionDate - DateTime.Now;
@@ -78,7 +74,7 @@ namespace MarketMinds.Services.AuctionProductsService
 
         public void ConcludeAuction(AuctionProduct auction)
         {
-            AuctionRepository.DeleteProduct(auction);
+            auctionRepository.DeleteProduct(auction);
         }
     }
 }

@@ -8,13 +8,13 @@ namespace MarketMinds.Services.BasketService
 {
     public class BasketService : IBasketService
     {
-        private readonly BasketRepository BasketRepository;
+        private readonly BasketRepository basketRepository;
         public const int MaxQuantityPerItem = 10;
 
         // Constructor with just the basket repository
-        public BasketService(BasketRepository basketRepository)
+        public BasketService(BasketRepository basketRepository_var)
         {
-            BasketRepository = basketRepository;
+            basketRepository = basketRepository_var;
         }
 
         public void AddToBasket(int userId, int productId, int quantity)
@@ -32,10 +32,10 @@ namespace MarketMinds.Services.BasketService
             int limitedQuantity = Math.Min(quantity, MaxQuantityPerItem);
 
             // Get the user's basket
-            Basket basket = BasketRepository.GetBasketByUser(userId);
+            Basket basket = basketRepository.GetBasketByUser(userId);
 
             // Add the item with the limited quantity
-            BasketRepository.AddItemToBasket(basket.Id, productId, limitedQuantity);
+            basketRepository.AddItemToBasket(basket.Id, productId, limitedQuantity);
         }
 
         public Basket GetBasketByUser(User user)
@@ -48,7 +48,7 @@ namespace MarketMinds.Services.BasketService
             try
             {
                 // Get the user's basket or create one if it doesn't exist
-                return BasketRepository.GetBasketByUser(user.Id);
+                return basketRepository.GetBasketByUser(user.Id);
             }
             catch (Exception ex)
             {
@@ -70,10 +70,10 @@ namespace MarketMinds.Services.BasketService
             try
             {
                 // Get the user's basket
-                Basket basket = BasketRepository.GetBasketByUser(userId);
+                Basket basket = basketRepository.GetBasketByUser(userId);
 
                 // Remove the product
-                BasketRepository.RemoveItemByProductId(basket.Id, productId);
+                basketRepository.RemoveItemByProductId(basket.Id, productId);
             }
             catch (Exception ex)
             {
@@ -102,17 +102,17 @@ namespace MarketMinds.Services.BasketService
             try
             {
                 // Get the user's basket
-                Basket basket = BasketRepository.GetBasketByUser(userId);
+                Basket basket = basketRepository.GetBasketByUser(userId);
 
                 if (limitedQuantity == 0)
                 {
                     // If quantity is zero, remove the item
-                    BasketRepository.RemoveItemByProductId(basket.Id, productId);
+                    basketRepository.RemoveItemByProductId(basket.Id, productId);
                 }
                 else
                 {
                     // Update the quantity
-                    BasketRepository.UpdateItemQuantityByProductId(basket.Id, productId, limitedQuantity);
+                    basketRepository.UpdateItemQuantityByProductId(basket.Id, productId, limitedQuantity);
                 }
             }
             catch (Exception ex)
@@ -129,10 +129,10 @@ namespace MarketMinds.Services.BasketService
             }
 
             // Get the user's basket
-            Basket basket = BasketRepository.GetBasketByUser(userId);
+            Basket basket = basketRepository.GetBasketByUser(userId);
 
             // Clear the basket
-            BasketRepository.ClearBasket(basket.Id);
+            basketRepository.ClearBasket(basket.Id);
         }
 
         public bool ValidateBasketBeforeCheckOut(int basketId)
@@ -143,7 +143,7 @@ namespace MarketMinds.Services.BasketService
             }
 
             // Get the basket items
-            List<BasketItem> items = BasketRepository.GetBasketItems(basketId);
+            List<BasketItem> items = basketRepository.GetBasketItems(basketId);
 
             // Check if the basket is empty
             if (items.Count == 0)

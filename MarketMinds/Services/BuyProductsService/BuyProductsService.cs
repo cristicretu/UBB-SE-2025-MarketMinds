@@ -28,6 +28,5 @@ namespace MarketMinds.Services.BuyProductsService
         {
             return buyProductsRepository.GetProducts();
         }
-
     }
 }

@@ -23,7 +23,7 @@ namespace MarketMinds.Services.ReviewService
         {
             ObservableCollection<Review> reviews = Repository.GetAllReviewsBySeller(seller);
             // add to Review date and sort by dates
-            //reviews.Sort()
+            // reviews.Sort()
             return reviews;
         }
 
@@ -36,7 +36,7 @@ namespace MarketMinds.Services.ReviewService
 
         public void AddReview(string description, List<Image> images, float rating, User seller, User buyer)
         {
-            Repository.CreateReview(new Review(-1,description, images, rating, seller.Id, buyer.Id));
+            Repository.CreateReview(new Review(-1, description, images, rating, seller.Id, buyer.Id));
         }
 
         public void EditReview(string description, List<Image> images, float rating, int sellerid, int buyerid, string newDescription, float newRating)

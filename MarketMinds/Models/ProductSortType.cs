@@ -8,7 +8,7 @@ namespace DomainLayer.Domain
 {
     public class ProductSortType
     {
-        private static int nextId = 1;  
+        private static int nextId = 1;
         public int id { get; set; }
         public string externalAttributeFieldTitle { get; set; } = string.Empty;
         public string internalAttributeFieldTitle { get; set; } = string.Empty;
@@ -22,12 +22,12 @@ namespace DomainLayer.Domain
             this.isAscending = isAscending;
         }
 
-        public string getDisplayTitle()
+        public string GetDisplayTitle()
         {
             return "Sort by " + this.externalAttributeFieldTitle + " (" + (this.isAscending ? "Ascending" : "Descending") + ")";
         }
 
-        public string getSqlOrderByStatement()
+        public string GetSqlOrderByStatement()
         {
             return "ORDER BY " + this.internalAttributeFieldTitle + (this.isAscending ? " ASC" : " DESC");
         }

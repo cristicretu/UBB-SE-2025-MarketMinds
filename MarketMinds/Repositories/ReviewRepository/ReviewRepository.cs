@@ -45,9 +45,7 @@ namespace MarketMinds.Repositories.ReviewRepository
                                 new List<Image>(), // Use ObservableCollection for images
                                 Convert.ToSingle(reader.GetDouble(4)),
                                 reader.GetInt32(2),
-                                reader.GetInt32(1)
-                            );
-
+                                reader.GetInt32(1));
                             reviews.Add(review);
                         }
                     }
@@ -66,7 +64,6 @@ namespace MarketMinds.Repositories.ReviewRepository
 
             return reviews;
         }
-
 
         public ObservableCollection<Review> GetAllReviewsBySeller(User seller)
         {
@@ -96,9 +93,7 @@ namespace MarketMinds.Repositories.ReviewRepository
                                 new List<Image>(), // Use ObservableCollection for images
                                 Convert.ToSingle(reader.GetDouble(4)),
                                 reader.GetInt32(2),
-                                reader.GetInt32(1)
-                            );
-
+                                reader.GetInt32(1));
                             reviews.Add(review);
                         }
                     }
@@ -114,10 +109,8 @@ namespace MarketMinds.Repositories.ReviewRepository
             {
                 connection.CloseConnection();
             }
-
             return reviews;
         }
-
 
         public void CreateReview(Review review)
         {
@@ -182,8 +175,6 @@ namespace MarketMinds.Repositories.ReviewRepository
 
         public void EditReview(Review review, float rating, string description)
         {
-            
-            
             if (review.id == -1)
             {
                 review.id = GetReviewId(review);
@@ -216,9 +207,7 @@ namespace MarketMinds.Repositories.ReviewRepository
                 }
                 connection.CloseConnection();
             }
-            
         }
-
         public void DeleteReview(Review review)
         {
             if (review.id == -1)

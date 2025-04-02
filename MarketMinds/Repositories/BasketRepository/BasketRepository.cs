@@ -23,7 +23,6 @@ namespace MarketMinds.Repositories.BasketRepository
             // Retrieves the user's basket, or creates one if it doesn't exist
             // input: userId
             // output: user's basket
-
             Basket? basket = null;
             int basketId = -1;
 
@@ -106,7 +105,6 @@ namespace MarketMinds.Repositories.BasketRepository
             LEFT JOIN Users u ON p.seller_id = u.id
             WHERE bi.basket_id = @basketId";
 
-
             connection.OpenConnection();
             using (SqlCommand cmd = new SqlCommand(query, connection.GetConnection()))
             {
@@ -147,8 +145,7 @@ namespace MarketMinds.Repositories.BasketRepository
                         // Create the seller object
                         User? seller = sellerId > 0 ?
                             new User(sellerId, sellerUsername, sellerEmail) : null;
-
-                        // Create the product with basic information 
+                        // Create the product with basic information
                         BuyProduct product = new BuyProduct(
                             productId,                   // Id
                             productTitle ?? string.Empty,          // Title
@@ -158,9 +155,7 @@ namespace MarketMinds.Repositories.BasketRepository
                             category ?? new ProductCategory(0, string.Empty, string.Empty),    // Default category if null
                             new List<ProductTag>(),      // Tags
                             new List<Image>(),           // Images
-                            (float)price                 // Price
-                        );
-
+                            (float)price);               // Price
                         // Create the basket item
                         BasketItem item = new BasketItem(itemId, product, quantity);
                         item.Price = (float)price;
@@ -331,7 +326,6 @@ namespace MarketMinds.Repositories.BasketRepository
             // Remove all items from the basket
             // input: basketId
             // output: none
-
             string deleteCmd = "DELETE FROM BasketItemsBuyProducts WHERE basket_id = @basketId";
 
             connection.OpenConnection();

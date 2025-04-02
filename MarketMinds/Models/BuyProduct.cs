@@ -9,19 +9,19 @@ namespace DomainLayer.Domain
     public class BuyProduct : Product
     {
         public float Price { get; set; }
-        public BuyProduct(int Id, string Title, string Description, User Seller, ProductCondition ProductCondition, ProductCategory ProductCategory,
-            List<ProductTag> ProductTags, List<Image> Images, float Price)
+        public BuyProduct(int id, string title, string description, User seller, ProductCondition productCondition, ProductCategory productCategory,
+            List<ProductTag> productTags, List<Image> images, float price)
         {
-            this.Id = Id;
-            this.Title = Title;
-            this.Description = Description;
-            this.Seller = Seller;
-            this.Condition = ProductCondition;
-            this.Category = ProductCategory;
-            this.Tags = ProductTags;
-            this.Seller = Seller;
+            this.Id = id;
+            this.Title = title;
+            this.Description = description;
+            this.Seller = seller;
+            this.Condition = productCondition;
+            this.Category = productCategory;
+            this.Tags = productTags;
+            this.Seller = seller;
             this.Images = Images;
-            this.Price = Price;
+            this.Price = price;
         }
     }
 }

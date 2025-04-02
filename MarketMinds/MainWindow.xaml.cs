@@ -16,7 +16,6 @@ using Windows.Foundation.Collections;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
-
 namespace UiLayer
 {
     /// <summary>
@@ -54,22 +53,23 @@ namespace UiLayer
             basketViewWindow.Activate();
         }
 
-        private void HandleLeaveReviewButton_Click(Object sender, RoutedEventArgs e)
+        private void HandleLeaveReviewButton_Click(object sender, RoutedEventArgs e)
         {
             leaveReviewViewWindow = new CreateReviewView(App.ReviewCreateViewModel);
             leaveReviewViewWindow.Activate();
         }
 
-        private void HandleCreateListingButton_Click(Object sender, RoutedEventArgs e)
+        private void HandleCreateListingButton_Click(object sender, RoutedEventArgs e)
         {
             CreateListingViewWindow = new Window();
             CreateListingViewWindow.Content = new CreateListingView(this);
             CreateListingViewWindow.Activate();
         }
 
-        private void HandleSeeReviewViewButton_Click(Object sender, RoutedEventArgs e)
+        private void HandleSeeReviewViewButton_Click(object sender, RoutedEventArgs e)
         {
-            if (App.CurrentUser.UserType == 3) // buyer
+            // buyer
+            if (App.CurrentUser.UserType == 3)
             {
                 seeReviewsWindow = new SeeBuyerReviewsView(App.SeeBuyerReviewsViewModel);
                 seeReviewsWindow.Activate();

@@ -157,8 +157,7 @@ namespace MarketMinds.Repositories.BuyProductsRepository
 
                 BuyProduct buy = new BuyProduct(
                     id, title, description, seller, condition,
-                    category, tags, images, price
-                );
+                    category, tags, images, price);
 
                 buys.Add(buy);
             }
@@ -292,7 +291,9 @@ namespace MarketMinds.Repositories.BuyProductsRepository
             connection.CloseConnection();
             return buy;
         }
-
-        public void UpdateProduct(Product product) { }
+        public void UpdateProduct(Product product)
+        {
+            // Implementation goes here
+        }
     }
 }

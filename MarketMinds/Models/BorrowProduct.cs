@@ -13,22 +13,22 @@ namespace DomainLayer.Domain
         public DateTime TimeLimit { get; set; }
         public float DailyRate { get; set; }
         public bool IsBorrowed { get; set; }
-        public BorrowProduct(int Id, string Title, string Description, User Seller, ProductCondition ProductCondition, ProductCategory ProductCategory,
-            List<ProductTag> ProductTags, List<Image> Images, DateTime TimeLimit, DateTime StartDate, DateTime EndDate, float DailyRate, bool IsBorrowed)
+        public BorrowProduct(int id, string title, string description, User seller, ProductCondition productCondition, ProductCategory productCategory,
+            List<ProductTag> productTags, List<Image> images, DateTime timeLimit, DateTime startDate, DateTime endDate, float dailyRate, bool isBorrowed)
         {
-            this.Id = Id;
-            this.Title = Title;
-            this.Description = Description;
-            this.Seller = Seller;
-            this.Condition = ProductCondition;
-            this.Category = ProductCategory;
-            this.Tags = ProductTags;
-            this.Images = Images;
-            this.StartDate = StartDate;
-            this.EndDate = EndDate;
-            this.TimeLimit = TimeLimit;
-            this.DailyRate = DailyRate;
-            this.IsBorrowed = IsBorrowed;
+            this.Id = id;
+            this.Title = title;
+            this.Description = description;
+            this.Seller = seller;
+            this.Condition = productCondition;
+            this.Category = productCategory;
+            this.Tags = productTags;
+            this.Images = images;
+            this.StartDate = startDate;
+            this.EndDate = endDate;
+            this.TimeLimit = timeLimit;
+            this.DailyRate = dailyRate;
+            this.IsBorrowed = isBorrowed;
         }
     }
 }

@@ -15,22 +15,22 @@ namespace DomainLayer.Domain
 
         public List<Bid> BidHistory { get; set; }
 
-        public AuctionProduct(int Id, string Title, string Description, User Seller, ProductCondition ProductCondition, ProductCategory ProductCategory,
-            List<ProductTag> ProductTags, List<Image> Images, DateTime StartAuctionDate, DateTime EndAuctionDate, float StartingPrice)
+        public AuctionProduct(int id, string title, string description, User seller, ProductCondition productCondition, ProductCategory productCategory,
+            List<ProductTag> productTags, List<Image> images, DateTime startAuctionDate, DateTime endAuctionDate, float startingPrice)
         {
-            this.Id = Id;
-            this.Description = Description;
-            this.Title = Title;
-            this.Seller = Seller;
-            this.Condition = ProductCondition;
-            this.Category = ProductCategory;
-            this.Tags = ProductTags;
-            this.Seller = Seller;
-            this.Images = Images;
-            this.StartAuctionDate = StartAuctionDate;
-            this.EndAuctionDate = EndAuctionDate;
-            this.StartingPrice = StartingPrice;
-            this.CurrentPrice = StartingPrice;
+            this.Id = id;
+            this.Description = description;
+            this.Title = title;
+            this.Seller = seller;
+            this.Condition = productCondition;
+            this.Category = productCategory;
+            this.Tags = productTags;
+            this.Seller = seller;
+            this.Images = images;
+            this.StartAuctionDate = startAuctionDate;
+            this.EndAuctionDate = endAuctionDate;
+            this.StartingPrice = startingPrice;
+            this.CurrentPrice = startingPrice;
             this.BidHistory = new List<Bid>();
         }
 

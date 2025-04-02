@@ -21,13 +21,11 @@ namespace MarketMinds.Services.ProductTagService
         public List<Product> GetProducts()
         {
             return productRepository.GetProducts();
-            
         }
 
         public Product GetProductById(int id)
         {
             return productRepository.GetProductByID(id);
-            
         }
 
         public void AddProduct(Product product)
@@ -37,7 +35,7 @@ namespace MarketMinds.Services.ProductTagService
 
         public void UpdateProduct(Product product)
         {
-            //productRepository.UpdateProduct(product);
+            // productRepository.UpdateProduct(product);
         }
 
         public void DeleteProduct(Product product)
@@ -65,20 +63,23 @@ namespace MarketMinds.Services.ProductTagService
             {
                 if (sortCondition.isAscending)
                 {
-                    productResultSet = productResultSet.OrderBy(p => {
-                        var prop = p?.GetType().GetProperty(sortCondition.internalAttributeFieldTitle);
-                        return prop?.GetValue(p);
-                    }).ToList();
+                    productResultSet = productResultSet.OrderBy(
+                        p =>
+                        {
+                            var prop = p?.GetType().GetProperty(sortCondition.internalAttributeFieldTitle);
+                            return prop?.GetValue(p);
+                        }).ToList();
                 }
                 else
                 {
-                    productResultSet = productResultSet.OrderByDescending(p => {
-                        var prop = p?.GetType().GetProperty(sortCondition.internalAttributeFieldTitle);
-                        return prop?.GetValue(p);
-                    }).ToList();
+                    productResultSet = productResultSet.OrderByDescending(
+                        p =>
+                        {
+                            var prop = p?.GetType().GetProperty(sortCondition.internalAttributeFieldTitle);
+                            return prop?.GetValue(p);
+                        }).ToList();
                 }
             }
-
             return productResultSet;
         }
     }

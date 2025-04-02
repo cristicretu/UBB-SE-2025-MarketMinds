@@ -88,8 +88,7 @@ namespace MarketMinds.Repositories.AuctionProductsRepository
 
                 AuctionProduct auction = new AuctionProduct(
                     id, title, description, seller, condition, category,
-                    tags, images, start, end, startingPrice
-                );
+                    tags, images, start, end, startingPrice);
 
                 auctions.Add(auction);
             }
@@ -149,29 +148,26 @@ namespace MarketMinds.Repositories.AuctionProductsRepository
 
         public void DeleteProduct(Product product)
         {
-            AuctionProduct auction = product as AuctionProduct;
+            AuctionProduct? auction = product as AuctionProduct;
             if (auction == null)
+            {
                 throw new ArgumentException("Product must be of type AuctionProduct.");
-
+            }
             string query = "DELETE FROM AuctionProducts WHERE id = @Id";
-
             connection.OpenConnection();
             using (SqlCommand cmd = new SqlCommand(query, connection.GetConnection()))
-
             {
                 cmd.Parameters.AddWithValue("@Id", auction.Id);
-
                 cmd.ExecuteNonQuery();
             }
         }
-
         public void AddProduct(Product product)
         {
-            AuctionProduct auction = (AuctionProduct)product;
+            AuctionProduct? auction = product as AuctionProduct;
             if (auction == null)
+            {
                 throw new ArgumentException("Product must be of type AuctionProduct.");
-
-
+            }
             string insertProductQuery = @"
             INSERT INTO AuctionProducts 
             (description, seller_id, condition_id, category_id, start_datetime, end_datetime, starting_price, current_price , title)
@@ -180,10 +176,9 @@ namespace MarketMinds.Repositories.AuctionProductsRepository
             SELECT SCOPE_IDENTITY();";
 
             connection.OpenConnection();
-
             int newProductId;
             using (SqlCommand cmd = new SqlCommand(insertProductQuery, connection.GetConnection()))
-            {                
+            {
                 cmd.Parameters.AddWithValue("@Description", auction.Description);
                 cmd.Parameters.AddWithValue("@SellerId", auction.Seller.Id);
                 cmd.Parameters.AddWithValue("@ConditionId", auction.Condition.id);
@@ -197,7 +192,6 @@ namespace MarketMinds.Repositories.AuctionProductsRepository
                 object result = cmd.ExecuteScalar();
                 newProductId = Convert.ToInt32(result);
             }
-
             foreach (var tag in auction.Tags)
             {
                 string insertTagQuery = @"
@@ -211,7 +205,6 @@ namespace MarketMinds.Repositories.AuctionProductsRepository
                     cmd.ExecuteNonQuery();
                 }
             }
-
             foreach (var image in auction.Images)
             {
                 string insertImageQuery = @"
@@ -228,14 +221,13 @@ namespace MarketMinds.Repositories.AuctionProductsRepository
 
             connection.CloseConnection();
         }
-
-
         public void UpdateProduct(Product product)
         {
             AuctionProduct auction = (AuctionProduct)product;
             if (auction == null)
+            {
                 throw new ArgumentException("Product must be of type AuctionProduct.");
-
+            }
             string query = "UPDATE AuctionProducts SET current_price = @CurrentPrice WHERE Id = @Id";
 
             connection.OpenConnection();
@@ -243,17 +235,13 @@ namespace MarketMinds.Repositories.AuctionProductsRepository
             {
                 cmd.Parameters.AddWithValue("@CurrentPrice", auction.CurrentPrice);
                 cmd.Parameters.AddWithValue("@Id", auction.Id);
-
-
                 cmd.ExecuteNonQuery();
             }
         }
-
         Product IProductsRepository.GetProductByID(int id)
         {
             return GetProductByID(id);
         }
-
         public AuctionProduct GetProductByID(int id)
         {
             AuctionProduct auction = null;
@@ -326,13 +314,11 @@ namespace MarketMinds.Repositories.AuctionProductsRepository
                             images,
                             start,
                             end,
-                            startingPrice
-                        );
+                            startingPrice);
                     }
                 }
             }
             connection.CloseConnection();
-
             return auction;
         }
     }
