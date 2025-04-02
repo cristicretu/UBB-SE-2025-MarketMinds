@@ -15,7 +15,7 @@ namespace MarketMinds.Services.BasketService
         /// <param name="userId">The ID of the user.</param>
         /// <param name="productId">The ID of the product to add.</param>
         /// <param name="quantity">The quantity of the product to add.</param>
-        void AddToBasket(int userId, int productId, int quantity);
+        void AddProductToBasket(int userId, int productId, int quantity);
 
         /// <summary>
         /// Retrieves the user's basket.

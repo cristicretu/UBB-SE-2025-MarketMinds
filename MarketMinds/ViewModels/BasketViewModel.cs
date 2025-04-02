@@ -48,7 +48,7 @@ namespace ViewModelLayer.ViewModel
         {
             try
             {
-                _basketService.AddToBasket(_currentUser.Id, productId, 1);
+                _basketService.AddProductToBasket(_currentUser.Id, productId, 1);
                 LoadBasket();
                 ErrorMessage = string.Empty;
             }

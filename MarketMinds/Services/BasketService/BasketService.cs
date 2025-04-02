@@ -17,7 +17,7 @@ namespace MarketMinds.Services.BasketService
             _basketRepository = basketRepository;
         }
 
-        public void AddToBasket(int userId, int productId, int quantity)
+        public void AddProductToBasket(int userId, int productId, int quantity)
         {
             if (userId <= 0) throw new ArgumentException("Invalid user ID");
             if (productId <= 0) throw new ArgumentException("Invalid product ID");
@@ -26,7 +26,7 @@ namespace MarketMinds.Services.BasketService
             int limitedQuantity = Math.Min(quantity, MaxQuantityPerItem);
 
             // Get the user's basket
-            Basket basket = _basketRepository.GetBasketByUser(userId);
+            Basket basket = _basketRepository.GetBasketByUserId(userId);
 
             // Add the item with the limited quantity
             _basketRepository.AddItemToBasket(basket.Id, productId, limitedQuantity);
@@ -42,7 +42,7 @@ namespace MarketMinds.Services.BasketService
             try
             {
                 // Get the user's basket or create one if it doesn't exist
-                return _basketRepository.GetBasketByUser(user.Id);
+                return _basketRepository.GetBasketByUserId(user.Id);
             }
             catch (Exception ex)
             {
@@ -58,7 +58,7 @@ namespace MarketMinds.Services.BasketService
             try
             {
                 // Get the user's basket
-                Basket basket = _basketRepository.GetBasketByUser(userId);
+                Basket basket = _basketRepository.GetBasketByUserId(userId);
 
                 // Remove the product
                 _basketRepository.RemoveItemByProductId(basket.Id, productId);
@@ -81,7 +81,7 @@ namespace MarketMinds.Services.BasketService
             try
             {
                 // Get the user's basket
-                Basket basket = _basketRepository.GetBasketByUser(userId);
+                Basket basket = _basketRepository.GetBasketByUserId(userId);
 
                 if (limitedQuantity == 0)
                 {
@@ -105,7 +105,7 @@ namespace MarketMinds.Services.BasketService
             if (userId <= 0) throw new ArgumentException("Invalid user ID");
 
             // Get the user's basket
-            Basket basket = _basketRepository.GetBasketByUser(userId);
+            Basket basket = _basketRepository.GetBasketByUserId(userId);
 
             // Clear the basket
             _basketRepository.ClearBasket(basket.Id);

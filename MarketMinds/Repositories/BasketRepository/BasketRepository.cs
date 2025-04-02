@@ -18,7 +18,7 @@ namespace MarketMinds.Repositories.BasketRepository
             this.connection = connection;
         }
 
-        public Basket GetBasketByUser(int userId)
+        public Basket GetBasketByUserId(int userId)
         {
             // Retrieves the user's basket, or creates one if it doesn't exist
             // input: userId
