@@ -29,7 +29,6 @@ namespace MarketMinds.Views.Pages
     {
         public CompareProductsViewModel ViewModel;
         private Window parentWindow;
-        
         public CompareProductsView(CompareProductsViewModel viewModel)
         {
             ViewModel = viewModel;
@@ -40,7 +39,6 @@ namespace MarketMinds.Views.Pages
         public void OnSeeReviewsLeftProductClicked(object sender, RoutedEventArgs e)
         {
             App.SeeSellerReviewsViewModel.Seller = ViewModel.LeftProduct.Seller;
-            
             // Create a window to host the SeeSellerReviewsView page
             var window = new Window();
             window.Content = new SeeSellerReviewsView(App.SeeSellerReviewsViewModel);
@@ -50,7 +48,6 @@ namespace MarketMinds.Views.Pages
         public void OnSeeReviewsRightProductClicked(object sender, RoutedEventArgs e)
         {
             App.SeeSellerReviewsViewModel.Seller = ViewModel.RightProduct.Seller;
-            
             // Create a window to host the SeeSellerReviewsView page
             var window = new Window();
             window.Content = new SeeSellerReviewsView(App.SeeSellerReviewsViewModel);
@@ -98,8 +95,9 @@ namespace MarketMinds.Views.Pages
         private void OnSelectLeftProductClicked(object sender, RoutedEventArgs e)
         {
             if (parentWindow == null)
+            {
                 return;
-                
+            }
             // Checks if leftProduct is auctionProduct and if it is assigns it to product
             if (ViewModel.LeftProduct is AuctionProduct auctionProduct)
             {
@@ -125,8 +123,9 @@ namespace MarketMinds.Views.Pages
         private void OnSelectRightProductClicked(object sender, RoutedEventArgs e)
         {
             if (parentWindow == null)
+            {
                 return;
-                
+            }
             // Checks if RightProduct is auctionProduct and if it is assigns it to product
             if (ViewModel.RightProduct is AuctionProduct auctionProduct)
             {
@@ -148,7 +147,6 @@ namespace MarketMinds.Views.Pages
                 parentWindow.Close();
             }
         }
-        
         // Method to set the parent window
         public void SetParentWindow(Window window)
         {
