@@ -66,7 +66,7 @@ namespace UiLayer
         private void PreselectActiveFilters()
         {
             // Pre-select Conditions
-            foreach (var condition in sortAndFilterViewModel.selectedConditions)
+            foreach (var condition in sortAndFilterViewModel.SelectedConditions)
             {
                 var item = ProductConditions.FirstOrDefault(c => c.DisplayTitle == condition.DisplayTitle);
                 if (item != null && !ConditionListView.SelectedItems.Contains(item))
@@ -76,7 +76,7 @@ namespace UiLayer
             }
 
             // Pre-select Categories (if they are in fullCategories)
-            foreach (var category in sortAndFilterViewModel.selectedCategories)
+            foreach (var category in sortAndFilterViewModel.SelectedCategories)
             {
                 var item = fullCategories.FirstOrDefault(c => c.DisplayTitle == category.DisplayTitle);
                 if (item != null && !CategoryListView.SelectedItems.Contains(item))
@@ -86,7 +86,7 @@ namespace UiLayer
             }
 
             // Pre-select Tags
-            foreach (var tag in sortAndFilterViewModel.selectedTags)
+            foreach (var tag in sortAndFilterViewModel.SelectedTags)
             {
                 var item = fullTags.FirstOrDefault(t => t.DisplayTitle == tag.DisplayTitle);
                 if (item != null && !TagListView.SelectedItems.Contains(item))

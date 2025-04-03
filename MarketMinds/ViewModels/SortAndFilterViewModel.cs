@@ -12,74 +12,74 @@ namespace BusinessLogicLayer.ViewModel
     {
         private ProductService productService;
 
-        public List<ProductCondition> selectedConditions { get; set; }
-        public List<ProductCategory> selectedCategories { get; set; }
-        public List<ProductTag> selectedTags { get; set; }
-        public ProductSortType? sortCondition { get; set; }
-        public string searchQuery { get; set; }
+        public List<ProductCondition> SelectedConditions { get; set; }
+        public List<ProductCategory> SelectedCategories { get; set; }
+        public List<ProductTag> SelectedTags { get; set; }
+        public ProductSortType? SortCondition { get; set; }
+        public string SearchQuery { get; set; }
         public SortAndFilterViewModel(ProductService productService)
         {
             this.productService = productService;
 
-            this.selectedConditions = new List<ProductCondition>();
-            this.selectedCategories = new List<ProductCategory>();
-            this.selectedTags = new List<ProductTag>();
-            this.sortCondition = null;
-            this.searchQuery = string.Empty;
+            this.SelectedConditions = new List<ProductCondition>();
+            this.SelectedCategories = new List<ProductCategory>();
+            this.SelectedTags = new List<ProductTag>();
+            this.SortCondition = null;
+            this.SearchQuery = string.Empty;
         }
 
         public List<Product> HandleSearch()
         {
-            return ProductService.GetSortedFilteredProducts(this.productService.GetProducts(), selectedConditions, selectedCategories, selectedTags, sortCondition, searchQuery);
+            return ProductService.GetSortedFilteredProducts(this.productService.GetProducts(), SelectedConditions, SelectedCategories, SelectedTags, SortCondition, SearchQuery);
         }
 
         public void HandleClearAllFilters()
         {
-            this.selectedConditions.Clear();
-            this.selectedCategories.Clear();
-            this.selectedTags.Clear();
-            this.sortCondition = null;
-            this.searchQuery = string.Empty;
+            this.SelectedConditions.Clear();
+            this.SelectedCategories.Clear();
+            this.SelectedTags.Clear();
+            this.SortCondition = null;
+            this.SearchQuery = string.Empty;
         }
 
         public void HandleSortChange(ProductSortType newSortCondition)
         {
-            this.sortCondition = newSortCondition;
+            this.SortCondition = newSortCondition;
         }
 
         public void HandleSearchQueryChange(string searchQuery)
         {
-            this.searchQuery = searchQuery;
+            this.SearchQuery = searchQuery;
         }
 
         public void HandleAddProductCondition(ProductCondition condition)
         {
-            this.selectedConditions.Add(condition);
+            this.SelectedConditions.Add(condition);
         }
 
         public void HandleRemoveProductCondition(ProductCondition condition)
         {
-            this.selectedConditions.Remove(condition);
+            this.SelectedConditions.Remove(condition);
         }
 
         public void HandleAddProductCategory(ProductCategory category)
         {
-            this.selectedCategories.Add(category);
+            this.SelectedCategories.Add(category);
         }
 
         public void HandleRemoveProductCategory(ProductCategory category)
         {
-            this.selectedCategories.Remove(category);
+            this.SelectedCategories.Remove(category);
         }
 
         public void HandleAddProductTag(ProductTag tag)
         {
-            this.selectedTags.Add(tag);
+            this.SelectedTags.Add(tag);
         }
 
         public void HandleRemoveProductTag(ProductTag tag)
         {
-            this.selectedTags.Remove(tag);
+            this.SelectedTags.Remove(tag);
         }
     }
 }
