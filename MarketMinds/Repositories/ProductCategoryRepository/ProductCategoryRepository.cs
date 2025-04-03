@@ -22,7 +22,6 @@ namespace MarketMinds.Repositories.ProductCategoryRepository
         {
             // Returns all the product categories
             // output: all the product categories
-
             List<ProductCategory> productCategories = new List<ProductCategory>();
             string query = "SELECT * FROM ProductCategories";
             connection.OpenConnection();
@@ -35,8 +34,7 @@ namespace MarketMinds.Repositories.ProductCategoryRepository
                         productCategories.Add(new ProductCategory(
                             reader.GetInt32(0),
                             reader.GetString(1),
-                            reader.GetString(2)
-                        ));
+                            reader.GetString(2)));
                     }
                 }
             }
@@ -49,7 +47,6 @@ namespace MarketMinds.Repositories.ProductCategoryRepository
             // Creates a new product category
             // input: displayTitle, description
             // output: the created product tag
-
             int newId = -1;
 
             string cmd = "INSERT INTO ProductCategories (title, description) VALUES (@displayTitle, @description); SELECT CAST(SCOPE_IDENTITY() as int);";
@@ -75,7 +72,6 @@ namespace MarketMinds.Repositories.ProductCategoryRepository
             // Deletes a product category
             // input: displayTitle
             // output: none
-
             string cmd = "DELETE FROM ProductCategories WHERE title = @displayTitle";
             connection.OpenConnection();
             using (SqlCommand command = new SqlCommand(cmd, connection.GetConnection()))

@@ -13,27 +13,27 @@ namespace UiLayer
     /// </summary>
     public sealed partial class AdminView : Window
     {
-        private readonly ProductCategoryViewModel _productCategoryViewModel;
-        private readonly ProductConditionViewModel _productConditionViewModel;
-        private ObservableCollection<ProductCategory> _productCategories;
-        private ObservableCollection<ProductCondition> _productConditions;
+        private readonly ProductCategoryViewModel productCategoryViewModel;
+        private readonly ProductConditionViewModel productConditionViewModel;
+        public ObservableCollection<ProductCategory> ProductCategories { get; private set; }
+        public ObservableCollection<ProductCondition> ProductConditions { get; private set; }
 
         public AdminView()
         {
             this.InitializeComponent();
 
-            _productCategoryViewModel = MarketMinds.App.productCategoryViewModel;
-            _productConditionViewModel = MarketMinds.App.productConditionViewModel;
+            productCategoryViewModel = MarketMinds.App.ProductCategoryViewModel;
+            productConditionViewModel = MarketMinds.App.ProductConditionViewModel;
 
-            _productCategories = new ObservableCollection<ProductCategory>();
-            _productConditions = new ObservableCollection<ProductCondition>();
+            ProductCategories = new ObservableCollection<ProductCategory>();
+            ProductConditions = new ObservableCollection<ProductCondition>();
 
             // Load existing data
             LoadCategories();
             LoadConditions();
         }
 
-        private async void handleAddCategoryButton_Click(object sender, RoutedEventArgs e)
+        private async void HandleAddCategoryButton_Click(object sender, RoutedEventArgs e)
         {
             string name = CategoryNameTextBox.Text;
             string description = CategoryDescriptionTextBox.Text;
@@ -46,8 +46,8 @@ namespace UiLayer
 
             try
             {
-                var category = _productCategoryViewModel.CreateProductCategory(name, description);
-                _productCategories.Add(category); // Update list dynamically
+                var category = productCategoryViewModel.CreateProductCategory(name, description);
+                ProductCategories.Add(category); // Update list dynamically
                 await ShowContentDialog("Success", $"Category '{name}' created successfully.");
 
                 // Clear input fields
@@ -60,7 +60,7 @@ namespace UiLayer
             }
         }
 
-        private async void handleAddConditionButton_Click(object sender, RoutedEventArgs e)
+        private async void HandleAddConditionButton_Click(object sender, RoutedEventArgs e)
         {
             string name = ConditionNameTextBox.Text;
             string description = ConditionDescriptionTextBox.Text;
@@ -73,8 +73,8 @@ namespace UiLayer
 
             try
             {
-                var condition = _productConditionViewModel.CreateProductCondition(name, description);
-                _productConditions.Add(condition);
+                var condition = productConditionViewModel.CreateProductCondition(name, description);
+                ProductConditions.Add(condition);
                 await ShowContentDialog("Success", $"Condition '{name}' created successfully.");
 
                 // Clear input fields
@@ -90,22 +90,22 @@ namespace UiLayer
         // Load existing categories from service
         private void LoadCategories()
         {
-            var categories = _productCategoryViewModel.GetAllProductCategories();
-            _productCategories.Clear();
+            var categories = productCategoryViewModel.GetAllProductCategories();
+            ProductCategories.Clear();
             foreach (var category in categories)
             {
-                _productCategories.Add(category);
+                ProductCategories.Add(category);
             }
         }
 
         // Load existing conditions from service
         private void LoadConditions()
         {
-            var conditions = _productConditionViewModel.GetAllProductConditions();
-            _productConditions.Clear();
+            var conditions = productConditionViewModel.GetAllProductConditions();
+            ProductConditions.Clear();
             foreach (var condition in conditions)
             {
-                _productConditions.Add(condition);
+                ProductConditions.Add(condition);
             }
         }
 
@@ -117,7 +117,7 @@ namespace UiLayer
                 Title = title,
                 Content = content,
                 CloseButtonText = "OK",
-                XamlRoot = this.Content.XamlRoot 
+                XamlRoot = this.Content.XamlRoot
             };
             await dialog.ShowAsync();
         }

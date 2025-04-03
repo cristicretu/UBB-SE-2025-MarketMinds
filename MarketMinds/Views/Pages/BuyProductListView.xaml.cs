@@ -9,6 +9,7 @@ using ViewModelLayer.ViewModel;
 using BusinessLogicLayer.Services;
 using BusinessLogicLayer.ViewModel;
 using MarketMinds;
+using MarketMinds.Views.Pages;
 
 namespace UiLayer
 {
@@ -30,15 +31,14 @@ namespace UiLayer
             this.InitializeComponent();
 
             // Assume you have a view model for buy products
-            buyProductsViewModel = MarketMinds.App.buyProductsViewModel;
-            sortAndFilterViewModel = MarketMinds.App.buyProductSortAndFilterViewModel;
-            compareProductsViewModel = MarketMinds.App.compareProductsViewModel;
+            buyProductsViewModel = MarketMinds.App.BuyProductsViewModel;
+            sortAndFilterViewModel = MarketMinds.App.BuyProductSortAndFilterViewModel;
+            compareProductsViewModel = MarketMinds.App.CompareProductsViewModel;
 
             buyProducts = new ObservableCollection<BuyProduct>();
             currentFullList = buyProductsViewModel.GetAllProducts();
             ApplyFiltersAndPagination();
         }
-
         private void BuyListView_ItemClick(object sender, ItemClickEventArgs e)
         {
             var selectedProduct = e.ClickedItem as BuyProduct;
@@ -47,13 +47,11 @@ namespace UiLayer
                 // Create and show the detail view
                 var detailView = new BuyProductView(selectedProduct);
                 detailView.Activate();
-
             }
         }
-
         private void ApplyFiltersAndPagination()
         {
-            var filteredProducts = sortAndFilterViewModel.handleSearch()
+            var filteredProducts = sortAndFilterViewModel.HandleSearch()
                                          .Cast<BuyProduct>().ToList();
             currentFullList = filteredProducts;
             currentPage = 1;
@@ -70,8 +68,9 @@ namespace UiLayer
 
             buyProducts.Clear();
             foreach (var item in pageItems)
+            {
                 buyProducts.Add(item);
-            
+            }
             // Show the empty message if no items exist
             if (buyProducts.Count == 0)
             {
@@ -114,7 +113,7 @@ namespace UiLayer
 
         private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            sortAndFilterViewModel.handleSearchQueryChange(SearchTextBox.Text);
+            sortAndFilterViewModel.HandleSearchQueryChange(SearchTextBox.Text);
             ApplyFiltersAndPagination();
         }
 
@@ -124,7 +123,9 @@ namespace UiLayer
             filterDialog.XamlRoot = Content.XamlRoot;
             var result = await filterDialog.ShowAsync();
             if (result == ContentDialogResult.Primary)
+            {
                 ApplyFiltersAndPagination();
+            }
         }
 
         private void SortButton_Click(object sender, RoutedEventArgs e)
@@ -141,20 +142,16 @@ namespace UiLayer
                 var sortType = ParseSortType(sortTag);
                 if (sortType != null)
                 {
-                    sortAndFilterViewModel.handleSortChange(sortType);
+                    sortAndFilterViewModel.HandleSortChange(sortType);
                     ApplyFiltersAndPagination();
                 }
             }
         }
 
-        private ProductSortType ParseSortType(string sortTag)
+        private ProductSortType? ParseSortType(string sortTag)
         {
             switch (sortTag)
             {
-                case "SellerRatingAsc":
-                    return new ProductSortType("Seller Rating", "SellerRating", true);
-                case "SellerRatingDesc":
-                    return new ProductSortType("Seller Rating", "SellerRating", false);
                 case "PriceAsc":
                     return new ProductSortType("Price", "Price", true);
                 case "PriceDesc":
@@ -166,18 +163,19 @@ namespace UiLayer
 
         private void AddToCompare_Click(object sender, RoutedEventArgs e)
         {
-            var button = sender as Button;
-            var selectedProduct = button.DataContext as Product;
-            if (selectedProduct != null)
+            if (sender is Button button && button.DataContext is Product selectedProduct)
             {
                 bool twoAdded = compareProductsViewModel.AddProduct(selectedProduct);
-                if (twoAdded == true)
+                if (twoAdded)
                 {
-                    var compareView = new CompareProductsView(compareProductsViewModel);
-                    compareView.Activate();
+                    // Create a compare view
+                    var compareProductsView = new CompareProductsView(compareProductsViewModel);
+                    // Create a window to host the CompareProductsView page
+                    var compareWindow = new Window();
+                    compareWindow.Content = compareProductsView;
+                    compareProductsView.SetParentWindow(compareWindow);
+                    compareWindow.Activate();
                 }
-
-
             }
         }
     }

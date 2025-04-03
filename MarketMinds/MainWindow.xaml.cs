@@ -1,4 +1,10 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using MarketMinds;
+using MarketMinds.Views.Pages;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -6,17 +12,11 @@ using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
-
 namespace UiLayer
 {
     /// <summary>
@@ -28,59 +28,60 @@ namespace UiLayer
         {
             this.InitializeComponent();
         }
-            
-        private void handleAuctionProductListViewButton_Click(object sender, RoutedEventArgs e)
+        private void HandleAuctionProductListViewButton_Click(object sender, RoutedEventArgs e)
         {
             auctionProductListViewWindow = new AuctionProductListView();
             auctionProductListViewWindow.Activate();
         }
-        
-        private void handleBorrowProductListViewButton_Click(object sender, RoutedEventArgs e)
+        private void HandleBorrowProductListViewButton_Click(object sender, RoutedEventArgs e)
         {
             borrowProductListViewWindow = new BorrowProductListView();
             borrowProductListViewWindow.Activate();
         }
-        
-        private void handleBuyProductListViewButton_Click(object sender, RoutedEventArgs e)
+        private void HandleBuyProductListViewButton_Click(object sender, RoutedEventArgs e)
         {
             buyProductListViewWindow = new BuyProductListView();
             buyProductListViewWindow.Activate();
         }
-        
-        private void handleAdminViewButton_Click(object sender, RoutedEventArgs e)
+        private void HandleAdminViewButton_Click(object sender, RoutedEventArgs e)
         {
             adminViewWindow = new AdminView();
             adminViewWindow.Activate();
         }
-        private void handleBasketViewButton_Click(object sender, RoutedEventArgs e)
+        private void HandleBasketViewButton_Click(object sender, RoutedEventArgs e)
         {
-            basketViewWindow = new BasketView();
+            // Create a window that hosts the BasketView page
+            basketViewWindow = new Window();
+            basketViewWindow.Content = new BasketView();
             basketViewWindow.Activate();
         }
 
-        private void handleLeaveReviewButton_Click(Object sender, RoutedEventArgs e)
+        private void HandleLeaveReviewButton_Click(object sender, RoutedEventArgs e)
         {
-            leaveReviewViewWindow = new CreateReviewView(App.reviewCreateViewModel);
+            leaveReviewViewWindow = new CreateReviewView(App.ReviewCreateViewModel);
             leaveReviewViewWindow.Activate();
         }
 
-        private void handleCreateListingButton_Click(Object sender, RoutedEventArgs e)
+        private void HandleCreateListingButton_Click(object sender, RoutedEventArgs e)
         {
-            createListingViewWindow = new Window();
-            createListingViewWindow.Content = new CreateListingView(this);
-            createListingViewWindow.Activate();
+            CreateListingViewWindow = new Window();
+            CreateListingViewWindow.Content = new CreateListingView(this);
+            CreateListingViewWindow.Activate();
         }
 
-        private void handleSeeReviewViewButton_Click(Object sender, RoutedEventArgs e)
+        private void HandleSeeReviewViewButton_Click(object sender, RoutedEventArgs e)
         {
-            if (App.currentUser.UserType == 3) // buyer
+            // buyer
+            if (App.CurrentUser.UserType == 3)
             {
-                seeReviewsWindow = new SeeBuyerReviewsView(App.seeBuyerReviewsViewModel);
+                seeReviewsWindow = new SeeBuyerReviewsView(App.SeeBuyerReviewsViewModel);
                 seeReviewsWindow.Activate();
             }
-            else if (App.currentUser.UserType == 2)
+            else if (App.CurrentUser.UserType == 2)
             {
-                seeReviewsWindow = new SeeSellerReviewsView(App.seeSellerReviewsViewModel);
+                // Create a window that hosts the SeeSellerReviewsView page
+                seeReviewsWindow = new Window();
+                seeReviewsWindow.Content = new SeeSellerReviewsView(App.SeeSellerReviewsViewModel);
                 seeReviewsWindow.Activate();
             }
         }
@@ -91,7 +92,7 @@ namespace UiLayer
         private Window buyProductListViewWindow;
         private Window adminViewWindow;
         private Window leaveReviewViewWindow;
-        public Window createListingViewWindow { get; set; }
+        public Window CreateListingViewWindow { get; set; }
         private Window seeReviewsWindow;
     }
 }

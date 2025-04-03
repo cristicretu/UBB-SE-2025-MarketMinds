@@ -87,8 +87,8 @@
                         <CalendarDatePicker x:Name="EndDatePicker"
                                        Width="300"
                                        HorizontalAlignment="Left"
-                                       MinDate="{x:Bind _product.StartDate, Mode=OneWay}"
-                                       MaxDate="{x:Bind _product.TimeLimit, Mode=OneWay}"
+                                       MinDate="{x:Bind Product.StartDate, Mode=OneWay}"
+                                       MaxDate="{x:Bind Product.TimeLimit, Mode=OneWay}"
                                        DateChanged="EndDatePicker_DateChanged"/>
                     </StackPanel>
 

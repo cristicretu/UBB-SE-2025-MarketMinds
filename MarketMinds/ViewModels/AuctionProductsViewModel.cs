@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using DomainLayer.Domain;
-using System;
 using MarketMinds.Services.AuctionProductsService;
 
 namespace ViewModelLayer.ViewModel;
@@ -13,7 +13,6 @@ public class AuctionProductsViewModel
     {
         this.auctionProductsService = auctionProductsService;
     }
-    
     public List<AuctionProduct> GetAllProducts()
     {
         var auctionProducts = new List<AuctionProduct>();
@@ -27,7 +26,9 @@ public class AuctionProductsViewModel
     public void PlaceBid(AuctionProduct product, User bidder, string enteredBidText)
     {
         if (!float.TryParse(enteredBidText, out float bidAmount))
+        {
             throw new Exception("Invalid bid amount");
+        }
 
         auctionProductsService.PlaceBid(product, bidder, bidAmount);
     }

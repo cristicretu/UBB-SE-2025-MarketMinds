@@ -16,7 +16,6 @@ namespace ViewModelLayer.ViewModel
         {
             this.productTagService = productTagService;
         }
-        
         public List<ProductTag> GetAllProductTags()
         {
             return productTagService.GetAllProductTags();

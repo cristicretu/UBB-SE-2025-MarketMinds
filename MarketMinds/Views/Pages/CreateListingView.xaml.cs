@@ -1,19 +1,19 @@
+using System;
+using System.Linq;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Net.Http.Headers;
+using System.Net.Http;
+using System.Threading.Tasks;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
 using ViewModelLayer.ViewModel;
-using System.Collections.Generic;
 using DomainLayer.Domain;
-using System.Collections.ObjectModel;
 using MarketMinds;
-using System.Linq;
-using System;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI;
 using Newtonsoft.Json;
-using System.Net.Http.Headers;
-using System.Net.Http;
-using System.Threading.Tasks;
 using Windows.Storage.Pickers;
 using Windows.Storage.Streams;
 using Windows.Storage;
@@ -46,12 +46,12 @@ namespace UiLayer
         private TextBlock conditionTextBlock;
         private MainWindow window;
         private readonly string imgurClientId;
-        private static readonly HttpClient _httpClient = new HttpClient();
+        private static readonly HttpClient HttpClient = new HttpClient();
 
         public CreateListingView(MainWindow mainWindow)
         {
             this.InitializeComponent();
-            imgurClientId = App.configuration.GetSection("ImgurSettings:ClientId").Value;
+            imgurClientId = App.Configuration.GetSection("ImgurSettings:ClientId").Value;
             titleTextBox = new TextBox { PlaceholderText = "Title" };
             titleErrorTextBlock = new TextBlock { Text = "Title cannot be empty.", Foreground = new SolidColorBrush(Colors.Red), Visibility = Visibility.Collapsed };
             categoryTextBlock = new TextBlock { Text = "Select Category" };
@@ -67,15 +67,14 @@ namespace UiLayer
             conditionComboBox = new ComboBox();
             conditionErrorTextBlock = new TextBlock { Text = "Please select a condition.", Foreground = new SolidColorBrush(Colors.Red), Visibility = Visibility.Collapsed };
             tags = new ObservableCollection<string>();
-            
             uploadImageButton = new Button { Content = "Upload Image", Width = 150 };
             uploadImageButton.Click += OnUploadImageClick;
             imagesTextBlock = new TextBlock { TextWrapping = TextWrapping.Wrap };
 
             // Use singleton instances from App class
-            productCategoryViewModel = App.productCategoryViewModel;
-            productConditionViewModel = App.productConditionViewModel;
-            productTagViewModel = App.productTagViewModel;
+            productCategoryViewModel = App.ProductCategoryViewModel;
+            productConditionViewModel = App.ProductConditionViewModel;
+            productTagViewModel = App.ProductTagViewModel;
 
             // Load categories and conditions into ComboBoxes
             LoadCategories();
@@ -118,15 +117,15 @@ namespace UiLayer
             switch (selectedType)
             {
                 case "Buy":
-                    viewModel = new CreateBuyListingViewModel { BuyProductsService = App.buyProductsService };
+                    viewModel = new CreateBuyListingViewModel { BuyProductsService = App.BuyProductsService };
                     AddBuyProductFields();
                     break;
                 case "Borrow":
-                    viewModel = new CreateBorrowListingViewModel { BorrowProductsService = App.borrowProductsService };
+                    viewModel = new CreateBorrowListingViewModel { BorrowProductsService = App.BorrowProductsService };
                     AddBorrowProductFields();
                     break;
                 case "Auction":
-                    viewModel = new CreateAuctionListingViewModel { auctionProductsService = App.auctionProductsService };
+                    viewModel = new CreateAuctionListingViewModel { AuctionProductsService = App.AuctionProductsService };
                     AddAuctionProductFields();
                     break;
             }
@@ -209,7 +208,7 @@ namespace UiLayer
         private ProductTag EnsureTagExists(string tagName)
         {
             var allTags = productTagViewModel.GetAllProductTags();
-            var existingTag = allTags.FirstOrDefault(tag => tag.displayTitle.Equals(tagName, StringComparison.OrdinalIgnoreCase));
+            var existingTag = allTags.FirstOrDefault(tag => tag.DisplayTitle.Equals(tagName, StringComparison.OrdinalIgnoreCase));
 
             if (existingTag != null)
             {
@@ -223,7 +222,7 @@ namespace UiLayer
 
         private async void OnUploadImageClick(object sender, RoutedEventArgs e)
         {
-            IntPtr hwnd = WinRT.Interop.WindowNative.GetWindowHandle(window.createListingViewWindow);
+            IntPtr hwnd = WinRT.Interop.WindowNative.GetWindowHandle(window.CreateListingViewWindow);
 
             var picker = new FileOpenPicker();
             WinRT.Interop.InitializeWithWindow.Initialize(picker, hwnd);
@@ -255,36 +254,27 @@ namespace UiLayer
             {
                 // Log file details
                 var properties = await file.GetBasicPropertiesAsync();
-                
-
-                string clientId = App.configuration.GetSection("ImgurSettings:ClientId").Value;
-                
+                string clientId = App.Configuration.GetSection("ImgurSettings:ClientId").Value;
                 // Validate Client ID format
                 if (string.IsNullOrEmpty(clientId))
                 {
-                    
                     await ShowErrorDialog("Imgur Upload Error", "Client ID is not configured. Please check your appsettings.json file.");
                     return null;
                 }
-                
-                if (clientId.Length > 20) // Typical Imgur Client IDs are around 15 chars
+                // Typical Imgur Client IDs are around 15 chars
+                if (clientId.Length > 20)
                 {
-                    
                     await ShowErrorDialog("Imgur Upload Error", "Client ID format appears invalid. Please ensure you're using the Client ID, not the Client Secret.");
                     return null;
                 }
-
-                
-                
                 // Add uploading text to UI
-                viewModel.ImagesString = (string.IsNullOrEmpty(viewModel.ImagesString) ? "" : viewModel.ImagesString + "\n") + uploadingText;
+                viewModel.ImagesString = (string.IsNullOrEmpty(viewModel.ImagesString) ? string.Empty : viewModel.ImagesString + "\n") + uploadingText;
                 imagesTextBlock.Text = viewModel.ImagesString;
 
                 using (var stream = await file.OpenAsync(FileAccessMode.Read))
                 {
                     if (stream.Size > 10 * 1024 * 1024)
                     {
-                        
                         await ShowErrorDialog("Imgur Upload Error", "File size exceeds Imgur's 10MB limit.");
                         return null;
                     }
@@ -314,8 +304,7 @@ namespace UiLayer
                                 {
                                     request.Headers.Add("Authorization", $"Client-ID {clientId}");
                                     request.Content = content;
-                                    
-                                    var response = await _httpClient.SendAsync(request);
+                                    var response = await HttpClient.SendAsync(request);
                                     var responseBody = await response.Content.ReadAsStringAsync();
 
                                     if (response.IsSuccessStatusCode)
@@ -324,10 +313,8 @@ namespace UiLayer
                                         string link = jsonResponse?.data?.link;
                                         if (!string.IsNullOrEmpty(link))
                                         {
-                                            // Remove uploading text and add the new URL
                                             viewModel.ImagesString = viewModel.ImagesString.Replace(uploadingText, link);
                                             imagesTextBlock.Text = viewModel.ImagesString;
-                                            
                                             return link;
                                         }
                                     }
@@ -336,35 +323,25 @@ namespace UiLayer
                         }
                         catch (HttpRequestException ex)
                         {
-                            
-                            
                             if (ex.InnerException != null)
                             {
-                                
                             }
                         }
 
                         if (currentRetry < maxRetries - 1)
                         {
-                            
                             await Task.Delay(delay);
                             delay = TimeSpan.FromSeconds(delay.TotalSeconds * 2);
                         }
                         currentRetry++;
                     }
-
-                    
                     return null;
                 }
             }
             catch (Exception ex)
             {
-                
-                
-                
                 if (ex.InnerException != null)
                 {
-                    
                 }
                 await ShowErrorDialog("Imgur Upload Error", $"Upload failed: {ex.Message}");
                 return null;
@@ -374,7 +351,7 @@ namespace UiLayer
                 // Always remove the uploading text if it's still there
                 if (viewModel.ImagesString?.Contains(uploadingText) == true)
                 {
-                    viewModel.ImagesString = viewModel.ImagesString.Replace(uploadingText, "").Trim();
+                    viewModel.ImagesString = viewModel.ImagesString.Replace(uploadingText, string.Empty).Trim();
                     imagesTextBlock.Text = viewModel.ImagesString;
                 }
             }
@@ -456,7 +433,7 @@ namespace UiLayer
                     titleErrorTextBlock.Visibility = Visibility.Visible;
                     return;
                 }
-                var product = new BuyProduct(0, title, description, App.currentUser, condition, category, tags, viewModel.Images, price);
+                var product = new BuyProduct(0, title, description, App.CurrentUser, condition, category, tags, viewModel.Images, price);
                 viewModel.CreateListing(product);
             }
             else if (viewModel is CreateBorrowListingViewModel)
@@ -477,7 +454,7 @@ namespace UiLayer
                     return;
                 }
 
-                var product = new BorrowProduct(0, title, description, App.currentUser, condition, category, tags, viewModel.Images, DateTime.Now, endDate, endDate, dailyRate, false);
+                var product = new BorrowProduct(0, title, description, App.CurrentUser, condition, category, tags, viewModel.Images, DateTime.Now, endDate, endDate, dailyRate, false);
                 viewModel.CreateListing(product);
             }
             else if (viewModel is CreateAuctionListingViewModel)
@@ -497,7 +474,7 @@ namespace UiLayer
                 }
                 DateTime endAuctionDate = ((CalendarDatePicker)FormContainer.FindName("EndAuctionDatePicker")).Date.Value.DateTime;
 
-                var product = new AuctionProduct(0, title, description, App.currentUser, condition, category, tags, viewModel.Images, DateTime.Now, endAuctionDate, startingPrice);
+                var product = new AuctionProduct(0, title, description, App.CurrentUser, condition, category, tags, viewModel.Images, DateTime.Now, endAuctionDate, startingPrice);
                 viewModel.CreateListing(product);
             }
             ShowSuccessMessage("Listing created successfully!");

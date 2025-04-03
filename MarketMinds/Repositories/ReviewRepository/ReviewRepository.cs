@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using DomainLayer.Domain;
-using Microsoft.Data.SqlClient;
-using DataAccessLayer;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using DataAccessLayer;
+using DomainLayer.Domain;
+using Microsoft.Data.SqlClient;
 
 namespace MarketMinds.Repositories.ReviewRepository
 {
@@ -45,9 +45,7 @@ namespace MarketMinds.Repositories.ReviewRepository
                                 new List<Image>(), // Use ObservableCollection for images
                                 Convert.ToSingle(reader.GetDouble(4)),
                                 reader.GetInt32(2),
-                                reader.GetInt32(1)
-                            );
-
+                                reader.GetInt32(1));
                             reviews.Add(review);
                         }
                     }
@@ -55,7 +53,7 @@ namespace MarketMinds.Repositories.ReviewRepository
                     // Load images for each review after reading the reviews
                     foreach (var review in reviews)
                     {
-                        review.images = new List<Image>(GetImages(review.id)); // Convert List<Image> to ObservableCollection<Image>
+                        review.Images = new List<Image>(GetImages(review.Id)); // Convert List<Image> to ObservableCollection<Image>
                     }
                 }
             }
@@ -66,7 +64,6 @@ namespace MarketMinds.Repositories.ReviewRepository
 
             return reviews;
         }
-
 
         public ObservableCollection<Review> GetAllReviewsBySeller(User seller)
         {
@@ -96,9 +93,7 @@ namespace MarketMinds.Repositories.ReviewRepository
                                 new List<Image>(), // Use ObservableCollection for images
                                 Convert.ToSingle(reader.GetDouble(4)),
                                 reader.GetInt32(2),
-                                reader.GetInt32(1)
-                            );
-
+                                reader.GetInt32(1));
                             reviews.Add(review);
                         }
                     }
@@ -106,7 +101,7 @@ namespace MarketMinds.Repositories.ReviewRepository
                     // Load images for each review after reading the reviews
                     foreach (var review in reviews)
                     {
-                        review.images = new List<Image>(GetImages(review.id)); // Convert List<Image> to ObservableCollection<Image>
+                        review.Images = new List<Image>(GetImages(review.Id)); // Convert List<Image> to ObservableCollection<Image>
                     }
                 }
             }
@@ -114,41 +109,39 @@ namespace MarketMinds.Repositories.ReviewRepository
             {
                 connection.CloseConnection();
             }
-
             return reviews;
         }
-
 
         public void CreateReview(Review review)
         {
             string insertSql = "INSERT INTO Reviews (reviewer_id, seller_id, description, rating) OUTPUT INSERTED.id VALUES (@reviewer_id, @seller_id, @description, @rating)";
-            if (review.description == null)
+            if (review.Description == null)
             {
-                review.description = string.Empty;
+                review.Description = string.Empty;
             }
             connection.OpenConnection();
             try
             {
                 using (SqlCommand cmd = new SqlCommand(insertSql, connection.GetConnection()))
                 {
-                    cmd.Parameters.AddWithValue("@reviewer_id", review.buyerId);
-                    cmd.Parameters.AddWithValue("@seller_id", review.sellerId);
-                    cmd.Parameters.AddWithValue("@description", review.description);
-                    cmd.Parameters.AddWithValue("@rating", review.rating);
+                    cmd.Parameters.AddWithValue("@reviewer_id", review.BuyerId);
+                    cmd.Parameters.AddWithValue("@seller_id", review.SellerId);
+                    cmd.Parameters.AddWithValue("@description", review.Description);
+                    cmd.Parameters.AddWithValue("@rating", review.Rating);
 
-                    review.id = (int)cmd.ExecuteScalar();
+                    review.Id = (int)cmd.ExecuteScalar();
                 }
 
                 // Insert images if they exist
-                if (review.images != null && review.images.Count > 0)
+                if (review.Images != null && review.Images.Count > 0)
                 {
-                    string insertImageSql = "INSERT INTO ReviewsPictures (url, review_id) VALUES (@url, @review_id)";
-                    foreach (var img in review.images)
+                    string insertImageSql = "INSERT INTO ReviewsPictures (url, review_id) VALUES (@Url, @review_id)";
+                    foreach (var img in review.Images)
                     {
                         using (SqlCommand cmd = new SqlCommand(insertImageSql, connection.GetConnection()))
                         {
-                            cmd.Parameters.AddWithValue("@url", img.url);
-                            cmd.Parameters.AddWithValue("@review_id", review.id);
+                            cmd.Parameters.AddWithValue("@Url", img.Url);
+                            cmd.Parameters.AddWithValue("@review_id", review.Id);
                             cmd.ExecuteNonQuery();
                         }
                     }
@@ -182,11 +175,9 @@ namespace MarketMinds.Repositories.ReviewRepository
 
         public void EditReview(Review review, float rating, string description)
         {
-            
-            
-            if (review.id == -1)
+            if (review.Id == -1)
             {
-                review.id = GetReviewId(review);
+                review.Id = GetReviewId(review);
             }
 
             if (rating != 0)
@@ -196,7 +187,7 @@ namespace MarketMinds.Repositories.ReviewRepository
                 Debug.WriteLine("Connected to: " + connection.GetConnection().ServerVersion);
                 using (SqlCommand cmd = new SqlCommand(updateQuery, connection.GetConnection()))
                 {
-                    cmd.Parameters.AddWithValue("@id", review.id);
+                    cmd.Parameters.AddWithValue("@id", review.Id);
                     cmd.Parameters.AddWithValue("@rating", rating);
                     cmd.ExecuteNonQuery();
                 }
@@ -210,28 +201,26 @@ namespace MarketMinds.Repositories.ReviewRepository
                 Debug.WriteLine("Connected to: " + connection.GetConnection().ServerVersion);
                 using (SqlCommand cmd = new SqlCommand(updateQuery, connection.GetConnection()))
                 {
-                    cmd.Parameters.AddWithValue("@id", review.id);
+                    cmd.Parameters.AddWithValue("@id", review.Id);
                     cmd.Parameters.AddWithValue("@description", description);
                     cmd.ExecuteNonQuery();
                 }
                 connection.CloseConnection();
             }
-            
         }
-
         public void DeleteReview(Review review)
         {
-            if (review.id == -1)
+            if (review.Id == -1)
             {
-                review.id = GetReviewId(review);
+                review.Id = GetReviewId(review);
             }
             connection.OpenConnection();
-            DeleteImages(review.id);
+            DeleteImages(review.Id);
 
             string query = "DELETE FROM Reviews WHERE id = @id";
             using (SqlCommand cmd = new SqlCommand(query, connection.GetConnection()))
             {
-                cmd.Parameters.AddWithValue("@id", review.id);
+                cmd.Parameters.AddWithValue("@id", review.Id);
                 cmd.ExecuteNonQuery();
             }
             connection.CloseConnection();
@@ -244,9 +233,9 @@ namespace MarketMinds.Repositories.ReviewRepository
 
             using (SqlCommand cmd = new SqlCommand(query, connection.GetConnection()))
             {
-                cmd.Parameters.AddWithValue("@reviewer", review.buyerId);
-                cmd.Parameters.AddWithValue("@seller", review.sellerId);
-                cmd.Parameters.AddWithValue("@desc", review.description);
+                cmd.Parameters.AddWithValue("@reviewer", review.BuyerId);
+                cmd.Parameters.AddWithValue("@seller", review.SellerId);
+                cmd.Parameters.AddWithValue("@desc", review.Description);
                 connection.OpenConnection();
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {

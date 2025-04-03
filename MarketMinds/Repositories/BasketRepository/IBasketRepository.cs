@@ -1,6 +1,4 @@
-﻿using DomainLayer.Domain;
-using System.Collections.Generic;
-
+﻿using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using DomainLayer.Domain;

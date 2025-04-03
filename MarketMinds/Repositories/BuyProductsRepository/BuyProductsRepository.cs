@@ -1,8 +1,8 @@
-﻿using DomainLayer.Domain;
+﻿using System.Collections.Generic;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using Microsoft.Data.SqlClient;
+using DomainLayer.Domain;
 using DataAccessLayer;
 
 namespace MarketMinds.Repositories.BuyProductsRepository
@@ -20,7 +20,9 @@ namespace MarketMinds.Repositories.BuyProductsRepository
         {
             BuyProduct buy = (BuyProduct)product;
             if (buy == null)
+            {
                 throw new ArgumentException("Product must be of type BuyProduct.");
+            }
 
             string insertProductQuery = @"
             INSERT INTO BuyProducts 
@@ -37,8 +39,8 @@ namespace MarketMinds.Repositories.BuyProductsRepository
                 cmd.Parameters.AddWithValue("@Title", buy.Title);
                 cmd.Parameters.AddWithValue("@Description", buy.Description);
                 cmd.Parameters.AddWithValue("@SellerId", buy.Seller.Id);
-                cmd.Parameters.AddWithValue("@ConditionId", buy.Condition.id);
-                cmd.Parameters.AddWithValue("@CategoryId", buy.Category.id);
+                cmd.Parameters.AddWithValue("@ConditionId", buy.Condition.Id);
+                cmd.Parameters.AddWithValue("@CategoryId", buy.Category.Id);
                 cmd.Parameters.AddWithValue("@Price", buy.Price);
 
                 object result = cmd.ExecuteScalar();
@@ -54,7 +56,7 @@ namespace MarketMinds.Repositories.BuyProductsRepository
                 using (SqlCommand cmd = new SqlCommand(insertTagQuery, connection.GetConnection()))
                 {
                     cmd.Parameters.AddWithValue("@ProductId", newProductId);
-                    cmd.Parameters.AddWithValue("@TagId", tag.id);
+                    cmd.Parameters.AddWithValue("@TagId", tag.Id);
                     cmd.ExecuteNonQuery();
                 }
             }
@@ -67,7 +69,7 @@ namespace MarketMinds.Repositories.BuyProductsRepository
 
                 using (SqlCommand cmd = new SqlCommand(insertImageQuery, connection.GetConnection()))
                 {
-                    cmd.Parameters.AddWithValue("@Url", image.url);
+                    cmd.Parameters.AddWithValue("@Url", image.Url);
                     cmd.Parameters.AddWithValue("@ProductId", newProductId);
                     cmd.ExecuteNonQuery();
                 }
@@ -155,8 +157,7 @@ namespace MarketMinds.Repositories.BuyProductsRepository
 
                 BuyProduct buy = new BuyProduct(
                     id, title, description, seller, condition,
-                    category, tags, images, price
-                );
+                    category, tags, images, price);
 
                 buys.Add(buy);
             }
@@ -283,15 +284,16 @@ namespace MarketMinds.Repositories.BuyProductsRepository
                             category,
                             tags,
                             images,
-                            price
-                        );
+                            price);
                     }
                 }
             }
             connection.CloseConnection();
             return buy;
         }
-
-        public void UpdateProduct(Product product) { }
+        public void UpdateProduct(Product product)
+        {
+            // Implementation goes here
+        }
     }
 }

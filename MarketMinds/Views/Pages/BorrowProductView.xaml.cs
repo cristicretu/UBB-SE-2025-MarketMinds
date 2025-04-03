@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Diagnostics;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Microsoft.UI.Xaml;
@@ -14,27 +15,27 @@ using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
 using DomainLayer.Domain;
 using Microsoft.UI.Xaml.Media.Imaging;
-using System.Diagnostics;
 using ViewModelLayer.ViewModel;
+using MarketMinds.Views.Pages;
 
 namespace MarketMinds
 {
     public sealed partial class BorrowProductView : Window
     {
-        private readonly BorrowProduct _product;
-        private Window seeSellerReviewsView;
-        private readonly User _currentUser;
+        public BorrowProduct Product { get; private set; }
+        private Window? seeSellerReviewsView;
+        private readonly User currentUser;
         public DateTime? SelectedEndDate { get; private set; }
 
         public BorrowProductView(BorrowProduct product)
         {
             this.InitializeComponent();
-            _product = product;
-            _currentUser = MarketMinds.App.currentUser;
+            Product = product;
+            currentUser = MarketMinds.App.CurrentUser;
 
             // Initialize date controls
-            StartDateTextBlock.Text = _product.StartDate.ToString("d");
-            TimeLimitTextBlock.Text = _product.TimeLimit.ToString("d");
+            StartDateTextBlock.Text = Product.StartDate.ToString("d");
+            TimeLimitTextBlock.Text = Product.TimeLimit.ToString("d");
 
             LoadProductDetails();
             LoadImages();
@@ -43,27 +44,25 @@ namespace MarketMinds
         private void LoadProductDetails()
         {
             // Basic Info
-            TitleTextBlock.Text = _product.Title;
-            CategoryTextBlock.Text = _product.Category.displayTitle;
-            ConditionTextBlock.Text = _product.Condition.displayTitle;
+            TitleTextBlock.Text = Product.Title;
+            CategoryTextBlock.Text = Product.Category.DisplayTitle;
+            ConditionTextBlock.Text = Product.Condition.DisplayTitle;
 
             // Seller Info
-            SellerTextBlock.Text = _product.Seller.Username;
-            DescriptionTextBox.Text = _product.Description;
+            SellerTextBlock.Text = Product.Seller.Username;
+            DescriptionTextBox.Text = Product.Description;
 
             // Tags
-            TagsItemsControl.ItemsSource = _product.Tags.Select(tag =>
+            TagsItemsControl.ItemsSource = Product.Tags.Select(tag =>
             {
                 return new TextBlock
                 {
-                    Text = tag.displayTitle,
+                    Text = tag.DisplayTitle,
                     Margin = new Thickness(4),
                     Padding = new Thickness(8, 4, 8, 4)
                 };
             }).ToList();
         }
-
-
         private void OnJoinWaitListClicked(object sender, RoutedEventArgs e)
         {
         }
@@ -75,13 +74,11 @@ namespace MarketMinds
         private void LoadImages()
         {
             ImageCarousel.Items.Clear();
-
-            foreach (var image in _product.Images)
+            foreach (var image in Product.Images)
             {
-
                 var img = new Microsoft.UI.Xaml.Controls.Image
                 {
-                    Source = new BitmapImage(new Uri(image.url)),
+                    Source = new BitmapImage(new Uri(image.Url)),
                     Stretch = Stretch.Uniform, // ✅ shows full image without cropping
                     Height = 250,
                     HorizontalAlignment = HorizontalAlignment.Stretch,
@@ -94,9 +91,13 @@ namespace MarketMinds
 
         private void OnSeeReviewsClicked(object sender, RoutedEventArgs e)
         {
-            App.seeSellerReviewsViewModel.seller = _product.Seller;
-            seeSellerReviewsView = new SeeSellerReviewsView(App.seeSellerReviewsViewModel);
-            seeSellerReviewsView.Activate();
+            App.SeeSellerReviewsViewModel.Seller = Product.Seller;
+            // Create a window to host the SeeSellerReviewsView page
+            var window = new Window();
+            window.Content = new SeeSellerReviewsView(App.SeeSellerReviewsViewModel);
+            window.Activate();
+            // Store reference to window
+            seeSellerReviewsView = window;
         }
 
         private void EndDatePicker_DateChanged(CalendarDatePicker sender, CalendarDatePickerDateChangedEventArgs args)
@@ -118,13 +119,12 @@ namespace MarketMinds
             if (SelectedEndDate.HasValue)
             {
                 // Calculate price based on days difference and daily rate
-                TimeSpan duration = SelectedEndDate.Value - _product.StartDate;
+                TimeSpan duration = SelectedEndDate.Value - Product.StartDate;
                 int days = duration.Days + 1; // Include both start and end dates
-                float totalPrice = days * _product.DailyRate;
+                float totalPrice = days * Product.DailyRate;
 
                 PriceTextBlock.Text = totalPrice.ToString("C"); // Format as currency
             }
         }
-
     }
 }

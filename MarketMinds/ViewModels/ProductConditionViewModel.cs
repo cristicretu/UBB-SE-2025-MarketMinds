@@ -16,7 +16,6 @@ namespace ViewModelLayer.ViewModel
         {
             this.productConditionService = productConditionService;
         }
-        
         public List<ProductCondition> GetAllProductConditions()
         {
             return productConditionService.GetAllProductConditions();

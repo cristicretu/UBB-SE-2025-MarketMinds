@@ -10,10 +10,10 @@ namespace ViewModelLayer.ViewModel
 {
     public class CreateAuctionListingViewModel : CreateListingViewModelBase
     {
-        public AuctionProductsService auctionProductsService { get; set; }
+        public AuctionProductsService? AuctionProductsService { get; set; }
         public override void CreateListing(Product product)
         {
-            auctionProductsService.AddProduct(product);
+            AuctionProductsService?.AddProduct(product);
         }
     }
 }

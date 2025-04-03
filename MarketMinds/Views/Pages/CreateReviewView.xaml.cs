@@ -1,24 +1,24 @@
-using Microsoft.UI.Xaml.Controls;
+using System.Diagnostics;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
+using System;
 using ViewModelLayer.ViewModel;
 using BusinessLogicLayer.Services;
-using DomainLayer.Domain;
-using Microsoft.UI.Xaml;
-using System;
-using System.Diagnostics;
 using Windows.Storage.Pickers;
 using Windows.Storage;
-using System.Net.Http.Headers;
-using System.Net.Http;
-using System.Threading.Tasks;
 using Windows.Storage.Streams;
 using Newtonsoft.Json;
+using DomainLayer.Domain;
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml;
 
 namespace MarketMinds
 {
     public sealed partial class CreateReviewView : Window
     {
         public ReviewCreateViewModel ViewModel { get; set; }
-        private readonly bool _isEditing;
+        private readonly bool var_isEditing;
 
         public CreateReviewView(ReviewCreateViewModel viewModel, Review existingReview = null)
         {
@@ -28,10 +28,10 @@ namespace MarketMinds
 
             if (existingReview != null)
             {
-                _isEditing = true;
-                ViewModel.Description = existingReview.description;
-                ViewModel.Images = existingReview.images;
-                ViewModel.Rating = existingReview.rating;
+                var_isEditing = true;
+                ViewModel.Description = existingReview.Description;
+                ViewModel.Images = existingReview.Images;
+                ViewModel.Rating = existingReview.Rating;
                 ViewModel.CurrentReview = existingReview;
             }
         }
@@ -60,7 +60,7 @@ namespace MarketMinds
             }
         }
 
-        private void handleSubmit_Click(object sender, RoutedEventArgs e)
+        private void HandleSubmit_Click(object sender, RoutedEventArgs e)
         {
             if (ViewModel == null)
             {
@@ -74,7 +74,7 @@ namespace MarketMinds
                 return;
             }
 
-            if (_isEditing)
+            if (var_isEditing)
             {
                 ViewModel.UpdateReview();  // Call an update method instead of submitting a new review
             }
@@ -101,7 +101,7 @@ namespace MarketMinds
 
                 using (HttpClient client = new HttpClient())
                 {
-                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Client-ID", App.configuration.GetSection("ImgurSettings:ClientId").Value);
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Client-ID", App.Configuration.GetSection("ImgurSettings:ClientId").Value);
 
                     var content = new MultipartFormDataContent
             {
@@ -111,13 +111,12 @@ namespace MarketMinds
                     HttpResponseMessage response = await client.PostAsync("https://api.imgur.com/3/image", content);
                     string responseBody = await response.Content.ReadAsStringAsync();
 
-                    dynamic jsonResponse = JsonConvert.DeserializeObject(responseBody);
-                    string link = jsonResponse?.data?.link;
+                    dynamic? jsonResponse = JsonConvert.DeserializeObject(responseBody);
+                    string? link = jsonResponse?.data?.link;
 
                     // Remove "Uploading..." placeholder
-                    ViewModel.ImagesString = ViewModel.ImagesString.Replace("\nUploading...", "");
-
-                    return link;
+                    ViewModel.ImagesString = ViewModel.ImagesString.Replace("\nUploading...", string.Empty);
+                    return link ?? string.Empty;
                 }
             }
         }
@@ -129,6 +128,5 @@ namespace MarketMinds
             ViewModel.ImagesString = string.Empty;
             ViewModel.Rating = 0;
         }
-
     }
 }

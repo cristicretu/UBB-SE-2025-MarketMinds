@@ -13,6 +13,10 @@
     <Nullable>enable</Nullable>
     <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
     <EnableWindowsTargeting>true</EnableWindowsTargeting>
+    <CodeAnalysisRuleSet>SE.ruleset</CodeAnalysisRuleSet>
+    <!-- Diagnostics -->
+    <XamlCompilerDiagnostics>true</XamlCompilerDiagnostics>
+    <MsxamlCompilerDiagnostics>true</MsxamlCompilerDiagnostics>
   </PropertyGroup>
 
   <!-- Platform-specific settings -->
@@ -63,6 +67,10 @@
     <PackageReference Include="CommunityToolkit.WinUI.UI.Controls" Version="7.1.2" />
     <PackageReference Include="CommunityToolkit.WinUI.UI.Controls.Markdown" Version="7.1.2" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.556">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
    <ItemGroup>

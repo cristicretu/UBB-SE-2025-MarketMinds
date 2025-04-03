@@ -1,36 +1,36 @@
 using System;
 using System.Collections.ObjectModel;
+using System.Collections.Generic;
+using System.Linq;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
 using ViewModelLayer.ViewModel;
 using DomainLayer.Domain;
-using System.Linq;
-using System.Collections.Generic;
 
-namespace UiLayer
+namespace MarketMinds.Views.Pages
 {
-    public sealed partial class BasketView : Window
+    public sealed partial class BasketView : Page
     {
-        private BasketViewModel _basketViewModel;
-        private ObservableCollection<BasketItem> _basketItems;
-        private User _currentUser;
+        private BasketViewModel var_basketViewModel;
+        private ObservableCollection<BasketItem> var_basketItems;
+        private User var_currentUser;
 
         public BasketView()
         {
             this.InitializeComponent();
 
             // Get the current user from the app
-            _currentUser = MarketMinds.App.currentUser;
+            var_currentUser = MarketMinds.App.CurrentUser;
 
             // Get the BasketViewModel from the app
-            _basketViewModel = MarketMinds.App.basketViewModel;
+            var_basketViewModel = MarketMinds.App.BasketViewModel;
 
             // Initialize basket items as ObservableCollection for auto-UI updates
-            _basketItems = new ObservableCollection<BasketItem>();
+            var_basketItems = new ObservableCollection<BasketItem>();
 
             // Set the ListView's data source
-            BasketItemsListView.ItemsSource = _basketItems;
+            BasketItemsListView.ItemsSource = var_basketItems;
 
             // Load basket data
             LoadBasketData();
@@ -54,15 +54,15 @@ namespace UiLayer
             try
             {
                 // Refresh basket data from the view model
-                _basketViewModel.LoadBasket();
+                var_basketViewModel.LoadBasket();
 
                 // Clear the current basket items
-                _basketItems.Clear();
+                var_basketItems.Clear();
 
                 // Add all items from the view model
-                foreach (var item in _basketViewModel.BasketItems)
+                foreach (var item in var_basketViewModel.BasketItems)
                 {
-                    _basketItems.Add(item);
+                    var_basketItems.Add(item);
                 }
 
                 // Update UI elements
@@ -79,16 +79,16 @@ namespace UiLayer
         private void UpdateUIElements()
         {
             // Update item count
-            int itemCount = _basketItems.Sum(item => item.Quantity);
-            ItemCountTextBlock.Text = $"{itemCount} item{(itemCount != 1 ? "s" : "")} in your basket";
+            int itemCount = var_basketItems.Sum(item => item.Quantity);
+            ItemCountTextBlock.Text = $"{itemCount} item{(itemCount != 1 ? "s" : string.Empty)} in your basket";
 
             // Update price displays
-            SubtotalTextBlock.Text = $"${_basketViewModel.Subtotal:F2}";
-            DiscountTextBlock.Text = $"-${_basketViewModel.Discount:F2}";
-            TotalTextBlock.Text = $"${_basketViewModel.TotalAmount:F2}";
+            SubtotalTextBlock.Text = $"${var_basketViewModel.Subtotal:F2}";
+            DiscountTextBlock.Text = $"-${var_basketViewModel.Discount:F2}";
+            TotalTextBlock.Text = $"${var_basketViewModel.TotalAmount:F2}";
 
             // Show empty basket message if there are no items
-            if (_basketItems.Count == 0)
+            if (var_basketItems.Count == 0)
             {
                 EmptyBasketMessage.Visibility = Visibility.Visible;
                 BasketItemsListView.Visibility = Visibility.Collapsed;
@@ -100,12 +100,12 @@ namespace UiLayer
             }
 
             // Enable/disable checkout button based on whether checkout is possible
-            CheckoutButton.IsEnabled = _basketViewModel.CanCheckout();
+            CheckoutButton.IsEnabled = var_basketViewModel.CanCheckout();
 
             // Show any error messages
-            if (!string.IsNullOrEmpty(_basketViewModel.ErrorMessage))
+            if (!string.IsNullOrEmpty(var_basketViewModel.ErrorMessage))
             {
-                ErrorMessageTextBlock.Text = _basketViewModel.ErrorMessage;
+                ErrorMessageTextBlock.Text = var_basketViewModel.ErrorMessage;
                 ErrorMessageTextBlock.Visibility = Visibility.Visible;
             }
             else
@@ -122,11 +122,11 @@ namespace UiLayer
                 if (button != null && button.CommandParameter is int itemId)
                 {
                     // Find the corresponding basket item
-                    var item = _basketItems.FirstOrDefault(i => i.Id == itemId);
+                    var item = var_basketItems.FirstOrDefault(i => i.Id == itemId);
                     if (item != null)
                     {
                         // Remove using product ID instead of item ID
-                        _basketViewModel.RemoveProductFromBasket(item.Product.Id);
+                        var_basketViewModel.RemoveProductFromBasket(item.Product.Id);
                     }
                     LoadBasketData();
                 }
@@ -145,11 +145,11 @@ namespace UiLayer
                 if (button != null && button.CommandParameter is int itemId)
                 {
                     // Find the corresponding basket item
-                    var basketItem = _basketItems.FirstOrDefault(item => item.Id == itemId);
+                    var basketItem = var_basketItems.FirstOrDefault(item => item.Id == itemId);
                     if (basketItem != null)
                     {
                         // Update quantity using product ID
-                        _basketViewModel.UpdateProductQuantity(basketItem.Product.Id, basketItem.Quantity + 1);
+                        var_basketViewModel.UpdateProductQuantity(basketItem.Product.Id, basketItem.Quantity + 1);
 
                         // Reload the basket data
                         LoadBasketData();
@@ -170,18 +170,18 @@ namespace UiLayer
                 if (button != null && button.CommandParameter is int itemId)
                 {
                     // Find the corresponding basket item
-                    var basketItem = _basketItems.FirstOrDefault(item => item.Id == itemId);
+                    var basketItem = var_basketItems.FirstOrDefault(item => item.Id == itemId);
                     if (basketItem != null)
                     {
                         if (basketItem.Quantity > 1)
                         {
                             // Update quantity using product ID
-                            _basketViewModel.UpdateProductQuantity(basketItem.Product.Id, basketItem.Quantity - 1);
+                            var_basketViewModel.UpdateProductQuantity(basketItem.Product.Id, basketItem.Quantity - 1);
                         }
                         else
                         {
                             // Remove item if quantity would go to 0
-                            _basketViewModel.RemoveProductFromBasket(basketItem.Product.Id);
+                            var_basketViewModel.RemoveProductFromBasket(basketItem.Product.Id);
                         }
 
                         // Reload the basket data
@@ -204,10 +204,10 @@ namespace UiLayer
                     if (int.TryParse(textBox.Text, out int newQuantity) && newQuantity >= 0)
                     {
                         // Find the corresponding basket item
-                        var basketItem = _basketItems.FirstOrDefault(item => item.Id == itemId);
+                        var basketItem = var_basketItems.FirstOrDefault(item => item.Id == itemId);
                         if (basketItem != null)
                         {
-                            _basketViewModel.UpdateProductQuantity(basketItem.Product.Id, newQuantity);
+                            var_basketViewModel.UpdateProductQuantity(basketItem.Product.Id, newQuantity);
 
                             // Reload the basket data
                             LoadBasketData();
@@ -216,7 +216,7 @@ namespace UiLayer
                     else
                     {
                         // Invalid input, reset to current quantity
-                        var basketItem = _basketItems.FirstOrDefault(item => item.Id == itemId);
+                        var basketItem = var_basketItems.FirstOrDefault(item => item.Id == itemId);
                         if (basketItem != null)
                         {
                             textBox.Text = basketItem.Quantity.ToString();
@@ -251,10 +251,10 @@ namespace UiLayer
             {
                 try
                 {
-                    _basketViewModel.ApplyPromoCode(promoCode);
+                    var_basketViewModel.ApplyPromoCode(promoCode);
 
                     // The promo code was applied successfully if it gets here
-                    if (_basketViewModel.Discount > 0)
+                    if (var_basketViewModel.Discount > 0)
                     {
                         ErrorMessageTextBlock.Text = $"Promo code '{promoCode}' applied successfully!";
                         ErrorMessageTextBlock.Foreground = new Microsoft.UI.Xaml.Media.SolidColorBrush(Microsoft.UI.Colors.Green);
@@ -266,8 +266,7 @@ namespace UiLayer
                         ErrorMessageTextBlock.Foreground = new Microsoft.UI.Xaml.Media.SolidColorBrush(Microsoft.UI.Colors.Orange);
                         ErrorMessageTextBlock.Visibility = Visibility.Visible;
                     }
-
-                    LoadBasketData(); 
+                    LoadBasketData();
                 }
                 catch (Exception ex)
                 {
@@ -301,7 +300,7 @@ namespace UiLayer
                 {
                     DispatcherQueue.TryEnqueue(() =>
                     {
-                        _basketViewModel.ClearBasket();
+                        var_basketViewModel.ClearBasket();
                         LoadBasketData();
                     });
                 }
@@ -310,9 +309,9 @@ namespace UiLayer
 
         private void HandleCheckoutButton_Click(object sender, RoutedEventArgs e)
         {
-            if (_basketViewModel.CanCheckout())
+            if (var_basketViewModel.CanCheckout())
             {
-                _basketViewModel.Checkout();
+                var_basketViewModel.Checkout();
                 // Navigate to checkout page
                 ShowCheckoutMessage();
             }
@@ -338,7 +337,12 @@ namespace UiLayer
 
         private void HandleContinueShoppingButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            // Navigate back or to product listing page
+            // Since this is a Page, we use Frame navigation instead of Close()
+            if (this.Frame != null)
+            {
+                this.Frame.GoBack();
+            }
         }
     }
 }

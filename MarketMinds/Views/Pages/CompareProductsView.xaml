@@ -1,13 +1,13 @@
-<Window
-    x:Class="MarketMinds.CompareProductsView"
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="MarketMinds.Views.Pages.CompareProductsView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:MarketMinds"
+    xmlns:local="using:MarketMinds.Views.Pages"
     xmlns:controls="using:Microsoft.UI.Xaml.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    Title="Compare Products">
+    mc:Ignorable="d">
 
     <ScrollViewer>
         <Grid ColumnDefinitions="1*,1*" Padding="20" ColumnSpacing="60" Margin="20,20,20,0">
@@ -22,18 +22,18 @@
                 <Button Content="See Reviews" Width="160" Click="OnSeeReviewsLeftProductClicked" />
                 <StackPanel Orientation="Horizontal" Spacing="10">
                     <TextBlock Text="Category:" FontWeight="Bold"/>
-                    <TextBlock Text="{x:Bind ViewModel.LeftProduct.Category.displayTitle}" />
+                    <TextBlock Text="{x:Bind ViewModel.LeftProduct.Category.DisplayTitle}" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Spacing="10">
                     <TextBlock Text="Condition:" FontWeight="Bold"/>
-                    <TextBlock Text="{x:Bind ViewModel.LeftProduct.Condition.displayTitle}" />
+                    <TextBlock Text="{x:Bind ViewModel.LeftProduct.Condition.DisplayTitle}" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Spacing="10">
                     <TextBlock Text="Tags:" FontWeight="Bold"/>
                     <ItemsControl ItemsSource="{x:Bind ViewModel.LeftProduct.Tags}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding displayTitle}" Margin="5,0,5,0"/>
+                                <TextBlock Text="{Binding DisplayTitle}" Margin="5,0,5,0"/>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
@@ -56,18 +56,18 @@
                 <Button Content="See Reviews" Width="160" Click="OnSeeReviewsRightProductClicked" />
                 <StackPanel Orientation="Horizontal" Spacing="10">
                     <TextBlock Text="Category:" FontWeight="Bold"/>
-                    <TextBlock Text="{x:Bind ViewModel.RightProduct.Category.displayTitle}" />
+                    <TextBlock Text="{x:Bind ViewModel.RightProduct.Category.DisplayTitle}" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Spacing="10">
                     <TextBlock Text="Condition:" FontWeight="Bold"/>
-                    <TextBlock Text="{x:Bind ViewModel.RightProduct.Condition.displayTitle}" />
+                    <TextBlock Text="{x:Bind ViewModel.RightProduct.Condition.DisplayTitle}" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Spacing="10">
                     <TextBlock Text="Tags:" FontWeight="Bold"/>
                     <ItemsControl ItemsSource="{x:Bind ViewModel.RightProduct.Tags}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding displayTitle}" Margin="5,0,5,0"/>
+                                <TextBlock Text="{Binding DisplayTitle}" Margin="5,0,5,0"/>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
@@ -80,4 +80,4 @@
             </StackPanel>
         </Grid>
     </ScrollViewer>
-</Window>
+</Page>

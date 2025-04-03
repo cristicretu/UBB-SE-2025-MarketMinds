@@ -1,26 +1,9 @@
-﻿using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Controls.Primitives;
-using Microsoft.UI.Xaml.Data;
-using Microsoft.UI.Xaml.Input;
-using Microsoft.UI.Xaml.Media;
-using Microsoft.UI.Xaml.Navigation;
-using Microsoft.UI.Xaml.Shapes;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.ApplicationModel;
-using Windows.ApplicationModel.Activation;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using UiLayer;
+﻿using System.IO;
+using Microsoft.UI.Xaml;
 using BusinessLogicLayer.ViewModel;
 using DataAccessLayer;
 using DomainLayer.Domain;
 using ViewModelLayer.ViewModel;
-using BusinessLogicLayer.ViewModel;
 using Microsoft.Extensions.Configuration;
 using MarketMinds.Repositories.AuctionProductsRepository;
 using MarketMinds.Repositories.BasketRepository;
@@ -46,48 +29,47 @@ namespace MarketMinds
     /// </summary>
     public partial class App : Application
     {
-        public static IConfiguration configuration;
-        public static DataBaseConnection dataBaseConnection;
-        
+        public static IConfiguration Configuration;
+        public static DataBaseConnection DatabaseConnection;
         // Repository declarations
-        public static ProductCategoryRepository productCategoryRepository;
-        public static ProductConditionRepository productConditionRepository;
-        public static ProductTagRepository productTagRepository;
-        public static AuctionProductsRepository auctionProductsRepository;
-        public static BorrowProductsRepository borrowProductsRepository;
-        public static BuyProductsRepository buyProductsRepository;
-        public static ReviewRepository reviewRepository;
-        public static BasketRepository basketRepository;
+        public static ProductCategoryRepository ProductCategoryRepository;
+        public static ProductConditionRepository ProductConditionRepository;
+        public static ProductTagRepository ProductTagRepository;
+        public static AuctionProductsRepository AuctionProductsRepository;
+        public static BorrowProductsRepository BorrowProductsRepository;
+        public static BuyProductsRepository BuyProductsRepository;
+        public static ReviewRepository ReviewRepository;
+        public static BasketRepository BasketRepository;
 
         // Service declarations
-        public static ProductService productService;
-        public static BuyProductsService buyProductsService;
-        public static BorrowProductsService borrowProductsService;
-        public static AuctionProductsService auctionProductsService;
-        public static ProductCategoryService categoryService;
-        public static ProductTagService tagService;
-        public static ProductConditionService conditionService;
-        public static ReviewsService reviewsService;
-        public static BasketService basketService;
+        public static ProductService ProductService;
+        public static BuyProductsService BuyProductsService;
+        public static BorrowProductsService BorrowProductsService;
+        public static AuctionProductsService AuctionProductsService;
+        public static ProductCategoryService CategoryService;
+        public static ProductTagService TagService;
+        public static ProductConditionService ConditionService;
+        public static ReviewsService ReviewsService;
+        public static BasketService BasketService;
 
         // ViewModel declarations
-        public static BuyProductsViewModel buyProductsViewModel { get; private set; }
-        public static BorrowProductsViewModel borrowProductsViewModel { get; private set; }
-        public static AuctionProductsViewModel auctionProductsViewModel { get; private set; }
-        public static ProductCategoryViewModel productCategoryViewModel { get; private set; }
-        public static ProductConditionViewModel productConditionViewModel { get; private set; }
-        public static ProductTagViewModel productTagViewModel { get; private set; }
-        public static SortAndFilterViewModel auctionProductSortAndFilterViewModel { get; private set; }
-        public static SortAndFilterViewModel borrowProductSortAndFilterViewModel { get; private set; }
-        public static SortAndFilterViewModel buyProductSortAndFilterViewModel { get; private set; }
-        public static ReviewCreateViewModel reviewCreateViewModel { get; private set; }
-        public static SeeBuyerReviewsViewModel seeBuyerReviewsViewModel { get; private set; }
-        public static SeeSellerReviewsViewModel seeSellerReviewsViewModel { get; private set; }
-        public static BasketViewModel basketViewModel { get; private set; }
-        public static CompareProductsViewModel compareProductsViewModel { get; private set; }
+        public static BuyProductsViewModel BuyProductsViewModel { get; private set; }
+        public static BorrowProductsViewModel BorrowProductsViewModel { get; private set; }
+        public static AuctionProductsViewModel AuctionProductsViewModel { get; private set; }
+        public static ProductCategoryViewModel ProductCategoryViewModel { get; private set; }
+        public static ProductConditionViewModel ProductConditionViewModel { get; private set; }
+        public static ProductTagViewModel ProductTagViewModel { get; private set; }
+        public static SortAndFilterViewModel AuctionProductSortAndFilterViewModel { get; private set; }
+        public static SortAndFilterViewModel BorrowProductSortAndFilterViewModel { get; private set; }
+        public static SortAndFilterViewModel BuyProductSortAndFilterViewModel { get; private set; }
+        public static ReviewCreateViewModel ReviewCreateViewModel { get; private set; }
+        public static SeeBuyerReviewsViewModel SeeBuyerReviewsViewModel { get; private set; }
+        public static SeeSellerReviewsViewModel SeeSellerReviewsViewModel { get; private set; }
+        public static BasketViewModel BasketViewModel { get; private set; }
+        public static CompareProductsViewModel CompareProductsViewModel { get; private set; }
 
-        public static User currentUser { get; set; }
-        public static User testingUser { get; set; }
+        public static User CurrentUser { get; set; }
+        public static User TestingUser { get; set; }
 
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
@@ -105,67 +87,62 @@ namespace MarketMinds
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
 
-            configuration = builder.Build();
-            return configuration;
+            Configuration = builder.Build();
+            return Configuration;
         }
 
         /// <summary>
         /// Invoked when the application is launched.
         /// </summary>
         /// <param name="args">Details about the launch request and process.</param>
-        
-
         protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
         {
             mainWindow = new UiLayer.MainWindow();
             mainWindow.Activate();
-            
             // Create test users that match the database
-            testingUser = new User(1, "alice123", "alice@example.com");
-            testingUser.UserType = 1; // Matches database value
-            currentUser = new User(2, "bob321", "bob@example.com");
-            currentUser.UserType = 2; // Matches database value
+            TestingUser = new User(1, "alice123", "alice@example.com");
+            TestingUser.UserType = 1; // Matches database value
+            CurrentUser = new User(2, "bob321", "bob@example.com");
+            CurrentUser.UserType = 2; // Matches database value
 
             // Instantiate database connection with configuration
-            dataBaseConnection = new DataBaseConnection(configuration);
-            
+            DatabaseConnection = new DataBaseConnection(Configuration);
             // Instantiate repositories
-            productCategoryRepository = new ProductCategoryRepository(dataBaseConnection);
-            productConditionRepository = new ProductConditionRepository(dataBaseConnection);
-            productTagRepository = new ProductTagRepository(dataBaseConnection);
-            auctionProductsRepository = new AuctionProductsRepository(dataBaseConnection);
-            borrowProductsRepository = new BorrowProductsRepository(dataBaseConnection);
-            buyProductsRepository = new BuyProductsRepository(dataBaseConnection);
-            reviewRepository = new ReviewRepository(dataBaseConnection);
-            basketRepository = new BasketRepository(dataBaseConnection);
+            ProductCategoryRepository = new ProductCategoryRepository(DatabaseConnection);
+            ProductConditionRepository = new ProductConditionRepository(DatabaseConnection);
+            ProductTagRepository = new ProductTagRepository(DatabaseConnection);
+            AuctionProductsRepository = new AuctionProductsRepository(DatabaseConnection);
+            BorrowProductsRepository = new BorrowProductsRepository(DatabaseConnection);
+            BuyProductsRepository = new BuyProductsRepository(DatabaseConnection);
+            ReviewRepository = new ReviewRepository(DatabaseConnection);
+            BasketRepository = new BasketRepository(DatabaseConnection);
 
             // Instantiate services
-            productService = new ProductService(borrowProductsRepository);
-            buyProductsService = new BuyProductsService(buyProductsRepository);
-            borrowProductsService = new BorrowProductsService(borrowProductsRepository);
-            auctionProductsService = new AuctionProductsService(auctionProductsRepository);
-            categoryService = new ProductCategoryService(productCategoryRepository);
-            tagService = new ProductTagService(productTagRepository);
-            conditionService = new ProductConditionService(productConditionRepository);
-            reviewsService = new ReviewsService(reviewRepository);
-            basketService = new BasketService(basketRepository);
+            ProductService = new ProductService(BorrowProductsRepository);
+            BuyProductsService = new BuyProductsService(BuyProductsRepository);
+            BorrowProductsService = new BorrowProductsService(BorrowProductsRepository);
+            AuctionProductsService = new AuctionProductsService(AuctionProductsRepository);
+            CategoryService = new ProductCategoryService(ProductCategoryRepository);
+            TagService = new ProductTagService(ProductTagRepository);
+            ConditionService = new ProductConditionService(ProductConditionRepository);
+            ReviewsService = new ReviewsService(ReviewRepository);
+            BasketService = new BasketService(BasketRepository);
 
             // Instantiate view models
-            buyProductsViewModel = new BuyProductsViewModel(buyProductsService);
-            auctionProductsViewModel = new AuctionProductsViewModel(auctionProductsService);
-            productCategoryViewModel = new ProductCategoryViewModel(categoryService);
-            productTagViewModel = new ProductTagViewModel(tagService);
-            productConditionViewModel = new ProductConditionViewModel(conditionService);
-            borrowProductsViewModel = new BorrowProductsViewModel(borrowProductsService);
-            
-            auctionProductSortAndFilterViewModel = new SortAndFilterViewModel(auctionProductsService);
-            borrowProductSortAndFilterViewModel = new SortAndFilterViewModel(borrowProductsService);
-            buyProductSortAndFilterViewModel = new SortAndFilterViewModel(buyProductsService);
-            reviewCreateViewModel = new ReviewCreateViewModel(reviewsService, currentUser, testingUser);
-            seeSellerReviewsViewModel = new SeeSellerReviewsViewModel(reviewsService, testingUser, testingUser); 
-            seeBuyerReviewsViewModel = new SeeBuyerReviewsViewModel(reviewsService, currentUser);
-            basketViewModel = new BasketViewModel(currentUser, basketService);
-            compareProductsViewModel = new CompareProductsViewModel();
+            BuyProductsViewModel = new BuyProductsViewModel(BuyProductsService);
+            AuctionProductsViewModel = new AuctionProductsViewModel(AuctionProductsService);
+            ProductCategoryViewModel = new ProductCategoryViewModel(CategoryService);
+            ProductTagViewModel = new ProductTagViewModel(TagService);
+            ProductConditionViewModel = new ProductConditionViewModel(ConditionService);
+            BorrowProductsViewModel = new BorrowProductsViewModel(BorrowProductsService);
+            AuctionProductSortAndFilterViewModel = new SortAndFilterViewModel(AuctionProductsService);
+            BorrowProductSortAndFilterViewModel = new SortAndFilterViewModel(BorrowProductsService);
+            BuyProductSortAndFilterViewModel = new SortAndFilterViewModel(BuyProductsService);
+            ReviewCreateViewModel = new ReviewCreateViewModel(ReviewsService, CurrentUser, TestingUser);
+            SeeSellerReviewsViewModel = new SeeSellerReviewsViewModel(ReviewsService, TestingUser, TestingUser);
+            SeeBuyerReviewsViewModel = new SeeBuyerReviewsViewModel(ReviewsService, CurrentUser);
+            BasketViewModel = new BasketViewModel(CurrentUser, BasketService);
+            CompareProductsViewModel = new CompareProductsViewModel();
         }
 
         private Window mainWindow;

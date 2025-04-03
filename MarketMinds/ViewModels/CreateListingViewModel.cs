@@ -12,7 +12,7 @@ namespace ViewModelLayer.ViewModel
         public CreateListingViewModelBase ViewModel { get; set; }
         public void SwitchViewModel(string listingType)
         {
-            switch(listingType)
+            switch (listingType)
             {
                 case "buy":
                     ViewModel = new CreateBuyListingViewModel();
