@@ -8,9 +8,9 @@ namespace ViewModelLayer.ViewModel
 {
     public class BasketViewModel
     {
-        private User _currentUser;
-        private readonly BasketService _basketService;
-        private Basket _basket;
+        private User currentUser;
+        private readonly BasketService basketService;
+        private Basket basket;
 
         public List<BasketItem> BasketItems { get; private set; }
         public float Subtotal { get; private set; }
@@ -21,8 +21,8 @@ namespace ViewModelLayer.ViewModel
 
         public BasketViewModel(User currentUser, BasketService basketService)
         {
-            _currentUser = currentUser;
-            _basketService = basketService;
+            this.currentUser = currentUser;
+            this.basketService = basketService;
             BasketItems = new List<BasketItem>();
             PromoCode = string.Empty;
             ErrorMessage = string.Empty;
@@ -32,8 +32,8 @@ namespace ViewModelLayer.ViewModel
         {
             try
             {
-                _basket = _basketService.GetBasketByUser(_currentUser);
-                BasketItems = _basket.GetItems();
+                basket = basketService.GetBasketByUser(currentUser);
+                BasketItems = basket.GetItems();
 
                 // Calculate totals
                 CalculateTotals();
@@ -48,7 +48,7 @@ namespace ViewModelLayer.ViewModel
         {
             try
             {
-                _basketService.AddProductToBasket(_currentUser.Id, productId, 1);
+                basketService.AddProductToBasket(currentUser.Id, productId, 1);
                 LoadBasket();
                 ErrorMessage = string.Empty;
             }
@@ -62,7 +62,7 @@ namespace ViewModelLayer.ViewModel
         {
             try
             {
-                _basketService.RemoveProductFromBasket(_currentUser.Id, productId);
+                basketService.RemoveProductFromBasket(currentUser.Id, productId);
                 LoadBasket();
             }
             catch (Exception ex)
@@ -79,12 +79,12 @@ namespace ViewModelLayer.ViewModel
                 {
                     ErrorMessage = $"Quantity cannot exceed {BasketService.MaxQuantityPerItem}";
 
-                    _basketService.UpdateProductQuantity(_currentUser.Id, productId, BasketService.MaxQuantityPerItem);
+                    basketService.UpdateProductQuantity(currentUser.Id, productId, BasketService.MaxQuantityPerItem);
                 }
                 else
                 {
                     ErrorMessage = string.Empty;
-                    _basketService.UpdateProductQuantity(_currentUser.Id, productId, quantity);
+                    basketService.UpdateProductQuantity(currentUser.Id, productId, quantity);
                 }
                 LoadBasket();
             }
@@ -104,7 +104,7 @@ namespace ViewModelLayer.ViewModel
                     return;
                 }
 
-                _basketService.ApplyPromoCode(_basket.Id, code);
+                basketService.ApplyPromoCode(basket.Id, code);
                 PromoCode = code;
 
                 CalculateTotals();
@@ -122,7 +122,7 @@ namespace ViewModelLayer.ViewModel
         {
             try
             {
-                _basketService.ClearBasket(_currentUser.Id);
+                basketService.ClearBasket(currentUser.Id);
                 LoadBasket();
                 PromoCode = string.Empty;
             }
@@ -134,7 +134,7 @@ namespace ViewModelLayer.ViewModel
 
         public bool CanCheckout()
         {
-            return _basketService.ValidateBasketBeforeCheckOut(_basket.Id);
+            return basketService.ValidateBasketBeforeCheckOut(basket.Id);
         }
 
         public void Checkout()
@@ -154,7 +154,7 @@ namespace ViewModelLayer.ViewModel
 
             if (!string.IsNullOrEmpty(PromoCode))
             {
-                Discount = _basketService.GetPromoCodeDiscount(PromoCode, Subtotal);
+                Discount = basketService.GetPromoCodeDiscount(PromoCode, Subtotal);
             }
             else
             {

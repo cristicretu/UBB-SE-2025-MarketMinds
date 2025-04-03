@@ -22,7 +22,6 @@ namespace MarketMinds.Repositories.ProductTagRepository
         {
             // Returns all the product tags
             // output: all the product tags
-
             List<ProductTag> productTags = new List<ProductTag>();
             string query = "SELECT * FROM ProductTags";
             connection.OpenConnection();
@@ -34,12 +33,11 @@ namespace MarketMinds.Repositories.ProductTagRepository
                     {
                         productTags.Add(new ProductTag(
                             reader.GetInt32(0),
-                            reader.GetString(1)
-                        ));
+                            reader.GetString(1)));
                     }
                 }
             }
-            connection.CloseConnection(); 
+            connection.CloseConnection();
             return productTags;
         }
 
@@ -48,7 +46,6 @@ namespace MarketMinds.Repositories.ProductTagRepository
             // creates a new product tag
             // input: displayTitle
             // output: the created product tag
-
             int newId = -1;
 
             string cmd = "INSERT INTO ProductTags (title) VALUES (@displayTitle); SELECT CAST(SCOPE_IDENTITY() as int);";
@@ -61,7 +58,7 @@ namespace MarketMinds.Repositories.ProductTagRepository
             }
             connection.CloseConnection();
 
-            if(newId == -1)
+            if (newId == -1)
             {
                 throw new Exception("Error creating product tag");
             }
@@ -73,7 +70,6 @@ namespace MarketMinds.Repositories.ProductTagRepository
             // deletes a product tag
             // input: displayTitle
             // output: none
-
             string cmd = "DELETE FROM ProductTags WHERE title = @displayTitle";
             connection.OpenConnection();
             using (SqlCommand command = new SqlCommand(cmd, connection.GetConnection()))

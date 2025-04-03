@@ -21,13 +21,11 @@ namespace MarketMinds.Services.ProductTagService
         public List<Product> GetProducts()
         {
             return productRepository.GetProducts();
-            
         }
 
         public Product GetProductById(int id)
         {
             return productRepository.GetProductByID(id);
-            
         }
 
         public void AddProduct(Product product)
@@ -37,7 +35,7 @@ namespace MarketMinds.Services.ProductTagService
 
         public void UpdateProduct(Product product)
         {
-            //productRepository.UpdateProduct(product);
+            // productRepository.UpdateProduct(product);
         }
 
         public void DeleteProduct(Product product)
@@ -50,9 +48,9 @@ namespace MarketMinds.Services.ProductTagService
             List<Product> productResultSet = new List<Product>();
             foreach (Product product in products)
             {
-                bool matchesConditions = selectedConditions == null || selectedConditions.Count == 0 || selectedConditions.Any(c => c.id == product.Condition.id);
-                bool matchesCategories = selectedCategories == null || selectedCategories.Count == 0 || selectedCategories.Any(c => c.id == product.Category.id);
-                bool matchesTags = selectedTags == null || selectedTags.Count == 0 || selectedTags.Any(t => product.Tags.Any(pt => pt.id == t.id));
+                bool matchesConditions = selectedConditions == null || selectedConditions.Count == 0 || selectedConditions.Any(c => c.Id == product.Condition.Id);
+                bool matchesCategories = selectedCategories == null || selectedCategories.Count == 0 || selectedCategories.Any(c => c.Id == product.Category.Id);
+                bool matchesTags = selectedTags == null || selectedTags.Count == 0 || selectedTags.Any(t => product.Tags.Any(pt => pt.Id == t.Id));
                 bool matchesSearchQuery = string.IsNullOrEmpty(searchQuery) || product.Title.ToLower().Contains(searchQuery.ToLower());
 
                 if (matchesConditions && matchesCategories && matchesTags && matchesSearchQuery)
@@ -63,16 +61,25 @@ namespace MarketMinds.Services.ProductTagService
 
             if (sortCondition != null)
             {
-                if (sortCondition.isAscending)
+                if (sortCondition.IsAscending)
                 {
-                    productResultSet = productResultSet.OrderBy(p => p.GetType().GetProperty(sortCondition.internalAttributeFieldTitle).GetValue(p, null)).ToList();
+                    productResultSet = productResultSet.OrderBy(
+                        p =>
+                        {
+                            var prop = p?.GetType().GetProperty(sortCondition.InternalAttributeFieldTitle);
+                            return prop?.GetValue(p);
+                        }).ToList();
                 }
                 else
                 {
-                    productResultSet = productResultSet.OrderByDescending(p => p.GetType().GetProperty(sortCondition.internalAttributeFieldTitle).GetValue(p, null)).ToList();
+                    productResultSet = productResultSet.OrderByDescending(
+                        p =>
+                        {
+                            var prop = p?.GetType().GetProperty(sortCondition.InternalAttributeFieldTitle);
+                            return prop?.GetValue(p);
+                        }).ToList();
                 }
             }
-
             return productResultSet;
         }
     }

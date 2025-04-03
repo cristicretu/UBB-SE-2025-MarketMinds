@@ -43,6 +43,5 @@ namespace DomainLayer.Domain
             // Calculates the total price for this basket item (unit price × quantity)
             return (float)(Price * Quantity);
         }
-
     }
 }

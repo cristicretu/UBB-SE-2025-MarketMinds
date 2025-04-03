@@ -1,8 +1,8 @@
-﻿using DomainLayer.Domain;
-using MarketMinds.Services.ReviewService;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Linq;
+using System.Collections.Generic;
+using DomainLayer.Domain;
+using MarketMinds.Services.ReviewService;
 
 namespace ViewModelLayer.ViewModel
 {
@@ -17,7 +17,7 @@ namespace ViewModelLayer.ViewModel
         public float Rating { get; set; }
         public string ImagesString
         {
-            get => Images != null ? string.Join("\n", Images.Select(img => img.url)) : "";
+            get => Images != null ? string.Join("\n", Images.Select(img => img.Url)) : string.Empty;
             set
             {
                 if (!string.IsNullOrEmpty(value))
@@ -47,17 +47,16 @@ namespace ViewModelLayer.ViewModel
                 return;
             }
             ReviewsService.AddReview(Description, Images, Rating, Seller, Buyer);
-            CurrentReview = new Review(-1,Description,Images,Rating, Seller.Id, Buyer.Id);
+            CurrentReview = new Review(-1, Description, Images, Rating, Seller.Id, Buyer.Id);
         }
 
         public void UpdateReview()
         {
-            if (CurrentReview == null) return;
-            ReviewsService.EditReview(CurrentReview.description,CurrentReview.images,CurrentReview.rating,CurrentReview.sellerId,CurrentReview.buyerId, Description, Rating);  // Call the service layer to update
-
-            
-
+            if (CurrentReview == null)
+            {
+                 return;
+            }
+            ReviewsService.EditReview(CurrentReview.Description, CurrentReview.Images, CurrentReview.Rating, CurrentReview.SellerId, CurrentReview.BuyerId, Description, Rating);  // Call the service layer to update
         }
-
     }
 }

@@ -1,7 +1,7 @@
-﻿using DomainLayer.Domain;
+﻿using System.Collections.Generic;
+using DomainLayer.Domain;
 using MarketMinds.Repositories.BuyProductsRepository;
 using MarketMinds.Services.ProductTagService;
-using System.Collections.Generic;
 
 namespace MarketMinds.Services.BuyProductsService
 {
@@ -28,6 +28,5 @@ namespace MarketMinds.Services.BuyProductsService
         {
             return buyProductsRepository.GetProducts();
         }
-
     }
 }

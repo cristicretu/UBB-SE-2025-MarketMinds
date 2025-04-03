@@ -65,7 +65,7 @@
                                 <FlipView.ItemTemplate>
                                     <DataTemplate>
                                         <!-- Bind to the image URL -->
-                                        <Image Source="{Binding url}" Stretch="UniformToFill"/>
+                                        <Image Source="{Binding Url}" Stretch="UniformToFill"/>
                                     </DataTemplate>
                                 </FlipView.ItemTemplate>
                             </FlipView>

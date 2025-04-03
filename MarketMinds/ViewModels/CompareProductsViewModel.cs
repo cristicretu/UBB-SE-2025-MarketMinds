@@ -1,9 +1,9 @@
-﻿using DomainLayer.Domain;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DomainLayer.Domain;
 
 namespace ViewModelLayer.ViewModel
 {
@@ -14,7 +14,6 @@ namespace ViewModelLayer.ViewModel
 
         public CompareProductsViewModel()
         {
-
         }
 
         public bool AddProduct(Product product)
@@ -25,7 +24,9 @@ namespace ViewModelLayer.ViewModel
                 return false;
             }
             if (product != LeftProduct)
+            {
                 RightProduct = product;
+            }
             return true;
         }
     }

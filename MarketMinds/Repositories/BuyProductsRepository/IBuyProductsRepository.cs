@@ -1,5 +1,5 @@
-﻿using DomainLayer.Domain;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using DomainLayer.Domain;
 
 namespace MarketMinds.Repositories.BuyProductsRepository
 {

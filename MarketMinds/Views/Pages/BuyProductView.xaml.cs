@@ -1,4 +1,5 @@
-﻿using System;
+﻿using System.Diagnostics;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -14,11 +15,8 @@ using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
 using DomainLayer.Domain;
 using Microsoft.UI.Xaml.Media.Imaging;
-using System.Diagnostics;
 using ViewModelLayer.ViewModel;
-
-// To learn more about WinUI, the WinUI project structure,
-// and more about our project templates, see: http://aka.ms/winui-project-info.
+using MarketMinds.Views.Pages;
 
 namespace MarketMinds
 {
@@ -27,46 +25,38 @@ namespace MarketMinds
     /// </summary>
     public sealed partial class BuyProductView : Window
     {
-        private readonly BuyProduct _product;
-        private readonly User _currentUser;
-        private readonly BasketViewModel _basketViewModel = App.basketViewModel;
+        private readonly BuyProduct priv_product;
+        private readonly User priv_currentUser;
+        private readonly BasketViewModel priv_basketViewModel = App.BasketViewModel;
 
-        private Window seeSellerReviewsView;
+        private Window? seeSellerReviewsView;
         public BuyProductView(BuyProduct product)
         {
             this.InitializeComponent();
-            _product = product;
-            _currentUser = MarketMinds.App.currentUser;
-            //_buyProductsViewModel = MarketMinds.App.buyProductsViewModel;
+            priv_product = product;
+            priv_currentUser = MarketMinds.App.CurrentUser;
             LoadProductDetails();
             LoadImages();
         }
-
-
-
         private void LoadProductDetails()
         {
             // Basic Info
-            TitleTextBlock.Text = _product.Title;
-            CategoryTextBlock.Text = _product.Category.displayTitle;
-            ConditionTextBlock.Text = _product.Condition.displayTitle;
-            PriceTextBlock.Text = $"{_product.Price:C}";
+            TitleTextBlock.Text = priv_product.Title;
+            CategoryTextBlock.Text = priv_product.Category.DisplayTitle;
+            ConditionTextBlock.Text = priv_product.Condition.DisplayTitle;
+            PriceTextBlock.Text = $"{priv_product.Price:C}";
 
             // Seller Info
-            SellerTextBlock.Text = _product.Seller.Username;
-            DescriptionTextBox.Text = _product.Description;
+            SellerTextBlock.Text = priv_product.Seller.Username;
+            DescriptionTextBox.Text = priv_product.Description;
 
-            // Tags
-
-            TagsItemsControl.ItemsSource = _product.Tags.Select(tag =>
+            TagsItemsControl.ItemsSource = priv_product.Tags.Select(tag =>
             {
                 return new TextBlock
                 {
-                    Text = tag.displayTitle,
+                    Text = tag.DisplayTitle,
                     Margin = new Thickness(4),
                     Padding = new Thickness(8, 4, 8, 4),
-                    //Background = new SolidColorBrush(Windows.UI.Colors.LightGray),
-                    //CornerRadius = new CornerRadius(8)
                 };
             }).ToList();
         }
@@ -74,13 +64,11 @@ namespace MarketMinds
         private void LoadImages()
         {
             ImageCarousel.Items.Clear();
-
-            foreach (var image in _product.Images)
+            foreach (var image in priv_product.Images)
             {
-
                 var img = new Microsoft.UI.Xaml.Controls.Image
                 {
-                    Source = new BitmapImage(new Uri(image.url)),
+                    Source = new BitmapImage(new Uri(image.Url)),
                     Stretch = Stretch.Uniform, // ✅ shows full image without cropping
                     Height = 250,
                     HorizontalAlignment = HorizontalAlignment.Stretch,
@@ -95,7 +83,7 @@ namespace MarketMinds
         {
             try
             {
-                _basketViewModel.AddToBasket(_product.Id);
+                priv_basketViewModel.AddToBasket(priv_product.Id);
 
                 // Show success notification
                 BasketNotificationTip.Title = "Success";
@@ -117,8 +105,10 @@ namespace MarketMinds
 
         private void OnSeeReviewsClicked(object sender, RoutedEventArgs e)
         {
-            App.seeSellerReviewsViewModel.seller = _product.Seller;
-            seeSellerReviewsView = new SeeSellerReviewsView(App.seeSellerReviewsViewModel);
+            App.SeeSellerReviewsViewModel.Seller = priv_product.Seller;
+            // Create a window to host the SeeSellerReviewsView page
+            seeSellerReviewsView = new Window();
+            seeSellerReviewsView.Content = new SeeSellerReviewsView(App.SeeSellerReviewsViewModel);
             seeSellerReviewsView.Activate();
         }
     }

@@ -8,7 +8,7 @@ public class BorrowProductsService : ProductService, IBorrowProductsService
 {
     private IBorrowProductsRepository borrowProductsRepository;
 
-    public BorrowProductsService(IBorrowProductsRepository repository): base(repository)
+    public BorrowProductsService(IBorrowProductsRepository repository) : base(repository)
     {
         borrowProductsRepository = repository;
     }

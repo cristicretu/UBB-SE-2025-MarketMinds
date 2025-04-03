@@ -1,10 +1,10 @@
-﻿using DomainLayer.Domain;
-using MarketMinds.Services.BuyProductsService;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DomainLayer.Domain;
+using MarketMinds.Services.BuyProductsService;
 
 namespace ViewModelLayer.ViewModel
 {

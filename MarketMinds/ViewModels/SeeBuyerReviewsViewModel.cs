@@ -1,48 +1,45 @@
-﻿using DomainLayer.Domain;
-using MarketMinds.Services.ReviewService;
-using Microsoft.IdentityModel.Tokens;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DomainLayer.Domain;
+using MarketMinds.Services.ReviewService;
+using Microsoft.IdentityModel.Tokens;
 
 namespace BusinessLogicLayer.ViewModel
 {
     public class SeeBuyerReviewsViewModel
     {
-        public User user;
-        public ReviewsService reviewsService;
-        public ObservableCollection<Review> reviews {  get; set; }
-        public float rating;
-        public bool IsReviewsEmpty;
-        public int reviewCount;
+        public User User { get; set; }
+        public ReviewsService ReviewsService { get; set; }
+        public ObservableCollection<Review> Reviews { get; set; }
+        public float Rating { get; set; }
+        public bool IsReviewsEmpty { get; set; }
+        public int ReviewCount { get; set; }
 
         public SeeBuyerReviewsViewModel(ReviewsService reviewsService, User user)
         {
-            this.user = user;
-            this.reviewsService = reviewsService;
-            reviews = reviewsService.GetReviewsByBuyer(user);
-            
+            this.User = user;
+            this.ReviewsService = reviewsService;
+            Reviews = reviewsService.GetReviewsByBuyer(user);
         }
 
         public void EditReview(Review review, string description, float rating)
         {
-            reviewsService.EditReview(review.description, review.images, review.rating, review.sellerId,review.buyerId, description, rating);
+            ReviewsService.EditReview(review.Description, review.Images, review.Rating, review.SellerId, review.BuyerId, description, rating);
         }
 
         public void DeleteReview(Review review)
         {
-            reviewsService.DeleteReview(review.description, review.images, review.rating, review.sellerId, review.buyerId);
-            reviews.Remove(review);
+            ReviewsService.DeleteReview(review.Description, review.Images, review.Rating, review.SellerId, review.BuyerId);
+            Reviews.Remove(review);
         }
 
-        public void refreshData()
+        public void RefreshData()
         {
-            reviews = reviewsService.GetReviewsByBuyer(user);
-            
+            Reviews = ReviewsService.GetReviewsByBuyer(User);
         }
-
     }
 }

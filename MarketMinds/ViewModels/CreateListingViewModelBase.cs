@@ -1,8 +1,8 @@
-﻿using BusinessLogicLayer.Services;
-using DomainLayer.Domain;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using BusinessLogicLayer.Services;
+using DomainLayer.Domain;
 
 namespace ViewModelLayer.ViewModel
 {
@@ -17,7 +17,7 @@ namespace ViewModelLayer.ViewModel
 
         public string ImagesString
         {
-            get => Images != null ? string.Join("\n", Images.Select(img => img.url)) : "";
+            get => Images != null ? string.Join("\n", Images.Select(img => img.Url)) : string.Empty;
             set
             {
                 if (!string.IsNullOrEmpty(value))

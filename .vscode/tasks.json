@@ -13,13 +13,35 @@
                 "-r",
                 "win-arm64",
                 "/property:GenerateFullPaths=true",
-                "/consoleloggerparameters:NoSummary"
+                "/consoleloggerparameters:NoSummary",
+                "-verbosity:diag"
             ],
             "problemMatcher": "$msCompile",
             "group": {
                 "kind": "build",
                 "isDefault": true
             }
+        },
+        {
+            "label": "build-without-analysis",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/MarketMinds/MarketMinds.csproj",
+                "-c",
+                "Debug",
+                "-r",
+                "win-arm64",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary",
+                "/p:RunAnalyzersDuringBuild=false",
+                "/p:RunAnalyzers=false",
+                "/p:AnalysisLevel=none",
+                "-verbosity:diag"
+            ],
+            "problemMatcher": "$msCompile",
+            "group": "build"
         },
         {
             "label": "clean",
@@ -33,6 +55,13 @@
             "options": {
                 "cwd": "${workspaceFolder}/MarketMinds"
             }
+        },
+        {
+            "label": "clean-build",
+            "dependsOrder": "sequence",
+            "dependsOn": ["clean", "build-without-analysis"],
+            "group": "build",
+            "problemMatcher": "$msCompile"
         }
     ]
 } 

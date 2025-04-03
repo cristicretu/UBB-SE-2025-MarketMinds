@@ -44,18 +44,18 @@
                     </StackPanel>
                     <Button Content="Add Category"
                             Width="140" Height="35" Margin="0,10,0,0"
-                            Click="handleAddCategoryButton_Click"/>
+                            Click="HandleAddCategoryButton_Click"/>
 
                     <!-- List of Existing Categories -->
                     <TextBlock Text="Existing Categories" FontSize="16" FontWeight="SemiBold" Margin="0,15,0,5"/>
                     <ListView x:Name="CategoriesListView"
-                              ItemsSource="{x:Bind _productCategories, Mode=OneWay}"
+                              ItemsSource="{x:Bind ProductCategories, Mode=OneWay}"
                               Height="150">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Vertical" Padding="5">
-                                    <TextBlock Text="{Binding displayTitle}" FontWeight="Bold"/>
-                                    <TextBlock Text="{Binding description}" FontSize="12" Foreground="Gray"/>
+                                    <TextBlock Text="{Binding DisplayTitle}" FontWeight="Bold"/>
+                                    <TextBlock Text="{Binding Description}" FontSize="12" Foreground="Gray"/>
                                 </StackPanel>
                             </DataTemplate>
                         </ListView.ItemTemplate>
@@ -78,18 +78,18 @@
                     </StackPanel>
                     <Button Content="Add Condition"
                             Width="140" Height="35" Margin="0,10,0,0"
-                            Click="handleAddConditionButton_Click"/>
+                            Click="HandleAddConditionButton_Click"/>
 
                     <!-- List of Existing Conditions -->
                     <TextBlock Text="Existing Conditions" FontSize="16" FontWeight="SemiBold" Margin="0,15,0,5"/>
                     <ListView x:Name="ConditionsListView"
-                              ItemsSource="{x:Bind _productConditions, Mode=OneWay}"
+                              ItemsSource="{x:Bind ProductConditions, Mode=OneWay}"
                               Height="150">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Vertical" Padding="5">
-                                    <TextBlock Text="{Binding displayTitle}" FontWeight="Bold"/>
-                                    <TextBlock Text="{Binding description}" FontSize="12" Foreground="Gray"/>
+                                    <TextBlock Text="{Binding DisplayTitle}" FontWeight="Bold"/>
+                                    <TextBlock Text="{Binding Description}" FontSize="12" Foreground="Gray"/>
                                 </StackPanel>
                             </DataTemplate>
                         </ListView.ItemTemplate>

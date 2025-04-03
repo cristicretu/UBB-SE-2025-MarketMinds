@@ -16,7 +16,6 @@ namespace ViewModelLayer.ViewModel
         {
             this.productCategoryService = productCategoryService;
         }
-        
         public List<ProductCategory> GetAllProductCategories()
         {
             return productCategoryService.GetAllProductCategories();

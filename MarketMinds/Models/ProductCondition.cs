@@ -8,15 +8,15 @@ namespace DomainLayer.Domain
 {
     public class ProductCondition
     {
-        public int id { get; set; }
-        public string displayTitle { get; set; } = string.Empty;
-        public string description { get; set; } = string.Empty;
+        public int Id { get; set; }
+        public string DisplayTitle { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
 
         public ProductCondition(int id, string displayTitle, string description)
         {
-            this.id = id;
-            this.displayTitle = displayTitle;
-            this.description = description;
+            this.Id = id;
+            this.DisplayTitle = displayTitle;
+            this.Description = description;
         }
     }
 }

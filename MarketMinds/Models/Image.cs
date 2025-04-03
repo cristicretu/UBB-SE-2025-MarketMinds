@@ -8,11 +8,11 @@ namespace DomainLayer.Domain
 {
     public class Image
     {
-        public string url { get; set; } = string.Empty;
+        public string Url { get; set; } = string.Empty;
 
         public Image(string url)
         {
-            this.url = url;
+            this.Url = url;
         }
     }
 }

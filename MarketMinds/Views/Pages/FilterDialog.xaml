@@ -15,7 +15,7 @@
           <DataTemplate x:DataType="domain:ProductCondition">
             <Border Padding="5" Margin="2" Background="Transparent">
               <StackPanel Orientation="Horizontal">
-                <TextBlock Text="{x:Bind displayTitle}" FontWeight="Bold"/>
+                <TextBlock Text="{x:Bind DisplayTitle}" FontWeight="Bold"/>
                 <!-- Optionally, you can add an X button for individual removal -->
               </StackPanel>
             </Border>
@@ -31,7 +31,7 @@
           <DataTemplate x:DataType="domain:ProductCategory">
             <Border Padding="5" Margin="2" Background="Transparent">
               <StackPanel Orientation="Horizontal">
-                <TextBlock Text="{x:Bind displayTitle}" FontWeight="Bold"/>
+                <TextBlock Text="{x:Bind DisplayTitle}" FontWeight="Bold"/>
               </StackPanel>
             </Border>
           </DataTemplate>
@@ -47,7 +47,7 @@
           <DataTemplate x:DataType="domain:ProductTag">
             <Border Padding="5" Margin="2" Background="Transparent">
               <StackPanel Orientation="Horizontal">
-                <TextBlock Text="{x:Bind displayTitle}" FontWeight="Bold"/>
+                <TextBlock Text="{x:Bind DisplayTitle}" FontWeight="Bold"/>
               </StackPanel>
             </Border>
           </DataTemplate>

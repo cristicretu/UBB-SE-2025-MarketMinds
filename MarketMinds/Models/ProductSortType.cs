@@ -8,28 +8,28 @@ namespace DomainLayer.Domain
 {
     public class ProductSortType
     {
-        private static int nextId = 1;  
-        public int id { get; set; }
-        public string externalAttributeFieldTitle { get; set; } = string.Empty;
-        public string internalAttributeFieldTitle { get; set; } = string.Empty;
-        public bool isAscending { get; set; }
+        private static int nextId = 1;
+        public int Id { get; set; }
+        public string ExternalAttributeFieldTitle { get; set; } = string.Empty;
+        public string InternalAttributeFieldTitle { get; set; } = string.Empty;
+        public bool IsAscending { get; set; }
 
         public ProductSortType(string externalAttributeFieldTitle, string internalAttributeFieldTitle, bool isAscending)
         {
-            this.id = nextId++;
-            this.externalAttributeFieldTitle = externalAttributeFieldTitle;
-            this.internalAttributeFieldTitle = internalAttributeFieldTitle;
-            this.isAscending = isAscending;
+            this.Id = nextId++;
+            this.ExternalAttributeFieldTitle = externalAttributeFieldTitle;
+            this.InternalAttributeFieldTitle = internalAttributeFieldTitle;
+            this.IsAscending = isAscending;
         }
 
-        public string getDisplayTitle()
+        public string GetDisplayTitle()
         {
-            return "Sort by " + this.externalAttributeFieldTitle + "(" + (this.isAscending ? "Ascending": "Descending") + ")";
+            return "Sort by " + this.ExternalAttributeFieldTitle + " (" + (this.IsAscending ? "Ascending" : "Descending") + ")";
         }
 
-        public string getSqlOrderByStatement()
+        public string GetSqlOrderByStatement()
         {
-            return "ORDER BY " + this.internalAttributeFieldTitle + (this.isAscending ? " ASC" : " DESC");
+            return "ORDER BY " + this.InternalAttributeFieldTitle + (this.IsAscending ? " ASC" : " DESC");
         }
     }
 }

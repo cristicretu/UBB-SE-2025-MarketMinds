@@ -16,6 +16,5 @@ namespace DomainLayer.Domain
         public List<ProductTag> Tags { get; set; }
         public List<Image> Images { get; set; }
         public User Seller { get; set; }
-
     }
 }

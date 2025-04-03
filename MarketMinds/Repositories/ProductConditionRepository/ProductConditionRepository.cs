@@ -22,7 +22,6 @@ namespace MarketMinds.Repositories.ProductConditionRepository
         {
             // Returns all the product conditions
             // output: all the product conditions
-
             List<ProductCondition> productConditions = new List<ProductCondition>();
             string query = "SELECT * FROM ProductConditions";
             connection.OpenConnection();
@@ -35,8 +34,7 @@ namespace MarketMinds.Repositories.ProductConditionRepository
                         productConditions.Add(new ProductCondition(
                             reader.GetInt32(0),
                             reader.GetString(1),
-                            reader.GetString(2)
-                        ));
+                            reader.GetString(2)));
                     }
                 }
             }
@@ -49,7 +47,6 @@ namespace MarketMinds.Repositories.ProductConditionRepository
             // creates a new product condition
             // input: displayTitle, description
             // output: the created product condition
-
             int newId = -1;
 
             string cmd = "INSERT INTO ProductConditions (title, description) VALUES (@displayTitle, @description); SELECT CAST(SCOPE_IDENTITY() as int);";
@@ -75,7 +72,6 @@ namespace MarketMinds.Repositories.ProductConditionRepository
             // deletes a product condition
             // input: displayTitle
             // output: none
-
             string cmd = "DELETE FROM ProductConditions WHERE title = @displayTitle";
             connection.OpenConnection();
             using (SqlCommand command = new SqlCommand(cmd, connection.GetConnection()))

@@ -9,6 +9,7 @@ using ViewModelLayer.ViewModel;
 using BusinessLogicLayer.Services;
 using BusinessLogicLayer.ViewModel;
 using MarketMinds;
+using MarketMinds.Views.Pages;
 
 namespace UiLayer
 {
@@ -30,9 +31,9 @@ namespace UiLayer
             this.InitializeComponent();
 
             // Assume you have similar view models for borrow products
-            borrowProductsViewModel = MarketMinds.App.borrowProductsViewModel;
-            sortAndFilterViewModel = MarketMinds.App.borrowProductSortAndFilterViewModel;
-            compareProductsViewModel = MarketMinds.App.compareProductsViewModel;
+            borrowProductsViewModel = MarketMinds.App.BorrowProductsViewModel;
+            sortAndFilterViewModel = MarketMinds.App.BorrowProductSortAndFilterViewModel;
+            compareProductsViewModel = MarketMinds.App.CompareProductsViewModel;
 
             borrowProducts = new ObservableCollection<BorrowProduct>();
             currentFullList = borrowProductsViewModel.GetAllProducts();
@@ -47,14 +48,12 @@ namespace UiLayer
                 // Create and show the detail view
                 var detailView = new BorrowProductView(selectedProduct);
                 detailView.Activate();
-
             }
         }
-
         private void ApplyFiltersAndPagination()
         {
             // Retrieve filtered and sorted products (cast as needed)
-            var filteredProducts = sortAndFilterViewModel.handleSearch()
+            var filteredProducts = sortAndFilterViewModel.HandleSearch()
                                          .Cast<BorrowProduct>().ToList();
             currentFullList = filteredProducts;
             currentPage = 1;
@@ -71,8 +70,9 @@ namespace UiLayer
 
             borrowProducts.Clear();
             foreach (var item in pageItems)
+            {
                 borrowProducts.Add(item);
-            
+            }
             if (borrowProducts.Count == 0)
             {
                 EmptyMessageTextBlock.Visibility = Visibility.Visible;
@@ -114,19 +114,20 @@ namespace UiLayer
 
         private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            sortAndFilterViewModel.handleSearchQueryChange(SearchTextBox.Text);
+            sortAndFilterViewModel.HandleSearchQueryChange(SearchTextBox.Text);
             ApplyFiltersAndPagination();
         }
 
         private async void FilterButton_Click(object sender, RoutedEventArgs e)
         {
             FilterDialog filterDialog = new FilterDialog(sortAndFilterViewModel);
-            filterDialog.XamlRoot = Content.XamlRoot;  
+            filterDialog.XamlRoot = Content.XamlRoot;
             var result = await filterDialog.ShowAsync();
             if (result == ContentDialogResult.Primary)
+            {
                 ApplyFiltersAndPagination();
+            }
         }
-
         private void SortButton_Click(object sender, RoutedEventArgs e)
         {
             SortingComboBox.Visibility = SortingComboBox.Visibility == Visibility.Visible ?
@@ -141,7 +142,7 @@ namespace UiLayer
                 var sortType = ParseSortType(sortTag);
                 if (sortType != null)
                 {
-                    sortAndFilterViewModel.handleSortChange(sortType);
+                    sortAndFilterViewModel.HandleSortChange(sortType);
                     ApplyFiltersAndPagination();
                 }
             }
@@ -177,11 +178,14 @@ namespace UiLayer
                 bool twoAdded = compareProductsViewModel.AddProduct(selectedProduct);
                 if (twoAdded == true)
                 {
-                    var compareView = new CompareProductsView(compareProductsViewModel);
-                    compareView.Activate();
+                    // Create a compare view
+                    var compareProductsView = new CompareProductsView(compareProductsViewModel);
+                    // Create a window to host the CompareProductsView page
+                    var compareWindow = new Window();
+                    compareWindow.Content = compareProductsView;
+                    compareProductsView.SetParentWindow(compareWindow);
+                    compareWindow.Activate();
                 }
-
-
             }
         }
     }

@@ -1,22 +1,21 @@
-﻿using DomainLayer.Domain;
+﻿using System.Threading.Tasks;
+using System.Text;
+using System;
+using System.Linq;
+using System.Collections.Generic;
+using DomainLayer.Domain;
 using MarketMinds.Repositories.AuctionProductsRepository;
 using MarketMinds.Services.ProductTagService;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace MarketMinds.Services.AuctionProductsService
 {
     public class AuctionProductsService : ProductService, IAuctionProductsService
     {
-        private IAuctionProductsRepository _auctionRepository;
-        
-        public AuctionProductsService(IAuctionProductsRepository repository): base(repository)
+        private IAuctionProductsRepository auctionRepository;
+        public AuctionProductsService(IAuctionProductsRepository repository) : base(repository)
         {
-            _auctionRepository = repository;
+            auctionRepository = repository;
         }
 
         public void PlaceBid(AuctionProduct auction, User bidder, float bidAmount)
@@ -27,28 +26,32 @@ namespace MarketMinds.Services.AuctionProductsService
 
             RefundPreviousBidder(auction);
 
-            var bid = new Bid (bidder, bidAmount, DateTime.Now);
+            var bid = new Bid(bidder, bidAmount, DateTime.Now);
             auction.AddBid(bid);
             auction.CurrentPrice = bidAmount;
 
             ExtendAuctionTime(auction);
 
-            _auctionRepository.UpdateProduct(auction);
-
+            auctionRepository.UpdateProduct(auction);
         }
-
         private void ValidateBid(AuctionProduct auction, User bidder, float bidAmount)
         {
             float minBid = auction.BidHistory.Count == 0 ? auction.StartingPrice : auction.CurrentPrice + 1;
 
             if (bidAmount < minBid)
+            {
                 throw new Exception($"Bid must be at least ${minBid}");
+            }
 
             if (bidAmount > bidder.Balance)
+            {
                 throw new Exception("Insufficient balance");
+            }
 
             if (DateTime.Now > auction.EndAuctionDate)
+            {
                 throw new Exception("Auction already ended");
+            }
         }
 
         private void RefundPreviousBidder(AuctionProduct auction)
@@ -57,10 +60,8 @@ namespace MarketMinds.Services.AuctionProductsService
             {
                 var previousBid = auction.BidHistory.Last();
                 previousBid.Bidder.Balance += previousBid.Price;
-
             }
         }
-
         private void ExtendAuctionTime(AuctionProduct auction)
         {
             var timeRemaining = auction.EndAuctionDate - DateTime.Now;
@@ -73,8 +74,7 @@ namespace MarketMinds.Services.AuctionProductsService
 
         public void ConcludeAuction(AuctionProduct auction)
         {
-            _auctionRepository.DeleteProduct(auction);
+            auctionRepository.DeleteProduct(auction);
         }
-
     }
 }

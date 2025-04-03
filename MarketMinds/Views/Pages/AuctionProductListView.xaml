@@ -63,15 +63,12 @@
                                 </Grid.ColumnDefinitions>
                                 
                                 <!-- Image Carousel (smaller version) -->
-                                <FlipView Grid.Column="0" 
-                                                   Width="100" 
-                                                   Height="100" 
-                                                   Margin="0,0,10,0"
-                                                   ItemsSource="{Binding Images}">
+                                <FlipView Width="100" Height="100" Margin="0,0,10,0"
+                                          ItemsSource="{Binding Images}">
                                     <FlipView.ItemTemplate>
                                         <DataTemplate>
                                             <!-- Bind to the image URL (adjust the binding property if needed) -->
-                                            <Image Source="{Binding url}" Stretch="UniformToFill"/>
+                                            <Image Source="{Binding Url}" Stretch="UniformToFill"/>
                                         </DataTemplate>
                                     </FlipView.ItemTemplate>
                                 </FlipView>
@@ -97,7 +94,7 @@
                                         VerticalAlignment="Top" 
                                         HorizontalAlignment="Right" 
                                         Width="50" Height="50" 
-                                        Margin="0,0,-1030,5" 
+                                        Margin="0,0,0,5" 
                                         FontWeight="Bold" 
                                         Foreground="gray"
                                         Background="Transparent" 

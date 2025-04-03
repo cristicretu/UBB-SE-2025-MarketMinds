@@ -1,12 +1,12 @@
-using DomainLayer.Domain;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.Data.SqlClient;
-using System.Data;
 using DataAccessLayer;
+using DomainLayer.Domain;
+using Microsoft.Data.SqlClient;
 
 namespace MarketMinds.Repositories.BorrowProductsRepository
 {
@@ -21,10 +21,11 @@ namespace MarketMinds.Repositories.BorrowProductsRepository
 
         public void AddProduct(Product product)
         {
-            BorrowProduct borrow = (BorrowProduct) product;
+            BorrowProduct borrow = (BorrowProduct)product;
             if (borrow == null)
+            {
                 throw new ArgumentException("Product must be of type BorrowProduct.");
-
+            }
 
             string insertProductQuery = @"
             INSERT INTO BorrowProducts 
@@ -41,8 +42,8 @@ namespace MarketMinds.Repositories.BorrowProductsRepository
                 cmd.Parameters.AddWithValue("@Title", borrow.Title);
                 cmd.Parameters.AddWithValue("@Description", borrow.Description);
                 cmd.Parameters.AddWithValue("@SellerId", borrow.Seller.Id);
-                cmd.Parameters.AddWithValue("@ConditionId", borrow.Condition.id);
-                cmd.Parameters.AddWithValue("@CategoryId", borrow.Category.id);
+                cmd.Parameters.AddWithValue("@ConditionId", borrow.Condition.Id);
+                cmd.Parameters.AddWithValue("@CategoryId", borrow.Category.Id);
                 cmd.Parameters.AddWithValue("@TimeLimit", borrow.TimeLimit);
                 cmd.Parameters.AddWithValue("@StartDate", borrow.StartDate);
                 cmd.Parameters.AddWithValue("@EndDate", borrow.EndDate);
@@ -62,7 +63,7 @@ namespace MarketMinds.Repositories.BorrowProductsRepository
                 using (SqlCommand cmd = new SqlCommand(insertTagQuery, connection.GetConnection()))
                 {
                     cmd.Parameters.AddWithValue("@ProductId", newProductId);
-                    cmd.Parameters.AddWithValue("@TagId", tag.id);
+                    cmd.Parameters.AddWithValue("@TagId", tag.Id);
                     cmd.ExecuteNonQuery();
                 }
             }
@@ -75,7 +76,7 @@ namespace MarketMinds.Repositories.BorrowProductsRepository
 
                 using (SqlCommand cmd = new SqlCommand(insertImageQuery, connection.GetConnection()))
                 {
-                    cmd.Parameters.AddWithValue("@Url", image.url);
+                    cmd.Parameters.AddWithValue("@Url", image.Url);
                     cmd.Parameters.AddWithValue("@ProductId", newProductId);
                     cmd.ExecuteNonQuery();
                 }
@@ -83,22 +84,20 @@ namespace MarketMinds.Repositories.BorrowProductsRepository
 
             connection.CloseConnection();
         }
-
         public void DeleteProduct(Product product)
         {
-            int Id = product.Id;
-            string query = "DELETE FROM BorrowProducts WHERE id = @Id";
+            int id = product.Id;
+            string query = "DELETE FROM BorrowProducts WHERE id = @id";
 
             connection.OpenConnection();
             using (SqlCommand cmd = new SqlCommand(query, connection.GetConnection()))
             {
-                cmd.Parameters.AddWithValue("@Id", product.Id);
+                cmd.Parameters.AddWithValue("@id", product.Id);
 
                 cmd.ExecuteNonQuery();
             }
             connection.CloseConnection();
         }
-
         public List<Product> GetProducts()
         {
             var borrows = new List<Product>();
@@ -170,20 +169,15 @@ namespace MarketMinds.Repositories.BorrowProductsRepository
                 // Fetch tags and images in separate queries
                 List<ProductTag> tags = GetProductTags(id);
                 List<Image> images = GetProductImages(id);
-
                 BorrowProduct borrow = new BorrowProduct(
                     id, title, description, seller, condition,
                     category, tags, images, timeLimit,
-                    startDate, endDate, dailyRate, isBorrowed
-                );
-
+                    startDate, endDate, dailyRate, isBorrowed);
                 borrows.Add(borrow);
             }
-
             connection.CloseConnection();
             return borrows;
         }
-
         private List<ProductTag> GetProductTags(int productId)
         {
             var tags = new List<ProductTag>();
@@ -277,12 +271,10 @@ namespace MarketMinds.Repositories.BorrowProductsRepository
                         string email = reader.GetString(reader.GetOrdinal("email"));
                         User seller = new User(sellerId, username, email);
 
-
                         int conditionId = reader.GetInt32(reader.GetOrdinal("condition_id"));
                         string conditionTitle = reader.GetString(reader.GetOrdinal("conditionTitle"));
                         string conditionDescription = reader.GetString(reader.GetOrdinal("conditionDescription"));
                         ProductCondition condition = new ProductCondition(conditionId, conditionTitle, conditionDescription);
-
 
                         int categoryId = reader.GetInt32(reader.GetOrdinal("category_id"));
                         string categoryTitle = reader.GetString(reader.GetOrdinal("categoryTitle"));
@@ -298,7 +290,7 @@ namespace MarketMinds.Repositories.BorrowProductsRepository
 
                         List<ProductTag> tags = GetProductTags(id);
 
-                        List<Image> images = GetProductImages( id);
+                        List<Image> images = GetProductImages(id);
 
                         borrow = new BorrowProduct(
                             id,
@@ -313,16 +305,15 @@ namespace MarketMinds.Repositories.BorrowProductsRepository
                             startDate,
                             endDate,
                             dailyRate,
-                            isBorrowed
-                        );
+                            isBorrowed);
                 }
             }
             connection.CloseConnection();
             return borrow;
         }
-
-        
-        
-        public void UpdateProduct(Product product){}
+        public void UpdateProduct(Product product)
+        {
+            // Update the product in the database
+        }
     }
 }
