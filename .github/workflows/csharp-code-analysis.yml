@@ -1,0 +1,88 @@
+name: C# Code Analysis
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - "**/*.cs"
+      - "**/*.csproj"
+      - ".github/workflows/csharp-code-analysis.yml"
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: "The branch, tag or SHA to check out"
+        required: false
+        default: ""
+
+jobs:
+  analyze:
+    name: StyleCop Analysis
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.inputs.ref || github.ref }}
+          fetch-depth: 0
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: "7.0.x"
+
+      - name: Restore dependencies
+        run: dotnet restore MarketMinds/MarketMinds.sln
+
+      - name: Install StyleCop.Analyzers
+        run: |
+          dotnet new tool-manifest --force
+          dotnet tool install dotnet-stylecop --version 1.0.0
+
+      - name: Copy StyleCop props to projects
+        run: |
+          find MarketMinds -name "*.csproj" -type f -print0 | while IFS= read -r -d '' project; do
+            projectDir=$(dirname "$project")
+            cp .github/workflows/stylecop.props "$projectDir/Directory.Build.props"
+          done
+
+      - name: Build with StyleCop analysis
+        run: dotnet build MarketMinds/MarketMinds.sln --no-restore /p:EnforceCodeStyleInBuild=true /p:RunAnalyzersDuringBuild=true /p:RunAnalyzers=true /p:AnalysisLevel=latest /p:TreatWarningsAsErrors=true /p:CodeAnalysisTreatWarningsAsErrors=true
+        continue-on-error: true
+
+      - name: Format StyleCop Results
+        if: always()
+        run: |
+          echo "## C# Code Analysis Results" >> $GITHUB_STEP_SUMMARY
+          if [ -f "$(find . -name "StyleCopViolations.xml" | head -n 1)" ]; then
+            echo "StyleCop violations found. Please fix the issues before merging." >> $GITHUB_STEP_SUMMARY
+            cat $(find . -name "StyleCopViolations.xml" | head -n 1) >> $GITHUB_STEP_SUMMARY
+          else
+            echo "✅ No StyleCop violations found." >> $GITHUB_STEP_SUMMARY
+          fi
+
+      - name: Check for build errors
+        if: always()
+        run: |
+          if [ -f "$(find . -name "*.binlog" | head -n 1)" ]; then
+            echo "## Build Errors" >> $GITHUB_STEP_SUMMARY
+            echo "Errors found during build. Please fix the issues before merging." >> $GITHUB_STEP_SUMMARY
+            dotnet build-server shutdown
+            dotnet build MarketMinds/MarketMinds.sln --no-restore -v diagnostic >> $GITHUB_STEP_SUMMARY
+          fi
+
+      - name: Report code analysis results as PR comment
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs');
+            const stepSummary = fs.readFileSync(process.env.GITHUB_STEP_SUMMARY, 'utf8');
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `## StyleCop Analysis Results\n\n${stepSummary}`
+            });
