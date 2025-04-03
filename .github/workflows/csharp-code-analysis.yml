@@ -18,18 +18,28 @@ jobs:
   analyze:
     name: StyleCop Analysis
     runs-on: ubuntu-latest
+    env:
+      DOTNET_NOLOGO: true
+      DOTNET_CLI_TELEMETRY_OPTOUT: true
+      DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref: ${{ github.event.inputs.ref || github.ref }}
           fetch-depth: 0
 
       - name: Setup .NET
-        uses: actions/setup-dotnet@v3
+        uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: "8.0.x"
+          dotnet-version: "8.0.200"
+
+      - name: Verify .NET installation
+        run: |
+          dotnet --info
+          dotnet --version
+          echo "DOTNET_ROOT=$DOTNET_ROOT"
 
       - name: Restore dependencies
         run: dotnet restore MarketMinds/MarketMinds.sln
