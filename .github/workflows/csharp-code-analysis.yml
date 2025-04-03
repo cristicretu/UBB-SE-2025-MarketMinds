@@ -68,10 +68,15 @@ jobs:
             exit 1
           fi
 
+      - name: Check existing project file packages
+        run: |
+          echo "Checking existing packages in project file:"
+          grep -r "StyleCop.Analyzers" MarketMinds/ --include="*.csproj" || echo "No StyleCop packages found in csproj files"
+
       - name: Restore dependencies
         run: dotnet restore MarketMinds/MarketMinds.sln
 
-      - name: Create Directory.Build.props with StyleCop
+      - name: Create Directory.Build.props with StyleCop config
         run: |
           cat > MarketMinds/Directory.Build.props << 'EOF'
           <?xml version="1.0" encoding="utf-8"?>
@@ -86,12 +91,7 @@ jobs:
               <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
             </PropertyGroup>
             
-            <ItemGroup>
-              <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
-                <PrivateAssets>all</PrivateAssets>
-                <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-              </PackageReference>
-            </ItemGroup>
+            <!-- No PackageReference for StyleCop.Analyzers here, using the one in the project file -->
           </Project>
           EOF
           cat MarketMinds/Directory.Build.props
