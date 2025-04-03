@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System;
+
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -24,18 +25,19 @@ namespace MarketMinds
     /// </summary>
     public sealed partial class AuctionProductView : Window
     {
-        private readonly AuctionProduct Product;
-        private readonly User CurrentUser;
-        private readonly AuctionProductsViewModel AuctionProductsViewModel;
+        private readonly AuctionProduct product;
+        private readonly User
+            currentUser;
+        private readonly AuctionProductsViewModel auctionProductsViewModel;
 
         private DispatcherTimer? countdownTimer;
         private Window? seeSellerReviewsView;
         public AuctionProductView(AuctionProduct product)
         {
             this.InitializeComponent();
-            Product = product;
-            CurrentUser = MarketMinds.App.CurrentUser;
-            AuctionProductsViewModel = MarketMinds.App.AuctionProductsViewModel;
+            this.product = product;
+            currentUser = MarketMinds.App.CurrentUser;
+            auctionProductsViewModel = MarketMinds.App.AuctionProductsViewModel;
             LoadProductDetails();
             LoadImages();
             LoadBidHistory();
@@ -57,24 +59,24 @@ namespace MarketMinds
             if (timeText == "Auction Ended" && countdownTimer != null)
             {
                 countdownTimer.Stop();
-                AuctionProductsViewModel.ConcludeAuction(Product);
+                auctionProductsViewModel.ConcludeAuction(product);
             }
         }
         private void LoadProductDetails()
         {
             // Basic Info
-            TitleTextBlock.Text = Product.Title;
-            CategoryTextBlock.Text = Product.Category.DisplayTitle;
-            ConditionTextBlock.Text = Product.Condition.DisplayTitle;
-            StartingPriceTextBlock.Text = $"{Product.StartingPrice:C}";
-            CurrentPriceTextBlock.Text = $"{Product.CurrentPrice:C}"; // Just an example
+            TitleTextBlock.Text = product.Title;
+            CategoryTextBlock.Text = product.Category.DisplayTitle;
+            ConditionTextBlock.Text = product.Condition.DisplayTitle;
+            StartingPriceTextBlock.Text = $"{product.StartingPrice:C}";
+            CurrentPriceTextBlock.Text = $"{product.CurrentPrice:C}"; // Just an example
             TimeLeftTextBlock.Text = GetTimeLeft();
 
             // Seller Info
-            SellerTextBlock.Text = Product.Seller.Username;
-            DescriptionTextBox.Text = Product.Description;
+            SellerTextBlock.Text = product.Seller.Username;
+            DescriptionTextBox.Text = product.Description;
 
-            TagsItemsControl.ItemsSource = Product.Tags.Select(tag =>
+            TagsItemsControl.ItemsSource = product.Tags.Select(tag =>
             {
                 return new TextBlock
                 {
@@ -88,7 +90,7 @@ namespace MarketMinds
         private void LoadImages()
         {
             ImageCarousel.Items.Clear();
-            foreach (var image in Product.Images)
+            foreach (var image in product.Images)
             {
                 var img = new Microsoft.UI.Xaml.Controls.Image
                 {
@@ -104,23 +106,23 @@ namespace MarketMinds
         }
         private void LoadBidHistory()
         {
-            BidHistoryListView.ItemsSource = Product.BidHistory
+            BidHistoryListView.ItemsSource = product.BidHistory
                 .OrderByDescending(b => b.Timestamp)
                 .ToList();
         }
         private string GetTimeLeft()
         {
-            var timeLeft = Product.EndAuctionDate - DateTime.Now;
+            var timeLeft = product.EndAuctionDate - DateTime.Now;
             return timeLeft > TimeSpan.Zero ? timeLeft.ToString(@"dd\:hh\:mm\:ss") : "Auction Ended";
         }
         private void OnPlaceBidClicked(object sender, RoutedEventArgs e)
         {
             try
             {
-                AuctionProductsViewModel.PlaceBid(Product, CurrentUser, BidTextBox.Text);
+                auctionProductsViewModel.PlaceBid(product, currentUser, BidTextBox.Text);
 
                 // Update UI after successful bid
-                CurrentPriceTextBlock.Text = $"{Product.CurrentPrice:C}";
+                CurrentPriceTextBlock.Text = $"{product.CurrentPrice:C}";
                 LoadBidHistory(); // Refresh bid list
             }
             catch (Exception ex)
@@ -144,7 +146,7 @@ namespace MarketMinds
 
         private void OnSeeReviewsClicked(object sender, RoutedEventArgs e)
         {
-            App.SeeSellerReviewsViewModel.Seller = Product.Seller;
+            App.SeeSellerReviewsViewModel.Seller = product.Seller;
             var seeSellerReviewsView = new SeeSellerReviewsView(App.SeeSellerReviewsViewModel);
             seeSellerReviewsView.Activate();
         }
