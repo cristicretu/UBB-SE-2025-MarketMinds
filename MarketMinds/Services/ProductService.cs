@@ -43,8 +43,9 @@ namespace MarketMinds.Services.ProductTagService
             productRepository.DeleteProduct(product);
         }
 
-        public static List<Product> GetSortedFilteredProducts(List<Product> products, List<ProductCondition> selectedConditions, List<ProductCategory> selectedCategories, List<ProductTag> selectedTags, ProductSortType sortCondition, string searchQuery)
+        public List<Product> GetSortedFilteredProducts(List<ProductCondition> selectedConditions, List<ProductCategory> selectedCategories, List<ProductTag> selectedTags, ProductSortType sortCondition, string searchQuery)
         {
+            List<Product> products = GetProducts();
             List<Product> productResultSet = new List<Product>();
             foreach (Product product in products)
             {
@@ -81,6 +82,46 @@ namespace MarketMinds.Services.ProductTagService
                 }
             }
             return productResultSet;
+        }
+        public static List<Product> GetSortedFilteredProducts(List<Product> products, List<ProductCondition> selectedConditions, List<ProductCategory> selectedCategories, List<ProductTag> selectedTags, ProductSortType sortCondition, string searchQuery)
+        {
+            var tempService = new ProductService(null);
+            List<Product> filteredProducts = new List<Product>();
+            foreach (Product product in products)
+            {
+                bool matchesConditions = selectedConditions == null || selectedConditions.Count == 0 || selectedConditions.Any(c => c.Id == product.Condition.Id);
+                bool matchesCategories = selectedCategories == null || selectedCategories.Count == 0 || selectedCategories.Any(c => c.Id == product.Category.Id);
+                bool matchesTags = selectedTags == null || selectedTags.Count == 0 || selectedTags.Any(t => product.Tags.Any(pt => pt.Id == t.Id));
+                bool matchesSearchQuery = string.IsNullOrEmpty(searchQuery) || product.Title.ToLower().Contains(searchQuery.ToLower());
+
+                if (matchesConditions && matchesCategories && matchesTags && matchesSearchQuery)
+                {
+                    filteredProducts.Add(product);
+                }
+            }
+
+            if (sortCondition != null)
+            {
+                if (sortCondition.IsAscending)
+                {
+                    filteredProducts = filteredProducts.OrderBy(
+                        p =>
+                        {
+                            var prop = p?.GetType().GetProperty(sortCondition.InternalAttributeFieldTitle);
+                            return prop?.GetValue(p);
+                        }).ToList();
+                }
+                else
+                {
+                    filteredProducts = filteredProducts.OrderByDescending(
+                        p =>
+                        {
+                            var prop = p?.GetType().GetProperty(sortCondition.InternalAttributeFieldTitle);
+                            return prop?.GetValue(p);
+                        }).ToList();
+                }
+            }
+            return filteredProducts;
         }
     }
 }
