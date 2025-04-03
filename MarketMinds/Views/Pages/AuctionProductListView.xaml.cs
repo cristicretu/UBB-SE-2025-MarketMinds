@@ -7,9 +7,9 @@ using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
 using DomainLayer.Domain;
 using ViewModelLayer.ViewModel;
-using BusinessLogicLayer.Services;
 using BusinessLogicLayer.ViewModel;
 using MarketMinds;
+using MarketMinds.Services;
 using MarketMinds.Views.Pages;
 
 namespace UiLayer

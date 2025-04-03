@@ -24,7 +24,7 @@ namespace MarketMinds.Services.BuyProductsService
             buyProductsRepository.DeleteProduct(product);
         }
 
-        public List<Product> GetProducts()
+        public new List<Product> GetProducts()
         {
             return buyProductsRepository.GetProducts();
         }

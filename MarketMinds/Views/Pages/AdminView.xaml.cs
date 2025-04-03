@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using ViewModelLayer.ViewModel;
-using BusinessLogicLayer.Services;
+using MarketMinds.Services;
 using DomainLayer.Domain;
 
 namespace UiLayer

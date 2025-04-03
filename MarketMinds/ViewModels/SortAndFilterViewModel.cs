@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DomainLayer.Domain;
-using MarketMinds.Services;
+using MarketMinds.Services.ProductTagService;
 
 namespace BusinessLogicLayer.ViewModel
 {
