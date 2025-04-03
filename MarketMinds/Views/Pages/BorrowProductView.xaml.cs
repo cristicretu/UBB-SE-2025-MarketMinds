@@ -24,14 +24,14 @@ namespace MarketMinds
     {
         public BorrowProduct Product { get; private set; }
         private Window? seeSellerReviewsView;
-        private readonly User _currentUser;
+        private readonly User currentUser;
         public DateTime? SelectedEndDate { get; private set; }
 
         public BorrowProductView(BorrowProduct product)
         {
             this.InitializeComponent();
             Product = product;
-            _currentUser = MarketMinds.App.CurrentUser;
+            currentUser = MarketMinds.App.CurrentUser;
 
             // Initialize date controls
             StartDateTextBlock.Text = Product.StartDate.ToString("d");
