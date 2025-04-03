@@ -82,7 +82,7 @@ jobs:
           <Project>
             <Import Project="Windows.props" Condition="Exists('Windows.props')" />
             <PropertyGroup>
-              <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)/SE.ruleset</CodeAnalysisRuleSet>
+              <CodeAnalysisRuleSet>`$(MSBuildThisFileDirectory)/SE.ruleset</CodeAnalysisRuleSet>
               <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
               <WarningsAsErrors />
               <RunAnalyzersDuringBuild>true</RunAnalyzersDuringBuild>
