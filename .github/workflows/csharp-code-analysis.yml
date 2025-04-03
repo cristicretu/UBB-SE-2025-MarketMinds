@@ -17,7 +17,7 @@ on:
 jobs:
   analyze:
     name: StyleCop Analysis
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     env:
       DOTNET_NOLOGO: true
       DOTNET_CLI_TELEMETRY_OPTOUT: true
@@ -30,57 +30,57 @@ jobs:
           ref: ${{ github.event.inputs.ref || github.ref }}
           fetch-depth: 0
 
-      - name: Remove conflicting .NET versions
-        run: |
-          # List all installed .NET versions
-          echo "Currently installed .NET versions:"
-          dotnet --list-sdks
-
-          # Remove previous .NET installations from PATH
-          echo "Removing .NET 7 from PATH if it exists"
-          export PATH=$(echo $PATH | tr ":" "\n" | grep -v "dotnet" | tr "\n" ":")
-
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: "8.0.200"
+          dotnet-version: "8.0.402"
 
       - name: Create global.json to force .NET version
         run: |
-          cat > global.json << 'EOF'
+          @"
           {
             "sdk": {
-              "version": "8.0.200",
+              "version": "8.0.402",
               "rollForward": "latestMajor"
             }
           }
-          EOF
-          cat global.json
+          "@ | Out-File -FilePath global.json -Encoding utf8
+          Get-Content global.json
 
       - name: Verify .NET installation
         run: |
           dotnet --info
           dotnet --version
-          echo "DOTNET_ROOT=$DOTNET_ROOT"
-          # Make sure the right version is being used
-          if [[ $(dotnet --version) != 8.* ]]; then
-            echo "Wrong .NET version detected!"
-            exit 1
-          fi
+          Write-Output "DOTNET_ROOT=$env:DOTNET_ROOT"
 
       - name: Check existing project file packages
         run: |
-          echo "Checking existing packages in project file:"
-          grep -r "StyleCop.Analyzers" MarketMinds/ --include="*.csproj" || echo "No StyleCop packages found in csproj files"
+          Write-Output "Checking existing packages in project file:"
+          Get-ChildItem -Path MarketMinds -Include *.csproj -Recurse | ForEach-Object {
+            $content = Get-Content $_
+            if ($content -match "StyleCop.Analyzers") {
+              Write-Output "Found StyleCop.Analyzers in $_"
+              $content | Select-String "StyleCop.Analyzers"
+            }
+          }
 
-      - name: Restore dependencies
-        run: dotnet restore MarketMinds/MarketMinds.sln
+      - name: Create Windows SDK reference props
+        run: |
+          @"
+          <?xml version="1.0" encoding="utf-8"?>
+          <Project>
+            <PropertyGroup>
+              <WindowsSdkPackageVersion>10.0.19041.38</WindowsSdkPackageVersion>
+            </PropertyGroup>
+          </Project>
+          "@ | Out-File -FilePath MarketMinds/Windows.props -Encoding utf8
 
       - name: Create Directory.Build.props with StyleCop config
         run: |
-          cat > MarketMinds/Directory.Build.props << 'EOF'
+          @"
           <?xml version="1.0" encoding="utf-8"?>
           <Project>
+            <Import Project="Windows.props" Condition="Exists('Windows.props')" />
             <PropertyGroup>
               <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)/SE.ruleset</CodeAnalysisRuleSet>
               <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
@@ -89,12 +89,17 @@ jobs:
               <RunAnalyzers>true</RunAnalyzers>
               <AnalysisLevel>latest</AnalysisLevel>
               <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+              <!-- Allow building Windows projects on CI -->
+              <EnableWindowsTargeting>true</EnableWindowsTargeting>
             </PropertyGroup>
             
             <!-- No PackageReference for StyleCop.Analyzers here, using the one in the project file -->
           </Project>
-          EOF
-          cat MarketMinds/Directory.Build.props
+          "@ | Out-File -FilePath MarketMinds/Directory.Build.props -Encoding utf8
+          Get-Content MarketMinds/Directory.Build.props
+
+      - name: Restore dependencies
+        run: dotnet restore MarketMinds/MarketMinds.sln
 
       - name: Build with StyleCop analysis
         run: dotnet build MarketMinds/MarketMinds.sln --no-restore
@@ -103,23 +108,26 @@ jobs:
       - name: Format StyleCop Results
         if: always()
         run: |
-          echo "## C# Code Analysis Results" >> $GITHUB_STEP_SUMMARY
-          if [ -f "$(find . -name "*.binlog" | head -n 1)" ]; then
-            echo "StyleCop violations found. Please fix the issues before merging." >> $GITHUB_STEP_SUMMARY
-            dotnet build MarketMinds/MarketMinds.sln --no-restore -v detailed | grep -E "warning|error" | tee -a $GITHUB_STEP_SUMMARY
-          else
-            echo "✅ No StyleCop violations found." >> $GITHUB_STEP_SUMMARY
-          fi
+          Write-Output "## C# Code Analysis Results" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append
+          $binlogs = Get-ChildItem -Path . -Filter *.binlog -Recurse
+          if ($binlogs) {
+            Write-Output "StyleCop violations found. Please fix the issues before merging." | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append
+            $buildOutput = dotnet build MarketMinds/MarketMinds.sln --no-restore -v detailed
+            $buildOutput | Where-Object { $_ -match "warning|error" } | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append
+          } else {
+            Write-Output "✅ No StyleCop violations found." | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append
+          }
 
       - name: Check for build errors
         if: always()
         run: |
-          if [ -f "$(find . -name "*.binlog" | head -n 1)" ]; then
-            echo "## Build Errors" >> $GITHUB_STEP_SUMMARY
-            echo "Errors found during build. Please fix the issues before merging." >> $GITHUB_STEP_SUMMARY
+          $binlogs = Get-ChildItem -Path . -Filter *.binlog -Recurse
+          if ($binlogs) {
+            Write-Output "## Build Errors" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append
+            Write-Output "Errors found during build. Please fix the issues before merging." | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append
             dotnet build-server shutdown
-            dotnet build MarketMinds/MarketMinds.sln --no-restore -v diagnostic >> $GITHUB_STEP_SUMMARY
-          fi
+            dotnet build MarketMinds/MarketMinds.sln --no-restore -v diagnostic | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append
+          }
 
       - name: Report code analysis results as PR comment
         if: github.event_name == 'pull_request'
