@@ -170,7 +170,6 @@ namespace UiLayer
                 {
                     // Create a compare view
                     var compareProductsView = new CompareProductsView(compareProductsViewModel);
-                    
                     // Create a window to host the CompareProductsView page
                     var compareWindow = new Window();
                     compareWindow.Content = compareProductsView;

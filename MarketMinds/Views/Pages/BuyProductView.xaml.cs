@@ -106,7 +106,6 @@ namespace MarketMinds
         private void OnSeeReviewsClicked(object sender, RoutedEventArgs e)
         {
             App.SeeSellerReviewsViewModel.Seller = priv_product.Seller;
-            
             // Create a window to host the SeeSellerReviewsView page
             seeSellerReviewsView = new Window();
             seeSellerReviewsView.Content = new SeeSellerReviewsView(App.SeeSellerReviewsViewModel);
