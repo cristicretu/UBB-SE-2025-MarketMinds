@@ -17,6 +17,7 @@ using Microsoft.UI.Xaml.Navigation;
 using DomainLayer.Domain;
 using Microsoft.UI.Xaml.Media.Imaging;
 using ViewModelLayer.ViewModel;
+using MarketMinds.Views.Pages;
 
 namespace MarketMinds
 {
@@ -147,8 +148,14 @@ namespace MarketMinds
         private void OnSeeReviewsClicked(object sender, RoutedEventArgs e)
         {
             App.SeeSellerReviewsViewModel.Seller = product.Seller;
-            var seeSellerReviewsView = new SeeSellerReviewsView(App.SeeSellerReviewsViewModel);
-            seeSellerReviewsView.Activate();
+            
+            // Create a window to host the SeeSellerReviewsView page
+            var window = new Window();
+            window.Content = new SeeSellerReviewsView(App.SeeSellerReviewsViewModel);
+            window.Activate();
+            
+            // Store reference to window
+            seeSellerReviewsView = window;
         }
     }
 }

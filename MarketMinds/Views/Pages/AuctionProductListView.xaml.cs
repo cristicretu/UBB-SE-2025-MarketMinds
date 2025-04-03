@@ -10,6 +10,7 @@ using ViewModelLayer.ViewModel;
 using BusinessLogicLayer.Services;
 using BusinessLogicLayer.ViewModel;
 using MarketMinds;
+using MarketMinds.Views.Pages;
 
 namespace UiLayer
 {
@@ -190,8 +191,14 @@ namespace UiLayer
                 bool twoAdded = compareProductsViewModel.AddProduct(selectedProduct);
                 if (twoAdded == true)
                 {
-                    var compareView = new CompareProductsView(compareProductsViewModel);
-                    compareView.Activate();
+                    // Create a compare view
+                    var compareProductsView = new CompareProductsView(compareProductsViewModel);
+                    
+                    // Create a window to host the CompareProductsView page
+                    var compareWindow = new Window();
+                    compareWindow.Content = compareProductsView;
+                    compareProductsView.SetParentWindow(compareWindow);
+                    compareWindow.Activate();
                 }
             }
         }
