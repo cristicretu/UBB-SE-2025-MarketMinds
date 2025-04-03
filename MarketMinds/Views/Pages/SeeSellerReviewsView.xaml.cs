@@ -24,10 +24,8 @@ namespace MarketMinds.Views.Pages
     public sealed partial class SeeSellerReviewsView : Page
     {
         private SeeSellerReviewsViewModel viewModel;
-        
         // Public property for binding
         public SeeSellerReviewsViewModel ViewModel => viewModel;
-        
         public SeeSellerReviewsView(SeeSellerReviewsViewModel viewModel_var)
         {
             viewModel = viewModel_var;
