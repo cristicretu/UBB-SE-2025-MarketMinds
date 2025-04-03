@@ -1,5 +1,5 @@
 using Microsoft.UI.Xaml;
-// using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Controls;
 // using Microsoft.UI.Xaml.Controls.Primitives;
 // using Microsoft.UI.Xaml.Data;
 // using Microsoft.UI.Xaml.Input;
@@ -16,14 +16,18 @@ using BusinessLogicLayer.ViewModel;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
-namespace MarketMinds
+namespace MarketMinds.Views.Pages
 {
     /// <summary>
-    /// An empty window that can be used on its own or navigated to within a Frame.
+    /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class SeeSellerReviewsView : Window
+    public sealed partial class SeeSellerReviewsView : Page
     {
         private SeeSellerReviewsViewModel viewModel;
+        
+        // Public property for binding
+        public SeeSellerReviewsViewModel ViewModel => viewModel;
+        
         public SeeSellerReviewsView(SeeSellerReviewsViewModel viewModel_var)
         {
             viewModel = viewModel_var;

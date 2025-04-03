@@ -79,7 +79,9 @@ namespace UiLayer
             }
             else if (App.CurrentUser.UserType == 2)
             {
-                seeReviewsWindow = new SeeSellerReviewsView(App.SeeSellerReviewsViewModel);
+                // Create a window that hosts the SeeSellerReviewsView page
+                seeReviewsWindow = new Window();
+                seeReviewsWindow.Content = new SeeSellerReviewsView(App.SeeSellerReviewsViewModel);
                 seeReviewsWindow.Activate();
             }
         }
