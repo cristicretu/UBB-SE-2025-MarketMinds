@@ -227,5 +227,39 @@ namespace MarketMinds.Services.BasketService
 
             return 0;
         }
+
+        // Add a new method to calculate basket totals
+        public BasketTotals CalculateBasketTotals(int basketId, string promoCode)
+        {
+            if (basketId <= 0)
+            {
+                throw new ArgumentException("Invalid basket ID");
+            }
+
+            List<BasketItem> items = basketRepository.GetBasketItems(basketId);
+            float subtotal = items.Sum(item => item.GetPrice());
+            float discount = 0;
+
+            if (!string.IsNullOrEmpty(promoCode))
+            {
+                discount = GetPromoCodeDiscount(promoCode, subtotal);
+            }
+                        float totalAmount = subtotal - discount;
+
+            return new BasketTotals
+            {
+                Subtotal = subtotal,
+                Discount = discount,
+                TotalAmount = totalAmount
+            };
+        }
+    }
+
+    // Helper class to return the basket total values
+    public class BasketTotals
+    {
+        public float Subtotal { get; set; }
+        public float Discount { get; set; }
+        public float TotalAmount { get; set; }
     }
 }

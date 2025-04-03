@@ -35,8 +35,8 @@ namespace ViewModelLayer.ViewModel
                 basket = basketService.GetBasketByUser(currentUser);
                 BasketItems = basket.GetItems();
 
-                // Calculate totals
-                CalculateTotals();
+                // Use service to calculate totals instead of local method
+                UpdateTotals();
             }
             catch (Exception ex)
             {
@@ -107,7 +107,8 @@ namespace ViewModelLayer.ViewModel
                 basketService.ApplyPromoCode(basket.Id, code);
                 PromoCode = code;
 
-                CalculateTotals();
+                // Update totals with the new promo code
+                UpdateTotals();
                 ErrorMessage = $"Promo code '{code}' applied successfully.";
             }
             catch (Exception ex)
@@ -148,19 +149,25 @@ namespace ViewModelLayer.ViewModel
             ErrorMessage = string.Empty;
         }
 
-        private void CalculateTotals()
+        // New method to update totals using the service
+        private void UpdateTotals()
         {
-            Subtotal = BasketItems.Sum(item => item.GetPrice());
-
-            if (!string.IsNullOrEmpty(PromoCode))
+            try
             {
-                Discount = basketService.GetPromoCodeDiscount(PromoCode, Subtotal);
+                BasketTotals totals = basketService.CalculateBasketTotals(basket.Id, PromoCode);
+                Subtotal = totals.Subtotal;
+                Discount = totals.Discount;
+                TotalAmount = totals.TotalAmount;
             }
-            else
+            catch (Exception ex)
             {
+                // Handle calculation errors
+                ErrorMessage = $"Failed to calculate totals: {ex.Message}";
+                // Set default values
+                Subtotal = BasketItems.Sum(item => item.GetPrice());
                 Discount = 0;
+                TotalAmount = Subtotal;
             }
-            TotalAmount = Subtotal - Discount;
         }
     }
 }
