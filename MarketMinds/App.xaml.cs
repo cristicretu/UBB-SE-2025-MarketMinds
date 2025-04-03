@@ -21,6 +21,7 @@ using MarketMinds.Services.ProductCategoryService;
 using MarketMinds.Services.ProductConditionService;
 using MarketMinds.Services.ReviewService;
 using MarketMinds.Services.ProductTagService;
+using MarketMinds.Services;
 
 namespace MarketMinds
 {

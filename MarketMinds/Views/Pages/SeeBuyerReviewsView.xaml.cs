@@ -1,4 +1,4 @@
-using BusinessLogicLayer.Services;
+using MarketMinds.Services;
 using BusinessLogicLayer.ViewModel;
 using DomainLayer.Domain;
 using Microsoft.UI.Xaml;
@@ -15,7 +15,7 @@ using Microsoft.UI.Xaml.Controls;
 // using System.IO;
 // using System.Linq;
 // using System.Runtime.InteropServices.WindowsRuntime;
-// using ViewModelLayer.ViewModel;
+using ViewModelLayer.ViewModel;
 // using Windows.Foundation;
 // using Windows.Foundation.Collections;
 

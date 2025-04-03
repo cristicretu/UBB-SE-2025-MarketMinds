@@ -16,7 +16,7 @@ namespace MarketMinds.Repositories.BasketRepository
         /// </summary>
         /// <param name="userId">The ID of the user.</param>
         /// <returns>The user's basket.</returns>
-        Basket GetBasketByUser(int userId);
+        Basket GetBasketByUserId(int userId);
 
         /// <summary>
         /// Removes an item from the basket by product ID.

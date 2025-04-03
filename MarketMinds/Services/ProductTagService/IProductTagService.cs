@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using DomainLayer.Domain;
 
-namespace BusinessLogicLayer.Services
+namespace MarketMinds.Services.ProductTagService
 {
     /// <summary>
     /// Interface for ProductTagService to manage product tag operations.

@@ -17,7 +17,7 @@ namespace MarketMinds.Services.BasketService
             basketRepository = basketRepository_var;
         }
 
-        public void AddToBasket(int userId, int productId, int quantity)
+        public void AddProductToBasket(int userId, int productId, int quantity)
         {
             if (userId <= 0)
             {
@@ -32,7 +32,7 @@ namespace MarketMinds.Services.BasketService
             int limitedQuantity = Math.Min(quantity, MaxQuantityPerItem);
 
             // Get the user's basket
-            Basket basket = basketRepository.GetBasketByUser(userId);
+            Basket basket = basketRepository.GetBasketByUserId(userId);
 
             // Add the item with the limited quantity
             basketRepository.AddItemToBasket(basket.Id, productId, limitedQuantity);
@@ -48,7 +48,7 @@ namespace MarketMinds.Services.BasketService
             try
             {
                 // Get the user's basket or create one if it doesn't exist
-                return basketRepository.GetBasketByUser(user.Id);
+                return basketRepository.GetBasketByUserId(user.Id);
             }
             catch (Exception ex)
             {
@@ -70,7 +70,7 @@ namespace MarketMinds.Services.BasketService
             try
             {
                 // Get the user's basket
-                Basket basket = basketRepository.GetBasketByUser(userId);
+                Basket basket = basketRepository.GetBasketByUserId(userId);
 
                 // Remove the product
                 basketRepository.RemoveItemByProductId(basket.Id, productId);
@@ -102,7 +102,7 @@ namespace MarketMinds.Services.BasketService
             try
             {
                 // Get the user's basket
-                Basket basket = basketRepository.GetBasketByUser(userId);
+                Basket basket = basketRepository.GetBasketByUserId(userId);
 
                 if (limitedQuantity == 0)
                 {
@@ -129,7 +129,7 @@ namespace MarketMinds.Services.BasketService
             }
 
             // Get the user's basket
-            Basket basket = basketRepository.GetBasketByUser(userId);
+            Basket basket = basketRepository.GetBasketByUserId(userId);
 
             // Clear the basket
             basketRepository.ClearBasket(basket.Id);

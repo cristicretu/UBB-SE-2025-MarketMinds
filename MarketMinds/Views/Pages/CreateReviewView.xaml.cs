@@ -3,8 +3,8 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System;
+using System.Collections.Generic;
 using ViewModelLayer.ViewModel;
-using BusinessLogicLayer.Services;
 using Windows.Storage.Pickers;
 using Windows.Storage;
 using Windows.Storage.Streams;
@@ -12,6 +12,7 @@ using Newtonsoft.Json;
 using DomainLayer.Domain;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml;
+using MarketMinds.Services;
 
 namespace MarketMinds
 {
