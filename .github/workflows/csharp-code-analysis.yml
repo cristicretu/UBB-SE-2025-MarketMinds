@@ -30,43 +30,83 @@ jobs:
           ref: ${{ github.event.inputs.ref || github.ref }}
           fetch-depth: 0
 
+      - name: Remove conflicting .NET versions
+        run: |
+          # List all installed .NET versions
+          echo "Currently installed .NET versions:"
+          dotnet --list-sdks
+
+          # Remove previous .NET installations from PATH
+          echo "Removing .NET 7 from PATH if it exists"
+          export PATH=$(echo $PATH | tr ":" "\n" | grep -v "dotnet" | tr "\n" ":")
+
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: "8.0.200"
+
+      - name: Create global.json to force .NET version
+        run: |
+          cat > global.json << 'EOF'
+          {
+            "sdk": {
+              "version": "8.0.200",
+              "rollForward": "latestMajor"
+            }
+          }
+          EOF
+          cat global.json
 
       - name: Verify .NET installation
         run: |
           dotnet --info
           dotnet --version
           echo "DOTNET_ROOT=$DOTNET_ROOT"
+          # Make sure the right version is being used
+          if [[ $(dotnet --version) != 8.* ]]; then
+            echo "Wrong .NET version detected!"
+            exit 1
+          fi
 
       - name: Restore dependencies
         run: dotnet restore MarketMinds/MarketMinds.sln
 
-      - name: Install StyleCop.Analyzers
+      - name: Create Directory.Build.props with StyleCop
         run: |
-          dotnet new tool-manifest --force
-          dotnet tool install dotnet-stylecop --version 1.0.0
-
-      - name: Copy StyleCop props to projects
-        run: |
-          find MarketMinds -name "*.csproj" -type f -print0 | while IFS= read -r -d '' project; do
-            projectDir=$(dirname "$project")
-            cp .github/workflows/stylecop.props "$projectDir/Directory.Build.props"
-          done
+          cat > MarketMinds/Directory.Build.props << 'EOF'
+          <?xml version="1.0" encoding="utf-8"?>
+          <Project>
+            <PropertyGroup>
+              <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)/SE.ruleset</CodeAnalysisRuleSet>
+              <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+              <WarningsAsErrors />
+              <RunAnalyzersDuringBuild>true</RunAnalyzersDuringBuild>
+              <RunAnalyzers>true</RunAnalyzers>
+              <AnalysisLevel>latest</AnalysisLevel>
+              <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+            </PropertyGroup>
+            
+            <ItemGroup>
+              <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+                <PrivateAssets>all</PrivateAssets>
+                <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+              </PackageReference>
+            </ItemGroup>
+          </Project>
+          EOF
+          cat MarketMinds/Directory.Build.props
 
       - name: Build with StyleCop analysis
-        run: dotnet build MarketMinds/MarketMinds.sln --no-restore /p:EnforceCodeStyleInBuild=true /p:RunAnalyzersDuringBuild=true /p:RunAnalyzers=true /p:AnalysisLevel=latest /p:TreatWarningsAsErrors=true /p:CodeAnalysisTreatWarningsAsErrors=true
+        run: dotnet build MarketMinds/MarketMinds.sln --no-restore
         continue-on-error: true
 
       - name: Format StyleCop Results
         if: always()
         run: |
           echo "## C# Code Analysis Results" >> $GITHUB_STEP_SUMMARY
-          if [ -f "$(find . -name "StyleCopViolations.xml" | head -n 1)" ]; then
+          if [ -f "$(find . -name "*.binlog" | head -n 1)" ]; then
             echo "StyleCop violations found. Please fix the issues before merging." >> $GITHUB_STEP_SUMMARY
-            cat $(find . -name "StyleCopViolations.xml" | head -n 1) >> $GITHUB_STEP_SUMMARY
+            dotnet build MarketMinds/MarketMinds.sln --no-restore -v detailed | grep -E "warning|error" | tee -a $GITHUB_STEP_SUMMARY
           else
             echo "✅ No StyleCop violations found." >> $GITHUB_STEP_SUMMARY
           fi
