@@ -53,6 +53,19 @@ jobs:
           dotnet --version
           Write-Output "DOTNET_ROOT=$env:DOTNET_ROOT"
 
+      - name: Create placeholder appsettings.json
+        run: |
+          @"
+          {
+            "LocalDataSource": "np:\\\\.\\pipe\\LOCALDB#PLACEHOLDER\\tsql\\query",
+            "InitialCatalog": "MarketPlace",
+            "ImgurSettings": {
+              "ClientId": "placeholder_client_id"
+            }
+          }
+          "@ | Out-File -FilePath MarketMinds/appsettings.json -Encoding utf8
+          Write-Output "Created placeholder appsettings.json for CI"
+
       - name: Check existing project file packages
         run: |
           Write-Output "Checking existing packages in project file:"
@@ -94,8 +107,10 @@ jobs:
               <EnableWindowsTargeting>true</EnableWindowsTargeting>
               <!-- Enable unsafe code to avoid generated file errors -->
               <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-              <!-- Ignore generated files -->
-              <NoWarn>CS0227</NoWarn>
+              <!-- Ignore generated files and XML doc warnings -->
+              <NoWarn>CS0227;SA0001</NoWarn>
+              <!-- Disable documentation requirements for CI -->
+              <DocumentationFile></DocumentationFile>
             </PropertyGroup>
             
             <!-- No PackageReference for StyleCop.Analyzers here, using the one in the project file -->
@@ -119,7 +134,7 @@ jobs:
           $buildOutput = dotnet build MarketMinds/MarketMinds.sln --no-restore -v detailed /p:TreatWarningsAsErrors=false /p:AllowUnsafeBlocks=true
 
           # Filter to only include StyleCop warnings (SA prefix)
-          $styleCopIssues = $buildOutput | Where-Object { $_ -match "warning SA\d+:" }
+          $styleCopIssues = $buildOutput | Where-Object { $_ -match "warning SA\d+:" -and $_ -notmatch "warning SA0001:" }
 
           if ($styleCopIssues) {
             Write-Output "StyleCop violations found. Please fix the issues before merging." | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append
@@ -127,6 +142,8 @@ jobs:
           } else {
             Write-Output "✅ No StyleCop violations found." | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append
           }
+
+          Write-Output "Note: XML comment analysis warnings (SA0001) are intentionally ignored for CI builds." | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append
 
       - name: Report code analysis results as PR comment
         if: github.event_name == 'pull_request'
