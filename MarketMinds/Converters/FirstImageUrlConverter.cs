@@ -17,7 +17,9 @@ namespace MarketMinds.Converters
                     {
                         string url = prop.GetValue(item)?.ToString();
                         if (!string.IsNullOrEmpty(url))
+                        {
                             return url;
+                        }
                     }
                 }
             }
@@ -30,4 +32,4 @@ namespace MarketMinds.Converters
             throw new NotImplementedException();
         }
     }
-} 
+}
