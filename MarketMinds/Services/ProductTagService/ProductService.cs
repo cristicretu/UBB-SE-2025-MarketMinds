@@ -61,12 +61,12 @@ namespace MarketMinds.Services.ProductTagService
 
             if (sortCondition != null)
             {
-                if (sortCondition.isAscending)
+                if (sortCondition.IsAscending)
                 {
                     productResultSet = productResultSet.OrderBy(
                         p =>
                         {
-                            var prop = p?.GetType().GetProperty(sortCondition.internalAttributeFieldTitle);
+                            var prop = p?.GetType().GetProperty(sortCondition.InternalAttributeFieldTitle);
                             return prop?.GetValue(p);
                         }).ToList();
                 }
@@ -75,7 +75,7 @@ namespace MarketMinds.Services.ProductTagService
                     productResultSet = productResultSet.OrderByDescending(
                         p =>
                         {
-                            var prop = p?.GetType().GetProperty(sortCondition.internalAttributeFieldTitle);
+                            var prop = p?.GetType().GetProperty(sortCondition.InternalAttributeFieldTitle);
                             return prop?.GetValue(p);
                         }).ToList();
                 }
