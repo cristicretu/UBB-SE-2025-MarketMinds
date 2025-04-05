@@ -8,11 +8,11 @@ using MarketMinds.Repositories.ProductConditionRepository;
 
 namespace MarketMinds.Services.ProductConditionService
 {
-    public class ProductConditionService
+    public class ProductConditionService : IProductConditionService
     {
-        private ProductConditionRepository repository;
+        private IProductConditionRepository repository;
 
-        public ProductConditionService(ProductConditionRepository repository)
+        public ProductConditionService(IProductConditionRepository repository)
         {
             this.repository = repository;
         }

@@ -3,6 +3,7 @@
 		<OutputType>Library</OutputType>
 		<TargetFramework>net8.0-windows10.0.19041</TargetFramework>
 		<EnableMsixTooling>true</EnableMsixTooling>
+		<RuntimeIdentifier>win-x64</RuntimeIdentifier>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -22,6 +23,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Services\" />
+	  <Folder Include="Repositories\" />
 	</ItemGroup>
 </Project>
