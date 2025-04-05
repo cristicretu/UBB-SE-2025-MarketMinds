@@ -247,6 +247,8 @@ namespace MarketMinds.Repositories.BuyProductsRepository
             connection.OpenConnection();
             using (SqlCommand cmd = new SqlCommand(query, connection.GetConnection()))
             {
+                cmd.Parameters.AddWithValue("@productID", productId);
+
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
                     if (reader.Read())
@@ -270,7 +272,9 @@ namespace MarketMinds.Repositories.BuyProductsRepository
                         string categoryDescription = reader.GetString(reader.GetOrdinal("categoryDescription"));
                         ProductCategory category = new ProductCategory(categoryId, categoryTitle, categoryDescription);
 
-                        float price = reader.GetFloat(reader.GetOrdinal("price"));
+                        float price = (float)reader.GetDouble(reader.GetOrdinal("price"));
+
+                        reader.Close();
 
                         List<ProductTag> tags = GetProductTags(id);
                         List<Image> images = GetProductImages(id);
