@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using Microsoft.UI.Xaml;
 using BusinessLogicLayer.ViewModel;
 using DataAccessLayer;
@@ -85,7 +86,7 @@ namespace MarketMinds
         private IConfiguration InitializeConfiguration()
         {
             var builder = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
+                .SetBasePath(AppContext.BaseDirectory)
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
 
             Configuration = builder.Build();
