@@ -21,8 +21,4 @@
 		<PackageReference Include="NUnit3TestAdapter" Version="5.0.0" />
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.4.0" />
 	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Repositories\" />
-	</ItemGroup>
 </Project>
