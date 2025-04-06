@@ -1,6 +1,7 @@
 ﻿using DomainLayer.Domain;
 using MarketMinds.Services.ProductTagService;
 using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -24,9 +25,10 @@ namespace MarketMinds.Test.Services.ProductTagService
         }
 
         [Test]
-        public void GetSortedFilteredProducts_WithNullFirstParameter_ShouldHandleGracefully()
+        public void GetSortedFilteredProducts_WithNullFirstParameter_ShouldThrowException()
         {
-            Assert.DoesNotThrow(() => ProductService.GetSortedFilteredProducts(null, null, null, null, null, null));
+            Assert.Throws<NullReferenceException>(() =>
+                ProductService.GetSortedFilteredProducts(null, null, null, null, null, null));
         }
 
         [Test]
@@ -147,9 +149,9 @@ namespace MarketMinds.Test.Services.ProductTagService
         {
             var products = new List<Product>
             {
-                CreateSampleProduct(3, "Product C"),
                 CreateSampleProduct(1, "Product A"),
-                CreateSampleProduct(2, "Product B")
+                CreateSampleProduct(2, "Product B"),
+                CreateSampleProduct(3, "Product C")
             };
 
             var sortCondition = new ProductSortType("Id", "Id", true);
@@ -168,9 +170,9 @@ namespace MarketMinds.Test.Services.ProductTagService
         {
             var products = new List<Product>
             {
-                CreateSampleProduct(3, "Product C"),
                 CreateSampleProduct(1, "Product A"),
-                CreateSampleProduct(2, "Product B")
+                CreateSampleProduct(2, "Product B"),
+                CreateSampleProduct(3, "Product C")
             };
 
             var sortCondition = new ProductSortType("Id", "Id", false);

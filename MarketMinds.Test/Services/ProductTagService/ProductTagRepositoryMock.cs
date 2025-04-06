@@ -7,9 +7,8 @@ namespace MarketMinds.Test.Services.ProductTagService
 {
     internal class ProductTagRepositoryMock : IProductTagRepository
     {
-        // Storage for mock data
         public List<ProductTag> Tags { get; set; }
-        private int currentId = 0;
+        private int currentIndex = 0;
 
         public ProductTagRepositoryMock()
         {
@@ -23,7 +22,7 @@ namespace MarketMinds.Test.Services.ProductTagService
 
         public ProductTag CreateProductTag(string displayTitle)
         {
-            var newTag = new ProductTag(++currentId, displayTitle);
+            var newTag = new ProductTag(++currentIndex, displayTitle);
             Tags.Add(newTag);
             return newTag;
         }
