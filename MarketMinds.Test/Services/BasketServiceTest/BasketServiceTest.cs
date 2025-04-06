@@ -266,5 +266,188 @@ namespace MarketMinds.Tests.Services.BasketServiceTest
             Assert.That(ex, Is.Not.Null);
             Assert.That(ex.Message, Is.EqualTo("Invalid promo code"));
         }
+
+        [Test]
+        public void TestValidateBasketBeforeCheckOut_InvalidBasketId_ThrowsException()
+        {
+            int invalidBasketId = 0;
+
+            Exception ex = Assert.Throws<ArgumentException>(() => basketService.ValidateBasketBeforeCheckOut(invalidBasketId));
+
+            Assert.That(ex.Message, Is.EqualTo("Invalid basket ID"));
+        }
+
+        [Test]
+        public void TestValidateBasketBeforeCheckOut_ItemWithZeroQuantity_ReturnsFalse()
+        {
+            int basketId = 1;
+            basketRepositoryMock.SetupInvalidItemQuantity(basketId);
+
+            bool result = basketService.ValidateBasketBeforeCheckOut(basketId);
+
+            Assert.That(result, Is.False);
+        }
+
+        [Test]
+        public void TestValidateBasketBeforeCheckOut_ItemWithInvalidPrice_ReturnsFalse()
+        {
+            int basketId = 1;
+            basketRepositoryMock.SetupInvalidItemPrice(basketId);
+
+            bool result = basketService.ValidateBasketBeforeCheckOut(basketId);
+
+            Assert.That(result, Is.False);
+        }
+
+        [Test]
+        public void TestValidateBasketBeforeCheckOut_ValidBasket_ReturnsTrue()
+        {
+            int basketId = 1;
+            basketRepositoryMock.SetupValidBasket(basketId);
+
+            bool result = basketService.ValidateBasketBeforeCheckOut(basketId);
+
+            Assert.That(result, Is.True);
+        }
+
+        [Test]
+        public void TestApplyPromoCode_InvalidBasketId_ThrowsException()
+        {
+            int invalidBasketId = 0;
+            string code = "DISCOUNT10";
+
+            Exception ex = Assert.Throws<ArgumentException>(() => basketService.ApplyPromoCode(invalidBasketId, code));
+
+            Assert.That(ex.Message, Is.EqualTo("Invalid basket ID"));
+        }
+
+        [Test]
+        public void TestApplyPromoCode_EmptyCode_ThrowsException()
+        {
+            int basketId = 1;
+            string emptyCode = "";
+
+            Exception ex = Assert.Throws<ArgumentException>(() => basketService.ApplyPromoCode(basketId, emptyCode));
+
+            Assert.That(ex.Message, Is.EqualTo("Promo code cannot be empty"));
+        }
+
+        [Test]
+        public void TestApplyPromoCode_NullCode_ThrowsException()
+        {
+            int basketId = 1;
+            string nullCode = null;
+
+            Exception ex = Assert.Throws<ArgumentException>(() => basketService.ApplyPromoCode(basketId, nullCode));
+
+            Assert.That(ex.Message, Is.EqualTo("Promo code cannot be empty"));
+        }
+
+        [Test]
+        public void TestApplyPromoCode_WhitespaceCode_ThrowsException()
+        {
+            int basketId = 1;
+            string whitespaceCode = "   ";
+
+            Exception ex = Assert.Throws<ArgumentException>(() => basketService.ApplyPromoCode(basketId, whitespaceCode));
+
+            Assert.That(ex.Message, Is.EqualTo("Promo code cannot be empty"));
+        }
+
+        [Test]
+        public void TestUpdateProductQuantity_InvalidProductId_ThrowsException()
+        {
+            int invalidProductId = 0;
+
+            Exception ex = Assert.Throws<ArgumentException>(() => basketService.UpdateProductQuantity(testUserId, invalidProductId, 1));
+
+            Assert.That(ex.Message, Is.EqualTo("Invalid product ID"));
+            Assert.That(basketRepositoryMock.GetUpdateItemCount(), Is.EqualTo(0));
+        }
+
+        [Test]
+        public void TestUpdateProductQuantity_NegativeQuantity_ThrowsException()
+        {
+            int negativeQuantity = -1;
+
+            Exception ex = Assert.Throws<ArgumentException>(() => basketService.UpdateProductQuantity(testUserId, testProductId, negativeQuantity));
+
+            Assert.That(ex.Message, Is.EqualTo("Quantity cannot be negative"));
+            Assert.That(basketRepositoryMock.GetUpdateItemCount(), Is.EqualTo(0));
+        }
+
+        [Test]
+        public void TestUpdateProductQuantity_RepositoryThrowsException_ThrowsInvalidOperationException()
+        {
+            basketRepositoryMock.SetupUpdateQuantityException();
+
+            Exception ex = Assert.Throws<InvalidOperationException>(() => basketService.UpdateProductQuantity(testUserId, testProductId, 1));
+
+            Assert.That(ex.Message, Does.Contain("Could not update quantity:"));
+        }
+
+        [Test]
+        public void TestRemoveProductFromBasket_InvalidProductId_ThrowsException()
+        {
+            int invalidProductId = 0;
+
+            Exception ex = Assert.Throws<ArgumentException>(() => basketService.RemoveProductFromBasket(testUserId, invalidProductId));
+
+            Assert.That(ex.Message, Is.EqualTo("Invalid product ID"));
+            Assert.That(basketRepositoryMock.GetRemoveItemCount(), Is.EqualTo(0));
+        }
+
+        [Test]
+        public void TestRemoveProductFromBasket_RepositoryThrowsException_ThrowsInvalidOperationException()
+        {
+            basketRepositoryMock.SetupRemoveItemException();
+
+            Exception ex = Assert.Throws<InvalidOperationException>(() => basketService.RemoveProductFromBasket(testUserId, testProductId));
+
+            Assert.That(ex.Message, Does.Contain("Could not remove product:"));
+        }
+
+        [Test]
+        public void TestGetBasketByUser_RepositoryThrowsException_ThrowsApplicationException()
+        {
+            basketRepositoryMock.SetupGetBasketException();
+
+            Exception ex = Assert.Throws<ApplicationException>(() => basketService.GetBasketByUser(testUser));
+
+            Assert.That(ex.Message, Is.EqualTo("Failed to retrieve user's basket"));
+        }
+
+        [Test]
+        public void TestGetPromoCodeDiscount_EmptyCode_ReturnsZero()
+        {
+            string emptyCode = "";
+            float subtotal = 100;
+
+            float discount = basketService.GetPromoCodeDiscount(emptyCode, subtotal);
+
+            Assert.That(discount, Is.EqualTo(0));
+        }
+
+        [Test]
+        public void TestGetPromoCodeDiscount_NullCode_ReturnsZero()
+        {
+            string nullCode = null;
+            float subtotal = 100;
+
+            float discount = basketService.GetPromoCodeDiscount(nullCode, subtotal);
+
+            Assert.That(discount, Is.EqualTo(0));
+        }
+
+        [Test]
+        public void TestGetPromoCodeDiscount_WhitespaceCode_ReturnsZero()
+        {
+            string whitespaceCode = "   ";
+            float subtotal = 100;
+
+            float discount = basketService.GetPromoCodeDiscount(whitespaceCode, subtotal);
+
+            Assert.That(discount, Is.EqualTo(0));
+        }
     }
 }

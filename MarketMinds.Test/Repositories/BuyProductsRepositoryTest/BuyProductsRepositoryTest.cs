@@ -57,6 +57,12 @@ namespace MarketMinds.Tests.BuyProductsRepositoryTest
         }
 
         [Test]
+        public void TestAddProduct_NullProduct_ThrowsException()
+        {
+            Assert.Throws<ArgumentException>(() => buyProductRepository.AddProduct(null));
+        }
+
+        [Test]
         public void TestAddProduct_ValidProduct_AddsProduct()
         {
             Assert.DoesNotThrow(() => buyProductRepository.AddProduct(buyProduct));
@@ -90,6 +96,12 @@ namespace MarketMinds.Tests.BuyProductsRepositoryTest
 
             var retrievedProduct = buyProductRepository.GetProductByID(buyProduct.Id);
             Assert.That(retrievedProduct, Is.Null);
+        }
+
+        [Test]
+        public void TestUpdateProduct_NotImplemented()
+        {
+            buyProductRepository.UpdateProduct(buyProduct);
         }
     }
 }

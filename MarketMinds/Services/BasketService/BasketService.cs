@@ -165,7 +165,6 @@ namespace MarketMinds.Services.BasketService
                     return false;
                 }
             }
-
             return true;
         }
 
@@ -224,7 +223,6 @@ namespace MarketMinds.Services.BasketService
             {
                 return subtotal * discountRate;
             }
-
             return 0;
         }
     }
