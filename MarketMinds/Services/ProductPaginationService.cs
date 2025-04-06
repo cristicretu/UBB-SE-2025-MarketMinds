@@ -56,4 +56,4 @@ namespace MarketMinds.Services
             return products.Where(filterPredicate).ToList();
         }
     }
-} 
+}

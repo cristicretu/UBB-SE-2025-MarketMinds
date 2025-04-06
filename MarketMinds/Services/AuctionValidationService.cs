@@ -33,4 +33,4 @@ namespace MarketMinds.Services
             auctionProductsService.ConcludeAuction(product);
         }
     }
-} 
+}

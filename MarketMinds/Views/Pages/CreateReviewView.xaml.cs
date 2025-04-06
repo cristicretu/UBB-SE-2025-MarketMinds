@@ -82,5 +82,16 @@ namespace MarketMinds
             ViewModel.ImagesString = string.Empty;
             ViewModel.Rating = 0;
         }
+
+        private async void OnUploadImageClick(object sender, RoutedEventArgs e)
+        {
+            string imgurLink = await imageUploadService.UploadImage(this);
+            if (!string.IsNullOrEmpty(imgurLink))
+            {
+                ViewModel.ImagesString = string.IsNullOrEmpty(ViewModel.ImagesString)
+                    ? imgurLink
+                    : ViewModel.ImagesString + "\n" + imgurLink;
+            }
+        }
     }
 }

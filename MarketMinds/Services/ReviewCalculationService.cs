@@ -25,4 +25,4 @@ namespace MarketMinds.Services
             return reviews == null || !reviews.Any();
         }
     }
-} 
+}

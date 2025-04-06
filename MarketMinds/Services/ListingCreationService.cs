@@ -8,14 +8,14 @@ namespace MarketMinds.Services
 {
     public class ListingCreationService
     {
-        private readonly BuyProductsService buyProductsService;
-        private readonly BorrowProductsService borrowProductsService;
-        private readonly AuctionProductsService auctionProductsService;
+        private readonly IBuyProductsService buyProductsService;
+        private readonly IBorrowProductsService borrowProductsService;
+        private readonly IAuctionProductsService auctionProductsService;
 
         public ListingCreationService(
-            BuyProductsService buyProductsService,
-            BorrowProductsService borrowProductsService,
-            AuctionProductsService auctionProductsService)
+            IBuyProductsService buyProductsService,
+            IBorrowProductsService borrowProductsService,
+            IAuctionProductsService auctionProductsService)
         {
             this.buyProductsService = buyProductsService;
             this.borrowProductsService = borrowProductsService;
@@ -40,4 +40,4 @@ namespace MarketMinds.Services
             }
         }
     }
-} 
+}

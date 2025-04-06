@@ -61,4 +61,4 @@ namespace MarketMinds.Services
             return images != null ? string.Join("\n", images.Select(img => img.Url)) : string.Empty;
         }
     }
-} 
+}

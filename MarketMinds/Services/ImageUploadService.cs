@@ -36,4 +36,4 @@ namespace MarketMinds.Services
             return "https://imgur.com/placeholder.jpg";
         }
     }
-} 
+}

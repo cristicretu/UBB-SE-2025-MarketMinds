@@ -22,9 +22,9 @@ namespace ViewModelLayer.ViewModel
         public bool AddProduct(Product product)
         {
             var result = comparisonService.AddProduct(LeftProduct, RightProduct, product);
-            LeftProduct = result.leftProduct;
-            RightProduct = result.rightProduct;
-            return result.isComplete;
+            LeftProduct = result.LeftProduct;
+            RightProduct = result.RightProduct;
+            return result.IsComplete;
         }
     }
 }

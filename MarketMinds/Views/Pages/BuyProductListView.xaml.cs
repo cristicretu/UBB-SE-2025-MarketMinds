@@ -87,6 +87,24 @@ namespace UiLayer
             }
         }
 
+        private void NextButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (currentPage < totalPages)
+            {
+                currentPage++;
+                ApplyFiltersAndPagination();
+            }
+        }
+
+        private void PreviousButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (currentPage > 1)
+            {
+                currentPage--;
+                ApplyFiltersAndPagination();
+            }
+        }
+
         private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             sortAndFilterViewModel.HandleSearchQueryChange(SearchTextBox.Text);
