@@ -17,6 +17,7 @@ using ViewModelLayer.ViewModel;
 using DomainLayer.Domain;
 using Microsoft.UI.Xaml.Media.Imaging;
 using MarketMinds.Views.Pages;
+using MarketMinds.Services;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -29,10 +30,13 @@ namespace MarketMinds.Views.Pages
     {
         public CompareProductsViewModel ViewModel;
         private Window parentWindow;
+        private readonly ProductViewNavigationService _navigationService;
+
         public CompareProductsView(CompareProductsViewModel viewModel)
         {
             ViewModel = viewModel;
             this.InitializeComponent();
+            _navigationService = new ProductViewNavigationService();
             LoadImages();
         }
 
@@ -151,6 +155,24 @@ namespace MarketMinds.Views.Pages
         public void SetParentWindow(Window window)
         {
             parentWindow = window;
+        }
+
+        private void ViewProduct_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button button && button.DataContext is Product product)
+            {
+                var detailView = _navigationService.CreateProductDetailView(product);
+                detailView.Show();
+            }
+        }
+
+        private void ViewSeller_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button button && button.DataContext is Product product)
+            {
+                var sellerReviewsView = _navigationService.CreateSellerReviewsView(product.Seller);
+                sellerReviewsView.Show();
+            }
         }
     }
 }

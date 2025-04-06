@@ -43,6 +43,38 @@ namespace MarketMinds.Services
                 newRating);
         }
 
+        public void EditReview(Review review, string description, float rating)
+        {
+            if (review == null)
+            {
+                throw new ArgumentException("Review cannot be null");
+            }
+
+            reviewsService.EditReview(
+                review.Description,
+                review.Images,
+                review.Rating,
+                review.SellerId,
+                review.BuyerId,
+                description,
+                rating);
+        }
+
+        public void DeleteReview(Review review)
+        {
+            if (review == null)
+            {
+                throw new ArgumentException("Review cannot be null");
+            }
+
+            reviewsService.DeleteReview(
+                review.Description,
+                review.Images,
+                review.Rating,
+                review.SellerId,
+                review.BuyerId);
+        }
+
         public List<Image> ParseImagesString(string imagesString)
         {
             if (string.IsNullOrEmpty(imagesString))

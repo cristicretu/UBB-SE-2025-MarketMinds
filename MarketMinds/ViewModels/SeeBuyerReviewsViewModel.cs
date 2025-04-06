@@ -20,12 +20,14 @@ namespace BusinessLogicLayer.ViewModel
         public bool IsReviewsEmpty { get; set; }
         public int ReviewCount { get; set; }
         private readonly ReviewCalculationService reviewCalculationService;
+        private readonly ReviewCreationService reviewCreationService;
 
         public SeeBuyerReviewsViewModel(ReviewsService reviewsService, User user)
         {
             this.User = user;
             this.ReviewsService = reviewsService;
             this.reviewCalculationService = new ReviewCalculationService();
+            this.reviewCreationService = new ReviewCreationService(reviewsService);
             Reviews = reviewsService.GetReviewsByBuyer(user);
             ReviewCount = reviewCalculationService.GetReviewCount(Reviews);
             Rating = reviewCalculationService.CalculateAverageRating(Reviews);
@@ -34,12 +36,12 @@ namespace BusinessLogicLayer.ViewModel
 
         public void EditReview(Review review, string description, float rating)
         {
-            ReviewsService.EditReview(review.Description, review.Images, review.Rating, review.SellerId, review.BuyerId, description, rating);
+            reviewCreationService.EditReview(review, description, rating);
         }
 
         public void DeleteReview(Review review)
         {
-            ReviewsService.DeleteReview(review.Description, review.Images, review.Rating, review.SellerId, review.BuyerId);
+            reviewCreationService.DeleteReview(review);
             Reviews.Remove(review);
             // Update review statistics after deletion
             ReviewCount = reviewCalculationService.GetReviewCount(Reviews);
