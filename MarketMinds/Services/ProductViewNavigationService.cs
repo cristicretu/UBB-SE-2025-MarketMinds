@@ -1,6 +1,7 @@
 using System;
 using DomainLayer.Domain;
 using MarketMinds.Views.Pages;
+using Microsoft.UI.Xaml;
 
 namespace MarketMinds.Services
 {
@@ -48,4 +49,4 @@ namespace MarketMinds.Services
             return window;
         }
     }
-} 
+}

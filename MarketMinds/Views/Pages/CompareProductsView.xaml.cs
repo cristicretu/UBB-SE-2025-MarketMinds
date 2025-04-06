@@ -30,13 +30,13 @@ namespace MarketMinds.Views.Pages
     {
         public CompareProductsViewModel ViewModel;
         private Window parentWindow;
-        private readonly ProductViewNavigationService _navigationService;
+        private readonly ProductViewNavigationService navigationService;
 
         public CompareProductsView(CompareProductsViewModel viewModel)
         {
             ViewModel = viewModel;
             this.InitializeComponent();
-            _navigationService = new ProductViewNavigationService();
+            navigationService = new ProductViewNavigationService();
             LoadImages();
         }
 
@@ -161,8 +161,8 @@ namespace MarketMinds.Views.Pages
         {
             if (sender is Button button && button.DataContext is Product product)
             {
-                var detailView = _navigationService.CreateProductDetailView(product);
-                detailView.Show();
+                var detailView = navigationService.CreateProductDetailView(product);
+                detailView.Activate();
             }
         }
 
@@ -170,8 +170,8 @@ namespace MarketMinds.Views.Pages
         {
             if (sender is Button button && button.DataContext is Product product)
             {
-                var sellerReviewsView = _navigationService.CreateSellerReviewsView(product.Seller);
-                sellerReviewsView.Show();
+                var sellerReviewsView = navigationService.CreateSellerReviewsView(product.Seller);
+                sellerReviewsView.Activate();
             }
         }
     }
