@@ -95,16 +95,16 @@ namespace UiLayer
         {
             List<ProductCategory> categories = productCategoryViewModel.GetAllProductCategories();
             categoryComboBox.ItemsSource = categories;
-            categoryComboBox.DisplayMemberPath = "displayTitle";
-            categoryComboBox.SelectedValuePath = "id";
+            categoryComboBox.DisplayMemberPath = "DisplayTitle";
+            categoryComboBox.SelectedValuePath = "Id";
         }
 
         private void LoadConditions()
         {
             List<ProductCondition> conditions = productConditionViewModel.GetAllProductConditions();
             conditionComboBox.ItemsSource = conditions;
-            conditionComboBox.DisplayMemberPath = "displayTitle";
-            conditionComboBox.SelectedValuePath = "id";
+            conditionComboBox.DisplayMemberPath = "DisplayTitle";
+            conditionComboBox.SelectedValuePath = "Id";
         }
 
         private void ListingTypeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
