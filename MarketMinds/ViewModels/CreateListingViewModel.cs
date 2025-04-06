@@ -4,26 +4,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ViewModelLayer.ViewModel;
+using DomainLayer.Domain;
+using MarketMinds.Services;
 
 namespace ViewModelLayer.ViewModel
 {
     public class CreateListingViewModel
     {
-        public CreateListingViewModelBase ViewModel { get; set; }
-        public void SwitchViewModel(string listingType)
+        private readonly ListingCreationService listingCreationService;
+        public Product Product { get; set; }
+        public string ListingType { get; set; }
+
+        public CreateListingViewModel(ListingCreationService listingCreationService)
         {
-            switch (listingType)
-            {
-                case "buy":
-                    ViewModel = new CreateBuyListingViewModel();
-                    break;
-                case "borrow":
-                    ViewModel = new CreateBorrowListingViewModel();
-                    break;
-                case "auction":
-                    ViewModel = new CreateAuctionListingViewModel();
-                    break;
-            }
+            this.listingCreationService = listingCreationService;
+        }
+
+        public void CreateListing()
+        {
+            listingCreationService.CreateListing(Product, ListingType);
         }
     }
 }

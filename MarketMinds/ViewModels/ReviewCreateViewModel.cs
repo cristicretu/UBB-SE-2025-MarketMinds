@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using DomainLayer.Domain;
 using MarketMinds.Services.ReviewService;
+using MarketMinds.Services;
 
 namespace ViewModelLayer.ViewModel
 {
@@ -15,20 +16,12 @@ namespace ViewModelLayer.ViewModel
         public string Description { get; set; }
         public List<Image> Images { get; set; }
         public float Rating { get; set; }
+        private readonly ReviewCreationService reviewCreationService;
+
         public string ImagesString
         {
-            get => Images != null ? string.Join("\n", Images.Select(img => img.Url)) : string.Empty;
-            set
-            {
-                if (!string.IsNullOrEmpty(value))
-                {
-                    Images = value.Split("\n").Select(url => new Image(url)).ToList();
-                }
-                else
-                {
-                    Images = new List<Image>();
-                }
-            }
+            get => reviewCreationService.FormatImagesString(Images);
+            set => Images = reviewCreationService.ParseImagesString(value);
         }
 
         public ReviewCreateViewModel(ReviewsService reviewsService, User buyer, User seller)
@@ -36,27 +29,19 @@ namespace ViewModelLayer.ViewModel
             ReviewsService = reviewsService;
             Buyer = buyer;
             Seller = seller;
+            reviewCreationService = new ReviewCreationService(reviewsService);
+            Images = new List<Image>();
         }
 
         public void SubmitReview()
         {
             Debug.WriteLine("Submitting Review");
-            if (Seller == null || Buyer == null || ReviewsService == null)
-            {
-                Debug.WriteLine("One of the required objects is null!");
-                return;
-            }
-            ReviewsService.AddReview(Description, Images, Rating, Seller, Buyer);
-            CurrentReview = new Review(-1, Description, Images, Rating, Seller.Id, Buyer.Id);
+            CurrentReview = reviewCreationService.CreateReview(Description, Images, Rating, Seller, Buyer);
         }
 
         public void UpdateReview()
         {
-            if (CurrentReview == null)
-            {
-                 return;
-            }
-            ReviewsService.EditReview(CurrentReview.Description, CurrentReview.Images, CurrentReview.Rating, CurrentReview.SellerId, CurrentReview.BuyerId, Description, Rating);  // Call the service layer to update
+            reviewCreationService.UpdateReview(CurrentReview, Description, Rating);
         }
     }
 }

@@ -8,6 +8,12 @@ namespace MarketMinds.Services.AuctionProductsService
     public interface IAuctionProductsService
     {
         /// <summary>
+        /// Creates a new product listing.
+        /// </summary>
+        /// <param name="product">The product to add.</param>
+        void CreateListing(Product product);
+
+        /// <summary>
         /// Places a bid on an auction product.
         /// </summary>
         /// <param name="auction">The auction product.</param>
