@@ -17,12 +17,12 @@ namespace UiLayer
     {
         private readonly BuyProductsViewModel buyProductsViewModel;
         private readonly SortAndFilterViewModel sortAndFilterViewModel;
+        private readonly ProductPaginationService paginationService;
         private ObservableCollection<BuyProduct> buyProducts;
         private CompareProductsViewModel compareProductsViewModel;
 
         // Pagination variables
         private int currentPage = 1;
-        private int itemsPerPage = 20;
         private int totalPages = 1;
         private List<BuyProduct> currentFullList;
 
@@ -30,84 +30,60 @@ namespace UiLayer
         {
             this.InitializeComponent();
 
-            // Assume you have a view model for buy products
+            // Initialize services and view models
             buyProductsViewModel = MarketMinds.App.BuyProductsViewModel;
             sortAndFilterViewModel = MarketMinds.App.BuyProductSortAndFilterViewModel;
             compareProductsViewModel = MarketMinds.App.CompareProductsViewModel;
+            paginationService = new ProductPaginationService();
 
             buyProducts = new ObservableCollection<BuyProduct>();
             currentFullList = buyProductsViewModel.GetAllProducts();
             ApplyFiltersAndPagination();
         }
+
         private void BuyListView_ItemClick(object sender, ItemClickEventArgs e)
         {
             var selectedProduct = e.ClickedItem as BuyProduct;
             if (selectedProduct != null)
             {
-                // Create and show the detail view
                 var detailView = new BuyProductView(selectedProduct);
                 detailView.Activate();
             }
         }
+
         private void ApplyFiltersAndPagination()
         {
-            var filteredProducts = sortAndFilterViewModel.HandleSearch()
-                                         .Cast<BuyProduct>().ToList();
-            currentFullList = filteredProducts;
-            currentPage = 1;
-            totalPages = (int)Math.Ceiling(currentFullList.Count / (double)itemsPerPage);
-            LoadCurrentPage();
-        }
+            // Apply filters from sortAndFilterViewModel
+            var filteredProducts = sortAndFilterViewModel.HandleSearch();
+            currentFullList = filteredProducts.Cast<BuyProduct>().ToList();
 
-        private void LoadCurrentPage()
-        {
-            var pageItems = currentFullList
-                                .Skip((currentPage - 1) * itemsPerPage)
-                                .Take(itemsPerPage)
-                                .ToList();
+            // Apply pagination
+            var (currentPageProducts, newTotalPages) = paginationService.GetPaginatedProducts(currentFullList, currentPage);
+            totalPages = newTotalPages;
 
+            // Update the observable collection
             buyProducts.Clear();
-            foreach (var item in pageItems)
+            foreach (var product in currentPageProducts)
             {
-                buyProducts.Add(item);
-            }
-            // Show the empty message if no items exist
-            if (buyProducts.Count == 0)
-            {
-                EmptyMessageTextBlock.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                EmptyMessageTextBlock.Visibility = Visibility.Collapsed;
-            }
-
-            UpdatePaginationDisplay();
-        }
-
-        private void UpdatePaginationDisplay()
-        {
-            PaginationTextBlock.Text = totalPages == 0 ?
-                $"Page {currentPage} of 1" :
-                $"Page {currentPage} of {totalPages}";
-            PreviousButton.IsEnabled = currentPage > 1;
-            NextButton.IsEnabled = currentPage < totalPages;
-        }
-
-        private void PreviousButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (currentPage > 1)
-            {
-                currentPage--;
-                LoadCurrentPage();
+                buyProducts.Add(product);
             }
         }
 
-        private void NextButton_Click(object sender, RoutedEventArgs e)
+        private void NextPageButton_Click(object sender, RoutedEventArgs e)
         {
             if (currentPage < totalPages)
             {
                 currentPage++;
-                LoadCurrentPage();
+                ApplyFiltersAndPagination();
+            }
+        }
+
+        private void PreviousPageButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (currentPage > 1)
+            {
+                currentPage--;
+                ApplyFiltersAndPagination();
             }
         }
 
