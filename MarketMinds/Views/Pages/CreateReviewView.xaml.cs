@@ -20,44 +20,32 @@ namespace MarketMinds
     {
         public ReviewCreateViewModel ViewModel { get; set; }
         private readonly bool var_isEditing;
+        private readonly ImageUploadService imageUploadService;
 
-        public CreateReviewView(ReviewCreateViewModel viewModel, Review existingReview = null)
+        public CreateReviewView(ReviewCreateViewModel viewModel, Review? review = null)
         {
             ViewModel = viewModel;
+            imageUploadService = new ImageUploadService();
+            var_isEditing = review != null;
+            if (var_isEditing)
+            {
+                ViewModel.CurrentReview = review;
+                ViewModel.Description = review.Description;
+                ViewModel.Rating = review.Rating;
+                ViewModel.Images = review.Images;
+            }
             this.InitializeComponent();
             this.Closed += OnWindowClosed;
-
-            if (existingReview != null)
-            {
-                var_isEditing = true;
-                ViewModel.Description = existingReview.Description;
-                ViewModel.Images = existingReview.Images;
-                ViewModel.Rating = existingReview.Rating;
-                ViewModel.CurrentReview = existingReview;
-            }
         }
 
-        private async void OnUploadImageClick(object sender, RoutedEventArgs e)
+        private async void HandleAddImage_Click(object sender, RoutedEventArgs e)
         {
-            var hwnd = WinRT.Interop.WindowNative.GetWindowHandle(this);
-            var picker = new FileOpenPicker();
-            WinRT.Interop.InitializeWithWindow.Initialize(picker, hwnd);
-
-            picker.ViewMode = PickerViewMode.Thumbnail;
-            picker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
-            picker.FileTypeFilter.Add(".jpg");
-            picker.FileTypeFilter.Add(".png");
-
-            StorageFile file = await picker.PickSingleFileAsync();
-            if (file != null)
+            string imgurLink = await imageUploadService.UploadImage(this);
+            if (!string.IsNullOrEmpty(imgurLink))
             {
-                string imgurLink = await UploadToImgur(file);
-                if (!string.IsNullOrEmpty(imgurLink))
-                {
-                    ViewModel.ImagesString = string.IsNullOrEmpty(ViewModel.ImagesString)
-                        ? imgurLink
-                        : ViewModel.ImagesString + "\n" + imgurLink;
-                }
+                ViewModel.ImagesString = string.IsNullOrEmpty(ViewModel.ImagesString)
+                    ? imgurLink
+                    : ViewModel.ImagesString + "\n" + imgurLink;
             }
         }
 
@@ -85,41 +73,6 @@ namespace MarketMinds
             }
 
             this.Close();
-        }
-
-        private async Task<string> UploadToImgur(StorageFile file)
-        {
-            ViewModel.ImagesString += "\nUploading...";
-
-            using (IRandomAccessStream stream = await file.OpenAsync(FileAccessMode.Read))
-            {
-                byte[] buffer = new byte[stream.Size];
-                using (var reader = new DataReader(stream))
-                {
-                    await reader.LoadAsync((uint)stream.Size);
-                    reader.ReadBytes(buffer);
-                }
-
-                using (HttpClient client = new HttpClient())
-                {
-                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Client-ID", App.Configuration.GetSection("ImgurSettings:ClientId").Value);
-
-                    var content = new MultipartFormDataContent
-            {
-                { new ByteArrayContent(buffer), "image" }
-            };
-
-                    HttpResponseMessage response = await client.PostAsync("https://api.imgur.com/3/image", content);
-                    string responseBody = await response.Content.ReadAsStringAsync();
-
-                    dynamic? jsonResponse = JsonConvert.DeserializeObject(responseBody);
-                    string? link = jsonResponse?.data?.link;
-
-                    // Remove "Uploading..." placeholder
-                    ViewModel.ImagesString = ViewModel.ImagesString.Replace("\nUploading...", string.Empty);
-                    return link ?? string.Empty;
-                }
-            }
         }
 
         private void OnWindowClosed(object sender, Microsoft.UI.Xaml.WindowEventArgs e)
