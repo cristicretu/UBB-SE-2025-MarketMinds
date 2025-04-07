@@ -8,6 +8,7 @@ namespace ViewModelLayer.ViewModel
 {
     public abstract class CreateListingViewModelBase
     {
+        private const int TAGID = -1;
         public string Title { get; set; }
         public ProductCategory Category { get; set; }
         public List<ProductTag> Tags { get; set; }
@@ -37,7 +38,7 @@ namespace ViewModelLayer.ViewModel
             {
                 Tags = new List<ProductTag>();
             }
-            Tags.Add(new ProductTag(-1, tag));
+            Tags.Add(new ProductTag(TAGID, tag));
         }
 
         public abstract void CreateListing(Product product);

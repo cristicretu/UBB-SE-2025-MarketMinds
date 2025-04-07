@@ -159,7 +159,7 @@ namespace UiLayer
         {
             if (sender is Button button && button.DataContext is Product selectedProduct)
             {
-                bool twoAdded = compareProductsViewModel.AddProduct(selectedProduct);
+                bool twoAdded = compareProductsViewModel.AddProductForCompare(selectedProduct);
                 if (twoAdded)
                 {
                     // Create a compare view

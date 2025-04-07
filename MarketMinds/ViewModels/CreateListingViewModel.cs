@@ -20,9 +20,9 @@ namespace ViewModelLayer.ViewModel
             this.listingCreationService = listingCreationService;
         }
 
-        public void CreateListing()
+        public void CreateMarketPlaceListing()
         {
-            listingCreationService.CreateListing(Product, ListingType);
+            listingCreationService.CreateMarketListing(Product, ListingType);
         }
     }
 }

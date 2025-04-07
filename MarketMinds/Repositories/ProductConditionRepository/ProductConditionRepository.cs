@@ -12,6 +12,7 @@ namespace MarketMinds.Repositories.ProductConditionRepository
     public class ProductConditionRepository : IProductConditionRepository
     {
         private DataBaseConnection connection;
+        private const int DEFAULTID = -1;
 
         public ProductConditionRepository(DataBaseConnection connection)
         {
@@ -47,7 +48,7 @@ namespace MarketMinds.Repositories.ProductConditionRepository
             // creates a new product condition
             // input: displayTitle, description
             // output: the created product condition
-            int newId = -1;
+            int newId = DEFAULTID;
 
             string cmd = "INSERT INTO ProductConditions (title, description) VALUES (@displayTitle, @description); SELECT CAST(SCOPE_IDENTITY() as int);";
             connection.OpenConnection();
@@ -59,6 +60,7 @@ namespace MarketMinds.Repositories.ProductConditionRepository
                 newId = (int)command.ExecuteScalar();
             }
             connection.CloseConnection();
+
             /*
             if (newId == -1)
             {
