@@ -241,7 +241,7 @@ namespace MarketMinds.Test.Repositories.BasketRepositoryTest
         public void TestUpdateItemQuantityByProductId_InvalidProductId_ThrowsException()
         {
             int basketId = testBasket.Id;
-            int invalidProductId = -1;
+            int invalidProductId = -999;
             int newQuantity = 2;
             Assert.Throws<ArgumentException>(() => basketRepository.UpdateItemQuantityByProductId(basketId, invalidProductId, newQuantity));
         }
@@ -271,14 +271,14 @@ namespace MarketMinds.Test.Repositories.BasketRepositoryTest
         {
             int basketId = testBasket.Id;
             int productId = testProduct.Id;
-            int invalidQuantity = -1;
+            int invalidQuantity = -999;
             Assert.Throws<ArgumentException>(() => basketRepository.UpdateItemQuantityByProductId(basketId, productId, invalidQuantity));
         }
 
         [Test]
         public void TestUpdateItemQuantityByProductId_InvalidBasketId_ThrowsException()
         {
-            int invalidBasketId = -1;
+            int invalidBasketId = -999;
             int productId = testProduct.Id;
             int quantity = 5;
 
@@ -288,7 +288,7 @@ namespace MarketMinds.Test.Repositories.BasketRepositoryTest
         [Test]
         public void TestClearBasket_InvalidBasketId_ThrowsException()
         {
-            int invalidBasketId = -1;
+            int invalidBasketId = -999;
             Assert.Throws<ArgumentException>(() => basketRepository.ClearBasket(invalidBasketId));
         }
 
