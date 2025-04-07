@@ -11,6 +11,7 @@ namespace MarketMinds.Repositories.ProductCategoryRepository
 {
     public class ProductCategoryRepository : IProductCategoryRepository
     {
+        private const int DEFAULTID = -1;
         private DataBaseConnection connection;
 
         public ProductCategoryRepository(DataBaseConnection connection)
@@ -47,7 +48,7 @@ namespace MarketMinds.Repositories.ProductCategoryRepository
             // Creates a new product category
             // input: displayTitle, description
             // output: the created product tag
-            int newId = -1;
+            int newId = DEFAULTID;
 
             string cmd = "INSERT INTO ProductCategories (title, description) VALUES (@displayTitle, @description); SELECT CAST(SCOPE_IDENTITY() as int);";
             connection.OpenConnection();
@@ -60,7 +61,7 @@ namespace MarketMinds.Repositories.ProductCategoryRepository
             }
             connection.CloseConnection();
 
-            if (newId == -1)
+            if (newId == DEFAULTID)
             {
                 throw new Exception("Error creating product category");
             }

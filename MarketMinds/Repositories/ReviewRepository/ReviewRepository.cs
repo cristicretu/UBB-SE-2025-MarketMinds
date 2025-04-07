@@ -10,7 +10,11 @@ namespace MarketMinds.Repositories.ReviewRepository
 {
     public class ReviewRepository : IReviewRepository
     {
+        private const int DEFAULTREVIEWID = -1;
+        private const int NOCOUNT = 0;
+        private const int NULLRATING = 0;
         private DataBaseConnection connection;
+
 
         public ReviewRepository(DataBaseConnection connection)
         {
@@ -133,7 +137,7 @@ namespace MarketMinds.Repositories.ReviewRepository
                 }
 
                 // Insert images if they exist
-                if (review.Images != null && review.Images.Count > 0)
+                if (review.Images != null && review.Images.Count > NOCOUNT)
                 {
                     string insertImageSql = "INSERT INTO ReviewsPictures (url, review_id) VALUES (@Url, @review_id)";
                     foreach (var img in review.Images)
@@ -175,12 +179,12 @@ namespace MarketMinds.Repositories.ReviewRepository
 
         public void EditReview(Review review, float rating, string description)
         {
-            if (review.Id == -1)
+            if (review.Id == DEFAULTREVIEWID)
             {
                 review.Id = GetReviewId(review);
             }
 
-            if (rating != 0)
+            if (rating != NULLRATING)
             {
                 string updateQuery = "UPDATE Reviews SET rating = @rating WHERE id = @id";
                 connection.OpenConnection();
@@ -210,7 +214,7 @@ namespace MarketMinds.Repositories.ReviewRepository
         }
         public void DeleteReview(Review review)
         {
-            if (review.Id == -1)
+            if (review.Id == DEFAULTREVIEWID)
             {
                 review.Id = GetReviewId(review);
             }
@@ -229,7 +233,7 @@ namespace MarketMinds.Repositories.ReviewRepository
         private int GetReviewId(Review review)
         {
             string query = "SELECT id FROM Reviews WHERE reviewer_id = @reviewer AND seller_id = @seller AND description = @desc";
-            int id = -1;
+            int id = DEFAULTREVIEWID;
 
             using (SqlCommand cmd = new SqlCommand(query, connection.GetConnection()))
             {
