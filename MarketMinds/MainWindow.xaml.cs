@@ -24,6 +24,9 @@ namespace UiLayer
     /// </summary>
     public sealed partial class MainWindow : Window
     {
+        private const int BUYER = 3;
+        private const int SELLER = 2;
+
         public MainWindow()
         {
             this.InitializeComponent();
@@ -72,12 +75,12 @@ namespace UiLayer
         private void HandleSeeReviewViewButton_Click(object sender, RoutedEventArgs e)
         {
             // buyer
-            if (App.CurrentUser.UserType == 3)
+            if (App.CurrentUser.UserType == BUYER)
             {
                 seeReviewsWindow = new SeeBuyerReviewsView(App.SeeBuyerReviewsViewModel);
                 seeReviewsWindow.Activate();
             }
-            else if (App.CurrentUser.UserType == 2)
+            else if (App.CurrentUser.UserType == SELLER)
             {
                 // Create a window that hosts the SeeSellerReviewsView page
                 seeReviewsWindow = new Window();

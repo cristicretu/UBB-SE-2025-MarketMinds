@@ -47,6 +47,15 @@ namespace UiLayer
         private MainWindow window;
         private readonly string imgurClientId;
         private static readonly HttpClient HttpClient = new HttpClient();
+        private const int NO_ITEMS = 0;
+        private const int BASE_PAGE = 1;
+        private const int NO_REVIEWS = 0;
+        private const int NO_MB = 10;
+        private const int NO_MB_LIMIT = 10 * 1024 * 1024;
+        private const int MAX_RETRIES = 3;
+        private const int MAX_RETRY_DELAY = 2;
+        private const int MAX_CLIENT_ID_LENGTH = 20;
+        private const int NO_RETRY = 0;
 
         public CreateListingView(MainWindow mainWindow)
         {
@@ -262,7 +271,7 @@ namespace UiLayer
                     return null;
                 }
                 // Typical Imgur Client IDs are around 15 chars
-                if (clientId.Length > 20)
+                if (clientId.Length > MAX_CLIENT_ID_LENGTH)
                 {
                     await ShowErrorDialog("Imgur Upload Error", "Client ID format appears invalid. Please ensure you're using the Client ID, not the Client Secret.");
                     return null;
@@ -273,7 +282,7 @@ namespace UiLayer
 
                 using (var stream = await file.OpenAsync(FileAccessMode.Read))
                 {
-                    if (stream.Size > 10 * 1024 * 1024)
+                    if (stream.Size > NO_MB_LIMIT)
                     {
                         await ShowErrorDialog("Imgur Upload Error", "File size exceeds Imgur's 10MB limit.");
                         return null;
@@ -286,9 +295,9 @@ namespace UiLayer
                         reader.ReadBytes(buffer);
                     }
 
-                    int maxRetries = 3;
-                    int currentRetry = 0;
-                    TimeSpan delay = TimeSpan.FromSeconds(2);
+                    int maxRetries = MAX_RETRIES;
+                    int currentRetry = NO_RETRY;
+                    TimeSpan delay = TimeSpan.FromSeconds(MAX_RETRY_DELAY);
 
                     while (currentRetry < maxRetries)
                     {

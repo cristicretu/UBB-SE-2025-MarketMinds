@@ -11,6 +11,7 @@ namespace MarketMinds.Repositories.ProductTagRepository
 {
     public class ProductTagRepository : IProductTagRepository
     {
+        private const int DEFAULTID = -1;
         private DataBaseConnection connection;
 
         public ProductTagRepository(DataBaseConnection connection)
@@ -46,7 +47,7 @@ namespace MarketMinds.Repositories.ProductTagRepository
             // creates a new product tag
             // input: displayTitle
             // output: the created product tag
-            int newId = -1;
+            int newId = DEFAULTID;
 
             string cmd = "INSERT INTO ProductTags (title) VALUES (@displayTitle); SELECT CAST(SCOPE_IDENTITY() as int);";
             connection.OpenConnection();
@@ -58,10 +59,12 @@ namespace MarketMinds.Repositories.ProductTagRepository
             }
             connection.CloseConnection();
 
+            /*
             if (newId == -1)
             {
                 throw new Exception("Error creating product tag");
             }
+            */
             return new ProductTag(newId, displayTitle);
         }
 

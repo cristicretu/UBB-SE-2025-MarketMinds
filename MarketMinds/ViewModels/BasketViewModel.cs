@@ -8,6 +8,8 @@ namespace ViewModelLayer.ViewModel
 {
     public class BasketViewModel
     {
+        private const int NODISCOUNT = 0;
+        private const int DEFAULTQUANTITY = 1;
         private User currentUser;
         private readonly BasketService basketService;
         private Basket basket;
@@ -48,7 +50,7 @@ namespace ViewModelLayer.ViewModel
         {
             try
             {
-                basketService.AddProductToBasket(currentUser.Id, productId, 1);
+                basketService.AddProductToBasket(currentUser.Id, productId, DEFAULTQUANTITY);
                 LoadBasket();
                 ErrorMessage = string.Empty;
             }
@@ -114,7 +116,7 @@ namespace ViewModelLayer.ViewModel
             catch (Exception ex)
             {
                 ErrorMessage = $"Failed to apply promo code: {ex.Message}";
-                Discount = 0;
+                Discount = NODISCOUNT;
                 TotalAmount = Subtotal;
             }
         }
@@ -165,7 +167,7 @@ namespace ViewModelLayer.ViewModel
                 ErrorMessage = $"Failed to calculate totals: {ex.Message}";
                 // Set default values
                 Subtotal = BasketItems.Sum(item => item.GetPrice());
-                Discount = 0;
+                Discount = NODISCOUNT;
                 TotalAmount = Subtotal;
             }
         }

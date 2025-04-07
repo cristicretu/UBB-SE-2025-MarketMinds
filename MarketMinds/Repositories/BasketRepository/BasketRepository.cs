@@ -11,6 +11,11 @@ namespace MarketMinds.Repositories.BasketRepository
 {
     public class BasketRepository : IBasketRepository
     {
+        private const int NOBASKET = -1;
+        private const int NOITEM = -1;
+        private const int DEFAULTPRICE = 0;
+        private const int MINIMUMID = 0;
+        private const int NOQUANTITY = 0;
         private DataBaseConnection connection;
 
         public BasketRepository(DataBaseConnection connection)
@@ -24,7 +29,7 @@ namespace MarketMinds.Repositories.BasketRepository
             // input: userId
             // output: user's basket
             Basket? basket = null;
-            int basketId = -1;
+            int basketId = NOBASKET;
 
             // First try to find existing basket for the user
             string query = "SELECT id FROM Baskets WHERE buyer_id = @userId";
@@ -42,7 +47,7 @@ namespace MarketMinds.Repositories.BasketRepository
             }
 
             // If no basket exists, create one
-            if (basketId == -1)
+            if (basketId == NOBASKET)
             {
                 string insertCmd = "INSERT INTO Baskets (buyer_id) VALUES (@userId); SELECT CAST(SCOPE_IDENTITY() as int);";
 
@@ -136,23 +141,23 @@ namespace MarketMinds.Repositories.BasketRepository
                         string sellerEmail = reader.IsDBNull(14) ? string.Empty : reader.GetString(14);
 
                         // Create condition and category objects
-                        ProductCondition? condition = conditionId > 0 ?
+                        ProductCondition? condition = conditionId > MINIMUMID ?
                             new ProductCondition(conditionId, conditionTitle, conditionDesc) : null;
 
-                        ProductCategory? category = categoryId > 0 ?
+                        ProductCategory? category = categoryId > MINIMUMID ?
                             new ProductCategory(categoryId, categoryTitle, categoryDesc) : null;
 
                         // Create the seller object
-                        User? seller = sellerId > 0 ?
+                        User? seller = sellerId > MINIMUMID ?
                             new User(sellerId, sellerUsername, sellerEmail) : null;
                         // Create the product with basic information
                         BuyProduct product = new BuyProduct(
                             productId,                   // Id
                             productTitle ?? string.Empty,          // Title
                             description ?? string.Empty,           // Description
-                            seller ?? new User(0, string.Empty, string.Empty),  // Seller with default values if null
-                            condition ?? new ProductCondition(0, string.Empty, string.Empty),  // Default condition if null
-                            category ?? new ProductCategory(0, string.Empty, string.Empty),    // Default category if null
+                            seller ?? new User(MINIMUMID, string.Empty, string.Empty),  // Seller with default values if null
+                            condition ?? new ProductCondition(MINIMUMID, string.Empty, string.Empty),  // Default condition if null
+                            category ?? new ProductCategory(MINIMUMID, string.Empty, string.Empty),    // Default category if null
                             new List<ProductTag>(),      // Tags
                             new List<Image>(),           // Images
                             (float)price);               // Price
@@ -231,8 +236,18 @@ namespace MarketMinds.Repositories.BasketRepository
 
             // First, check if the item already exists in the basket
             string checkQuery = "SELECT id, quantity FROM BasketItemsBuyProducts WHERE basket_id = @basketId AND product_id = @productId";
-            int existingItemId = -1;
-            int existingQuantity = 0;
+            int existingItemId = NOITEM;
+            int existingQuantity = NOQUANTITY;
+
+            if (quantity < 0)
+            {
+                throw new ArgumentException("Quantity cannot be negative");
+            }
+
+            if (productId < 0)
+            {
+                throw new ArgumentException("Product ID cannot be negative");
+            }
 
             connection.OpenConnection();
 
@@ -253,7 +268,7 @@ namespace MarketMinds.Repositories.BasketRepository
 
             // Get the current price of the product
             string priceQuery = "SELECT price FROM BuyProducts WHERE id = @productId";
-            float price = 0;
+            float price = DEFAULTPRICE;
 
             using (SqlCommand cmd = new SqlCommand(priceQuery, connection.GetConnection()))
             {
@@ -270,7 +285,7 @@ namespace MarketMinds.Repositories.BasketRepository
                 }
             }
 
-            if (existingItemId != -1)
+            if (existingItemId != NOITEM)
             {
                 // Update existing item quantity
                 string updateCmd = "UPDATE BasketItemsBuyProducts SET quantity = @quantity WHERE id = @id";
@@ -302,6 +317,20 @@ namespace MarketMinds.Repositories.BasketRepository
 
         public void UpdateItemQuantityByProductId(int basketId, int productId, int quantity)
         {
+            if (quantity < NOQUANTITY)
+            {
+                throw new ArgumentException("Quantity cannot be negative");
+            }
+
+            if (productId < NOITEM)
+            {
+                throw new ArgumentException("Product ID cannot be negative");
+            }
+            if (basketId < NOBASKET)
+            {
+                throw new ArgumentException("Basket ID cannot be negative");
+            }
+
             string updateCmd = "UPDATE BasketItemsBuyProducts SET quantity = @quantity WHERE basket_id = @basketId AND product_id = @productId";
 
             connection.OpenConnection();
@@ -323,6 +352,11 @@ namespace MarketMinds.Repositories.BasketRepository
 
         public void ClearBasket(int basketId)
         {
+            if (basketId < NOBASKET)
+            {
+                throw new ArgumentException("Basket ID cannot be negative");
+            }
+
             // Remove all items from the basket
             // input: basketId
             // output: none

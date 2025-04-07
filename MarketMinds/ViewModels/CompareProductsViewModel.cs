@@ -19,7 +19,7 @@ namespace ViewModelLayer.ViewModel
             comparisonService = new ProductComparisonService();
         }
 
-        public bool AddProduct(Product product)
+        public bool AddProductForCompare(Product product)
         {
             var result = comparisonService.AddProduct(LeftProduct, RightProduct, product);
             LeftProduct = result.LeftProduct;

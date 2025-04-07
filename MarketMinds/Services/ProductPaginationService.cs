@@ -9,6 +9,8 @@ namespace MarketMinds.Services
     {
         private readonly int itemsPerPage;
 
+        private const int BASE_PAGE = 1;
+
         public ProductPaginationService(int itemsPerPage = 20)
         {
             this.itemsPerPage = itemsPerPage;
@@ -23,7 +25,7 @@ namespace MarketMinds.Services
                 throw new ArgumentNullException(nameof(allProducts));
             }
 
-            if (currentPage < 1)
+            if (currentPage < BASE_PAGE)
             {
                 throw new ArgumentException("Current page must be greater than 0", nameof(currentPage));
             }
