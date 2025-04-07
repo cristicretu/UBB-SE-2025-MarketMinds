@@ -48,7 +48,7 @@
         </ComboBox>
 
         <!-- Borrow Product Listings -->
-        <ListView x:Name="BorrowListView" Grid.Row="2" ItemsSource="{x:Bind borrowProducts, Mode=OneWay}" IsItemClickEnabled="True"
+        <ListView x:Name="BorrowListView" Grid.Row="2" ItemsSource="{x:Bind BorrowProducts, Mode=OneWay}" IsItemClickEnabled="True"
           ItemClick="BorrowListView_ItemClick">
             <ListView.ItemTemplate>
                 <DataTemplate>

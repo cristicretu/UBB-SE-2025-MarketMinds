@@ -2,6 +2,7 @@ using System;
 using DomainLayer.Domain;
 using MarketMinds.Views.Pages;
 using Microsoft.UI.Xaml;
+using UiLayer;
 
 namespace MarketMinds.Services
 {

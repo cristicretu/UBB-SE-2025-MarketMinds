@@ -17,14 +17,7 @@ namespace UiLayer
     {
         private readonly BuyProductsViewModel buyProductsViewModel;
         private readonly SortAndFilterViewModel sortAndFilterViewModel;
-        private readonly ProductPaginationService paginationService;
-        private ObservableCollection<BuyProduct> buyProducts;
-        private CompareProductsViewModel compareProductsViewModel;
-
-        // Pagination variables
-        private int currentPage = 1;
-        private int totalPages = 1;
-        private List<BuyProduct> currentFullList;
+        private readonly CompareProductsViewModel compareProductsViewModel;
 
         public BuyProductListView()
         {
@@ -34,11 +27,9 @@ namespace UiLayer
             buyProductsViewModel = MarketMinds.App.BuyProductsViewModel;
             sortAndFilterViewModel = MarketMinds.App.BuyProductSortAndFilterViewModel;
             compareProductsViewModel = MarketMinds.App.CompareProductsViewModel;
-            paginationService = new ProductPaginationService();
 
-            buyProducts = new ObservableCollection<BuyProduct>();
-            currentFullList = buyProductsViewModel.GetAllProducts();
-            ApplyFiltersAndPagination();
+            BuyListView.ItemsSource = buyProductsViewModel.BuyProducts;
+            UpdatePaginationDisplay();
         }
 
         private void BuyListView_ItemClick(object sender, ItemClickEventArgs e)
@@ -51,64 +42,34 @@ namespace UiLayer
             }
         }
 
-        private void ApplyFiltersAndPagination()
+        private void UpdatePaginationDisplay()
         {
-            // Apply filters from sortAndFilterViewModel
-            var filteredProducts = sortAndFilterViewModel.HandleSearch();
-            currentFullList = filteredProducts.Cast<BuyProduct>().ToList();
-
-            // Apply pagination
-            var (currentPageProducts, newTotalPages) = paginationService.GetPaginatedProducts(currentFullList, currentPage);
-            totalPages = newTotalPages;
-
-            // Update the observable collection
-            buyProducts.Clear();
-            foreach (var product in currentPageProducts)
-            {
-                buyProducts.Add(product);
-            }
-        }
-
-        private void NextPageButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (currentPage < totalPages)
-            {
-                currentPage++;
-                ApplyFiltersAndPagination();
-            }
-        }
-
-        private void PreviousPageButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (currentPage > 1)
-            {
-                currentPage--;
-                ApplyFiltersAndPagination();
-            }
-        }
-
-        private void NextButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (currentPage < totalPages)
-            {
-                currentPage++;
-                ApplyFiltersAndPagination();
-            }
+            PaginationTextBlock.Text = buyProductsViewModel.TotalPages == 0 ?
+                $"Page {buyProductsViewModel.CurrentPage} of 1" :
+                $"Page {buyProductsViewModel.CurrentPage} of {buyProductsViewModel.TotalPages}";
+            
+            PreviousButton.IsEnabled = buyProductsViewModel.CanGoToPreviousPage();
+            NextButton.IsEnabled = buyProductsViewModel.CanGoToNextPage();
         }
 
         private void PreviousButton_Click(object sender, RoutedEventArgs e)
         {
-            if (currentPage > 1)
-            {
-                currentPage--;
-                ApplyFiltersAndPagination();
-            }
+            buyProductsViewModel.CurrentPage--;
+            UpdatePaginationDisplay();
+        }
+
+        private void NextButton_Click(object sender, RoutedEventArgs e)
+        {
+            buyProductsViewModel.CurrentPage++;
+            UpdatePaginationDisplay();
         }
 
         private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             sortAndFilterViewModel.HandleSearchQueryChange(SearchTextBox.Text);
-            ApplyFiltersAndPagination();
+            var filteredProducts = sortAndFilterViewModel.HandleSearch().Cast<BuyProduct>().ToList();
+            buyProductsViewModel.UpdateProductList(filteredProducts);
+            UpdatePaginationDisplay();
         }
 
         private async void FilterButton_Click(object sender, RoutedEventArgs e)
@@ -118,7 +79,9 @@ namespace UiLayer
             var result = await filterDialog.ShowAsync();
             if (result == ContentDialogResult.Primary)
             {
-                ApplyFiltersAndPagination();
+                var filteredProducts = sortAndFilterViewModel.HandleSearch().Cast<BuyProduct>().ToList();
+                buyProductsViewModel.UpdateProductList(filteredProducts);
+                UpdatePaginationDisplay();
             }
         }
 
@@ -137,7 +100,9 @@ namespace UiLayer
                 if (sortType != null)
                 {
                     sortAndFilterViewModel.HandleSortChange(sortType);
-                    ApplyFiltersAndPagination();
+                    var filteredProducts = sortAndFilterViewModel.HandleSearch().Cast<BuyProduct>().ToList();
+                    buyProductsViewModel.UpdateProductList(filteredProducts);
+                    UpdatePaginationDisplay();
                 }
             }
         }
@@ -146,6 +111,10 @@ namespace UiLayer
         {
             switch (sortTag)
             {
+                case "SellerRatingAsc":
+                    return new ProductSortType("Seller Rating", "SellerRating", true);
+                case "SellerRatingDesc":
+                    return new ProductSortType("Seller Rating", "SellerRating", false);
                 case "PriceAsc":
                     return new ProductSortType("Price", "Price", true);
                 case "PriceDesc":
@@ -157,14 +126,14 @@ namespace UiLayer
 
         private void AddToCompare_Click(object sender, RoutedEventArgs e)
         {
-            if (sender is Button button && button.DataContext is Product selectedProduct)
+            var button = sender as Button;
+            var selectedProduct = button.DataContext as Product;
+            if (selectedProduct != null)
             {
                 bool twoAdded = compareProductsViewModel.AddProductForCompare(selectedProduct);
                 if (twoAdded)
                 {
-                    // Create a compare view
                     var compareProductsView = new CompareProductsView(compareProductsViewModel);
-                    // Create a window to host the CompareProductsView page
                     var compareWindow = new Window();
                     compareWindow.Content = compareProductsView;
                     compareProductsView.SetParentWindow(compareWindow);

@@ -123,6 +123,10 @@ namespace MarketMinds
             ProductService = new ProductService(BorrowProductsRepository);
             BuyProductsService = new BuyProductsService(BuyProductsRepository);
             BorrowProductsService = new BorrowProductsService(BorrowProductsRepository);
+            var borrowProductPaginationService = new PaginationService<BorrowProduct>();
+            var borrowProductPriceService = new ProductPriceService();
+            var buyProductPaginationService = new PaginationService<BuyProduct>();
+            var buyProductPriceService = new ProductPriceService();
             AuctionProductsService = new AuctionProductsService(AuctionProductsRepository);
             CategoryService = new ProductCategoryService(ProductCategoryRepository);
             TagService = new ProductTagService(ProductTagRepository);
@@ -131,12 +135,11 @@ namespace MarketMinds
             BasketService = new BasketService(BasketRepository);
 
             // Instantiate view models
-            BuyProductsViewModel = new BuyProductsViewModel(BuyProductsService);
+            BuyProductsViewModel = new BuyProductsViewModel(BuyProductsService, buyProductPaginationService, buyProductPriceService);
             AuctionProductsViewModel = new AuctionProductsViewModel(AuctionProductsService);
             ProductCategoryViewModel = new ProductCategoryViewModel(CategoryService);
-            ProductTagViewModel = new ProductTagViewModel(TagService);
+            BorrowProductsViewModel = new BorrowProductsViewModel(BorrowProductsService, borrowProductPaginationService, borrowProductPriceService);
             ProductConditionViewModel = new ProductConditionViewModel(ConditionService);
-            BorrowProductsViewModel = new BorrowProductsViewModel(BorrowProductsService);
             AuctionProductSortAndFilterViewModel = new SortAndFilterViewModel(AuctionProductsService);
             BorrowProductSortAndFilterViewModel = new SortAndFilterViewModel(BorrowProductsService);
             BuyProductSortAndFilterViewModel = new SortAndFilterViewModel(BuyProductsService);

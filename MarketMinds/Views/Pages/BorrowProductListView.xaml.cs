@@ -17,27 +17,18 @@ namespace UiLayer
     {
         private readonly BorrowProductsViewModel borrowProductsViewModel;
         private readonly SortAndFilterViewModel sortAndFilterViewModel;
-        private ObservableCollection<BorrowProduct> borrowProducts;
-        private CompareProductsViewModel compareProductsViewModel;
-
-        // Pagination variables
-        private int currentPage = 1;
-        private int itemsPerPage = 20;
-        private int totalPages = 1;
-        private List<BorrowProduct> currentFullList;
+        private readonly CompareProductsViewModel compareProductsViewModel;
 
         public BorrowProductListView()
         {
             this.InitializeComponent();
 
-            // Assume you have similar view models for borrow products
             borrowProductsViewModel = MarketMinds.App.BorrowProductsViewModel;
             sortAndFilterViewModel = MarketMinds.App.BorrowProductSortAndFilterViewModel;
             compareProductsViewModel = MarketMinds.App.CompareProductsViewModel;
 
-            borrowProducts = new ObservableCollection<BorrowProduct>();
-            currentFullList = borrowProductsViewModel.GetAllProducts();
-            ApplyFiltersAndPagination();
+            BorrowListView.ItemsSource = borrowProductsViewModel.BorrowProducts;
+            UpdatePaginationDisplay();
         }
 
         private void BorrowListView_ItemClick(object sender, ItemClickEventArgs e)
@@ -45,77 +36,39 @@ namespace UiLayer
             var selectedProduct = e.ClickedItem as BorrowProduct;
             if (selectedProduct != null)
             {
-                // Create and show the detail view
                 var detailView = new BorrowProductView(selectedProduct);
                 detailView.Activate();
             }
         }
-        private void ApplyFiltersAndPagination()
-        {
-            // Retrieve filtered and sorted products (cast as needed)
-            var filteredProducts = sortAndFilterViewModel.HandleSearch()
-                                         .Cast<BorrowProduct>().ToList();
-            currentFullList = filteredProducts;
-            currentPage = 1;
-            totalPages = (int)Math.Ceiling(currentFullList.Count / (double)itemsPerPage);
-            LoadCurrentPage();
-        }
-
-        private void LoadCurrentPage()
-        {
-            var pageItems = currentFullList
-                                .Skip((currentPage - 1) * itemsPerPage)
-                                .Take(itemsPerPage)
-                                .ToList();
-
-            borrowProducts.Clear();
-            foreach (var item in pageItems)
-            {
-                borrowProducts.Add(item);
-            }
-            if (borrowProducts.Count == 0)
-            {
-                EmptyMessageTextBlock.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                EmptyMessageTextBlock.Visibility = Visibility.Collapsed;
-            }
-
-            UpdatePaginationDisplay();
-        }
 
         private void UpdatePaginationDisplay()
         {
-            PaginationTextBlock.Text = totalPages == 0 ?
-                $"Page {currentPage} of 1" :
-                $"Page {currentPage} of {totalPages}";
-            PreviousButton.IsEnabled = currentPage > 1;
-            NextButton.IsEnabled = currentPage < totalPages;
+            PaginationTextBlock.Text = borrowProductsViewModel.TotalPages == 0 ?
+                $"Page {borrowProductsViewModel.CurrentPage} of 1" :
+                $"Page {borrowProductsViewModel.CurrentPage} of {borrowProductsViewModel.TotalPages}";
+            
+            PreviousButton.IsEnabled = borrowProductsViewModel.CanGoToPreviousPage();
+            NextButton.IsEnabled = borrowProductsViewModel.CanGoToNextPage();
         }
 
         private void PreviousButton_Click(object sender, RoutedEventArgs e)
         {
-            if (currentPage > 1)
-            {
-                currentPage--;
-                LoadCurrentPage();
-            }
+            borrowProductsViewModel.CurrentPage--;
+            UpdatePaginationDisplay();
         }
 
         private void NextButton_Click(object sender, RoutedEventArgs e)
         {
-            if (currentPage < totalPages)
-            {
-                currentPage++;
-                LoadCurrentPage();
-            }
+            borrowProductsViewModel.CurrentPage++;
+            UpdatePaginationDisplay();
         }
 
         private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             sortAndFilterViewModel.HandleSearchQueryChange(SearchTextBox.Text);
-            ApplyFiltersAndPagination();
+            var filteredProducts = sortAndFilterViewModel.HandleSearch().Cast<BorrowProduct>().ToList();
+            borrowProductsViewModel.UpdateProductList(filteredProducts);
+            UpdatePaginationDisplay();
         }
 
         private async void FilterButton_Click(object sender, RoutedEventArgs e)
@@ -125,9 +78,12 @@ namespace UiLayer
             var result = await filterDialog.ShowAsync();
             if (result == ContentDialogResult.Primary)
             {
-                ApplyFiltersAndPagination();
+                var filteredProducts = sortAndFilterViewModel.HandleSearch().Cast<BorrowProduct>().ToList();
+                borrowProductsViewModel.UpdateProductList(filteredProducts);
+                UpdatePaginationDisplay();
             }
         }
+
         private void SortButton_Click(object sender, RoutedEventArgs e)
         {
             SortingComboBox.Visibility = SortingComboBox.Visibility == Visibility.Visible ?
@@ -143,7 +99,9 @@ namespace UiLayer
                 if (sortType != null)
                 {
                     sortAndFilterViewModel.HandleSortChange(sortType);
-                    ApplyFiltersAndPagination();
+                    var filteredProducts = sortAndFilterViewModel.HandleSearch().Cast<BorrowProduct>().ToList();
+                    borrowProductsViewModel.UpdateProductList(filteredProducts);
+                    UpdatePaginationDisplay();
                 }
             }
         }
@@ -176,11 +134,9 @@ namespace UiLayer
             if (selectedProduct != null)
             {
                 bool twoAdded = compareProductsViewModel.AddProductForCompare(selectedProduct);
-                if (twoAdded == true)
+                if (twoAdded)
                 {
-                    // Create a compare view
                     var compareProductsView = new CompareProductsView(compareProductsViewModel);
-                    // Create a window to host the CompareProductsView page
                     var compareWindow = new Window();
                     compareWindow.Content = compareProductsView;
                     compareProductsView.SetParentWindow(compareWindow);

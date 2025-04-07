@@ -1,30 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Diagnostics;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Controls.Primitives;
-using Microsoft.UI.Xaml.Data;
-using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
-using Microsoft.UI.Xaml.Navigation;
-using DomainLayer.Domain;
 using Microsoft.UI.Xaml.Media.Imaging;
+using DomainLayer.Domain;
 using ViewModelLayer.ViewModel;
 using MarketMinds.Views.Pages;
 
-namespace MarketMinds
+namespace UiLayer
 {
     public sealed partial class BorrowProductView : Window
     {
         public BorrowProduct Product { get; private set; }
         private Window? seeSellerReviewsView;
         private readonly User currentUser;
+        private readonly BorrowProductsViewModel borrowProductsViewModel;
         public DateTime? SelectedEndDate { get; private set; }
 
         public BorrowProductView(BorrowProduct product)
@@ -32,6 +24,7 @@ namespace MarketMinds
             this.InitializeComponent();
             Product = product;
             currentUser = MarketMinds.App.CurrentUser;
+            borrowProductsViewModel = MarketMinds.App.BorrowProductsViewModel;
 
             // Initialize date controls
             StartDateTextBlock.Text = Product.StartDate.ToString("d");
@@ -63,13 +56,6 @@ namespace MarketMinds
                 };
             }).ToList();
         }
-        private void OnJoinWaitListClicked(object sender, RoutedEventArgs e)
-        {
-        }
-
-        private void OnLeaveWaitListClicked(object sender, RoutedEventArgs e)
-        {
-        }
 
         private void LoadImages()
         {
@@ -79,7 +65,7 @@ namespace MarketMinds
                 var img = new Microsoft.UI.Xaml.Controls.Image
                 {
                     Source = new BitmapImage(new Uri(image.Url)),
-                    Stretch = Stretch.Uniform, // ✅ shows full image without cropping
+                    Stretch = Stretch.Uniform,
                     Height = 250,
                     HorizontalAlignment = HorizontalAlignment.Stretch,
                     VerticalAlignment = VerticalAlignment.Center
@@ -91,12 +77,10 @@ namespace MarketMinds
 
         private void OnSeeReviewsClicked(object sender, RoutedEventArgs e)
         {
-            App.SeeSellerReviewsViewModel.Seller = Product.Seller;
-            // Create a window to host the SeeSellerReviewsView page
+            MarketMinds.App.SeeSellerReviewsViewModel.Seller = Product.Seller;
             var window = new Window();
-            window.Content = new SeeSellerReviewsView(App.SeeSellerReviewsViewModel);
+            window.Content = new SeeSellerReviewsView(MarketMinds.App.SeeSellerReviewsViewModel);
             window.Activate();
-            // Store reference to window
             seeSellerReviewsView = window;
         }
 
@@ -105,12 +89,12 @@ namespace MarketMinds
             if (EndDatePicker.Date != null)
             {
                 SelectedEndDate = EndDatePicker.Date.Value.DateTime;
-                CalculatePriceButton.IsEnabled = true; // Enable the Get Price button
+                CalculatePriceButton.IsEnabled = true;
             }
             else
             {
                 SelectedEndDate = null;
-                CalculatePriceButton.IsEnabled = false; // Disable if no date selected
+                CalculatePriceButton.IsEnabled = false;
             }
         }
 
@@ -118,12 +102,7 @@ namespace MarketMinds
         {
             if (SelectedEndDate.HasValue)
             {
-                // Calculate price based on days difference and daily rate
-                TimeSpan duration = SelectedEndDate.Value - Product.StartDate;
-                int days = duration.Days + 1; // Include both start and end dates
-                float totalPrice = days * Product.DailyRate;
-
-                PriceTextBlock.Text = totalPrice.ToString("C"); // Format as currency
+                PriceTextBlock.Text = borrowProductsViewModel.CalculateAndFormatPrice(Product, SelectedEndDate.Value);
             }
         }
     }
