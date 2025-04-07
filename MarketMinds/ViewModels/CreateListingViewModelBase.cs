@@ -14,33 +14,20 @@ namespace ViewModelLayer.ViewModel
         public string Description { get; set; }
         public List<Image> Images { get; set; }
         public ProductCondition Condition { get; set; }
+        private readonly ImageUploadService imageService;
+
+        public CreateListingViewModelBase()
+        {
+            imageService = new ImageUploadService();
+            Images = new List<Image>();
+        }
 
         public string ImagesString
         {
-            get => Images != null ? string.Join("\n", Images.Select(img => img.Url)) : string.Empty;
-            set
-            {
-                if (!string.IsNullOrEmpty(value))
-                {
-                    Images = value.Split("\n").Select(url => new Image(url)).ToList();
-                }
-                else
-                {
-                    Images = new List<Image>();
-                }
-            }
+            get => imageService.FormatImagesString(Images);
+            set => Images = imageService.ParseImagesString(value);
         }
-
-        public void CreateTag(string tag)
-        {
-            if (Tags == null)
-            {
-                Tags = new List<ProductTag>();
-            }
-            Tags.Add(new ProductTag(-1, tag));
-        }
-
-        public abstract void CreateListing(Product product);
+            public abstract void CreateListing(Product product);
     }
 }
 

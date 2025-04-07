@@ -27,6 +27,11 @@
             <!-- Image Links -->
             <TextBlock Text="Images:" FontWeight="Bold"/>
             <Button Content="Upload Image" Click="OnUploadImageClick" Width="150"/>
+            
+            <!-- Status Message -->
+            <TextBlock x:Name="StatusMessageTextBlock" Text="{x:Bind ViewModel.StatusMessage, Mode=OneWay}" 
+                       Foreground="#007ACC" FontStyle="Italic" TextWrapping="Wrap"
+                       Margin="0,10,0,10"/>
 
             <!-- Confirm button -->
             <Button x:Name="ConfirmButton" Content="Publish Review"
