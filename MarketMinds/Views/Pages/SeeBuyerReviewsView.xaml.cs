@@ -29,14 +29,15 @@ namespace MarketMinds
     public sealed partial class SeeBuyerReviewsView : Window
     {
         public SeeBuyerReviewsViewModel ViewModel { get; set; }
+        private const int NO_REVIEWS = 0;
         public SeeBuyerReviewsView(SeeBuyerReviewsViewModel viewModel)
         {
             ViewModel = viewModel;
             viewModel.RefreshData();
             this.InitializeComponent();
             // Show/hide elements based on review count
-            ReviewsListView.Visibility = ViewModel.Reviews.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
-            EmptyMessageTextBlock.Visibility = ViewModel.Reviews.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
+            ReviewsListView.Visibility = ViewModel.Reviews.Count > NO_REVIEWS ? Visibility.Visible : Visibility.Collapsed;
+            EmptyMessageTextBlock.Visibility = ViewModel.Reviews.Count == NO_REVIEWS ? Visibility.Visible : Visibility.Collapsed;
         }
 
         public void DeleteReviewButton_Click(object sender, RoutedEventArgs e)
@@ -47,8 +48,8 @@ namespace MarketMinds
                 ViewModel.DeleteReview(review);
 
                 // Manually refresh the visibility of the reviews
-                ReviewsListView.Visibility = ViewModel.Reviews.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
-                EmptyMessageTextBlock.Visibility = ViewModel.Reviews.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
+                ReviewsListView.Visibility = ViewModel.Reviews.Count > NO_REVIEWS ? Visibility.Visible : Visibility.Collapsed;
+                EmptyMessageTextBlock.Visibility = ViewModel.Reviews.Count == NO_REVIEWS ? Visibility.Visible : Visibility.Collapsed;
             }
         }
 

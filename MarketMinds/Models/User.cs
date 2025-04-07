@@ -16,12 +16,14 @@ namespace DomainLayer.Domain
         public float Rating { get; set; }
         public float Password { get; set; }
 
+        private const float MAX_BALANCE = 999999;
+
         public User(int id, string username, string email)
         {
             this.Id = id;
             this.Username = username;
             this.Email = email;
-            this.Balance = 999999;
+            this.Balance = MAX_BALANCE;
         }
     }
 }

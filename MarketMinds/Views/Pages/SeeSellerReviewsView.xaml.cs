@@ -24,6 +24,7 @@ namespace MarketMinds.Views.Pages
     public sealed partial class SeeSellerReviewsView : Page
     {
         private SeeSellerReviewsViewModel viewModel;
+        private const int NO_REVIEWS = 0;
         // Public property for binding
         public SeeSellerReviewsViewModel ViewModel => viewModel;
         public SeeSellerReviewsView(SeeSellerReviewsViewModel viewModel_var)
@@ -32,8 +33,8 @@ namespace MarketMinds.Views.Pages
             viewModel.RefreshData();
             this.InitializeComponent();
             // Show/hide elements based on review count
-            ReviewsListView.Visibility = viewModel.Reviews.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
-            EmptyMessageTextBlock.Visibility = viewModel.Reviews.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
+            ReviewsListView.Visibility = viewModel.Reviews.Count > NO_REVIEWS ? Visibility.Visible : Visibility.Collapsed;
+            EmptyMessageTextBlock.Visibility = viewModel.Reviews.Count == NO_REVIEWS ? Visibility.Visible : Visibility.Collapsed;
         }
     }
 }

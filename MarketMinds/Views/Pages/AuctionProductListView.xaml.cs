@@ -25,6 +25,8 @@ namespace UiLayer
         private int currentPage = 1;
         private int itemsPerPage = 20;
         private int totalPages = 1;
+        private const int BASE_PAGE = 1;
+        private const int NO_ITEMS = 0;
         private List<AuctionProduct> currentFullList;
 
         public AuctionProductListView()
@@ -61,7 +63,7 @@ namespace UiLayer
             currentFullList = filteredProducts;
 
             // Reset current page if necessary
-            currentPage = 1;
+            currentPage = BASE_PAGE;
             totalPages = (int)Math.Ceiling(currentFullList.Count / (double)itemsPerPage);
             LoadCurrentPage();
         }
@@ -80,7 +82,7 @@ namespace UiLayer
             }
 
             // Show the empty message if no items exist
-            if (auctionProducts.Count == 0)
+            if (auctionProducts.Count == NO_ITEMS)
             {
                 EmptyMessageTextBlock.Visibility = Visibility.Visible;
             }
@@ -93,16 +95,16 @@ namespace UiLayer
         }
         private void UpdatePaginationDisplay()
         {
-            PaginationTextBlock.Text = totalPages == 0 ?
+            PaginationTextBlock.Text = totalPages == NO_ITEMS ?
                 $"Page {currentPage} of 1" :
                 $"Page {currentPage} of {totalPages}";
-            PreviousButton.IsEnabled = currentPage > 1;
+            PreviousButton.IsEnabled = currentPage > BASE_PAGE;
             NextButton.IsEnabled = currentPage < totalPages;
         }
 
         private void PreviousButton_Click(object sender, RoutedEventArgs e)
         {
-            if (currentPage > 1)
+            if (currentPage > BASE_PAGE)
             {
                 currentPage--;
                 LoadCurrentPage();
