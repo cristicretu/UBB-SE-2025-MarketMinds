@@ -5,17 +5,17 @@ using NUnit.Framework;
 using DomainLayer.Domain;
 using ViewModelLayer.ViewModel;
 using BusinessLogicLayer.ViewModel;
-using MarketMinds.Services;
+using MarketMinds.Helpers;
 using MarketMinds.Services.ProductTagService;
 using MarketMinds.Services.BorrowProductsService;
 using Moq;
 
-namespace MarketMinds.Test.Services.BorrowProductListServiceTest
+namespace MarketMinds.Test.Helpers.BorrowProductListViewModelHelperTest
 {
     [TestFixture]
-    public class BorrowProductListServiceTest
+    public class BorrowProductListViewModelHelperTest
     {
-        private BorrowProductListService borrowProductListService;
+        private BorrowProductListViewModelHelper borrowProductListViewModelHelper;
         private BorrowProductsViewModel borrowProductsViewModel;
         private SortAndFilterViewModel sortAndFilterViewModel;
         private List<BorrowProduct> testProducts;
@@ -23,17 +23,17 @@ namespace MarketMinds.Test.Services.BorrowProductListServiceTest
         [SetUp]
         public void Setup()
         {
-            borrowProductListService = new BorrowProductListService();
+            borrowProductListViewModelHelper = new BorrowProductListViewModelHelper();
             
             // Create 30 test products (more than ItemsPerPage = 20)
-            testProducts = BorrowProductListServiceMocks.CreateTestBorrowProducts(30);
+            testProducts = BorrowProductListViewModelHelperMocks.CreateTestBorrowProducts(30);
             
             // Create SortAndFilterViewModel with a mocked product service
-            sortAndFilterViewModel = BorrowProductListServiceMocks.CreateSortAndFilterViewModel(
+            sortAndFilterViewModel = BorrowProductListViewModelHelperMocks.CreateSortAndFilterViewModel(
                 testProducts.Cast<Product>().ToList());
                 
             // Create a real BorrowProductsViewModel or a simple mock that doesn't require mocking
-            // Since BorrowProductsViewModel doesn't seem to be used in the service methods we're testing
+            // Since BorrowProductsViewModel doesn't seem to be used in the helper methods we're testing
             var mockBorrowProductsService = new Mock<BorrowProductsService>(null);
             borrowProductsViewModel = new BorrowProductsViewModel(mockBorrowProductsService.Object);
         }
@@ -45,7 +45,7 @@ namespace MarketMinds.Test.Services.BorrowProductListServiceTest
             int currentPage = 1;
             
             // Act
-            var result = borrowProductListService.GetBorrowProductsPage(
+            var result = borrowProductListViewModelHelper.GetBorrowProductsPage(
                 borrowProductsViewModel,
                 sortAndFilterViewModel,
                 currentPage);
@@ -66,7 +66,7 @@ namespace MarketMinds.Test.Services.BorrowProductListServiceTest
             int currentPage = 2;
             
             // Act
-            var result = borrowProductListService.GetBorrowProductsPage(
+            var result = borrowProductListViewModelHelper.GetBorrowProductsPage(
                 borrowProductsViewModel,
                 sortAndFilterViewModel,
                 currentPage);
@@ -85,11 +85,11 @@ namespace MarketMinds.Test.Services.BorrowProductListServiceTest
         {
             // Arrange
             int currentPage = 1;
-            sortAndFilterViewModel = BorrowProductListServiceMocks.CreateSortAndFilterViewModel(
+            sortAndFilterViewModel = BorrowProductListViewModelHelperMocks.CreateSortAndFilterViewModel(
                 new List<Product>());
             
             // Act
-            var result = borrowProductListService.GetBorrowProductsPage(
+            var result = borrowProductListViewModelHelper.GetBorrowProductsPage(
                 borrowProductsViewModel,
                 sortAndFilterViewModel,
                 currentPage);
@@ -109,7 +109,7 @@ namespace MarketMinds.Test.Services.BorrowProductListServiceTest
             int totalPages = 5;
             
             // Act
-            var result = borrowProductListService.GetPaginationState(currentPage, totalPages);
+            var result = borrowProductListViewModelHelper.GetPaginationState(currentPage, totalPages);
             
             // Assert
             Assert.That(result.hasPrevious, Is.False);
@@ -124,7 +124,7 @@ namespace MarketMinds.Test.Services.BorrowProductListServiceTest
             int totalPages = 5;
             
             // Act
-            var result = borrowProductListService.GetPaginationState(currentPage, totalPages);
+            var result = borrowProductListViewModelHelper.GetPaginationState(currentPage, totalPages);
             
             // Assert
             Assert.That(result.hasPrevious, Is.True);
@@ -139,7 +139,7 @@ namespace MarketMinds.Test.Services.BorrowProductListServiceTest
             int totalPages = 5;
             
             // Act
-            var result = borrowProductListService.GetPaginationState(currentPage, totalPages);
+            var result = borrowProductListViewModelHelper.GetPaginationState(currentPage, totalPages);
             
             // Assert
             Assert.That(result.hasPrevious, Is.True);
@@ -154,7 +154,7 @@ namespace MarketMinds.Test.Services.BorrowProductListServiceTest
             int totalPages = 1;
             
             // Act
-            var result = borrowProductListService.GetPaginationState(currentPage, totalPages);
+            var result = borrowProductListViewModelHelper.GetPaginationState(currentPage, totalPages);
             
             // Assert
             Assert.That(result.hasPrevious, Is.False);
@@ -169,7 +169,7 @@ namespace MarketMinds.Test.Services.BorrowProductListServiceTest
             int totalPages = 5;
             
             // Act
-            var result = borrowProductListService.GetPaginationText(currentPage, totalPages);
+            var result = borrowProductListViewModelHelper.GetPaginationText(currentPage, totalPages);
             
             // Assert
             Assert.That(result, Is.EqualTo("Page 2 of 5"));
@@ -183,7 +183,7 @@ namespace MarketMinds.Test.Services.BorrowProductListServiceTest
             int totalPages = 0;
             
             // Act
-            var result = borrowProductListService.GetPaginationText(currentPage, totalPages);
+            var result = borrowProductListViewModelHelper.GetPaginationText(currentPage, totalPages);
             
             // Assert
             Assert.That(result, Is.EqualTo("Page 1 of 1"));

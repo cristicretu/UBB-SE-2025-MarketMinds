@@ -7,9 +7,9 @@ using BusinessLogicLayer.ViewModel;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 
-namespace MarketMinds.Services
+namespace MarketMinds.Helpers
 {
-    public class BorrowProductListService
+    public class BorrowProductListViewModelHelper
     {
         private const int ItemsPerPage = 20;
 
@@ -34,6 +34,7 @@ namespace MarketMinds.Services
         {
             return (currentPage > 1, currentPage < totalPages);
         }
+
         public string GetPaginationText(int currentPage, int totalPages)
         {
             return totalPages == 0 ?

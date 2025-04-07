@@ -5,13 +5,12 @@ using DomainLayer.Domain;
 using ViewModelLayer.ViewModel;
 using BusinessLogicLayer.ViewModel;
 using Moq;
-using MarketMinds.Services;
 using MarketMinds.Services.ProductTagService;
 using MarketMinds.Repositories;
 
-namespace MarketMinds.Test.Services.BorrowProductListServiceTest
+namespace MarketMinds.Test.Helpers.BorrowProductListViewModelHelperTest
 {
-    public static class BorrowProductListServiceMocks
+    public static class BorrowProductListViewModelHelperMocks
     {
         /// <summary>
         /// Creates a SortAndFilterViewModel with a product service that returns the specified products
