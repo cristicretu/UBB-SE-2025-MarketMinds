@@ -20,6 +20,8 @@ namespace UiLayer
         private readonly SortAndFilterViewModel sortAndFilterViewModel;
         private ObservableCollection<AuctionProduct> auctionProducts;
         private CompareProductsViewModel compareProductsViewModel;
+        private readonly AuctionProductListService auctionProductListService;
+        private readonly AuctionSortTypeConverterService sortTypeConverterService;
 
         // Pagination variables
         private int currentPage = 1;
@@ -36,6 +38,8 @@ namespace UiLayer
             auctionProductsViewModel = MarketMinds.App.AuctionProductsViewModel;
             sortAndFilterViewModel = MarketMinds.App.AuctionProductSortAndFilterViewModel;
             compareProductsViewModel = MarketMinds.App.CompareProductsViewModel;
+            auctionProductListService = new AuctionProductListService();
+            sortTypeConverterService = new AuctionSortTypeConverterService();
 
             auctionProducts = new ObservableCollection<AuctionProduct>();
             // Initially load all auction products
@@ -57,24 +61,10 @@ namespace UiLayer
         // Call this method whenever a filter, sort, or search query changes.
         private void ApplyFiltersAndPagination()
         {
-            // Get the filtered and sorted list from view model
-            // (Assume handleSearch returns List<Product> that we can cast to AuctionProduct)
-            var filteredProducts = sortAndFilterViewModel.HandleSearch().Cast<AuctionProduct>().ToList();
-            currentFullList = filteredProducts;
-
-            // Reset current page if necessary
-            currentPage = BASE_PAGE;
-            totalPages = (int)Math.Ceiling(currentFullList.Count / (double)itemsPerPage);
-            LoadCurrentPage();
-        }
-
-        private void LoadCurrentPage()
-        {
-            var pageItems = currentFullList
-                .Skip((currentPage - 1) * itemsPerPage)
-                .Take(itemsPerPage)
-                .ToList();
-
+            var (pageItems, newTotalPages, fullList) = auctionProductListService.GetAuctionProductsPage(
+                auctionProductsViewModel, sortAndFilterViewModel, currentPage, itemsPerPage);
+            currentFullList = fullList;
+            totalPages = newTotalPages;
             auctionProducts.Clear();
             foreach (var item in pageItems)
             {
@@ -82,24 +72,20 @@ namespace UiLayer
             }
 
             // Show the empty message if no items exist
-            if (auctionProducts.Count == NO_ITEMS)
-            {
-                EmptyMessageTextBlock.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                EmptyMessageTextBlock.Visibility = Visibility.Collapsed;
-            }
+            EmptyMessageTextBlock.Visibility = auctionProductListService.ShouldShowEmptyMessage(pageItems)
+                ? Visibility.Visible
+                : Visibility.Collapsed;
 
             UpdatePaginationDisplay();
         }
+
         private void UpdatePaginationDisplay()
         {
-            PaginationTextBlock.Text = totalPages == NO_ITEMS ?
-                $"Page {currentPage} of 1" :
-                $"Page {currentPage} of {totalPages}";
-            PreviousButton.IsEnabled = currentPage > BASE_PAGE;
-            NextButton.IsEnabled = currentPage < totalPages;
+            PaginationTextBlock.Text = auctionProductListService.GetPaginationText(currentPage, totalPages);
+            var (canGoToPrevious, canGoToNext) = auctionProductListService.GetPaginationButtonState(
+                currentPage, totalPages, BASE_PAGE);
+            PreviousButton.IsEnabled = canGoToPrevious;
+            NextButton.IsEnabled = canGoToNext;
         }
 
         private void PreviousButton_Click(object sender, RoutedEventArgs e)
@@ -107,7 +93,7 @@ namespace UiLayer
             if (currentPage > BASE_PAGE)
             {
                 currentPage--;
-                LoadCurrentPage();
+                ApplyFiltersAndPagination();
             }
         }
 
@@ -116,7 +102,7 @@ namespace UiLayer
             if (currentPage < totalPages)
             {
                 currentPage++;
-                LoadCurrentPage();
+                ApplyFiltersAndPagination();
             }
         }
 
@@ -124,6 +110,7 @@ namespace UiLayer
         {
             // Update the search query in the view model and reapply filters
             sortAndFilterViewModel.HandleSearchQueryChange(SearchTextBox.Text);
+            currentPage = BASE_PAGE;
             ApplyFiltersAndPagination();
         }
 
@@ -136,6 +123,7 @@ namespace UiLayer
             if (result == ContentDialogResult.Primary)
             {
                 // Filters have been applied in the dialog; reapply them.
+                currentPage = BASE_PAGE;
                 ApplyFiltersAndPagination();
             }
         }
@@ -153,34 +141,13 @@ namespace UiLayer
             {
                 // Use the Tag to determine which sort to apply
                 var sortTag = selectedItem.Tag.ToString();
-                var sortType = ParseSortType(sortTag);
+                var sortType = sortTypeConverterService.Convert(sortTag);
                 if (sortType != null)
                 {
                     sortAndFilterViewModel.HandleSortChange(sortType);
+                    currentPage = BASE_PAGE; // Reset to first page on new sort
                     ApplyFiltersAndPagination();
                 }
-            }
-        }
-
-        private ProductSortType ParseSortType(string sortTag)
-        {
-            // Adjust the external/internal titles as needed.
-            switch (sortTag)
-            {
-                case "SellerRatingAsc":
-                    return new ProductSortType("Seller Rating", "SellerRating", true);
-                case "SellerRatingDesc":
-                    return new ProductSortType("Seller Rating", "SellerRating", false);
-                case "StartingPriceAsc":
-                    return new ProductSortType("Starting Price", "StartingPrice", true);
-                case "StartingPriceDesc":
-                    return new ProductSortType("Starting Price", "StartingPrice", false);
-                case "CurrentPriceAsc":
-                    return new ProductSortType("Current Price", "CurrentPrice", true);
-                case "CurrentPriceDesc":
-                    return new ProductSortType("Current Price", "CurrentPrice", false);
-                default:
-                    return null;
             }
         }
 

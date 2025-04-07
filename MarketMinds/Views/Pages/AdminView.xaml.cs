@@ -1,5 +1,6 @@
 using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using ViewModelLayer.ViewModel;
@@ -28,62 +29,63 @@ namespace UiLayer
             ProductCategories = new ObservableCollection<ProductCategory>();
             ProductConditions = new ObservableCollection<ProductCondition>();
 
+            // Set up data binding for view models
+            CategoryNameTextBox.SetBinding(TextBox.TextProperty,
+                new Microsoft.UI.Xaml.Data.Binding() { Path = new PropertyPath("CategoryName"), Mode = Microsoft.UI.Xaml.Data.BindingMode.TwoWay, Source = productCategoryViewModel });
+            CategoryDescriptionTextBox.SetBinding(TextBox.TextProperty,
+                new Microsoft.UI.Xaml.Data.Binding() { Path = new PropertyPath("CategoryDescription"), Mode = Microsoft.UI.Xaml.Data.BindingMode.TwoWay, Source = productCategoryViewModel });
+            ConditionNameTextBox.SetBinding(TextBox.TextProperty,
+                new Microsoft.UI.Xaml.Data.Binding() { Path = new PropertyPath("ConditionName"), Mode = Microsoft.UI.Xaml.Data.BindingMode.TwoWay, Source = productConditionViewModel });
+            ConditionDescriptionTextBox.SetBinding(TextBox.TextProperty,
+                new Microsoft.UI.Xaml.Data.Binding() { Path = new PropertyPath("ConditionDescription"), Mode = Microsoft.UI.Xaml.Data.BindingMode.TwoWay, Source = productConditionViewModel });
+
+            // Register for property changed events to show dialogs
+            productCategoryViewModel.PropertyChanged += ViewModel_PropertyChanged;
+            productConditionViewModel.PropertyChanged += ViewModel_PropertyChanged;
+
             // Load existing data
             LoadCategories();
             LoadConditions();
         }
 
-        private async void HandleAddCategoryButton_Click(object sender, RoutedEventArgs e)
+        private async void ViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            string name = CategoryNameTextBox.Text;
-            string description = CategoryDescriptionTextBox.Text;
-
-            if (string.IsNullOrWhiteSpace(name))
+            if (e.PropertyName == "IsDialogOpen" && sender is INotifyPropertyChanged viewModel)
             {
-                await ShowContentDialog("Error", "Category name cannot be empty.");
-                return;
-            }
-
-            try
-            {
-                var category = productCategoryViewModel.CreateProductCategory(name, description);
-                ProductCategories.Add(category); // Update list dynamically
-                await ShowContentDialog("Success", $"Category '{name}' created successfully.");
-
-                // Clear input fields
-                CategoryNameTextBox.Text = string.Empty;
-                CategoryDescriptionTextBox.Text = string.Empty;
-            }
-            catch (Exception ex)
-            {
-                await ShowContentDialog("Error", $"Error creating category: {ex.Message}");
+                if (viewModel is ProductCategoryViewModel categoryViewModel && categoryViewModel.IsDialogOpen)
+                {
+                    string title = !string.IsNullOrEmpty(categoryViewModel.ErrorMessage) ? "Error" : "Success";
+                    string message = !string.IsNullOrEmpty(categoryViewModel.ErrorMessage)
+                        ? categoryViewModel.ErrorMessage
+                        : categoryViewModel.SuccessMessage;
+                    await ShowContentDialog(title, message);
+                    categoryViewModel.ClearDialogMessages();
+                }
+                else if (viewModel is ProductConditionViewModel conditionViewModel && conditionViewModel.IsDialogOpen)
+                {
+                    string title = !string.IsNullOrEmpty(conditionViewModel.ErrorMessage) ? "Error" : "Success";
+                    string message = !string.IsNullOrEmpty(conditionViewModel.ErrorMessage)
+                        ? conditionViewModel.ErrorMessage
+                        : conditionViewModel.SuccessMessage;
+                    await ShowContentDialog(title, message);
+                    conditionViewModel.ClearDialogMessages();
+                }
             }
         }
 
-        private async void HandleAddConditionButton_Click(object sender, RoutedEventArgs e)
+        private void HandleAddCategoryButton_Click(object sender, RoutedEventArgs e)
         {
-            string name = ConditionNameTextBox.Text;
-            string description = ConditionDescriptionTextBox.Text;
-
-            if (string.IsNullOrWhiteSpace(name))
+            if (productCategoryViewModel.ValidateAndCreateCategory())
             {
-                await ShowContentDialog("Error", "Condition name cannot be empty.");
-                return;
+                LoadCategories(); // Refresh the list
             }
+        }
 
-            try
+        private void HandleAddConditionButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (productConditionViewModel.ValidateAndCreateCondition())
             {
-                var condition = productConditionViewModel.CreateProductCondition(name, description);
-                ProductConditions.Add(condition);
-                await ShowContentDialog("Success", $"Condition '{name}' created successfully.");
-
-                // Clear input fields
-                ConditionNameTextBox.Text = string.Empty;
-                ConditionDescriptionTextBox.Text = string.Empty;
-            }
-            catch (Exception ex)
-            {
-                await ShowContentDialog("Error", $"Error creating condition: {ex.Message}");
+                LoadConditions(); // Refresh the list
             }
         }
 

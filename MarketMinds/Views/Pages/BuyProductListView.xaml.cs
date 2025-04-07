@@ -53,15 +53,10 @@ namespace UiLayer
 
         private void ApplyFiltersAndPagination()
         {
-            // Apply filters from sortAndFilterViewModel
-            var filteredProducts = sortAndFilterViewModel.HandleSearch();
-            currentFullList = filteredProducts.Cast<BuyProduct>().ToList();
-
-            // Apply pagination
-            var (currentPageProducts, newTotalPages) = paginationService.GetPaginatedProducts(currentFullList, currentPage);
+            var listService = new BuyProductListService();
+            var (currentPageProducts, newTotalPages, fullList) = listService.GetBuyProductsPage(buyProductsViewModel, sortAndFilterViewModel, currentPage);
+            currentFullList = fullList;
             totalPages = newTotalPages;
-
-            // Update the observable collection
             buyProducts.Clear();
             foreach (var product in currentPageProducts)
             {
@@ -133,25 +128,13 @@ namespace UiLayer
             if (SortingComboBox.SelectedItem is ComboBoxItem selectedItem)
             {
                 var sortTag = selectedItem.Tag.ToString();
-                var sortType = ParseSortType(sortTag);
+                var converter = new SortTypeConverterService();
+                var sortType = converter.Convert(sortTag);
                 if (sortType != null)
                 {
                     sortAndFilterViewModel.HandleSortChange(sortType);
                     ApplyFiltersAndPagination();
                 }
-            }
-        }
-
-        private ProductSortType? ParseSortType(string sortTag)
-        {
-            switch (sortTag)
-            {
-                case "PriceAsc":
-                    return new ProductSortType("Price", "Price", true);
-                case "PriceDesc":
-                    return new ProductSortType("Price", "Price", false);
-                default:
-                    return null;
             }
         }
 
