@@ -14,8 +14,6 @@ namespace MarketMinds.Repositories.ReviewRepository
         private const int NOCOUNT = 0;
         private const int NULLRATING = 0;
         private DataBaseConnection connection;
-
-
         public ReviewRepository(DataBaseConnection connection)
         {
             this.connection = connection;

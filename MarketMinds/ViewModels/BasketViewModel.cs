@@ -8,8 +8,8 @@ namespace ViewModelLayer.ViewModel
 {
     public class BasketViewModel
     {
-        const int NODISCOUNT = 0;
-        const int DEFAULTQUANTITY = 1;
+        private const int NODISCOUNT = 0;
+        private const int DEFAULTQUANTITY = 1;
         private User currentUser;
         private readonly BasketService basketService;
         private Basket basket;
