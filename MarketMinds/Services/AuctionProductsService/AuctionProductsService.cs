@@ -18,6 +18,11 @@ namespace MarketMinds.Services.AuctionProductsService
             auctionRepository = repository;
         }
 
+        public void CreateListing(Product product)
+        {
+            AddProduct(product);
+        }
+
         public void PlaceBid(AuctionProduct auction, User bidder, float bidAmount)
         {
             ValidateBid(auction, bidder, bidAmount);

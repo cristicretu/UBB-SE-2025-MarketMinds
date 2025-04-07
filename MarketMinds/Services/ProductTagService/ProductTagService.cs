@@ -10,9 +10,9 @@ namespace MarketMinds.Services.ProductTagService
 {
     public class ProductTagService : IProductTagService
     {
-        private ProductTagRepository repository;
+        private IProductTagRepository repository;
 
-        public ProductTagService(ProductTagRepository repository)
+        public ProductTagService(IProductTagRepository repository)
         {
             this.repository = repository;
         }

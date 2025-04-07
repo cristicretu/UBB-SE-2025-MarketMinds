@@ -2,17 +2,22 @@
 using System.Collections.Generic;
 using DomainLayer.Domain;
 using MarketMinds.Services.AuctionProductsService;
+using MarketMinds.Services;
+using MarketMinds.Services.ProductTagService;
 
 namespace ViewModelLayer.ViewModel;
 
 public class AuctionProductsViewModel
 {
-    private readonly AuctionProductsService auctionProductsService;
+    private readonly IProductService auctionProductsService;
+    private readonly AuctionValidationService auctionValidationService;
 
-    public AuctionProductsViewModel(AuctionProductsService auctionProductsService)
+    public AuctionProductsViewModel(IProductService auctionProductsService)
     {
         this.auctionProductsService = auctionProductsService;
+        this.auctionValidationService = new AuctionValidationService((IAuctionProductsService)auctionProductsService);
     }
+
     public List<AuctionProduct> GetAllProducts()
     {
         var auctionProducts = new List<AuctionProduct>();
@@ -25,16 +30,11 @@ public class AuctionProductsViewModel
 
     public void PlaceBid(AuctionProduct product, User bidder, string enteredBidText)
     {
-        if (!float.TryParse(enteredBidText, out float bidAmount))
-        {
-            throw new Exception("Invalid bid amount");
-        }
-
-        auctionProductsService.PlaceBid(product, bidder, bidAmount);
+        auctionValidationService.ValidateAndPlaceBid(product, bidder, enteredBidText);
     }
 
     public void ConcludeAuction(AuctionProduct product)
     {
-        auctionProductsService.ConcludeAuction(product);
+        auctionValidationService.ValidateAndConcludeAuction(product);
     }
 }

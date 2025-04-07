@@ -33,7 +33,7 @@
     <None Remove="appsettings.json" />
   </ItemGroup>
 
-  <ItemGroup>
+  <ItemGroup> 
     <Content Include="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

@@ -59,11 +59,12 @@ namespace MarketMinds.Repositories.ProductConditionRepository
                 newId = (int)command.ExecuteScalar();
             }
             connection.CloseConnection();
-
+            /*
             if (newId == -1)
             {
                 throw new Exception("Product condition was not created");
             }
+            */
             return new ProductCondition(newId, displayTitle, description);
         }
 

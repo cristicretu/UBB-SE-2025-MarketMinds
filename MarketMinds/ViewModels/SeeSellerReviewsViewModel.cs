@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 using DomainLayer.Domain;
 using MarketMinds.Services.ReviewService;
+using MarketMinds.Services;
 
 namespace BusinessLogicLayer.ViewModel
 {
@@ -19,19 +20,18 @@ namespace BusinessLogicLayer.ViewModel
         public float Rating { get; set; }
         public bool IsReviewsEmpty { get; set; }
         public int ReviewCount { get; set; }
+        private readonly ReviewCalculationService reviewCalculationService;
 
         public SeeSellerReviewsViewModel(ReviewsService reviewsService, User seller, User viewer)
         {
             this.Seller = seller;
             this.Viewer = viewer;
             this.ReviewsService = reviewsService;
+            this.reviewCalculationService = new ReviewCalculationService();
             Reviews = reviewsService.GetReviewsBySeller(seller);
-            ReviewCount = Reviews.Count();
-            if (ReviewCount > 0)
-            {
-                Rating = Reviews.Average(r => r.Rating);
-            }
-            IsReviewsEmpty = ReviewCount == 0;
+            ReviewCount = reviewCalculationService.GetReviewCount(Reviews);
+            Rating = reviewCalculationService.CalculateAverageRating(Reviews);
+            IsReviewsEmpty = reviewCalculationService.AreReviewsEmpty(Reviews);
         }
 
         public void MessageReviewer()
@@ -43,11 +43,9 @@ namespace BusinessLogicLayer.ViewModel
         public void RefreshData()
         {
             Reviews = ReviewsService.GetReviewsBySeller(Seller);
-            ReviewCount = Reviews.Count();
-            if (ReviewCount > 0)
-            {
-                Rating = Reviews.Average(r => r.Rating);
-            }
+            ReviewCount = reviewCalculationService.GetReviewCount(Reviews);
+            Rating = reviewCalculationService.CalculateAverageRating(Reviews);
+            IsReviewsEmpty = reviewCalculationService.AreReviewsEmpty(Reviews);
         }
     }
 }

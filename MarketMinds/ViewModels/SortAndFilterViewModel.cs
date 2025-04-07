@@ -30,7 +30,12 @@ namespace BusinessLogicLayer.ViewModel
 
         public List<Product> HandleSearch()
         {
-            return ProductService.GetSortedFilteredProducts(this.productService.GetProducts(), SelectedConditions, SelectedCategories, SelectedTags, SortCondition, SearchQuery);
+            return productService.GetSortedFilteredProducts(
+                SelectedConditions,
+                SelectedCategories,
+                SelectedTags,
+                SortCondition,
+                SearchQuery);
         }
 
         public void HandleClearAllFilters()

@@ -12,9 +12,9 @@ namespace MarketMinds.Services.ReviewService
 {
     public class ReviewsService : IReviewsService
     {
-        public ReviewRepository Repository;
+        public IReviewRepository Repository;
 
-        public ReviewsService(ReviewRepository repository)
+        public ReviewsService(IReviewRepository repository)
         {
             Repository = repository;
         }
