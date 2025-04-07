@@ -20,12 +20,10 @@ namespace MarketMinds
     {
         public ReviewCreateViewModel ViewModel { get; set; }
         private readonly bool var_isEditing;
-        private readonly ImageUploadService imageUploadService;
 
         public CreateReviewView(ReviewCreateViewModel viewModel, Review? review = null)
         {
             ViewModel = viewModel;
-            imageUploadService = new ImageUploadService();
             var_isEditing = review != null;
             if (var_isEditing)
             {
@@ -36,17 +34,17 @@ namespace MarketMinds
             }
             this.InitializeComponent();
             this.Closed += OnWindowClosed;
+            // Update status message text block
+            if (StatusMessageTextBlock != null)
+            {
+                UpdateStatusMessage();
+            }
         }
 
         private async void HandleAddImage_Click(object sender, RoutedEventArgs e)
         {
-            string imgurLink = await imageUploadService.UploadImage(this);
-            if (!string.IsNullOrEmpty(imgurLink))
-            {
-                ViewModel.ImagesString = string.IsNullOrEmpty(ViewModel.ImagesString)
-                    ? imgurLink
-                    : ViewModel.ImagesString + "\n" + imgurLink;
-            }
+            await ViewModel.AddImage(this);
+            UpdateStatusMessage();
         }
 
         private void HandleSubmit_Click(object sender, RoutedEventArgs e)
@@ -65,14 +63,17 @@ namespace MarketMinds
 
             if (var_isEditing)
             {
-                ViewModel.UpdateReview();  // Call an update method instead of submitting a new review
+                ViewModel.UpdateReview();
             }
             else
             {
                 ViewModel.SubmitReview();
             }
 
-            this.Close();
+            UpdateStatusMessage();
+
+            // Allow a moment to see the status message before closing
+            Task.Delay(1000).ContinueWith(_ => this.DispatcherQueue.TryEnqueue(() => this.Close()));
         }
 
         private void OnWindowClosed(object sender, Microsoft.UI.Xaml.WindowEventArgs e)
@@ -85,12 +86,14 @@ namespace MarketMinds
 
         private async void OnUploadImageClick(object sender, RoutedEventArgs e)
         {
-            string imgurLink = await imageUploadService.UploadImage(this);
-            if (!string.IsNullOrEmpty(imgurLink))
+            await ViewModel.AddImage(this);
+            UpdateStatusMessage();
+        }
+        private void UpdateStatusMessage()
+        {
+            if (StatusMessageTextBlock != null)
             {
-                ViewModel.ImagesString = string.IsNullOrEmpty(ViewModel.ImagesString)
-                    ? imgurLink
-                    : ViewModel.ImagesString + "\n" + imgurLink;
+                StatusMessageTextBlock.Text = ViewModel.StatusMessage;
             }
         }
     }

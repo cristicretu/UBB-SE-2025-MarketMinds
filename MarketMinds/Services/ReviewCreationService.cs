@@ -9,10 +9,12 @@ namespace MarketMinds.Services
     public class ReviewCreationService
     {
         private readonly ReviewsService reviewsService;
+        private readonly ImageUploadService imageService;
 
         public ReviewCreationService(ReviewsService reviewsService)
         {
             this.reviewsService = reviewsService;
+            this.imageService = new ImageUploadService();
         }
 
         public Review CreateReview(string description, List<Image> images, float rating, User seller, User buyer)
@@ -77,20 +79,12 @@ namespace MarketMinds.Services
 
         public List<Image> ParseImagesString(string imagesString)
         {
-            if (string.IsNullOrEmpty(imagesString))
-            {
-                return new List<Image>();
-            }
-
-            return imagesString.Split("\n")
-                .Where(url => !string.IsNullOrEmpty(url))
-                .Select(url => new Image(url))
-                .ToList();
+            return imageService.ParseImagesString(imagesString);
         }
 
         public string FormatImagesString(List<Image> images)
         {
-            return images != null ? string.Join("\n", images.Select(img => img.Url)) : string.Empty;
+            return imageService.FormatImagesString(images);
         }
     }
 }
