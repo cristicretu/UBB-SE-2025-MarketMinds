@@ -21,8 +21,8 @@ namespace DataAccessLayer
             string? localDataSource = configuration["LocalDataSource"];
             string? initialCatalog = configuration["InitialCatalog"];
 
-            connectionString = "Data Source=" + "NANU\\SQLEXPRESS" + ";" +
-                       "Initial Catalog=" + "Market" + ";" +
+            connectionString = "Data Source=" + localDataSource + ";" +
+                        "Initial Catalog=" + initialCatalog + ";" +
                        "Integrated Security=True;" +
                        "TrustServerCertificate=True";
             try
