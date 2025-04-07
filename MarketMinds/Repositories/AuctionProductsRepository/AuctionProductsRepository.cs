@@ -161,6 +161,7 @@ namespace MarketMinds.Repositories.AuctionProductsRepository
                 cmd.ExecuteNonQuery();
             }
         }
+
         public void AddProduct(Product product)
         {
             AuctionProduct? auction = product as AuctionProduct;
@@ -244,7 +245,7 @@ namespace MarketMinds.Repositories.AuctionProductsRepository
         }
         public AuctionProduct GetProductByID(int id)
         {
-            AuctionProduct auction = null;
+            AuctionProduct? auction = null;
 
             string query = @"
         SELECT 
@@ -267,7 +268,23 @@ namespace MarketMinds.Repositories.AuctionProductsRepository
         JOIN Users u ON ap.seller_id = u.id
         JOIN ProductConditions pc ON ap.condition_id = pc.id
         JOIN ProductCategories cat ON ap.category_id = cat.id
-           WHERE ap.id = @APid";
+        WHERE ap.id = @APid";
+
+            int productId = 0;
+            string title = string.Empty;
+            string description = string.Empty;
+            int sellerId = 0;
+            string username = string.Empty;
+            string email = string.Empty;
+            int conditionId = 0;
+            string conditionTitle = string.Empty;
+            string conditionDescription = string.Empty;
+            int categoryId = 0;
+            string categoryTitle = string.Empty;
+            string categoryDescription = string.Empty;
+            DateTime start = DateTime.MinValue;
+            DateTime end = DateTime.MinValue;
+            float startingPrice = 0;
 
             connection.OpenConnection();
             using (SqlCommand cmd = new SqlCommand(query, connection.GetConnection()))
@@ -277,49 +294,52 @@ namespace MarketMinds.Repositories.AuctionProductsRepository
                 {
                     if (reader.Read())
                     {
-                        int productId = reader.GetInt32(reader.GetOrdinal("id"));
-                        string title = reader.GetString(reader.GetOrdinal("title"));
-                        string description = reader.GetString(reader.GetOrdinal("description"));
-
-                        int sellerId = reader.GetInt32(reader.GetOrdinal("seller_id"));
-                        string username = reader.GetString(reader.GetOrdinal("username"));
-                        string email = reader.GetString(reader.GetOrdinal("email"));
-                        User seller = new User(sellerId, username, email);
-
-                        int conditionId = reader.GetInt32(reader.GetOrdinal("condition_id"));
-                        string conditionTitle = reader.GetString(reader.GetOrdinal("conditionTitle"));
-                        string conditionDescription = reader.GetString(reader.GetOrdinal("conditionDescription"));
-                        ProductCondition condition = new ProductCondition(conditionId, conditionTitle, conditionDescription);
-
-                        int categoryId = reader.GetInt32(reader.GetOrdinal("category_id"));
-                        string categoryTitle = reader.GetString(reader.GetOrdinal("categoryTitle"));
-                        string categoryDescription = reader.GetString(reader.GetOrdinal("categoryDescription"));
-                        ProductCategory category = new ProductCategory(categoryId, categoryTitle, categoryDescription);
-
-                        DateTime start = reader.GetDateTime(reader.GetOrdinal("start_datetime"));
-                        DateTime end = reader.GetDateTime(reader.GetOrdinal("end_datetime"));
-                        float startingPrice = reader.GetFloat(reader.GetOrdinal("starting_price"));
-
-                        List<ProductTag> tags = GetProductTags(productId);
-                        List<Image> images = GetImages(productId);
-
-                        auction = new AuctionProduct(
-                            productId,
-                            title,
-                            description,
-                            seller,
-                            condition,
-                            category,
-                            tags,
-                            images,
-                            start,
-                            end,
-                            startingPrice);
+                        productId = reader.GetInt32(reader.GetOrdinal("id"));
+                        title = reader.GetString(reader.GetOrdinal("title"));
+                        description = reader.GetString(reader.GetOrdinal("description"));
+                        sellerId = reader.GetInt32(reader.GetOrdinal("seller_id"));
+                        username = reader.GetString(reader.GetOrdinal("username"));
+                        email = reader.GetString(reader.GetOrdinal("email"));
+                        conditionId = reader.GetInt32(reader.GetOrdinal("condition_id"));
+                        conditionTitle = reader.GetString(reader.GetOrdinal("conditionTitle"));
+                        conditionDescription = reader.GetString(reader.GetOrdinal("conditionDescription"));
+                        categoryId = reader.GetInt32(reader.GetOrdinal("category_id"));
+                        categoryTitle = reader.GetString(reader.GetOrdinal("categoryTitle"));
+                        categoryDescription = reader.GetString(reader.GetOrdinal("categoryDescription"));
+                        start = reader.GetDateTime(reader.GetOrdinal("start_datetime"));
+                        end = reader.GetDateTime(reader.GetOrdinal("end_datetime"));
+                        startingPrice = (float)reader.GetDouble(reader.GetOrdinal("starting_price"));
                     }
                 }
             }
+
+            if (productId != 0)
+            {
+                connection.CloseConnection();
+
+                List<ProductTag> tags = GetProductTags(productId);
+                List<Image> images = GetImages(productId);
+
+                User seller = new User(sellerId, username, email);
+                ProductCondition condition = new ProductCondition(conditionId, conditionTitle, conditionDescription);
+                ProductCategory category = new ProductCategory(categoryId, categoryTitle, categoryDescription);
+
+                auction = new AuctionProduct(
+                    productId,
+                    title,
+                    description,
+                    seller,
+                    condition,
+                    category,
+                    tags,
+                    images,
+                    start,
+                    end,
+                    startingPrice);
+            }
+
             connection.CloseConnection();
-            return auction;
+            return auction!;
         }
     }
 }

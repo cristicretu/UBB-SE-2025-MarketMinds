@@ -59,10 +59,12 @@ namespace MarketMinds.Repositories.ProductTagRepository
             }
             connection.CloseConnection();
 
-            if (newId == DEFAULTID)
+            /*
+            if (newId == -1)
             {
                 throw new Exception("Error creating product tag");
             }
+            */
             return new ProductTag(newId, displayTitle);
         }
 
