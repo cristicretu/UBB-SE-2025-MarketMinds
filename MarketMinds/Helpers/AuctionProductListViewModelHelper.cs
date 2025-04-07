@@ -5,9 +5,9 @@ using DomainLayer.Domain;
 using ViewModelLayer.ViewModel;
 using BusinessLogicLayer.ViewModel;
 
-namespace MarketMinds.Services
+namespace MarketMinds.Helpers
 {
-    public class AuctionProductListService
+    public class AuctionProductListViewModelHelper
     {
         private const int NO_ITEMS = 0;
 
@@ -49,4 +49,4 @@ namespace MarketMinds.Services
                 $"Page {currentPage} of {totalPages}";
         }
     }
-}
+} 
