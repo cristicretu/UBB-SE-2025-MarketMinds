@@ -94,8 +94,8 @@ namespace MarketMinds.Repositories.ReviewRepository
                                 reader.GetString(3),
                                 new List<Image>(), // Use ObservableCollection for images
                                 Convert.ToSingle(reader.GetDouble(4)),
-                                reader.GetInt32(2),
-                                reader.GetInt32(1));
+                                reader.GetInt32(1),
+                                reader.GetInt32(2));
                             reviews.Add(review);
                         }
                     }

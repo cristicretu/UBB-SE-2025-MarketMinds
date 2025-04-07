@@ -84,6 +84,7 @@ namespace MarketMinds.Services.ProductTagService
             }
             return productResultSet;
         }
+
         public static List<Product> GetSortedFilteredProducts(List<Product> products, List<ProductCondition> selectedConditions, List<ProductCategory> selectedCategories, List<ProductTag> selectedTags, ProductSortType sortCondition, string searchQuery)
         {
             var tempService = new ProductService(null);
