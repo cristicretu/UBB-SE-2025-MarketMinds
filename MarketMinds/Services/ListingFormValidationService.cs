@@ -75,4 +75,4 @@ namespace MarketMinds.Services
             return endAuctionDate.HasValue && endAuctionDate.Value > DateTimeOffset.Now;
         }
     }
-} 
+}

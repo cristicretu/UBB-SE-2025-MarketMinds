@@ -56,4 +56,4 @@ namespace MarketMinds.Services
             return stringTags.Select(tagName => EnsureTagExists(tagName)).ToList();
         }
     }
-} 
+}
