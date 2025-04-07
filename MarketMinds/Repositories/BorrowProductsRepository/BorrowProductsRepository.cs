@@ -129,14 +129,12 @@ namespace MarketMinds.Repositories.BorrowProductsRepository
 
             connection.OpenConnection();
 
-            // Step 1: Load all products first
             using (SqlCommand cmd = new SqlCommand(mainQuery, connection.GetConnection()))
             using (SqlDataReader reader = cmd.ExecuteReader())
             {
-                productsTable.Load(reader); // Load into DataTable to close the reader early
+                productsTable.Load(reader);
             }
 
-            // Step 2: Process each product to fetch tags and images
             foreach (DataRow row in productsTable.Rows)
             {
                 int id = (int)row["id"];
@@ -166,7 +164,6 @@ namespace MarketMinds.Repositories.BorrowProductsRepository
                 DateTime endDate = (DateTime)row["end_date"];
                 bool isBorrowed = (bool)row["is_borrowed"];
 
-                // Fetch tags and images in separate queries
                 List<ProductTag> tags = GetProductTags(id);
                 List<Image> images = GetProductImages(id);
                 BorrowProduct borrow = new BorrowProduct(
@@ -186,7 +183,7 @@ namespace MarketMinds.Repositories.BorrowProductsRepository
         SELECT pt.id, pt.title
         FROM ProductTags pt
         INNER JOIN BorrowProductProductTags bpt ON pt.id = bpt.tag_id
-        WHERE bpt.product_id = @ProductId"; // Fixed typo: was 'apt' instead of 'bpt'
+        WHERE bpt.product_id = @ProductId";
 
             connection.OpenConnection();
             using (SqlCommand cmd = new SqlCommand(query, connection.GetConnection()))
@@ -234,34 +231,42 @@ namespace MarketMinds.Repositories.BorrowProductsRepository
 
         public Product GetProductByID(int productId)
         {
-            BorrowProduct borrow = null;
+            BorrowProduct? borrow = null;
 
             string query = @"
-                            SELECT 
-                                bp.id,
-                                bp.title,
-                                bp.description,
-                                bp.seller_id,
-                                u.username,
-                                u.email,
-                                bp.condition_id,
-                                pc.title AS conditionTitle,
-                                pc.description AS conditionDescription,
-                                bp.category_id,
-                                cat.title AS categoryTitle,
-                                cat.description AS categoryDescription,
-                                bp.price
-                            FROM BorrowProducts bp
-                            JOIN Users u ON bp.seller_id = u.id
-                            JOIN ProductConditions pc ON bp.condition_id = pc.id
-                            JOIN ProductCategories cat ON bp.category_id = cat.id
-                            WHERE bp.id = @productID";
+            SELECT 
+                bp.id,
+                bp.title,
+                bp.description,
+                bp.seller_id,
+                u.username,
+                u.email,
+                bp.condition_id,
+                pc.title AS conditionTitle,
+                pc.description AS conditionDescription,
+                bp.category_id,
+                cat.title AS categoryTitle,
+                cat.description AS categoryDescription,
+                bp.daily_rate,
+                bp.time_limit,
+                bp.start_date,
+                bp.end_date,
+                bp.is_borrowed
+            FROM BorrowProducts bp
+            JOIN Users u ON bp.seller_id = u.id
+            JOIN ProductConditions pc ON bp.condition_id = pc.id
+            JOIN ProductCategories cat ON bp.category_id = cat.id
+            WHERE bp.id = @productID";
 
             connection.OpenConnection();
             using (SqlCommand cmd = new SqlCommand(query, connection.GetConnection()))
             {
+                cmd.Parameters.AddWithValue("@productID", productId);
+
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
+                    if (reader.Read())
+                    {
                         int id = reader.GetInt32(reader.GetOrdinal("id"));
                         string title = reader.GetString(reader.GetOrdinal("title"));
                         string description = reader.GetString(reader.GetOrdinal("description"));
@@ -281,15 +286,16 @@ namespace MarketMinds.Repositories.BorrowProductsRepository
                         string categoryDescription = reader.GetString(reader.GetOrdinal("categoryDescription"));
                         ProductCategory category = new ProductCategory(categoryId, categoryTitle, categoryDescription);
 
-                        float dailyRate = reader.GetFloat(reader.GetOrdinal("daily_rate"));
+                        float dailyRate = (float)reader.GetDouble(reader.GetOrdinal("daily_rate"));
 
                         DateTime timeLimit = reader.GetDateTime(reader.GetOrdinal("time_limit"));
                         DateTime startDate = reader.GetDateTime(reader.GetOrdinal("start_date"));
                         DateTime endDate = reader.GetDateTime(reader.GetOrdinal("end_date"));
                         bool isBorrowed = reader.GetBoolean(reader.GetOrdinal("is_borrowed"));
 
-                        List<ProductTag> tags = GetProductTags(id);
+                        reader.Close();
 
+                        List<ProductTag> tags = GetProductTags(id);
                         List<Image> images = GetProductImages(id);
 
                         borrow = new BorrowProduct(
@@ -306,11 +312,13 @@ namespace MarketMinds.Repositories.BorrowProductsRepository
                             endDate,
                             dailyRate,
                             isBorrowed);
+                    }
                 }
             }
             connection.CloseConnection();
-            return borrow;
+            return borrow!;
         }
+
         public void UpdateProduct(Product product)
         {
             // Update the product in the database

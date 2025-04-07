@@ -239,6 +239,16 @@ namespace MarketMinds.Repositories.BasketRepository
             int existingItemId = NOITEM;
             int existingQuantity = NOQUANTITY;
 
+            if (quantity < 0)
+            {
+                throw new ArgumentException("Quantity cannot be negative");
+            }
+
+            if (productId < 0)
+            {
+                throw new ArgumentException("Product ID cannot be negative");
+            }
+
             connection.OpenConnection();
 
             using (SqlCommand cmd = new SqlCommand(checkQuery, connection.GetConnection()))
@@ -307,6 +317,20 @@ namespace MarketMinds.Repositories.BasketRepository
 
         public void UpdateItemQuantityByProductId(int basketId, int productId, int quantity)
         {
+            if (quantity < 0)
+            {
+                throw new ArgumentException("Quantity cannot be negative");
+            }
+
+            if (productId < 0)
+            {
+                throw new ArgumentException("Product ID cannot be negative");
+            }
+            if (basketId < 0)
+            {
+                throw new ArgumentException("Basket ID cannot be negative");
+            }
+
             string updateCmd = "UPDATE BasketItemsBuyProducts SET quantity = @quantity WHERE basket_id = @basketId AND product_id = @productId";
 
             connection.OpenConnection();
@@ -328,6 +352,11 @@ namespace MarketMinds.Repositories.BasketRepository
 
         public void ClearBasket(int basketId)
         {
+            if (basketId < 0)
+            {
+                throw new ArgumentException("Basket ID cannot be negative");
+            }
+
             // Remove all items from the basket
             // input: basketId
             // output: none

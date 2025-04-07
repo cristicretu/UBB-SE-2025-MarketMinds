@@ -8,11 +8,11 @@ namespace MarketMinds.Services.BasketService
 {
     public class BasketService : IBasketService
     {
-        private readonly BasketRepository basketRepository;
+        private readonly IBasketRepository basketRepository;
         public const int MaxQuantityPerItem = 10;
 
         // Constructor with just the basket repository
-        public BasketService(BasketRepository basketRepository_var)
+        public BasketService(IBasketRepository basketRepository_var)
         {
             basketRepository = basketRepository_var;
         }
@@ -165,7 +165,6 @@ namespace MarketMinds.Services.BasketService
                     return false;
                 }
             }
-
             return true;
         }
 
@@ -224,7 +223,6 @@ namespace MarketMinds.Services.BasketService
             {
                 return subtotal * discountRate;
             }
-
             return 0;
         }
 
