@@ -84,7 +84,8 @@ public class BuyProductsViewModel
         {
             throw new ArgumentNullException(nameof(product));
         }
-        var price = priceService.CalculateBorrowPrice(product, product, endDate);
+        
+        var price = priceService.CalculateBuyPrice(product);
         return priceService.FormatPrice(price);
     }
 

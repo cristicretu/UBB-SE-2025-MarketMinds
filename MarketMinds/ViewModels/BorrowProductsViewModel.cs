@@ -17,8 +17,8 @@ public class BorrowProductsViewModel
 
     public ObservableCollection<BorrowProduct> BorrowProducts { get; private set; }
     public int TotalPages { get; private set; }
-    public int CurrentPage 
-    { 
+    public int CurrentPage
+    {
         get => currentPage;
         set
         {
@@ -38,7 +38,6 @@ public class BorrowProductsViewModel
         this.borrowProductsService = borrowProductsService ?? throw new ArgumentNullException(nameof(borrowProductsService));
         this.paginationService = paginationService ?? throw new ArgumentNullException(nameof(paginationService));
         this.priceService = priceService ?? throw new ArgumentNullException(nameof(priceService));
-        
         BorrowProducts = new ObservableCollection<BorrowProduct>();
         currentFullList = new List<BorrowProduct>();
         LoadInitialProducts();
@@ -81,7 +80,10 @@ public class BorrowProductsViewModel
 
     public string CalculateAndFormatPrice(BorrowProduct product, DateTime endDate)
     {
-        if (product == null) throw new ArgumentNullException(nameof(product));
+        if (product == null)
+        {
+            throw new ArgumentNullException(nameof(product));
+        }
         var price = priceService.CalculateBorrowPrice(product, product.StartDate, endDate);
         return priceService.FormatPrice(price);
     }

@@ -78,9 +78,8 @@ namespace UiLayer
 
         private void OnAddtoBascketClicked(object sender, RoutedEventArgs e)
         {
-            if (basketViewModel.AddProductToBasket(Product))
-            {
-                // Show success message
+            try {
+                basketViewModel.AddToBasket(Product.Id);
                 var dialog = new ContentDialog
                 {
                     Title = "Success",
@@ -90,7 +89,7 @@ namespace UiLayer
                 };
                 dialog.ShowAsync();
             }
-            else
+            catch (Exception ex)
             {
                 // Show error message
                 var dialog = new ContentDialog

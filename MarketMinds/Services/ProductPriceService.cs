@@ -12,9 +12,18 @@ namespace MarketMinds.Services
             return days * product.DailyRate;
         }
 
+        public float CalculateBuyPrice(BuyProduct product)
+        {
+            if (product == null)
+            {
+                throw new ArgumentNullException(nameof(product));
+            }
+            return product.Price;
+        }
+
         public string FormatPrice(float price)
         {
             return price.ToString("C"); // Format as currency
         }
     }
-} 
+}
