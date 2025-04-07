@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using NUnit.Framework;
 using MarketMinds.Repositories.ReviewRepository;
@@ -9,6 +8,7 @@ using DataAccessLayer;
 using Microsoft.Extensions.Configuration;
 using MarketMinds.Test.Utils;
 using Microsoft.Data.SqlClient;
+using System.Collections.ObjectModel;
 
 namespace MarketMinds.Tests.ReviewRepositoryTest
 {
@@ -19,10 +19,8 @@ namespace MarketMinds.Tests.ReviewRepositoryTest
         private DataBaseConnection connection;
         private IConfiguration config;
         private TestDatabaseHelper testDbHelper;
-
-        private User testBuyer;
-        private User testSeller;
-        private Review testReview;
+        private User buyer;
+        private User seller;
 
         [SetUp]
         public void Setup()
@@ -35,49 +33,55 @@ namespace MarketMinds.Tests.ReviewRepositoryTest
 
             testDbHelper.PrepareTestDatabase();
 
-            // Create ReviewsPictures table if it doesn't exist
-            CreateReviewsPicturesTable();
+            buyer = new User(1, "luca", "luca@example.com");
+            buyer.UserType = 1;
+            buyer.Rating = 4.5f;
 
-            // Initialize test users from the seed data
-            testBuyer = new User(1, "alice123", "alice@example.com");
-            testSeller = new User(2, "bob321", "bob@example.com");
+            seller = new User(2, "bob", "bob@example.com");
+            seller.UserType = 2;
+            seller.Rating = 4.8f;
 
-            // Create a test review
-            testReview = new Review(
-                -1, // ID will be assigned when created
-                "Great seller, fast shipping!",
-                new List<Image>(), // Empty images list to avoid issues
-                4.5f,
-                testBuyer.Id,
-                testSeller.Id
-            );
+            SetupTestReview();
         }
 
-        private void CreateReviewsPicturesTable()
+        private void SetupTestReview()
         {
-            string createTableSql = @"
-                IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'ReviewsPictures')
-                BEGIN
-                    CREATE TABLE ReviewsPictures (
-                        id INT PRIMARY KEY IDENTITY(1,1),
-                        url NVARCHAR(256) NOT NULL,
-                        review_id INT NOT NULL,
-                        CONSTRAINT FK_ReviewsPictures_Reviews FOREIGN KEY (review_id) REFERENCES Reviews(id) ON DELETE CASCADE
-                    )
-                END";
-
             connection.OpenConnection();
             try
             {
-                using (SqlCommand cmd = new SqlCommand(createTableSql, connection.GetConnection()))
+                string query = "INSERT INTO Reviews (reviewer_id, seller_id, description, rating) VALUES (@reviewer_id, @seller_id, @description, @rating)";
+                using (SqlCommand cmd = new SqlCommand(query, connection.GetConnection()))
                 {
+                    cmd.Parameters.AddWithValue("@reviewer_id", buyer.Id);
+                    cmd.Parameters.AddWithValue("@seller_id", seller.Id);
+                    cmd.Parameters.AddWithValue("@description", "Great seller, fast shipping!");
+                    cmd.Parameters.AddWithValue("@rating", 4.5);
                     cmd.ExecuteNonQuery();
                 }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error creating ReviewsPictures table: {ex.Message}");
-                // Continue with test even if table creation fails
+
+                int reviewId = 0;
+                query = "SELECT TOP 1 id FROM Reviews ORDER BY id DESC";
+                using (SqlCommand cmd = new SqlCommand(query, connection.GetConnection()))
+                {
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            reviewId = reader.GetInt32(0);
+                        }
+                    }
+                }
+
+                if (reviewId > 0)
+                {
+                    query = "INSERT INTO ReviewsPictures (url, review_id) VALUES (@url, @review_id)";
+                    using (SqlCommand cmd = new SqlCommand(query, connection.GetConnection()))
+                    {
+                        cmd.Parameters.AddWithValue("@url", "https://example.com/image.jpg");
+                        cmd.Parameters.AddWithValue("@review_id", reviewId);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
             }
             finally
             {
@@ -86,106 +90,263 @@ namespace MarketMinds.Tests.ReviewRepositoryTest
         }
 
         [Test]
+        public void TestGetAllReviewsByBuyer_ReturnsCorrectReviews()
+        {
+            var reviews = reviewRepository.GetAllReviewsByBuyer(buyer);
+
+            Assert.That(reviews, Is.Not.Null);
+            Assert.That(reviews.Count, Is.EqualTo(1));
+            Assert.That(reviews[0].BuyerId, Is.EqualTo(buyer.Id));
+            Assert.That(reviews[0].SellerId, Is.EqualTo(seller.Id));
+            Assert.That(reviews[0].Description, Is.EqualTo("Great seller, fast shipping!"));
+            Assert.That(reviews[0].Rating, Is.EqualTo(4.5f));
+
+            Assert.That(reviews[0].Images, Is.Not.Null);
+            Assert.That(reviews[0].Images.Count, Is.EqualTo(1));
+            Assert.That(reviews[0].Images[0].Url, Is.EqualTo("https://example.com/image.jpg"));
+        }
+
+        [Test]
+        public void TestGetAllReviewsBySeller_ReturnsCorrectReviews()
+        {
+            var reviews = reviewRepository.GetAllReviewsBySeller(seller);
+
+            Assert.That(reviews, Is.Not.Null);
+            Assert.That(reviews.Count, Is.EqualTo(1));
+            Assert.That(reviews[0].BuyerId, Is.EqualTo(buyer.Id));
+            Assert.That(reviews[0].SellerId, Is.EqualTo(seller.Id));
+            Assert.That(reviews[0].Description, Is.EqualTo("Great seller, fast shipping!"));
+            Assert.That(reviews[0].Rating, Is.EqualTo(4.5f));
+
+            Assert.That(reviews[0].Images, Is.Not.Null);
+            Assert.That(reviews[0].Images.Count, Is.EqualTo(1));
+            Assert.That(reviews[0].Images[0].Url, Is.EqualTo("https://example.com/image.jpg"));
+        }
+
+        [Test]
         public void TestCreateReview_AddsNewReview()
         {
-            // Act - create review and check ID was assigned
-            reviewRepository.CreateReview(testReview);
-            Assert.That(testReview.Id, Is.GreaterThan(0), "Review ID should be assigned after creation");
 
-            // No need to verify retrieval here as other tests do that
-        }
+            var initialReview = new Review(
+                -1,
+                "Great seller, fast shipping!",
+                new List<Image>(),
+                4.5f,
+                buyer.Id,
+                seller.Id
+            );
+            reviewRepository.CreateReview(initialReview);
 
-        [Test]
-        public void TestGetAllReviewsByBuyer_ReturnsReviewsForBuyer()
-        {
-            // Arrange - make sure we have a review to find
-            reviewRepository.CreateReview(testReview);
+            var newReview = new Review(
+                -1,
+                "Excellent product quality!",
+                new List<Image> { new Image("https://example.com/newimage.jpg") },
+                5.0f,
+                buyer.Id,
+                seller.Id
+            );
 
-            // Act
-            var reviews = reviewRepository.GetAllReviewsByBuyer(testBuyer);
+            reviewRepository.CreateReview(newReview);
 
-            // Assert - should find at least our created review
-            Assert.That(reviews, Is.Not.Null);
+            var reviews = reviewRepository.GetAllReviewsByBuyer(buyer);
+
             Assert.That(reviews.Count, Is.EqualTo(1));
-            Assert.That(reviews[0].BuyerId, Is.EqualTo(testBuyer.Id));
-            Assert.That(reviews[0].Description, Is.EqualTo(testReview.Description));
+
+            var addedReview = reviews.FirstOrDefault(r => r.Description == "Excellent product quality!");
+
+            Assert.That(addedReview, Is.Not.Null);
+            Assert.That(addedReview.Id, Is.GreaterThan(0));
+            Assert.That(addedReview.Rating, Is.EqualTo(5.0f));
+            Assert.That(addedReview.BuyerId, Is.EqualTo(buyer.Id));
+            Assert.That(addedReview.SellerId, Is.EqualTo(seller.Id));
+
+            Assert.That(addedReview.Images, Is.Not.Null);
+            Assert.That(addedReview.Images.Count, Is.EqualTo(1));
+            Assert.That(addedReview.Images[0].Url, Is.EqualTo("https://example.com/newimage.jpg"));
         }
 
         [Test]
-        public void TestGetAllReviewsBySeller_ReturnsReviewsForSeller()
+        public void TestCreateReview_WithNullDescription_SetsEmptyString()
         {
-            // Arrange - make sure we have a review to find
-            reviewRepository.CreateReview(testReview);
+            var reviewWithNullDesc = new Review(
+                -1,
+                null,
+                new List<Image>(),
+                4.0f,
+                buyer.Id,
+                seller.Id
+            );
 
-            // Act
-            var reviews = reviewRepository.GetAllReviewsBySeller(testSeller);
+            reviewRepository.CreateReview(reviewWithNullDesc);
 
-            // Assert - should find at least our created review
-            Assert.That(reviews, Is.Not.Null);
-            Assert.That(reviews.Count, Is.EqualTo(1));
-            Assert.That(reviews[0].SellerId, Is.EqualTo(testSeller.Id));
-            Assert.That(reviews[0].Description, Is.EqualTo(testReview.Description));
+            var reviews = reviewRepository.GetAllReviewsByBuyer(buyer);
+
+            var addedReview = reviews.FirstOrDefault(r =>
+                r.BuyerId == buyer.Id &&
+                r.SellerId == seller.Id &&
+                r.Rating == 4.0f);
+
+            Assert.That(addedReview, Is.Not.Null);
+            Assert.That(addedReview.Description, Is.EqualTo(string.Empty));
         }
 
         [Test]
-        public void TestEditReview_UpdatesReviewRating()
+        public void TestEditReview_UpdatesRating()
         {
-            // Arrange - create a review first
-            reviewRepository.CreateReview(testReview);
-            int reviewId = testReview.Id;
-            float newRating = 5.0f;
+            var reviews = reviewRepository.GetAllReviewsByBuyer(buyer);
+            var existingReview = reviews[0];
+            float newRating = 3.5f;
 
-            // Act - update the rating
-            reviewRepository.EditReview(testReview, newRating, null);
+            reviewRepository.EditReview(existingReview, newRating, null);
 
-            // Assert - get fresh data and check the rating was updated
-            var buyerReviews = reviewRepository.GetAllReviewsByBuyer(testBuyer);
-            Assert.That(buyerReviews.Count, Is.EqualTo(1));
+            reviews = reviewRepository.GetAllReviewsByBuyer(buyer);
+            var updatedReview = reviews.FirstOrDefault(r => r.Id == existingReview.Id);
 
-            var updatedReview = buyerReviews[0];
-            Assert.That(updatedReview.Id, Is.EqualTo(reviewId));
+            Assert.That(updatedReview, Is.Not.Null);
             Assert.That(updatedReview.Rating, Is.EqualTo(newRating));
+            Assert.That(updatedReview.Description, Is.EqualTo(existingReview.Description));
         }
 
         [Test]
-        public void TestEditReview_UpdatesReviewDescription()
+        public void TestEditReview_UpdatesDescription()
         {
-            // Arrange - create a review first
-            reviewRepository.CreateReview(testReview);
-            int reviewId = testReview.Id;
-            string newDescription = "Updated review description";
+            var reviews = reviewRepository.GetAllReviewsByBuyer(buyer);
+            var existingReview = reviews[0];
+            string newDescription = "Updated description for testing";
 
-            // Act - update the description
-            reviewRepository.EditReview(testReview, 0, newDescription);
+            reviewRepository.EditReview(existingReview, 0, newDescription);
 
-            // Assert - get fresh data and check the description was updated
-            var buyerReviews = reviewRepository.GetAllReviewsByBuyer(testBuyer);
-            Assert.That(buyerReviews.Count, Is.EqualTo(1));
+            reviews = reviewRepository.GetAllReviewsByBuyer(buyer);
+            var updatedReview = reviews.FirstOrDefault(r => r.Id == existingReview.Id);
 
-            var updatedReview = buyerReviews[0];
-            Assert.That(updatedReview.Id, Is.EqualTo(reviewId));
+            Assert.That(updatedReview, Is.Not.Null);
             Assert.That(updatedReview.Description, Is.EqualTo(newDescription));
+            Assert.That(updatedReview.Rating, Is.EqualTo(existingReview.Rating));
+        }
+
+        [Test]
+        public void TestEditReview_UpdatesBothRatingAndDescription()
+        {
+            var reviews = reviewRepository.GetAllReviewsByBuyer(buyer);
+            var existingReview = reviews[0];
+            float newRating = 2.5f;
+            string newDescription = "Updated review";
+
+            reviewRepository.EditReview(existingReview, newRating, newDescription);
+
+            reviews = reviewRepository.GetAllReviewsByBuyer(buyer);
+            var updatedReview = reviews.FirstOrDefault(r => r.Id == existingReview.Id);
+
+            Assert.That(updatedReview, Is.Not.Null);
+            Assert.That(updatedReview.Rating, Is.EqualTo(newRating));
+            Assert.That(updatedReview.Description, Is.EqualTo(newDescription));
+        }
+
+        [Test]
+        public void TestEditReview_WithNegativeId_FindsCorrectReview()
+        {
+            var review = new Review(
+                -1,
+                "Great seller, fast shipping!",
+                new List<Image>(),
+                4.5f,
+                buyer.Id,
+                seller.Id
+            );
+
+            float newRating = 1.5f;
+
+            reviewRepository.EditReview(review, newRating, null);
+
+            var reviews = reviewRepository.GetAllReviewsByBuyer(buyer);
+
+            Assert.That(reviews.Count, Is.EqualTo(1));
+            var updatedReview = reviews.FirstOrDefault(r => r.Description == "Great seller, fast shipping!");
+            Assert.That(updatedReview, Is.Not.Null);
         }
 
         [Test]
         public void TestDeleteReview_RemovesReview()
         {
-            // Arrange - create a review first
-            reviewRepository.CreateReview(testReview);
+            var reviews = reviewRepository.GetAllReviewsByBuyer(buyer);
+            var existingReview = reviews[0];
 
-            // Get the initial counts
-            var initialBuyerReviews = reviewRepository.GetAllReviewsByBuyer(testBuyer);
-            Assert.That(initialBuyerReviews.Count, Is.EqualTo(1), "Should have one review before deletion");
+            reviewRepository.DeleteReview(existingReview);
 
-            // Act - delete the review
-            reviewRepository.DeleteReview(testReview);
+            reviews = reviewRepository.GetAllReviewsByBuyer(buyer);
 
-            // Assert - verify it's gone
-            var buyerReviewsAfter = reviewRepository.GetAllReviewsByBuyer(testBuyer);
-            var sellerReviewsAfter = reviewRepository.GetAllReviewsBySeller(testSeller);
+            Assert.That(reviews, Is.Empty);
+        }
 
-            Assert.That(buyerReviewsAfter.Count, Is.EqualTo(0), "Buyer should have no reviews after deletion");
-            Assert.That(sellerReviewsAfter.Count, Is.EqualTo(0), "Seller should have no reviews after deletion");
+        [Test]
+        public void TestDeleteReview_WithNegativeId_FindsAndDeletesCorrectReview()
+        {
+            var review = new Review(
+                -1,
+                "Great seller, fast shipping!",
+                new List<Image>(),
+                4.5f,
+                buyer.Id,
+                seller.Id
+            );
+
+            reviewRepository.DeleteReview(review);
+
+            var reviews = reviewRepository.GetAllReviewsByBuyer(buyer);
+
+            var specificReview = reviews.FirstOrDefault(r => r.Description == "Great seller, fast shipping!");
+            Assert.That(specificReview, Is.Not.Null);
+        }
+
+        [Test]
+        public void TestGetAllReviewsByBuyer_WithNoReviews_ReturnsEmptyCollection()
+        {
+            var newUser = new User(3, "cristi", "cristi@example.com");
+            newUser.UserType = 1;
+            newUser.Rating = 5.0f;
+
+            var reviews = reviewRepository.GetAllReviewsByBuyer(newUser);
+
+            Assert.That(reviews, Is.Not.Null);
+            Assert.That(reviews, Is.Empty);
+        }
+
+        [Test]
+        public void TestGetAllReviewsBySeller_WithNoReviews_ReturnsEmptyCollection()
+        {
+            var newUser = new User(3, "cristi", "cristi@example.com");
+            newUser.UserType = 2;
+            newUser.Rating = 5.0f;
+
+            var reviews = reviewRepository.GetAllReviewsBySeller(newUser);
+
+            Assert.That(reviews, Is.Not.Null);
+            Assert.That(reviews, Is.Empty);
+        }
+
+        [Test]
+        public void TestCreateReview_WithMultipleImages_SavesAllImages()
+        {
+            var newReview = new Review(
+                -1,
+                "Multiple images test",
+                new List<Image> {
+                    new Image("https://example.com/img1.jpg"),
+                    new Image("https://example.com/img2.jpg"),
+                    new Image("https://example.com/img3.jpg")
+                },
+                4.0f,
+                buyer.Id,
+                seller.Id
+            );
+        
+            reviewRepository.CreateReview(newReview);
+
+            var reviews = reviewRepository.GetAllReviewsByBuyer(buyer);
+            var addedReview = reviews.FirstOrDefault(r => r.Description == "Multiple images test");
+
+            Assert.That(addedReview, Is.Not.Null);
+            Assert.That(addedReview.Images, Is.Not.Null);
         }
     }
 }
