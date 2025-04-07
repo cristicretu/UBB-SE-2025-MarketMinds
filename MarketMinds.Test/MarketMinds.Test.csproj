@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<OutputType>Library</OutputType>
+		<TargetFramework>net8.0-windows10.0.19041</TargetFramework>
+		<EnableMsixTooling>true</EnableMsixTooling>
+		<RuntimeIdentifier>win-x64</RuntimeIdentifier>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Content Include="appsettings.json">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\MarketMinds\MarketMinds.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="NUnit" Version="4.3.2" />
+		<PackageReference Include="NUnit3TestAdapter" Version="5.0.0" />
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.4.0" />
+	</ItemGroup>
+</Project>

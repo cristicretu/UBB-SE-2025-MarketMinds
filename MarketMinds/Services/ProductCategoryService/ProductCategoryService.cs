@@ -10,9 +10,9 @@ namespace MarketMinds.Services.ProductCategoryService
 {
     public class ProductCategoryService : IProductCategoryService
     {
-        private ProductCategoryRepository repository;
+        private IProductCategoryRepository repository;
 
-        public ProductCategoryService(ProductCategoryRepository repository)
+        public ProductCategoryService(IProductCategoryRepository repository)
         {
             this.repository = repository;
         }

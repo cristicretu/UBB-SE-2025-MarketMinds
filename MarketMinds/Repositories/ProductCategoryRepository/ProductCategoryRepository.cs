@@ -60,10 +60,6 @@ namespace MarketMinds.Repositories.ProductCategoryRepository
             }
             connection.CloseConnection();
 
-            if (newId == -1)
-            {
-                throw new Exception("Error creating product category");
-            }
             return new ProductCategory(newId, displayTitle, description);
         }
 

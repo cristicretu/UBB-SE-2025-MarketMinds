@@ -35,7 +35,7 @@ namespace MarketMinds.Services.ProductTagService
 
         public void UpdateProduct(Product product)
         {
-            // productRepository.UpdateProduct(product);
+            productRepository.UpdateProduct(product);
         }
 
         public void DeleteProduct(Product product)
