@@ -58,20 +58,16 @@ namespace UiLayer
         {
             var (pageItems, newTotalPages, fullList) = borrowProductListService.GetBorrowProductsPage(
                 borrowProductsViewModel, sortAndFilterViewModel, currentPage);
-            
             currentFullList = fullList;
             totalPages = newTotalPages;
-            
             borrowProducts.Clear();
             foreach (var item in pageItems)
             {
                 borrowProducts.Add(item);
             }
-            
             // Update UI elements
             EmptyMessageTextBlock.Visibility = borrowProducts.Count == 0 ?
                 Visibility.Visible : Visibility.Collapsed;
-            
             UpdatePaginationDisplay();
         }
 

@@ -32,14 +32,14 @@ namespace MarketMinds
             Debug.WriteLine($"[BorrowProductView] Constructor - Product: {product?.Title ?? "null"}");
             Debug.WriteLine($"[BorrowProductView] Product StartDate: {product?.StartDate.ToString() ?? "null"}");
             Debug.WriteLine($"[BorrowProductView] Product TimeLimit: {product?.TimeLimit.ToString() ?? "null"}");
-            
+
             this.InitializeComponent();
             Product = product;
             currentUser = MarketMinds.App.CurrentUser;
 
             // Initialize date controls
             Debug.WriteLine("[BorrowProductView] Initializing date controls");
-            try 
+            try
             {
                 // Ensure valid date range
                 if (Product.StartDate > Product.TimeLimit)
@@ -52,11 +52,9 @@ namespace MarketMinds
 
                 StartDateTextBlock.Text = Product.StartDate.ToString("d");
                 TimeLimitTextBlock.Text = Product.TimeLimit.ToString("d");
-                
                 // Set the DatePicker's range
                 EndDatePicker.MinDate = Product.StartDate;
                 EndDatePicker.MaxDate = Product.TimeLimit;
-                
                 Debug.WriteLine($"[BorrowProductView] Date controls initialized - StartDate: {StartDateTextBlock.Text}, TimeLimit: {TimeLimitTextBlock.Text}");
                 Debug.WriteLine($"[BorrowProductView] DatePicker range set - Min: {EndDatePicker.MinDate}, Max: {EndDatePicker.MaxDate}");
             }
@@ -135,7 +133,6 @@ namespace MarketMinds
             Debug.WriteLine($"[EndDatePicker] Sender null? {sender == null}");
             Debug.WriteLine($"[EndDatePicker] Args null? {args == null}");
             Debug.WriteLine($"[EndDatePicker] Product null? {Product == null}");
-            
             if (sender == null)
             {
                 Debug.WriteLine("[EndDatePicker] Error: sender is null");
