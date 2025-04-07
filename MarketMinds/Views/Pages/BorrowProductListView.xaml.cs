@@ -9,6 +9,7 @@ using ViewModelLayer.ViewModel;
 using BusinessLogicLayer.ViewModel;
 using MarketMinds;
 using MarketMinds.Services;
+using MarketMinds.Helpers;
 using MarketMinds.Views.Pages;
 
 namespace UiLayer
@@ -19,7 +20,7 @@ namespace UiLayer
         private readonly SortAndFilterViewModel sortAndFilterViewModel;
         private ObservableCollection<BorrowProduct> borrowProducts;
         private CompareProductsViewModel compareProductsViewModel;
-        private readonly BorrowProductListService borrowProductListService;
+        private readonly BorrowProductListViewModelHelper borrowProductListViewModelHelper;
         private readonly BorrowSortTypeConverterService sortTypeConverterService;
 
         // Pagination variables
@@ -35,7 +36,7 @@ namespace UiLayer
             borrowProductsViewModel = MarketMinds.App.BorrowProductsViewModel;
             sortAndFilterViewModel = MarketMinds.App.BorrowProductSortAndFilterViewModel;
             compareProductsViewModel = MarketMinds.App.CompareProductsViewModel;
-            borrowProductListService = new BorrowProductListService();
+            borrowProductListViewModelHelper = new BorrowProductListViewModelHelper();
             sortTypeConverterService = new BorrowSortTypeConverterService();
 
             borrowProducts = new ObservableCollection<BorrowProduct>();
@@ -56,7 +57,7 @@ namespace UiLayer
 
         private void RefreshProductList()
         {
-            var (pageItems, newTotalPages, fullList) = borrowProductListService.GetBorrowProductsPage(
+            var (pageItems, newTotalPages, fullList) = borrowProductListViewModelHelper.GetBorrowProductsPage(
                 borrowProductsViewModel, sortAndFilterViewModel, currentPage);
             currentFullList = fullList;
             totalPages = newTotalPages;
@@ -73,8 +74,8 @@ namespace UiLayer
 
         private void UpdatePaginationDisplay()
         {
-            PaginationTextBlock.Text = borrowProductListService.GetPaginationText(currentPage, totalPages);
-            var (hasPrevious, hasNext) = borrowProductListService.GetPaginationState(currentPage, totalPages);
+            PaginationTextBlock.Text = borrowProductListViewModelHelper.GetPaginationText(currentPage, totalPages);
+            var (hasPrevious, hasNext) = borrowProductListViewModelHelper.GetPaginationState(currentPage, totalPages);
             PreviousButton.IsEnabled = hasPrevious;
             NextButton.IsEnabled = hasNext;
         }
