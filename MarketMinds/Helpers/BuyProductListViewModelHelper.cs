@@ -3,13 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using DomainLayer.Domain;
 using ViewModelLayer.ViewModel;
-using BusinessLogicLayer.ViewModel; // Assuming the ViewModel namespace
+using BusinessLogicLayer.ViewModel;
+using MarketMinds.Services;
 
-namespace MarketMinds.Services
+namespace MarketMinds.Helpers
 {
-    public class BuyProductListService
+    public class BuyProductListViewModelHelper
     {
-        public (IEnumerable<BuyProduct> currentPageProducts, int totalPages, List<BuyProduct> fullList) GetBuyProductsPage(ViewModelLayer.ViewModel.BuyProductsViewModel buyProductsViewModel, BusinessLogicLayer.ViewModel.SortAndFilterViewModel sortAndFilterViewModel, int currentPage)
+        public (IEnumerable<BuyProduct> currentPageProducts, int totalPages, List<BuyProduct> fullList) GetBuyProductsPage(
+            ViewModelLayer.ViewModel.BuyProductsViewModel buyProductsViewModel,
+            BusinessLogicLayer.ViewModel.SortAndFilterViewModel sortAndFilterViewModel,
+            int currentPage)
         {
             var filteredProducts = sortAndFilterViewModel.HandleSearch();
             var fullList = filteredProducts.Cast<BuyProduct>().ToList();

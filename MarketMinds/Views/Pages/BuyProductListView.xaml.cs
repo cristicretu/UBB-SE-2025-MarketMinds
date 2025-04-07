@@ -10,6 +10,7 @@ using BusinessLogicLayer.ViewModel;
 using MarketMinds;
 using MarketMinds.Services;
 using MarketMinds.Views.Pages;
+using MarketMinds.Helpers;
 
 namespace UiLayer
 {
@@ -20,6 +21,7 @@ namespace UiLayer
         private readonly ProductPaginationService paginationService;
         private ObservableCollection<BuyProduct> buyProducts;
         private CompareProductsViewModel compareProductsViewModel;
+        private readonly BuyProductListViewModelHelper buyProductListViewModelHelper;
 
         // Pagination variables
         private int currentPage = 1;
@@ -35,9 +37,10 @@ namespace UiLayer
             sortAndFilterViewModel = MarketMinds.App.BuyProductSortAndFilterViewModel;
             compareProductsViewModel = MarketMinds.App.CompareProductsViewModel;
             paginationService = new ProductPaginationService();
+            buyProductListViewModelHelper = new BuyProductListViewModelHelper();
 
             buyProducts = new ObservableCollection<BuyProduct>();
-            currentFullList = buyProductsViewModel.GetAllProducts();
+            BuyListView.ItemsSource = buyProducts;
             ApplyFiltersAndPagination();
         }
 
@@ -53,8 +56,7 @@ namespace UiLayer
 
         private void ApplyFiltersAndPagination()
         {
-            var listService = new BuyProductListService();
-            var (currentPageProducts, newTotalPages, fullList) = listService.GetBuyProductsPage(buyProductsViewModel, sortAndFilterViewModel, currentPage);
+            var (currentPageProducts, newTotalPages, fullList) = buyProductListViewModelHelper.GetBuyProductsPage(buyProductsViewModel, sortAndFilterViewModel, currentPage);
             currentFullList = fullList;
             totalPages = newTotalPages;
             buyProducts.Clear();
