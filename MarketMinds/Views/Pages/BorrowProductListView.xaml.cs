@@ -19,10 +19,11 @@ namespace UiLayer
         private readonly SortAndFilterViewModel sortAndFilterViewModel;
         private ObservableCollection<BorrowProduct> borrowProducts;
         private CompareProductsViewModel compareProductsViewModel;
+        private readonly BorrowProductListService borrowProductListService;
+        private readonly BorrowSortTypeConverterService sortTypeConverterService;
 
         // Pagination variables
         private int currentPage = 1;
-        private int itemsPerPage = 20;
         private int totalPages = 1;
         private List<BorrowProduct> currentFullList;
 
@@ -30,14 +31,16 @@ namespace UiLayer
         {
             this.InitializeComponent();
 
-            // Assume you have similar view models for borrow products
+            // Initialize view models and services
             borrowProductsViewModel = MarketMinds.App.BorrowProductsViewModel;
             sortAndFilterViewModel = MarketMinds.App.BorrowProductSortAndFilterViewModel;
             compareProductsViewModel = MarketMinds.App.CompareProductsViewModel;
+            borrowProductListService = new BorrowProductListService();
+            sortTypeConverterService = new BorrowSortTypeConverterService();
 
             borrowProducts = new ObservableCollection<BorrowProduct>();
             currentFullList = borrowProductsViewModel.GetAllProducts();
-            ApplyFiltersAndPagination();
+            RefreshProductList();
         }
 
         private void BorrowListView_ItemClick(object sender, ItemClickEventArgs e)
@@ -50,48 +53,30 @@ namespace UiLayer
                 detailView.Activate();
             }
         }
-        private void ApplyFiltersAndPagination()
-        {
-            // Retrieve filtered and sorted products (cast as needed)
-            var filteredProducts = sortAndFilterViewModel.HandleSearch()
-                                         .Cast<BorrowProduct>().ToList();
-            currentFullList = filteredProducts;
-            currentPage = 1;
-            totalPages = (int)Math.Ceiling(currentFullList.Count / (double)itemsPerPage);
-            LoadCurrentPage();
-        }
 
-        private void LoadCurrentPage()
+        private void RefreshProductList()
         {
-            var pageItems = currentFullList
-                                .Skip((currentPage - 1) * itemsPerPage)
-                                .Take(itemsPerPage)
-                                .ToList();
-
+            var (pageItems, newTotalPages, fullList) = borrowProductListService.GetBorrowProductsPage(
+                borrowProductsViewModel, sortAndFilterViewModel, currentPage);
+            currentFullList = fullList;
+            totalPages = newTotalPages;
             borrowProducts.Clear();
             foreach (var item in pageItems)
             {
                 borrowProducts.Add(item);
             }
-            if (borrowProducts.Count == 0)
-            {
-                EmptyMessageTextBlock.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                EmptyMessageTextBlock.Visibility = Visibility.Collapsed;
-            }
-
+            // Update UI elements
+            EmptyMessageTextBlock.Visibility = borrowProducts.Count == 0 ?
+                Visibility.Visible : Visibility.Collapsed;
             UpdatePaginationDisplay();
         }
 
         private void UpdatePaginationDisplay()
         {
-            PaginationTextBlock.Text = totalPages == 0 ?
-                $"Page {currentPage} of 1" :
-                $"Page {currentPage} of {totalPages}";
-            PreviousButton.IsEnabled = currentPage > 1;
-            NextButton.IsEnabled = currentPage < totalPages;
+            PaginationTextBlock.Text = borrowProductListService.GetPaginationText(currentPage, totalPages);
+            var (hasPrevious, hasNext) = borrowProductListService.GetPaginationState(currentPage, totalPages);
+            PreviousButton.IsEnabled = hasPrevious;
+            NextButton.IsEnabled = hasNext;
         }
 
         private void PreviousButton_Click(object sender, RoutedEventArgs e)
@@ -99,7 +84,7 @@ namespace UiLayer
             if (currentPage > 1)
             {
                 currentPage--;
-                LoadCurrentPage();
+                RefreshProductList();
             }
         }
 
@@ -108,14 +93,15 @@ namespace UiLayer
             if (currentPage < totalPages)
             {
                 currentPage++;
-                LoadCurrentPage();
+                RefreshProductList();
             }
         }
 
         private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             sortAndFilterViewModel.HandleSearchQueryChange(SearchTextBox.Text);
-            ApplyFiltersAndPagination();
+            currentPage = 1; // Reset to first page on new search
+            RefreshProductList();
         }
 
         private async void FilterButton_Click(object sender, RoutedEventArgs e)
@@ -125,9 +111,11 @@ namespace UiLayer
             var result = await filterDialog.ShowAsync();
             if (result == ContentDialogResult.Primary)
             {
-                ApplyFiltersAndPagination();
+                currentPage = 1; // Reset to first page on new filter
+                RefreshProductList();
             }
         }
+
         private void SortButton_Click(object sender, RoutedEventArgs e)
         {
             SortingComboBox.Visibility = SortingComboBox.Visibility == Visibility.Visible ?
@@ -139,33 +127,13 @@ namespace UiLayer
             if (SortingComboBox.SelectedItem is ComboBoxItem selectedItem)
             {
                 var sortTag = selectedItem.Tag.ToString();
-                var sortType = ParseSortType(sortTag);
+                var sortType = sortTypeConverterService.Convert(sortTag);
                 if (sortType != null)
                 {
                     sortAndFilterViewModel.HandleSortChange(sortType);
-                    ApplyFiltersAndPagination();
+                    currentPage = 1; // Reset to first page on new sort
+                    RefreshProductList();
                 }
-            }
-        }
-
-        private ProductSortType ParseSortType(string sortTag)
-        {
-            switch (sortTag)
-            {
-                case "SellerRatingAsc":
-                    return new ProductSortType("Seller Rating", "SellerRating", true);
-                case "SellerRatingDesc":
-                    return new ProductSortType("Seller Rating", "SellerRating", false);
-                case "DailyRateAsc":
-                    return new ProductSortType("Daily Rate", "DailyRate", true);
-                case "DailyRateDesc":
-                    return new ProductSortType("Daily Rate", "DailyRate", false);
-                case "StartDateAsc":
-                    return new ProductSortType("Start Date", "StartDate", true);
-                case "StartDateDesc":
-                    return new ProductSortType("Start Date", "StartDate", false);
-                default:
-                    return null;
             }
         }
 

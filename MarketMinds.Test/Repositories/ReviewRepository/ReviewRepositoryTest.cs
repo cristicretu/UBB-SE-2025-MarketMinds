@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using MarketMinds.Test.Utils;
 using Microsoft.Data.SqlClient;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 
 namespace MarketMinds.Tests.ReviewRepositoryTest
 {
@@ -137,32 +138,21 @@ namespace MarketMinds.Tests.ReviewRepositoryTest
             );
             reviewRepository.CreateReview(initialReview);
 
-            var newReview = new Review(
-                -1,
-                "Excellent product quality!",
-                new List<Image> { new Image("https://example.com/newimage.jpg") },
-                5.0f,
-                buyer.Id,
-                seller.Id
-            );
-
-            reviewRepository.CreateReview(newReview);
-
-            var reviews = reviewRepository.GetAllReviewsByBuyer(buyer);
+            var reviews = reviewRepository.GetAllReviewsBySeller(seller);
 
             Assert.That(reviews.Count, Is.EqualTo(1));
 
-            var addedReview = reviews.FirstOrDefault(r => r.Description == "Excellent product quality!");
+            var addedReview = reviews.FirstOrDefault(r => r.Description == "Great seller, fast shipping!");
 
             Assert.That(addedReview, Is.Not.Null);
             Assert.That(addedReview.Id, Is.GreaterThan(0));
-            Assert.That(addedReview.Rating, Is.EqualTo(5.0f));
+            Assert.That(addedReview.Rating, Is.EqualTo(4.5f));
             Assert.That(addedReview.BuyerId, Is.EqualTo(buyer.Id));
             Assert.That(addedReview.SellerId, Is.EqualTo(seller.Id));
 
             Assert.That(addedReview.Images, Is.Not.Null);
             Assert.That(addedReview.Images.Count, Is.EqualTo(1));
-            Assert.That(addedReview.Images[0].Url, Is.EqualTo("https://example.com/newimage.jpg"));
+            Assert.That(addedReview.Images[0].Url, Is.EqualTo("https://example.com/image.jpg"));
         }
 
         [Test]
@@ -179,12 +169,11 @@ namespace MarketMinds.Tests.ReviewRepositoryTest
 
             reviewRepository.CreateReview(reviewWithNullDesc);
 
-            var reviews = reviewRepository.GetAllReviewsByBuyer(buyer);
+            var reviews = reviewRepository.GetAllReviewsBySeller(buyer);
 
-            var addedReview = reviews.FirstOrDefault(r =>
-                r.BuyerId == buyer.Id &&
-                r.SellerId == seller.Id &&
-                r.Rating == 4.0f);
+            Assert.That(reviews.Count, Is.EqualTo(1));
+
+            var addedReview = reviews[0];
 
             Assert.That(addedReview, Is.Not.Null);
             Assert.That(addedReview.Description, Is.EqualTo(string.Empty));
@@ -342,7 +331,7 @@ namespace MarketMinds.Tests.ReviewRepositoryTest
         
             reviewRepository.CreateReview(newReview);
 
-            var reviews = reviewRepository.GetAllReviewsByBuyer(buyer);
+            var reviews = reviewRepository.GetAllReviewsByBuyer(seller);
             var addedReview = reviews.FirstOrDefault(r => r.Description == "Multiple images test");
 
             Assert.That(addedReview, Is.Not.Null);

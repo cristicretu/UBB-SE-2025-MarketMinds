@@ -29,13 +29,40 @@ namespace MarketMinds
 
         public BorrowProductView(BorrowProduct product)
         {
+            Debug.WriteLine($"[BorrowProductView] Constructor - Product: {product?.Title ?? "null"}");
+            Debug.WriteLine($"[BorrowProductView] Product StartDate: {product?.StartDate.ToString() ?? "null"}");
+            Debug.WriteLine($"[BorrowProductView] Product TimeLimit: {product?.TimeLimit.ToString() ?? "null"}");
+
             this.InitializeComponent();
             Product = product;
             currentUser = MarketMinds.App.CurrentUser;
 
             // Initialize date controls
-            StartDateTextBlock.Text = Product.StartDate.ToString("d");
-            TimeLimitTextBlock.Text = Product.TimeLimit.ToString("d");
+            Debug.WriteLine("[BorrowProductView] Initializing date controls");
+            try
+            {
+                // Ensure valid date range
+                if (Product.StartDate > Product.TimeLimit)
+                {
+                    Debug.WriteLine("[BorrowProductView] Warning: StartDate is after TimeLimit, swapping dates");
+                    var temp = Product.StartDate;
+                    Product.StartDate = Product.TimeLimit;
+                    Product.TimeLimit = temp;
+                }
+
+                StartDateTextBlock.Text = Product.StartDate.ToString("d");
+                TimeLimitTextBlock.Text = Product.TimeLimit.ToString("d");
+                // Set the DatePicker's range
+                EndDatePicker.MinDate = Product.StartDate;
+                EndDatePicker.MaxDate = Product.TimeLimit;
+                Debug.WriteLine($"[BorrowProductView] Date controls initialized - StartDate: {StartDateTextBlock.Text}, TimeLimit: {TimeLimitTextBlock.Text}");
+                Debug.WriteLine($"[BorrowProductView] DatePicker range set - Min: {EndDatePicker.MinDate}, Max: {EndDatePicker.MaxDate}");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"[BorrowProductView] Error initializing date controls: {ex.Message}");
+                Debug.WriteLine($"[BorrowProductView] Stack trace: {ex.StackTrace}");
+            }
 
             LoadProductDetails();
             LoadImages();
@@ -102,15 +129,39 @@ namespace MarketMinds
 
         private void EndDatePicker_DateChanged(CalendarDatePicker sender, CalendarDatePickerDateChangedEventArgs args)
         {
-            if (EndDatePicker.Date != null)
+            Debug.WriteLine("[EndDatePicker] DateChanged event started");
+            Debug.WriteLine($"[EndDatePicker] Sender null? {sender == null}");
+            Debug.WriteLine($"[EndDatePicker] Args null? {args == null}");
+            Debug.WriteLine($"[EndDatePicker] Product null? {Product == null}");
+            if (sender == null)
             {
-                SelectedEndDate = EndDatePicker.Date.Value.DateTime;
-                CalculatePriceButton.IsEnabled = true; // Enable the Get Price button
+                Debug.WriteLine("[EndDatePicker] Error: sender is null");
+                return;
             }
-            else
+
+            Debug.WriteLine($"[EndDatePicker] Current EndDatePicker.Date: {sender.Date?.ToString() ?? "null"}");
+            Debug.WriteLine($"[EndDatePicker] Product.StartDate: {Product?.StartDate.ToString() ?? "null"}");
+            Debug.WriteLine($"[EndDatePicker] Product.TimeLimit: {Product?.TimeLimit.ToString() ?? "null"}");
+
+            try
             {
-                SelectedEndDate = null;
-                CalculatePriceButton.IsEnabled = false; // Disable if no date selected
+                if (EndDatePicker.Date != null)
+                {
+                    SelectedEndDate = EndDatePicker.Date.Value.DateTime;
+                    Debug.WriteLine($"[EndDatePicker] Selected date set to: {SelectedEndDate}");
+                    CalculatePriceButton.IsEnabled = true;
+                }
+                else
+                {
+                    SelectedEndDate = null;
+                    Debug.WriteLine("[EndDatePicker] Selected date cleared");
+                    CalculatePriceButton.IsEnabled = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"[EndDatePicker] Error in date processing: {ex.Message}");
+                Debug.WriteLine($"[EndDatePicker] Stack trace: {ex.StackTrace}");
             }
         }
 
