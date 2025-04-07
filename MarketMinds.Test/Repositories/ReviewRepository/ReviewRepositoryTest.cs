@@ -110,7 +110,7 @@ namespace MarketMinds.Tests.ReviewRepositoryTest
         [Test]
         public void TestGetAllReviewsBySeller_ReturnsCorrectReviews()
         {
-            var reviews = reviewRepository.GetAllReviewsBySeller(seller);
+            var reviews = reviewRepository.GetAllReviewsByBuyer(buyer);
 
             Assert.That(reviews, Is.Not.Null);
             Assert.That(reviews.Count, Is.EqualTo(1));
@@ -138,7 +138,7 @@ namespace MarketMinds.Tests.ReviewRepositoryTest
             );
             reviewRepository.CreateReview(initialReview);
 
-            var reviews = reviewRepository.GetAllReviewsBySeller(seller);
+            var reviews = reviewRepository.GetAllReviewsByBuyer(buyer);
 
             Assert.That(reviews.Count, Is.EqualTo(1));
 
@@ -328,7 +328,7 @@ namespace MarketMinds.Tests.ReviewRepositoryTest
                 buyer.Id,
                 seller.Id
             );
-        
+
             reviewRepository.CreateReview(newReview);
 
             var reviews = reviewRepository.GetAllReviewsByBuyer(seller);

@@ -449,5 +449,90 @@ namespace MarketMinds.Tests.Services.BasketServiceTest
 
             Assert.That(discount, Is.EqualTo(0));
         }
+
+        [Test]
+        public void TestCalculateBasketTotals_ValidBasket_ReturnsCorrectTotals()
+        {
+            // Setup a basket with products
+            int basketId = 1;
+
+            // Create a mock basket with items (product with price 100 and product with price 50)
+            basketRepositoryMock.SetupValidBasket(basketId);
+
+            // Calculate totals without promo code
+            BasketTotals totals = basketService.CalculateBasketTotals(basketId, null);
+
+            // Verify results - expected subtotal is 150 (100 + 50)
+            Assert.That(totals, Is.Not.Null);
+            Assert.That(totals.Subtotal, Is.EqualTo(150));
+            Assert.That(totals.Discount, Is.EqualTo(0));
+            Assert.That(totals.TotalAmount, Is.EqualTo(150));
+        }
+
+        [Test]
+        public void TestCalculateBasketTotals_WithValidPromoCode_AppliesDiscount()
+        {
+            // Setup a basket with products
+            int basketId = 1;
+            string validPromoCode = "DISCOUNT10";
+
+            // Create a mock basket with items (total value 150)
+            basketRepositoryMock.SetupValidBasket(basketId);
+
+            // Calculate totals with promo code
+            BasketTotals totals = basketService.CalculateBasketTotals(basketId, validPromoCode);
+
+            // Verify results - 10% discount on 150 = 15
+            Assert.That(totals, Is.Not.Null);
+            Assert.That(totals.Subtotal, Is.EqualTo(150));
+            Assert.That(totals.Discount, Is.EqualTo(15));
+            Assert.That(totals.TotalAmount, Is.EqualTo(135));
+        }
+
+        [Test]
+        public void TestCalculateBasketTotals_WithInvalidPromoCode_NoDiscount()
+        {
+            // Setup a basket with products
+            int basketId = 1;
+            string invalidPromoCode = "INVALID";
+
+            // Create a mock basket with items (total value 150)
+            basketRepositoryMock.SetupValidBasket(basketId);
+
+            // Calculate totals with invalid promo code
+            BasketTotals totals = basketService.CalculateBasketTotals(basketId, invalidPromoCode);
+
+            // Verify results - no discount applied
+            Assert.That(totals, Is.Not.Null);
+            Assert.That(totals.Subtotal, Is.EqualTo(150));
+            Assert.That(totals.Discount, Is.EqualTo(0));
+            Assert.That(totals.TotalAmount, Is.EqualTo(150));
+        }
+
+        [Test]
+        public void TestCalculateBasketTotals_EmptyBasket_ReturnsZeroTotals()
+        {
+            // Setup an empty basket
+            int basketId = 2;
+
+            // Calculate totals for empty basket
+            BasketTotals totals = basketService.CalculateBasketTotals(basketId, null);
+
+            // Verify results
+            Assert.That(totals, Is.Not.Null);
+            Assert.That(totals.Subtotal, Is.EqualTo(0));
+            Assert.That(totals.Discount, Is.EqualTo(0));
+            Assert.That(totals.TotalAmount, Is.EqualTo(0));
+        }
+
+        [Test]
+        public void TestCalculateBasketTotals_InvalidBasketId_ThrowsException()
+        {
+            // Setup an invalid basket ID
+            int invalidBasketId = -1;
+
+            // Attempt to calculate totals with invalid basket ID
+            Assert.Throws<ArgumentException>(() => basketService.CalculateBasketTotals(invalidBasketId, null));
+        }
     }
 }

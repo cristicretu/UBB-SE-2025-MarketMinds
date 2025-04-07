@@ -180,5 +180,13 @@ namespace MarketMinds.Tests.Services.AuctionProductsServiceTest
 
             Assert.That(auctionProductsRepositoryMock.GetDeleteCount(), Is.EqualTo(1));
         }
+
+        [Test]
+        public void TestCreateListing_CoverLines()
+        {
+            auctionProductsService.CreateListing(testAuction);
+            Assert.That(auctionProductsRepositoryMock.GetProducts().Count, Is.EqualTo(1));
+            Assert.That(auctionProductsRepositoryMock.GetProducts()[0], Is.EqualTo(testAuction));
+        }
     }
 }
