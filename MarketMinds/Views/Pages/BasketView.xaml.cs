@@ -148,10 +148,10 @@ namespace MarketMinds.Views.Pages
                     var basketItem = var_basketItems.FirstOrDefault(item => item.Id == itemId);
                     if (basketItem != null)
                     {
-                        // Update quantity using product ID
-                        var_basketViewModel.UpdateProductQuantity(basketItem.Product.Id, basketItem.Quantity + 1);
-
-                        // Reload the basket data
+                        // Call the view model to handle the logic
+                        var_basketViewModel.IncreaseProductQuantity(basketItem.Product.Id);
+                        // Reload the basket data - this is already done in the view model's method,
+                        // but kept here for consistency and to ensure UI updates
                         LoadBasketData();
                     }
                 }
@@ -173,18 +173,10 @@ namespace MarketMinds.Views.Pages
                     var basketItem = var_basketItems.FirstOrDefault(item => item.Id == itemId);
                     if (basketItem != null)
                     {
-                        if (basketItem.Quantity > 1)
-                        {
-                            // Update quantity using product ID
-                            var_basketViewModel.UpdateProductQuantity(basketItem.Product.Id, basketItem.Quantity - 1);
-                        }
-                        else
-                        {
-                            // Remove item if quantity would go to 0
-                            var_basketViewModel.RemoveProductFromBasket(basketItem.Product.Id);
-                        }
-
-                        // Reload the basket data
+                        // Call the view model to handle the logic
+                        var_basketViewModel.DecreaseProductQuantity(basketItem.Product.Id);
+                        // Reload the basket data - this is already done in the view model's method,
+                        // but kept here for consistency and to ensure UI updates
                         LoadBasketData();
                     }
                 }
@@ -197,36 +189,31 @@ namespace MarketMinds.Views.Pages
 
         private void UpdateQuantityFromTextBox(TextBox textBox)
         {
-            try
+            if (textBox != null && textBox.Tag is int itemId)
             {
-                if (textBox != null && textBox.Tag is int itemId)
-                {
-                    if (int.TryParse(textBox.Text, out int newQuantity) && newQuantity >= 0)
-                    {
-                        // Find the corresponding basket item
-                        var basketItem = var_basketItems.FirstOrDefault(item => item.Id == itemId);
-                        if (basketItem != null)
-                        {
-                            var_basketViewModel.UpdateProductQuantity(basketItem.Product.Id, newQuantity);
+                string errorMessage;
+                bool success = var_basketViewModel.UpdateQuantityFromText(itemId, textBox.Text, out errorMessage);
 
-                            // Reload the basket data
-                            LoadBasketData();
-                        }
-                    }
-                    else
+                if (!success)
+                {
+                    // Show error message if needed
+                    if (!string.IsNullOrEmpty(errorMessage))
                     {
-                        // Invalid input, reset to current quantity
-                        var basketItem = var_basketItems.FirstOrDefault(item => item.Id == itemId);
-                        if (basketItem != null)
-                        {
-                            textBox.Text = basketItem.Quantity.ToString();
-                        }
+                        ShowErrorMessage(errorMessage);
+                    }
+
+                    // Reset the text box to current value if validation failed
+                    var basketItem = var_basketViewModel.GetBasketItemById(itemId);
+                    if (basketItem != null)
+                    {
+                        textBox.Text = basketItem.Quantity.ToString();
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                ShowErrorMessage($"Failed to update quantity: {ex.Message}");
+                else
+                {
+                    // Reload the basket data
+                    LoadBasketData();
+                }
             }
         }
 
