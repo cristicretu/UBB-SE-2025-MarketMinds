@@ -11,6 +11,7 @@ using BusinessLogicLayer.ViewModel;
 using MarketMinds;
 using MarketMinds.Services;
 using MarketMinds.Views.Pages;
+using MarketMinds.Helpers;
 
 namespace UiLayer
 {
@@ -20,7 +21,7 @@ namespace UiLayer
         private readonly SortAndFilterViewModel sortAndFilterViewModel;
         private ObservableCollection<AuctionProduct> auctionProducts;
         private CompareProductsViewModel compareProductsViewModel;
-        private readonly AuctionProductListService auctionProductListService;
+        private readonly AuctionProductListViewModelHelper auctionProductListViewModelHelper;
         private readonly AuctionSortTypeConverterService sortTypeConverterService;
 
         // Pagination variables
@@ -38,7 +39,7 @@ namespace UiLayer
             auctionProductsViewModel = MarketMinds.App.AuctionProductsViewModel;
             sortAndFilterViewModel = MarketMinds.App.AuctionProductSortAndFilterViewModel;
             compareProductsViewModel = MarketMinds.App.CompareProductsViewModel;
-            auctionProductListService = new AuctionProductListService();
+            auctionProductListViewModelHelper = new AuctionProductListViewModelHelper();
             sortTypeConverterService = new AuctionSortTypeConverterService();
 
             auctionProducts = new ObservableCollection<AuctionProduct>();
@@ -61,7 +62,7 @@ namespace UiLayer
         // Call this method whenever a filter, sort, or search query changes.
         private void ApplyFiltersAndPagination()
         {
-            var (pageItems, newTotalPages, fullList) = auctionProductListService.GetAuctionProductsPage(
+            var (pageItems, newTotalPages, fullList) = auctionProductListViewModelHelper.GetAuctionProductsPage(
                 auctionProductsViewModel, sortAndFilterViewModel, currentPage, itemsPerPage);
             currentFullList = fullList;
             totalPages = newTotalPages;
@@ -72,7 +73,7 @@ namespace UiLayer
             }
 
             // Show the empty message if no items exist
-            EmptyMessageTextBlock.Visibility = auctionProductListService.ShouldShowEmptyMessage(pageItems)
+            EmptyMessageTextBlock.Visibility = auctionProductListViewModelHelper.ShouldShowEmptyMessage(pageItems)
                 ? Visibility.Visible
                 : Visibility.Collapsed;
 
@@ -81,8 +82,8 @@ namespace UiLayer
 
         private void UpdatePaginationDisplay()
         {
-            PaginationTextBlock.Text = auctionProductListService.GetPaginationText(currentPage, totalPages);
-            var (canGoToPrevious, canGoToNext) = auctionProductListService.GetPaginationButtonState(
+            PaginationTextBlock.Text = auctionProductListViewModelHelper.GetPaginationText(currentPage, totalPages);
+            var (canGoToPrevious, canGoToNext) = auctionProductListViewModelHelper.GetPaginationButtonState(
                 currentPage, totalPages, BASE_PAGE);
             PreviousButton.IsEnabled = canGoToPrevious;
             NextButton.IsEnabled = canGoToNext;
