@@ -37,4 +37,14 @@ public class AuctionProductsViewModel
     {
         auctionValidationService.ValidateAndConcludeAuction(product);
     }
+
+    public string GetTimeLeft(AuctionProduct product)
+    {
+        return ((IAuctionProductsService)auctionProductsService).GetTimeLeft(product);
+    }
+
+    public bool IsAuctionEnded(AuctionProduct product)
+    {
+        return ((IAuctionProductsService)auctionProductsService).IsAuctionEnded(product);
+    }
 }
