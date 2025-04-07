@@ -73,6 +73,9 @@ namespace MarketMinds
         public static User CurrentUser { get; set; }
         public static User TestingUser { get; set; }
 
+        private const int BUYER = 1;
+        private const int SELLER = 2;
+
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
@@ -103,9 +106,9 @@ namespace MarketMinds
             mainWindow.Activate();
             // Create test users that match the database
             TestingUser = new User(1, "alice123", "alice@example.com");
-            TestingUser.UserType = 1; // Matches database value
+            TestingUser.UserType = BUYER; // Matches database value
             CurrentUser = new User(2, "bob321", "bob@example.com");
-            CurrentUser.UserType = 2; // Matches database value
+            CurrentUser.UserType = SELLER; // Matches database value
 
             // Instantiate database connection with configuration
             DatabaseConnection = new DataBaseConnection(Configuration);

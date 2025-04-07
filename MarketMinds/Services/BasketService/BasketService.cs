@@ -10,6 +10,12 @@ namespace MarketMinds.Services.BasketService
     {
         private readonly IBasketRepository basketRepository;
         public const int MaxQuantityPerItem = 10;
+        private const int NOUSER = 0;
+        private const int NOITEM = 0;
+        private const int NOBASKET = 0;
+        private const int NODISCOUNT = 0;
+        private const int NOQUANTITY = 0;
+        private const int DEFAULTQUANTITY = 1;
 
         // Constructor with just the basket repository
         public BasketService(IBasketRepository basketRepository_var)
@@ -19,11 +25,11 @@ namespace MarketMinds.Services.BasketService
 
         public void AddProductToBasket(int userId, int productId, int quantity)
         {
-            if (userId <= 0)
+            if (userId <= NOUSER)
             {
                  throw new ArgumentException("Invalid user ID");
             }
-            if (productId <= 0)
+            if (productId <= NOITEM)
             {
                 throw new ArgumentException("Invalid product ID");
             }
@@ -40,7 +46,7 @@ namespace MarketMinds.Services.BasketService
 
         public Basket GetBasketByUser(User user)
         {
-            if (user == null || user.Id <= 0)
+            if (user == null || user.Id <= NOUSER)
             {
                 throw new ArgumentException("Valid user must be provided");
             }
@@ -58,11 +64,11 @@ namespace MarketMinds.Services.BasketService
 
         public void RemoveProductFromBasket(int userId, int productId)
         {
-            if (userId <= 0)
+            if (userId <= NOUSER)
             {
                  throw new ArgumentException("Invalid user ID");
             }
-            if (productId <= 0)
+            if (productId <= NOITEM)
             {
                 throw new ArgumentException("Invalid product ID");
             }
@@ -84,15 +90,15 @@ namespace MarketMinds.Services.BasketService
 
         public void UpdateProductQuantity(int userId, int productId, int quantity)
         {
-            if (userId <= 0)
+            if (userId <= NOUSER)
             {
                 throw new ArgumentException("Invalid user ID");
             }
-            if (productId <= 0)
+            if (productId <= NOITEM)
             {
                 throw new ArgumentException("Invalid product ID");
             }
-            if (quantity < 0)
+            if (quantity < NOQUANTITY)
             {
                  throw new ArgumentException("Quantity cannot be negative");
             }
@@ -104,7 +110,7 @@ namespace MarketMinds.Services.BasketService
                 // Get the user's basket
                 Basket basket = basketRepository.GetBasketByUserId(userId);
 
-                if (limitedQuantity == 0)
+                if (limitedQuantity == NOQUANTITY)
                 {
                     // If quantity is zero, remove the item
                     basketRepository.RemoveItemByProductId(basket.Id, productId);
@@ -123,7 +129,7 @@ namespace MarketMinds.Services.BasketService
 
         public void ClearBasket(int userId)
         {
-            if (userId <= 0)
+            if (userId <= NOUSER)
             {
                 throw new ArgumentException("Invalid user ID");
             }
@@ -137,7 +143,7 @@ namespace MarketMinds.Services.BasketService
 
         public bool ValidateBasketBeforeCheckOut(int basketId)
         {
-            if (basketId <= 0)
+            if (basketId <= NOBASKET)
             {
                 throw new ArgumentException("Invalid basket ID");
             }
@@ -146,7 +152,7 @@ namespace MarketMinds.Services.BasketService
             List<BasketItem> items = basketRepository.GetBasketItems(basketId);
 
             // Check if the basket is empty
-            if (items.Count == 0)
+            if (items.Count == NOBASKET)
             {
                 return false;
             }
@@ -154,7 +160,7 @@ namespace MarketMinds.Services.BasketService
             // Check if all items have valid quantities
             foreach (BasketItem item in items)
             {
-                if (item.Quantity <= 0)
+                if (item.Quantity <= NOQUANTITY)
                 {
                     return false;
                 }
@@ -170,7 +176,7 @@ namespace MarketMinds.Services.BasketService
 
         public void ApplyPromoCode(int basketId, string code)
         {
-            if (basketId <= 0)
+            if (basketId <= NOBASKET)
             {
                 throw new ArgumentException("Invalid basket ID");
             }
@@ -204,7 +210,7 @@ namespace MarketMinds.Services.BasketService
         {
             if (string.IsNullOrWhiteSpace(code))
             {
-                 return 0;
+                return NODISCOUNT;
             }
 
             // Convert to uppercase for case-insensitive comparison
@@ -223,20 +229,20 @@ namespace MarketMinds.Services.BasketService
             {
                 return subtotal * discountRate;
             }
-            return 0;
+            return NODISCOUNT;
         }
 
         // Add a new method to calculate basket totals
         public BasketTotals CalculateBasketTotals(int basketId, string promoCode)
         {
-            if (basketId <= 0)
+            if (basketId <= NOBASKET)
             {
                 throw new ArgumentException("Invalid basket ID");
             }
 
             List<BasketItem> items = basketRepository.GetBasketItems(basketId);
             float subtotal = items.Sum(item => item.GetPrice());
-            float discount = 0;
+            float discount = NODISCOUNT;
 
             if (!string.IsNullOrEmpty(promoCode))
             {

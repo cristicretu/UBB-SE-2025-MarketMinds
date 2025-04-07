@@ -13,6 +13,8 @@ namespace MarketMinds.Repositories.AuctionProductsRepository
     public class AuctionProductsRepository : IAuctionProductsRepository
     {
         private DataBaseConnection connection;
+        private const int BASE_ID = 0;
+        private const int BASE_PRICE = 0;
 
         public AuctionProductsRepository(DataBaseConnection connection)
         {
@@ -270,21 +272,21 @@ namespace MarketMinds.Repositories.AuctionProductsRepository
         JOIN ProductCategories cat ON ap.category_id = cat.id
         WHERE ap.id = @APid";
 
-            int productId = 0;
+            int productId = BASE_ID;
             string title = string.Empty;
             string description = string.Empty;
-            int sellerId = 0;
+            int sellerId = BASE_ID;
             string username = string.Empty;
             string email = string.Empty;
-            int conditionId = 0;
+            int conditionId = BASE_ID;
             string conditionTitle = string.Empty;
             string conditionDescription = string.Empty;
-            int categoryId = 0;
+            int categoryId = BASE_ID;
             string categoryTitle = string.Empty;
             string categoryDescription = string.Empty;
             DateTime start = DateTime.MinValue;
             DateTime end = DateTime.MinValue;
-            float startingPrice = 0;
+            float startingPrice = BASE_PRICE;
 
             connection.OpenConnection();
             using (SqlCommand cmd = new SqlCommand(query, connection.GetConnection()))
@@ -313,7 +315,7 @@ namespace MarketMinds.Repositories.AuctionProductsRepository
                 }
             }
 
-            if (productId != 0)
+            if (productId != BASE_ID)
             {
                 connection.CloseConnection();
 

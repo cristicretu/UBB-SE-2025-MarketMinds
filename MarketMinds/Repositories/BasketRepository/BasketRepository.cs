@@ -317,16 +317,16 @@ namespace MarketMinds.Repositories.BasketRepository
 
         public void UpdateItemQuantityByProductId(int basketId, int productId, int quantity)
         {
-            if (quantity < 0)
+            if (quantity < NOQUANTITY)
             {
                 throw new ArgumentException("Quantity cannot be negative");
             }
 
-            if (productId < 0)
+            if (productId < NOITEM)
             {
                 throw new ArgumentException("Product ID cannot be negative");
             }
-            if (basketId < 0)
+            if (basketId < NOBASKET)
             {
                 throw new ArgumentException("Basket ID cannot be negative");
             }
@@ -352,7 +352,7 @@ namespace MarketMinds.Repositories.BasketRepository
 
         public void ClearBasket(int basketId)
         {
-            if (basketId < 0)
+            if (basketId < NOBASKET)
             {
                 throw new ArgumentException("Basket ID cannot be negative");
             }

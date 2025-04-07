@@ -18,6 +18,8 @@ namespace DomainLayer.Domain
 
         public string FormattedPrice => $"${Price:F2}";
 
+        private const int DEFAULT_PRICE = 0;
+
         public BasketItem(int id, Product product, int quantity)
         {
             this.Id = id;
@@ -33,7 +35,7 @@ namespace DomainLayer.Domain
             else
             {
                 // Invalid product type
-                this.Price = 0;
+                this.Price = DEFAULT_PRICE;
                 this.HasValidPrice = false;
             }
         }
