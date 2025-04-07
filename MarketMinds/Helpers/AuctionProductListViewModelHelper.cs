@@ -49,4 +49,4 @@ namespace MarketMinds.Helpers
                 $"Page {currentPage} of {totalPages}";
         }
     }
-} 
+}
