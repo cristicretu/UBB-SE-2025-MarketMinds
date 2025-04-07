@@ -22,7 +22,7 @@ namespace MarketMinds.Services
             this.auctionProductsService = auctionProductsService;
         }
 
-        public void CreateListing(Product product, string listingType)
+        public void CreateMarketListing(Product product, string listingType)
         {
             switch (listingType.ToLower())
             {

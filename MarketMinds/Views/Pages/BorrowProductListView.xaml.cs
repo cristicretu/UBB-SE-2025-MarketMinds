@@ -175,7 +175,7 @@ namespace UiLayer
             var selectedProduct = button.DataContext as Product;
             if (selectedProduct != null)
             {
-                bool twoAdded = compareProductsViewModel.AddProduct(selectedProduct);
+                bool twoAdded = compareProductsViewModel.AddProductForCompare(selectedProduct);
                 if (twoAdded == true)
                 {
                     // Create a compare view
