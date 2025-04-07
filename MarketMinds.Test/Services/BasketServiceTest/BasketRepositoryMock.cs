@@ -234,7 +234,12 @@ namespace MarketMinds.Test.Services.BasketServiceTest
             {
                 basketItems[basketId] = new List<BasketItem>();
             }
+            else
+            {
+                basketItems[basketId].Clear();
+            }
 
+            // Create a test product with price 100
             var product = new BuyProduct(
                 3,
                 "Valid Product",
@@ -246,8 +251,24 @@ namespace MarketMinds.Test.Services.BasketServiceTest
                 new List<Image>(),
                 100);
 
+            // Create a second product with price 50
+            var product2 = new BuyProduct(
+                4,
+                "Second Product",
+                "Another product with valid attributes",
+                new User(1, "Test Seller", "seller@test.com"),
+                new ProductCondition(1, "New", "Brand new item"),
+                new ProductCategory(1, "Electronics", "Electronic devices"),
+                new List<ProductTag>(),
+                new List<Image>(),
+                50);
+
+            // Add items to the basket
             var validItem = new BasketItem(nextItemId++, product, 1);
+            var validItem2 = new BasketItem(nextItemId++, product2, 1);
+
             basketItems[basketId].Add(validItem);
+            basketItems[basketId].Add(validItem2);
         }
 
         public void SetupUpdateQuantityException()
