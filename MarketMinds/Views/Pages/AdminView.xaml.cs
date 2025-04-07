@@ -30,17 +30,16 @@ namespace UiLayer
             ProductConditions = new ObservableCollection<ProductCondition>();
 
             // Set up data binding for view models
-            CategoryNameTextBox.SetBinding(TextBox.TextProperty, 
+            CategoryNameTextBox.SetBinding(TextBox.TextProperty,
                 new Microsoft.UI.Xaml.Data.Binding() { Path = new PropertyPath("CategoryName"), Mode = Microsoft.UI.Xaml.Data.BindingMode.TwoWay, Source = productCategoryViewModel });
-            CategoryDescriptionTextBox.SetBinding(TextBox.TextProperty, 
+            CategoryDescriptionTextBox.SetBinding(TextBox.TextProperty,
                 new Microsoft.UI.Xaml.Data.Binding() { Path = new PropertyPath("CategoryDescription"), Mode = Microsoft.UI.Xaml.Data.BindingMode.TwoWay, Source = productCategoryViewModel });
-                
-            ConditionNameTextBox.SetBinding(TextBox.TextProperty, 
+            ConditionNameTextBox.SetBinding(TextBox.TextProperty,
                 new Microsoft.UI.Xaml.Data.Binding() { Path = new PropertyPath("ConditionName"), Mode = Microsoft.UI.Xaml.Data.BindingMode.TwoWay, Source = productConditionViewModel });
-            ConditionDescriptionTextBox.SetBinding(TextBox.TextProperty, 
+            ConditionDescriptionTextBox.SetBinding(TextBox.TextProperty,
                 new Microsoft.UI.Xaml.Data.Binding() { Path = new PropertyPath("ConditionDescription"), Mode = Microsoft.UI.Xaml.Data.BindingMode.TwoWay, Source = productConditionViewModel });
 
-            // Register for property changed events to show dialogs 
+            // Register for property changed events to show dialogs
             productCategoryViewModel.PropertyChanged += ViewModel_PropertyChanged;
             productConditionViewModel.PropertyChanged += ViewModel_PropertyChanged;
 
@@ -56,20 +55,18 @@ namespace UiLayer
                 if (viewModel is ProductCategoryViewModel categoryViewModel && categoryViewModel.IsDialogOpen)
                 {
                     string title = !string.IsNullOrEmpty(categoryViewModel.ErrorMessage) ? "Error" : "Success";
-                    string message = !string.IsNullOrEmpty(categoryViewModel.ErrorMessage) 
-                        ? categoryViewModel.ErrorMessage 
+                    string message = !string.IsNullOrEmpty(categoryViewModel.ErrorMessage)
+                        ? categoryViewModel.ErrorMessage
                         : categoryViewModel.SuccessMessage;
-                    
                     await ShowContentDialog(title, message);
                     categoryViewModel.ClearDialogMessages();
                 }
                 else if (viewModel is ProductConditionViewModel conditionViewModel && conditionViewModel.IsDialogOpen)
                 {
                     string title = !string.IsNullOrEmpty(conditionViewModel.ErrorMessage) ? "Error" : "Success";
-                    string message = !string.IsNullOrEmpty(conditionViewModel.ErrorMessage) 
-                        ? conditionViewModel.ErrorMessage 
+                    string message = !string.IsNullOrEmpty(conditionViewModel.ErrorMessage)
+                        ? conditionViewModel.ErrorMessage
                         : conditionViewModel.SuccessMessage;
-                    
                     await ShowContentDialog(title, message);
                     conditionViewModel.ClearDialogMessages();
                 }

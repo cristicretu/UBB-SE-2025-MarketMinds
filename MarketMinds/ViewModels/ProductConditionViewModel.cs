@@ -13,40 +13,40 @@ namespace ViewModelLayer.ViewModel
     public class ProductConditionViewModel : INotifyPropertyChanged
     {
         private ProductConditionService productConditionService;
-        private string _conditionName;
-        private string _conditionDescription;
-        private string _errorMessage;
-        private string _successMessage;
-        private bool _isDialogOpen;
+        private string conditionName;
+        private string conditionDescription;
+        private string errorMessage;
+        private string successMessage;
+        private bool isDialogOpen;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
         public string ConditionName
         {
-            get => _conditionName;
+            get => conditionName;
             set
             {
-                _conditionName = value;
+                conditionName = value;
                 OnPropertyChanged();
             }
         }
 
         public string ConditionDescription
         {
-            get => _conditionDescription;
+            get => conditionDescription;
             set
             {
-                _conditionDescription = value;
+                conditionDescription = value;
                 OnPropertyChanged();
             }
         }
 
         public string ErrorMessage
         {
-            get => _errorMessage;
+            get => errorMessage;
             set
             {
-                _errorMessage = value;
+                errorMessage = value;
                 OnPropertyChanged();
                 IsDialogOpen = !string.IsNullOrEmpty(value);
             }
@@ -54,10 +54,10 @@ namespace ViewModelLayer.ViewModel
 
         public string SuccessMessage
         {
-            get => _successMessage;
+            get => successMessage;
             set
             {
-                _successMessage = value;
+                successMessage = value;
                 OnPropertyChanged();
                 IsDialogOpen = !string.IsNullOrEmpty(value);
             }
@@ -65,10 +65,10 @@ namespace ViewModelLayer.ViewModel
 
         public bool IsDialogOpen
         {
-            get => _isDialogOpen;
+            get => isDialogOpen;
             set
             {
-                _isDialogOpen = value;
+                isDialogOpen = value;
                 OnPropertyChanged();
             }
         }
@@ -77,7 +77,6 @@ namespace ViewModelLayer.ViewModel
         {
             this.productConditionService = productConditionService;
         }
-        
         public List<ProductCondition> GetAllProductConditions()
         {
             return productConditionService.GetAllProductConditions();
@@ -105,11 +104,10 @@ namespace ViewModelLayer.ViewModel
             {
                 var newCondition = CreateProductCondition(ConditionName, ConditionDescription);
                 SuccessMessage = $"Condition '{ConditionName}' created successfully.";
-                
                 // Clear input fields
                 ConditionName = string.Empty;
                 ConditionDescription = string.Empty;
-                
+
                 return true;
             }
             catch (Exception ex)

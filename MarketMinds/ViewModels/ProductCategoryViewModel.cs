@@ -13,40 +13,40 @@ namespace ViewModelLayer.ViewModel
     public class ProductCategoryViewModel : INotifyPropertyChanged
     {
         private ProductCategoryService productCategoryService;
-        private string _categoryName;
-        private string _categoryDescription;
-        private string _errorMessage;
-        private string _successMessage;
-        private bool _isDialogOpen;
+        private string categoryName;
+        private string categoryDescription;
+        private string errorMessage;
+        private string successMessage;
+        private bool isDialogOpen;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
         public string CategoryName
         {
-            get => _categoryName;
+            get => categoryName;
             set
             {
-                _categoryName = value;
+                categoryName = value;
                 OnPropertyChanged();
             }
         }
 
         public string CategoryDescription
         {
-            get => _categoryDescription;
+            get => categoryDescription;
             set
             {
-                _categoryDescription = value;
+                categoryDescription = value;
                 OnPropertyChanged();
             }
         }
 
         public string ErrorMessage
         {
-            get => _errorMessage;
+            get => errorMessage;
             set
             {
-                _errorMessage = value;
+                errorMessage = value;
                 OnPropertyChanged();
                 IsDialogOpen = !string.IsNullOrEmpty(value);
             }
@@ -54,10 +54,10 @@ namespace ViewModelLayer.ViewModel
 
         public string SuccessMessage
         {
-            get => _successMessage;
+            get => successMessage;
             set
             {
-                _successMessage = value;
+                successMessage = value;
                 OnPropertyChanged();
                 IsDialogOpen = !string.IsNullOrEmpty(value);
             }
@@ -65,10 +65,10 @@ namespace ViewModelLayer.ViewModel
 
         public bool IsDialogOpen
         {
-            get => _isDialogOpen;
+            get => isDialogOpen;
             set
             {
-                _isDialogOpen = value;
+                isDialogOpen = value;
                 OnPropertyChanged();
             }
         }
@@ -105,11 +105,9 @@ namespace ViewModelLayer.ViewModel
             {
                 var newCategory = CreateProductCategory(CategoryName, CategoryDescription);
                 SuccessMessage = $"Category '{CategoryName}' created successfully.";
-                
                 // Clear input fields
                 CategoryName = string.Empty;
                 CategoryDescription = string.Empty;
-                
                 return true;
             }
             catch (Exception ex)

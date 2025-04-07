@@ -63,10 +63,8 @@ namespace UiLayer
         {
             var (pageItems, newTotalPages, fullList) = auctionProductListService.GetAuctionProductsPage(
                 auctionProductsViewModel, sortAndFilterViewModel, currentPage, itemsPerPage);
-            
             currentFullList = fullList;
             totalPages = newTotalPages;
-            
             auctionProducts.Clear();
             foreach (var item in pageItems)
             {
@@ -74,8 +72,8 @@ namespace UiLayer
             }
 
             // Show the empty message if no items exist
-            EmptyMessageTextBlock.Visibility = auctionProductListService.ShouldShowEmptyMessage(pageItems) 
-                ? Visibility.Visible 
+            EmptyMessageTextBlock.Visibility = auctionProductListService.ShouldShowEmptyMessage(pageItems)
+                ? Visibility.Visible
                 : Visibility.Collapsed;
 
             UpdatePaginationDisplay();
@@ -84,10 +82,8 @@ namespace UiLayer
         private void UpdatePaginationDisplay()
         {
             PaginationTextBlock.Text = auctionProductListService.GetPaginationText(currentPage, totalPages);
-            
             var (canGoToPrevious, canGoToNext) = auctionProductListService.GetPaginationButtonState(
                 currentPage, totalPages, BASE_PAGE);
-                
             PreviousButton.IsEnabled = canGoToPrevious;
             NextButton.IsEnabled = canGoToNext;
         }

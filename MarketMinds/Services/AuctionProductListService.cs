@@ -39,7 +39,6 @@ namespace MarketMinds.Services
         {
             bool canGoToPrevious = currentPage > basePage;
             bool canGoToNext = currentPage < totalPages;
-            
             return (canGoToPrevious, canGoToNext);
         }
 
@@ -50,4 +49,4 @@ namespace MarketMinds.Services
                 $"Page {currentPage} of {totalPages}";
         }
     }
-} 
+}
