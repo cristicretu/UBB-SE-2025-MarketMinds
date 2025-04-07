@@ -96,6 +96,42 @@ namespace ViewModelLayer.ViewModel
             }
         }
 
+        public BasketItem GetBasketItemById(int itemId)
+        {
+            return BasketItems.FirstOrDefault(item => item.Id == itemId);
+        }
+
+        public bool UpdateQuantityFromText(int itemId, string quantityText, out string errorMessage)
+        {
+            errorMessage = string.Empty;
+            try
+            {
+                // Validate input using service
+                if (!basketService.ValidateQuantityInput(quantityText, out int newQuantity))
+                {
+                    errorMessage = "Please enter a valid quantity";
+                    return false;
+                }
+
+                // Find the corresponding basket item
+                var basketItem = GetBasketItemById(itemId);
+                if (basketItem == null)
+                {
+                    errorMessage = "Item not found";
+                    return false;
+                }
+
+                // Update the quantity through proper service call
+                UpdateProductQuantity(basketItem.Product.Id, newQuantity);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                errorMessage = $"Failed to update quantity: {ex.Message}";
+                return false;
+            }
+        }
+
         public void ApplyPromoCode(string code)
         {
             try
@@ -149,6 +185,34 @@ namespace ViewModelLayer.ViewModel
             }
 
             ErrorMessage = string.Empty;
+        }
+
+        public void DecreaseProductQuantity(int productId)
+        {
+            try
+            {
+                ErrorMessage = string.Empty;
+                basketService.DecreaseProductQuantity(currentUser.Id, productId);
+                LoadBasket();
+            }
+            catch (Exception ex)
+            {
+                ErrorMessage = $"Failed to decrease quantity: {ex.Message}";
+            }
+        }
+
+        public void IncreaseProductQuantity(int productId)
+        {
+            try
+            {
+                ErrorMessage = string.Empty;
+                basketService.IncreaseProductQuantity(currentUser.Id, productId);
+                LoadBasket();
+            }
+            catch (Exception ex)
+            {
+                ErrorMessage = $"Failed to increase quantity: {ex.Message}";
+            }
         }
 
         // New method to update totals using the service

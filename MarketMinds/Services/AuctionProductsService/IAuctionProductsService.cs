@@ -26,5 +26,19 @@ namespace MarketMinds.Services.AuctionProductsService
         /// </summary>
         /// <param name="auction">The auction product to conclude.</param>
         void ConcludeAuction(AuctionProduct auction);
+
+        /// <summary>
+        /// Gets the formatted time left in the auction or "Auction Ended" if it has ended.
+        /// </summary>
+        /// <param name="auction">The auction product.</param>
+        /// <returns>A formatted string representing the time left.</returns>
+        string GetTimeLeft(AuctionProduct auction);
+
+        /// <summary>
+        /// Checks if an auction has ended.
+        /// </summary>
+        /// <param name="auction">The auction product.</param>
+        /// <returns>True if the auction has ended, false otherwise.</returns>
+        bool IsAuctionEnded(AuctionProduct auction);
     }
 }

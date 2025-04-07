@@ -40,6 +40,21 @@ namespace MarketMinds.Services.BasketService
         void UpdateProductQuantity(int userId, int productId, int quantity);
 
         /// <summary>
+        /// Validates if a quantity input string is valid and can be parsed to a non-negative integer.
+        /// </summary>
+        /// <param name="quantityText">The quantity text to validate.</param>
+        /// <param name="quantity">The parsed quantity if valid.</param>
+        /// <returns>True if the input is valid, otherwise false.</returns>
+        bool ValidateQuantityInput(string quantityText, out int quantity);
+
+        /// <summary>
+        /// Gets the limited quantity value that doesn't exceed maximum allowed quantity.
+        /// </summary>
+        /// <param name="quantity">The original quantity.</param>
+        /// <returns>The limited quantity value.</returns>
+        int GetLimitedQuantity(int quantity);
+
+        /// <summary>
         /// Clears all items from the user's basket.
         /// </summary>
         /// <param name="userId">The ID of the user.</param>
@@ -74,5 +89,21 @@ namespace MarketMinds.Services.BasketService
         /// <param name="promoCode">The promo code to apply (if any).</param>
         /// <returns>A BasketTotals object containing subtotal, discount, and total amount.</returns>
         BasketTotals CalculateBasketTotals(int basketId, string promoCode);
+
+        /// <summary>
+        /// Decreases the quantity of a product in the user's basket by 1.
+        /// If the current quantity is 1, the product is removed from the basket.
+        /// </summary>
+        /// <param name="userId">The ID of the user.</param>
+        /// <param name="productId">The ID of the product to decrease.</param>
+        void DecreaseProductQuantity(int userId, int productId);
+
+        /// <summary>
+        /// Increases the quantity of a product in the user's basket by 1.
+        /// The quantity will not exceed the maximum allowed limit.
+        /// </summary>
+        /// <param name="userId">The ID of the user.</param>
+        /// <param name="productId">The ID of the product to increase.</param>
+        void IncreaseProductQuantity(int userId, int productId);
     }
 }

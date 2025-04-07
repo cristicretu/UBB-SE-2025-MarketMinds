@@ -127,6 +127,31 @@ namespace MarketMinds.Services.BasketService
             }
         }
 
+        public bool ValidateQuantityInput(string quantityText, out int quantity)
+        {
+            // Initialize output parameter
+            quantity = NOQUANTITY;
+
+            // Try to parse the input string to an integer
+            if (!int.TryParse(quantityText, out quantity))
+            {
+                return false;
+            }
+
+            // Check if quantity is non-negative
+            if (quantity < NOQUANTITY)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public int GetLimitedQuantity(int quantity)
+        {
+            return Math.Min(quantity, MaxQuantityPerItem);
+        }
+
         public void ClearBasket(int userId)
         {
             if (userId <= NOUSER)
@@ -256,6 +281,85 @@ namespace MarketMinds.Services.BasketService
                 Discount = discount,
                 TotalAmount = totalAmount
             };
+        }
+
+        public void DecreaseProductQuantity(int userId, int productId)
+        {
+            if (userId <= NOUSER)
+            {
+                throw new ArgumentException("Invalid user ID");
+            }
+            if (productId <= NOITEM)
+            {
+                throw new ArgumentException("Invalid product ID");
+            }
+
+            try
+            {
+                // Get the user's basket
+                Basket basket = basketRepository.GetBasketByUserId(userId);
+
+                // Get the current quantity of the item
+                List<BasketItem> items = basketRepository.GetBasketItems(basket.Id);
+                BasketItem targetItem = items.FirstOrDefault(item => item.Product.Id == productId);
+
+                if (targetItem == null)
+                {
+                    throw new InvalidOperationException("Item not found in basket");
+                }
+
+                if (targetItem.Quantity > 1)
+                {
+                    // Decrease quantity by 1
+                    basketRepository.UpdateItemQuantityByProductId(basket.Id, productId, targetItem.Quantity - 1);
+                }
+                else
+                {
+                    // Remove item if quantity would be 0
+                    basketRepository.RemoveItemByProductId(basket.Id, productId);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidOperationException($"Could not decrease quantity: {ex.Message}", ex);
+            }
+        }
+
+        public void IncreaseProductQuantity(int userId, int productId)
+        {
+            if (userId <= NOUSER)
+            {
+                throw new ArgumentException("Invalid user ID");
+            }
+            if (productId <= NOITEM)
+            {
+                throw new ArgumentException("Invalid product ID");
+            }
+
+            try
+            {
+                // Get the user's basket
+                Basket basket = basketRepository.GetBasketByUserId(userId);
+
+                // Get the current quantity of the item
+                List<BasketItem> items = basketRepository.GetBasketItems(basket.Id);
+                BasketItem targetItem = items.FirstOrDefault(item => item.Product.Id == productId);
+
+                if (targetItem == null)
+                {
+                    throw new InvalidOperationException("Item not found in basket");
+                }
+
+                // Calculate new quantity, ensuring it doesn't exceed the maximum
+                int newQuantity = Math.Min(targetItem.Quantity + 1, MaxQuantityPerItem);
+
+                // Update the quantity
+                basketRepository.UpdateItemQuantityByProductId(basket.Id, productId, newQuantity);
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidOperationException($"Could not increase quantity: {ex.Message}", ex);
+            }
         }
     }
 

@@ -57,7 +57,7 @@ namespace MarketMinds
             string timeText = GetTimeLeft();
             TimeLeftTextBlock.Text = timeText;
 
-            if (timeText == "Auction Ended" && countdownTimer != null)
+            if (auctionProductsViewModel.IsAuctionEnded(product) && countdownTimer != null)
             {
                 countdownTimer.Stop();
                 auctionProductsViewModel.ConcludeAuction(product);
@@ -113,8 +113,7 @@ namespace MarketMinds
         }
         private string GetTimeLeft()
         {
-            var timeLeft = product.EndAuctionDate - DateTime.Now;
-            return timeLeft > TimeSpan.Zero ? timeLeft.ToString(@"dd\:hh\:mm\:ss") : "Auction Ended";
+            return auctionProductsViewModel.GetTimeLeft(product);
         }
         private void OnPlaceBidClicked(object sender, RoutedEventArgs e)
         {
