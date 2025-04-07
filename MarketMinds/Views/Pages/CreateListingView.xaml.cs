@@ -11,6 +11,7 @@ using Microsoft.UI.Xaml.Input;
 using ViewModelLayer.ViewModel;
 using DomainLayer.Domain;
 using MarketMinds;
+using MarketMinds.Services;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI;
 using Newtonsoft.Json;
@@ -56,6 +57,9 @@ namespace UiLayer
         private const int MAX_RETRY_DELAY = 2;
         private const int MAX_CLIENT_ID_LENGTH = 20;
         private const int NO_RETRY = 0;
+        private readonly TagManagementService tagManagementService;
+        private readonly ImageUploadService imageUploadService;
+        private readonly ListingFormValidationService validationService;
 
         public CreateListingView(MainWindow mainWindow)
         {
@@ -84,6 +88,11 @@ namespace UiLayer
             productCategoryViewModel = App.ProductCategoryViewModel;
             productConditionViewModel = App.ProductConditionViewModel;
             productTagViewModel = App.ProductTagViewModel;
+
+            // Initialize services
+            tagManagementService = new TagManagementService(productTagViewModel);
+            imageUploadService = new ImageUploadService();
+            validationService = new ListingFormValidationService();
 
             // Load categories and conditions into ComboBoxes
             LoadCategories();
@@ -196,10 +205,8 @@ namespace UiLayer
             if (e.Key == Windows.System.VirtualKey.Enter)
             {
                 string tag = tagsTextBox.Text.Trim();
-                if (!string.IsNullOrEmpty(tag) && !tags.Contains(tag))
+                if (tagManagementService.AddTagToCollection(tag, tags))
                 {
-                    tags.Add(tag);
-                    tagsListView.ItemsSource = tags;
                     tagsTextBox.Text = string.Empty;
                 }
             }
@@ -208,161 +215,23 @@ namespace UiLayer
         private void TagsListView_ItemClick(object sender, ItemClickEventArgs e)
         {
             string tag = e.ClickedItem as string;
-            if (tag != null)
-            {
-                tags.Remove(tag);
-            }
-        }
-
-        private ProductTag EnsureTagExists(string tagName)
-        {
-            var allTags = productTagViewModel.GetAllProductTags();
-            var existingTag = allTags.FirstOrDefault(tag => tag.DisplayTitle.Equals(tagName, StringComparison.OrdinalIgnoreCase));
-
-            if (existingTag != null)
-            {
-                return existingTag;
-            }
-            else
-            {
-                return productTagViewModel.CreateProductTag(tagName);
-            }
+            tagManagementService.RemoveTagFromCollection(tag, tags);
         }
 
         private async void OnUploadImageClick(object sender, RoutedEventArgs e)
         {
-            IntPtr hwnd = WinRT.Interop.WindowNative.GetWindowHandle(window.CreateListingViewWindow);
-
-            var picker = new FileOpenPicker();
-            WinRT.Interop.InitializeWithWindow.Initialize(picker, hwnd);
-
-            picker.ViewMode = PickerViewMode.Thumbnail;
-            picker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
-            picker.FileTypeFilter.Add(".jpg");
-            picker.FileTypeFilter.Add(".png");
-
-            StorageFile file = await picker.PickSingleFileAsync();
-            if (file != null)
-            {
-                string imgurLink = await UploadToImgur(file);
-                if (!string.IsNullOrEmpty(imgurLink))
-                {
-                    viewModel.ImagesString = string.IsNullOrEmpty(viewModel.ImagesString)
-                        ? imgurLink
-                        : viewModel.ImagesString + "\n" + imgurLink;
-
-                    imagesTextBlock.Text = viewModel.ImagesString;
-                }
-            }
-        }
-
-        private async Task<string> UploadToImgur(StorageFile file)
-        {
-            string uploadingText = "\nUploading...";
             try
             {
-                // Log file details
-                var properties = await file.GetBasicPropertiesAsync();
-                string clientId = App.Configuration.GetSection("ImgurSettings:ClientId").Value;
-                // Validate Client ID format
-                if (string.IsNullOrEmpty(clientId))
+                string updatedImagesString = await imageUploadService.AddImageToCollection(window.CreateListingViewWindow, viewModel.ImagesString);
+                if (updatedImagesString != viewModel.ImagesString)
                 {
-                    await ShowErrorDialog("Imgur Upload Error", "Client ID is not configured. Please check your appsettings.json file.");
-                    return null;
-                }
-                // Typical Imgur Client IDs are around 15 chars
-                if (clientId.Length > MAX_CLIENT_ID_LENGTH)
-                {
-                    await ShowErrorDialog("Imgur Upload Error", "Client ID format appears invalid. Please ensure you're using the Client ID, not the Client Secret.");
-                    return null;
-                }
-                // Add uploading text to UI
-                viewModel.ImagesString = (string.IsNullOrEmpty(viewModel.ImagesString) ? string.Empty : viewModel.ImagesString + "\n") + uploadingText;
-                imagesTextBlock.Text = viewModel.ImagesString;
-
-                using (var stream = await file.OpenAsync(FileAccessMode.Read))
-                {
-                    if (stream.Size > NO_MB_LIMIT)
-                    {
-                        await ShowErrorDialog("Imgur Upload Error", "File size exceeds Imgur's 10MB limit.");
-                        return null;
-                    }
-
-                    byte[] buffer = new byte[stream.Size];
-                    using (var reader = new DataReader(stream))
-                    {
-                        await reader.LoadAsync((uint)stream.Size);
-                        reader.ReadBytes(buffer);
-                    }
-
-                    int maxRetries = MAX_RETRIES;
-                    int currentRetry = NO_RETRY;
-                    TimeSpan delay = TimeSpan.FromSeconds(MAX_RETRY_DELAY);
-
-                    while (currentRetry < maxRetries)
-                    {
-                        try
-                        {
-                            using (var content = new MultipartFormDataContent())
-                            {
-                                var imageContent = new ByteArrayContent(buffer);
-                                imageContent.Headers.ContentType = MediaTypeHeaderValue.Parse("image/png");
-                                content.Add(imageContent, "image", "image.png");
-
-                                using (var request = new HttpRequestMessage(HttpMethod.Post, "https://api.imgur.com/3/image"))
-                                {
-                                    request.Headers.Add("Authorization", $"Client-ID {clientId}");
-                                    request.Content = content;
-                                    var response = await HttpClient.SendAsync(request);
-                                    var responseBody = await response.Content.ReadAsStringAsync();
-
-                                    if (response.IsSuccessStatusCode)
-                                    {
-                                        dynamic jsonResponse = JsonConvert.DeserializeObject(responseBody);
-                                        string link = jsonResponse?.data?.link;
-                                        if (!string.IsNullOrEmpty(link))
-                                        {
-                                            viewModel.ImagesString = viewModel.ImagesString.Replace(uploadingText, link);
-                                            imagesTextBlock.Text = viewModel.ImagesString;
-                                            return link;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                        catch (HttpRequestException ex)
-                        {
-                            if (ex.InnerException != null)
-                            {
-                            }
-                        }
-
-                        if (currentRetry < maxRetries - 1)
-                        {
-                            await Task.Delay(delay);
-                            delay = TimeSpan.FromSeconds(delay.TotalSeconds * 2);
-                        }
-                        currentRetry++;
-                    }
-                    return null;
+                    viewModel.ImagesString = updatedImagesString;
+                    imagesTextBlock.Text = viewModel.ImagesString;
                 }
             }
             catch (Exception ex)
             {
-                if (ex.InnerException != null)
-                {
-                }
-                await ShowErrorDialog("Imgur Upload Error", $"Upload failed: {ex.Message}");
-                return null;
-            }
-            finally
-            {
-                // Always remove the uploading text if it's still there
-                if (viewModel.ImagesString?.Contains(uploadingText) == true)
-                {
-                    viewModel.ImagesString = viewModel.ImagesString.Replace(uploadingText, string.Empty).Trim();
-                    imagesTextBlock.Text = viewModel.ImagesString;
-                }
+                await ShowErrorDialog("Image Upload Error", ex.Message);
             }
         }
 
@@ -409,40 +278,53 @@ namespace UiLayer
 
             // Collect common data
             string title = titleTextBox.Text;
-            if (string.IsNullOrWhiteSpace(title))
-            {
-                titleErrorTextBlock.Visibility = Visibility.Visible;
-                return;
-            }
-
-            if (categoryComboBox.SelectedItem == null)
-            {
-                categoryErrorTextBlock.Visibility = Visibility.Visible;
-                return;
-            }
             ProductCategory category = (ProductCategory)categoryComboBox.SelectedItem;
-
             string description = descriptionTextBox.Text;
+            ProductCondition condition = (ProductCondition)conditionComboBox.SelectedItem;
 
-            List<ProductTag> tags = this.tags.Select(tag => EnsureTagExists(tag)).ToList();
-
-            if (conditionComboBox.SelectedItem == null)
+            // Validate common fields
+            if (!validationService.ValidateCommonFields(title, category, description, tags, condition, out string errorMessage, out string errorField))
             {
-                conditionErrorTextBlock.Visibility = Visibility.Visible;
+                switch (errorField)
+                {
+                    case "Title":
+                        titleErrorTextBlock.Text = errorMessage;
+                        titleErrorTextBlock.Visibility = Visibility.Visible;
+                        break;
+                    case "Category":
+                        categoryErrorTextBlock.Text = errorMessage;
+                        categoryErrorTextBlock.Visibility = Visibility.Visible;
+                        break;
+                    case "Description":
+                        descriptionErrorTextBlock.Text = errorMessage;
+                        descriptionErrorTextBlock.Visibility = Visibility.Visible;
+                        break;
+                    case "Tags":
+                        tagsErrorTextBlock.Text = errorMessage;
+                        tagsErrorTextBlock.Visibility = Visibility.Visible;
+                        break;
+                    case "Condition":
+                        conditionErrorTextBlock.Text = errorMessage;
+                        conditionErrorTextBlock.Visibility = Visibility.Visible;
+                        break;
+                }
                 return;
             }
-            ProductCondition condition = (ProductCondition)conditionComboBox.SelectedItem;
+
+            // Convert string tags to ProductTag objects
+            List<ProductTag> productTags = tagManagementService.ConvertStringTagsToProductTags(tags);
 
             // Collect specific data based on the selected type
             if (viewModel is CreateBuyListingViewModel)
             {
-                if (!float.TryParse(((TextBox)FormContainer.FindName("PriceTextBox")).Text, out float price))
+                string priceText = ((TextBox)FormContainer.FindName("PriceTextBox")).Text;
+                if (!validationService.ValidateBuyProductFields(priceText, out float price))
                 {
                     titleErrorTextBlock.Text = "Please enter a valid price.";
                     titleErrorTextBlock.Visibility = Visibility.Visible;
                     return;
                 }
-                var product = new BuyProduct(0, title, description, App.CurrentUser, condition, category, tags, viewModel.Images, price);
+                var product = new BuyProduct(0, title, description, App.CurrentUser, condition, category, productTags, viewModel.Images, price);
                 viewModel.CreateListing(product);
             }
             else if (viewModel is CreateBorrowListingViewModel)
@@ -463,7 +345,7 @@ namespace UiLayer
                     return;
                 }
 
-                var product = new BorrowProduct(0, title, description, App.CurrentUser, condition, category, tags, viewModel.Images, DateTime.Now, endDate, endDate, dailyRate, false);
+                var product = new BorrowProduct(0, title, description, App.CurrentUser, condition, category, productTags, viewModel.Images, DateTime.Now, endDate, endDate, dailyRate, false);
                 viewModel.CreateListing(product);
             }
             else if (viewModel is CreateAuctionListingViewModel)
@@ -483,7 +365,7 @@ namespace UiLayer
                 }
                 DateTime endAuctionDate = ((CalendarDatePicker)FormContainer.FindName("EndAuctionDatePicker")).Date.Value.DateTime;
 
-                var product = new AuctionProduct(0, title, description, App.CurrentUser, condition, category, tags, viewModel.Images, DateTime.Now, endAuctionDate, startingPrice);
+                var product = new AuctionProduct(0, title, description, App.CurrentUser, condition, category, productTags, viewModel.Images, DateTime.Now, endAuctionDate, startingPrice);
                 viewModel.CreateListing(product);
             }
             ShowSuccessMessage("Listing created successfully!");
