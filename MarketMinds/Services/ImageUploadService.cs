@@ -142,15 +142,18 @@ namespace MarketMinds.Services
         public string FormatImagesString(List<Image> images)
         {
             if (images == null || !images.Any())
-                return string.Empty;
-                
+            {
+                 return string.Empty;
+            }
             return string.Join("\n", images.Select(img => img.Url));
         }
 
         public List<Image> ParseImagesString(string imagesString)
         {
             if (string.IsNullOrEmpty(imagesString))
-                return new List<Image>();
+            {
+                 return new List<Image>();
+            }
 
             return imagesString.Split('\n')
                 .Where(url => !string.IsNullOrEmpty(url) && !url.Contains("Uploading..."))
