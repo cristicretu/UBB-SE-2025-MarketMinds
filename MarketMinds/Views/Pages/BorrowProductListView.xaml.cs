@@ -8,9 +8,9 @@ using DomainLayer.Domain;
 using ViewModelLayer.ViewModel;
 using BusinessLogicLayer.ViewModel;
 using MarketMinds;
-using MarketMinds.Services;
 using MarketMinds.Helpers;
 using MarketMinds.Views.Pages;
+using MarketMinds.Services.BorrowSortTypeeConverterService;
 
 namespace UiLayer
 {

@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using System.Linq;
 using DomainLayer.Domain;
 
-namespace MarketMinds.Services
+namespace MarketMinds.Services.ReviewCalculationService
 {
-    public class ReviewCalculationService
+    public class ReviewCalculationService : IReviewCalculationService
     {
         public float CalculateAverageRating(IEnumerable<Review> reviews)
         {

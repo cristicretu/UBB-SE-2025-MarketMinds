@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 using DomainLayer.Domain;
 using MarketMinds.Services.ReviewService;
-using MarketMinds.Services;
+using MarketMinds.Services.ReviewCalculationService;
 
 namespace BusinessLogicLayer.ViewModel
 {

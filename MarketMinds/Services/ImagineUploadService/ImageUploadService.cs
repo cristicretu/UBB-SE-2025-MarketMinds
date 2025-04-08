@@ -13,9 +13,9 @@ using DomainLayer.Domain;
 using Newtonsoft.Json;
 using Windows.Storage.Streams;
 
-namespace MarketMinds.Services
+namespace MarketMinds.Services.ImagineUploadService
 {
-    public class ImageUploadService
+    public class ImageUploadService : IImageUploadService
     {
         private static readonly HttpClient HttpClient = new HttpClient();
 

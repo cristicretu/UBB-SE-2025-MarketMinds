@@ -11,6 +11,7 @@ using MarketMinds;
 using MarketMinds.Services;
 using MarketMinds.Views.Pages;
 using MarketMinds.Helpers;
+using MarketMinds.Services.ProductPaginationService;
 
 namespace UiLayer
 {

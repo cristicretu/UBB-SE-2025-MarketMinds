@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using DomainLayer.Domain;
 using MarketMinds.Services.AuctionProductsService;
-using MarketMinds.Services;
 using MarketMinds.Services.ProductTagService;
+using MarketMinds.Services.AuctionValidationService;
 
 namespace ViewModelLayer.ViewModel;
 

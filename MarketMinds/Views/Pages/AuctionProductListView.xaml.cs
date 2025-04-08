@@ -9,9 +9,9 @@ using DomainLayer.Domain;
 using ViewModelLayer.ViewModel;
 using BusinessLogicLayer.ViewModel;
 using MarketMinds;
-using MarketMinds.Services;
 using MarketMinds.Views.Pages;
 using MarketMinds.Helpers;
+using MarketMinds.Services.AuctionSortTypeConverterService;
 
 namespace UiLayer
 {

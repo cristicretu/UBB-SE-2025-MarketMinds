@@ -5,6 +5,7 @@ using DomainLayer.Domain;
 using ViewModelLayer.ViewModel;
 using BusinessLogicLayer.ViewModel;
 using MarketMinds.Services;
+using MarketMinds.Services.ProductPaginationService;
 
 namespace MarketMinds.Helpers
 {
