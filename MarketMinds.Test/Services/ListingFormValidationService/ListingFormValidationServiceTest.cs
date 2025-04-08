@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using NUnit.Framework;
 using DomainLayer.Domain;
 using MarketMinds.Services;
+using MarketMinds.Services.ListingFormValidationService;
 
 namespace MarketMinds.Test.Services
 {

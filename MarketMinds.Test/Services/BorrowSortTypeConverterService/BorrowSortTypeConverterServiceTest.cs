@@ -1,6 +1,7 @@
 ﻿using DomainLayer.Domain;
 using MarketMinds.Services;
 using NUnit.Framework;
+using MarketMinds.Services.BorrowSortTypeConverterService;
 
 namespace MarketMinds.Test.Services
 {

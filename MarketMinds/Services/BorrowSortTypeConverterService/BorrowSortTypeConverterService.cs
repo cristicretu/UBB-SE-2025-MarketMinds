@@ -1,6 +1,6 @@
 using DomainLayer.Domain;
 
-namespace MarketMinds.Services.BorrowSortTypeeConverterService
+namespace MarketMinds.Services.BorrowSortTypeConverterService
 {
     public class BorrowSortTypeConverterService : IBorrowSortTypeConverterService
     {

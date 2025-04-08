@@ -6,6 +6,7 @@ using MarketMinds.Services.BuyProductsService;
 using Moq;
 using NUnit.Framework;
 using System;
+using MarketMinds.Services.ListingCreationService;
 
 namespace MarketMinds.Test.Services
 {

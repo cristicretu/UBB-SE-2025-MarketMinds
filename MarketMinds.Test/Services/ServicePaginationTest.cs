@@ -5,6 +5,7 @@ using DomainLayer.Domain;
 using MarketMinds.Services;
 using NUnit.Framework;
 using NUnit.Framework.Legacy;
+using MarketMinds.Services.ProductPaginationService;
 
 namespace MarketMinds.Test.Services
 {

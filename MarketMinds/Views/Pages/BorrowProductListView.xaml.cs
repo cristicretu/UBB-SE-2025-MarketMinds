@@ -10,7 +10,7 @@ using BusinessLogicLayer.ViewModel;
 using MarketMinds;
 using MarketMinds.Helpers;
 using MarketMinds.Views.Pages;
-using MarketMinds.Services.BorrowSortTypeeConverterService;
+using MarketMinds.Services.BorrowSortTypeConverterService;
 
 namespace UiLayer
 {
