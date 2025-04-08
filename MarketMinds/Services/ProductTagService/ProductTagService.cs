@@ -17,17 +17,17 @@ namespace MarketMinds.Services.ProductTagService
             this.repository = repository;
         }
 
-        public List<ProductTag> GetAllProductTags()
+        public virtual List<ProductTag> GetAllProductTags()
         {
             return repository.GetAllProductTags();
         }
 
-        public ProductTag CreateProductTag(string displayTitle)
+        public virtual ProductTag CreateProductTag(string displayTitle)
         {
             return repository.CreateProductTag(displayTitle);
         }
 
-        public void DeleteProductTag(string displayTitle)
+        public virtual void DeleteProductTag(string displayTitle)
         {
             repository.DeleteProductTag(displayTitle);
         }
