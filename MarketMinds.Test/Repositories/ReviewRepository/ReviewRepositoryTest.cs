@@ -389,5 +389,38 @@ namespace MarketMinds.Tests.ReviewRepositoryTest
             Assert.That(addedReview.Images[0].Url, Is.EqualTo("https://example.com/testimage.jpg"));
         }
 
+        [Test]
+        public void TestGetReviewId_FindsCorrectId()
+        {
+            var testReview = new Review(
+                -1,
+                "Test review for GetReviewId",
+                new List<Image>(),
+                4.0f,
+                buyer.Id,
+                seller.Id
+            );
+
+            reviewRepository.CreateReview(testReview);
+
+            var reviewToFind = new Review(
+                -1,
+                "Test review for GetReviewId",
+                new List<Image>(),
+                0f,
+                buyer.Id,
+                seller.Id
+            );
+
+            var methodInfo = typeof(ReviewRepository).GetMethod("GetReviewId",
+                System.Reflection.BindingFlags.NonPublic |
+                System.Reflection.BindingFlags.Instance);
+
+            int foundId = (int)methodInfo.Invoke(reviewRepository, new object[] { reviewToFind });
+
+            Assert.That(foundId, Is.GreaterThan(0));
+
+            reviewRepository.DeleteReview(testReview);
+        }
     }
 }

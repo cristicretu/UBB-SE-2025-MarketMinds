@@ -12,6 +12,8 @@ namespace MarketMinds.Services.AuctionProductsService
 {
     public class AuctionProductsService : ProductService, IAuctionProductsService
     {
+        private const int NULL_BID_AMOUNT = 0;
+        private const int MAX_AUCTION_TIME = 5;
         private IAuctionProductsRepository auctionRepository;
         public AuctionProductsService(IAuctionProductsRepository repository) : base(repository)
         {
@@ -41,7 +43,7 @@ namespace MarketMinds.Services.AuctionProductsService
         }
         private void ValidateBid(AuctionProduct auction, User bidder, float bidAmount)
         {
-            float minBid = auction.BidHistory.Count == 0 ? auction.StartingPrice : auction.CurrentPrice + 1;
+            float minBid = auction.BidHistory.Count == NULL_BID_AMOUNT ? auction.StartingPrice : auction.CurrentPrice + 1;
 
             if (bidAmount < minBid)
             {
@@ -71,7 +73,7 @@ namespace MarketMinds.Services.AuctionProductsService
         {
             var timeRemaining = auction.EndAuctionDate - DateTime.Now;
 
-            if (timeRemaining.TotalMinutes < 5)
+            if (timeRemaining.TotalMinutes < MAX_AUCTION_TIME)
             {
                 auction.EndAuctionDate = auction.EndAuctionDate.AddMinutes(1);
             }

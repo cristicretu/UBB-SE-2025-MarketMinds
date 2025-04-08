@@ -15,6 +15,7 @@ namespace MarketMinds.Views.Pages
         private BasketViewModel var_basketViewModel;
         private ObservableCollection<BasketItem> var_basketItems;
         private User var_currentUser;
+        private const int ZERO_QUANTITY = 0;
 
         public BasketView()
         {
@@ -88,7 +89,7 @@ namespace MarketMinds.Views.Pages
             TotalTextBlock.Text = $"${var_basketViewModel.TotalAmount:F2}";
 
             // Show empty basket message if there are no items
-            if (var_basketItems.Count == 0)
+            if (var_basketItems.Count == ZERO_QUANTITY)
             {
                 EmptyBasketMessage.Visibility = Visibility.Visible;
                 BasketItemsListView.Visibility = Visibility.Collapsed;
