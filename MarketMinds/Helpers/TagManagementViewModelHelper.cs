@@ -5,13 +5,13 @@ using System.Linq;
 using DomainLayer.Domain;
 using ViewModelLayer.ViewModel;
 
-namespace MarketMinds.Services
+namespace MarketMinds.Helpers
 {
-    public class TagManagementService
+    public class TagManagementViewModelHelper
     {
         private readonly ProductTagViewModel productTagViewModel;
 
-        public TagManagementService(ProductTagViewModel productTagViewModel)
+        public TagManagementViewModelHelper(ProductTagViewModel productTagViewModel)
         {
             this.productTagViewModel = productTagViewModel;
         }

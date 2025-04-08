@@ -12,6 +12,7 @@ using ViewModelLayer.ViewModel;
 using DomainLayer.Domain;
 using MarketMinds;
 using MarketMinds.Services;
+using MarketMinds.Helpers;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI;
 using Newtonsoft.Json;
@@ -57,7 +58,7 @@ namespace UiLayer
         private const int MAX_RETRY_DELAY = 2;
         private const int MAX_CLIENT_ID_LENGTH = 20;
         private const int NO_RETRY = 0;
-        private readonly TagManagementService tagManagementService;
+        private readonly TagManagementViewModelHelper tagManagementHelper;
         private readonly ImageUploadService imageUploadService;
         private readonly ListingFormValidationService validationService;
 
@@ -90,7 +91,7 @@ namespace UiLayer
             productTagViewModel = App.ProductTagViewModel;
 
             // Initialize services
-            tagManagementService = new TagManagementService(productTagViewModel);
+            tagManagementHelper = new TagManagementViewModelHelper(productTagViewModel);
             imageUploadService = new ImageUploadService();
             validationService = new ListingFormValidationService();
 
@@ -205,7 +206,7 @@ namespace UiLayer
             if (e.Key == Windows.System.VirtualKey.Enter)
             {
                 string tag = tagsTextBox.Text.Trim();
-                if (tagManagementService.AddTagToCollection(tag, tags))
+                if (tagManagementHelper.AddTagToCollection(tag, tags))
                 {
                     tagsTextBox.Text = string.Empty;
                 }
@@ -215,7 +216,7 @@ namespace UiLayer
         private void TagsListView_ItemClick(object sender, ItemClickEventArgs e)
         {
             string tag = e.ClickedItem as string;
-            tagManagementService.RemoveTagFromCollection(tag, tags);
+            tagManagementHelper.RemoveTagFromCollection(tag, tags);
         }
 
         private async void OnUploadImageClick(object sender, RoutedEventArgs e)
@@ -312,7 +313,7 @@ namespace UiLayer
             }
 
             // Convert string tags to ProductTag objects
-            List<ProductTag> productTags = tagManagementService.ConvertStringTagsToProductTags(tags);
+            List<ProductTag> productTags = tagManagementHelper.ConvertStringTagsToProductTags(tags);
 
             // Collect specific data based on the selected type
             if (viewModel is CreateBuyListingViewModel)
