@@ -155,7 +155,7 @@ namespace MarketMinds.Test.Services
             bool result = _validationService.ValidateBuyProductFields(priceText, out float price);
 
             Assert.That(result, Is.True);
-            Assert.That(price, Is.EqualTo(9999.0f));
+            Assert.That(price, Is.EqualTo(99.99f));
         }
 
         [Test]
@@ -176,7 +176,7 @@ namespace MarketMinds.Test.Services
             bool result = _validationService.ValidateBuyProductFields(priceText, out float price);
 
             Assert.That(result, Is.True);
-            Assert.That(price, Is.EqualTo(-5000.0f));
+            Assert.That(price, Is.EqualTo(-50.0f));
         }
 
         [Test]
@@ -188,7 +188,7 @@ namespace MarketMinds.Test.Services
             bool result = _validationService.ValidateBorrowProductFields(dailyRateText, timeLimit, out float dailyRate);
 
             Assert.That(result, Is.True);
-            Assert.That(dailyRate, Is.EqualTo(2550.0f));
+            Assert.That(dailyRate, Is.EqualTo(25.5f));
         }
 
         [Test]
@@ -212,7 +212,7 @@ namespace MarketMinds.Test.Services
             bool result = _validationService.ValidateBorrowProductFields(dailyRateText, timeLimit, out float dailyRate);
 
             Assert.That(result, Is.False);
-            Assert.That(dailyRate, Is.EqualTo(2550.0f));
+            Assert.That(dailyRate, Is.EqualTo(25.5f));
         }
 
         [Test]
@@ -224,7 +224,7 @@ namespace MarketMinds.Test.Services
             bool result = _validationService.ValidateBorrowProductFields(dailyRateText, timeLimit, out float dailyRate);
 
             Assert.That(result, Is.False);
-            Assert.That(dailyRate, Is.EqualTo(2550.0f));
+            Assert.That(dailyRate, Is.EqualTo(25.5f));
         }
 
         [Test]
@@ -236,7 +236,7 @@ namespace MarketMinds.Test.Services
             bool result = _validationService.ValidateAuctionProductFields(startingPriceText, endAuctionDate, out float startingPrice);
 
             Assert.That(result, Is.True);
-            Assert.That(startingPrice, Is.EqualTo(5000.0f));
+            Assert.That(startingPrice, Is.EqualTo(50.0f));
         }
 
         [Test]
@@ -260,7 +260,7 @@ namespace MarketMinds.Test.Services
             bool result = _validationService.ValidateAuctionProductFields(startingPriceText, endAuctionDate, out float startingPrice);
 
             Assert.That(result, Is.False);
-            Assert.That(startingPrice, Is.EqualTo(5000.0f));
+            Assert.That(startingPrice, Is.EqualTo(50.0f));
         }
     }
 }
