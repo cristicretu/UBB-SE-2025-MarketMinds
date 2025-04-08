@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using System.Linq;
 using DomainLayer.Domain;
 
-namespace MarketMinds.Services
+namespace MarketMinds.Services.ReviewCalculationService
 {
-    public class ReviewCalculationService
+    public class ReviewCalculationService : IReviewCalculationService
     {
         private const int NO_REVIEWS = 0;
         private const int NO_RATINGS = 0;

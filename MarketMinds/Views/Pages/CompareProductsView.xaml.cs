@@ -1,22 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Diagnostics;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Controls.Primitives;
-using Microsoft.UI.Xaml.Data;
-using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
-using Microsoft.UI.Xaml.Navigation;
 using ViewModelLayer.ViewModel;
 using DomainLayer.Domain;
 using Microsoft.UI.Xaml.Media.Imaging;
-using MarketMinds.Views.Pages;
 using MarketMinds.Services;
 
 // To learn more about WinUI, the WinUI project structure,
@@ -30,7 +19,7 @@ namespace MarketMinds.Views.Pages
     {
         public CompareProductsViewModel ViewModel;
         private Window parentWindow;
-        private readonly ProductViewNavigationService navigationService;
+        private readonly IProductViewNavigationService navigationService;
 
         public CompareProductsView(CompareProductsViewModel viewModel)
         {

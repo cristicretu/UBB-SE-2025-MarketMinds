@@ -339,6 +339,57 @@ namespace MarketMinds.Tests.ReviewRepositoryTest
         }
 
         [Test]
+        public void TestCreateReview_AddsNewReviewVerbose()
+        {
+            // Clear existing reviews first
+            var existingReviews = reviewRepository.GetAllReviewsByBuyer(buyer);
+            foreach (var review in existingReviews)
+            {
+                reviewRepository.DeleteReview(review);
+            }
+
+            // Verify that reviews were cleared
+            var checkReviews = reviewRepository.GetAllReviewsByBuyer(buyer);
+            Console.WriteLine($"Reviews after clearing: {checkReviews.Count}");
+            Assert.That(checkReviews.Count, Is.EqualTo(0), "Reviews should be empty after clearing");
+
+            // Create a new review with a distinct description for easy identification
+            var testDescription = $"Test review created at {DateTime.Now.Ticks}";
+            Console.WriteLine($"Creating review with description: {testDescription}");
+
+            var newReview = new Review(
+                -1,
+                testDescription,
+                new List<Image> { new Image("https://example.com/testimage.jpg") },
+                4.5f,
+                buyer.Id,
+                seller.Id
+            );
+
+            // Add the review
+            reviewRepository.CreateReview(newReview);
+            Console.WriteLine($"Review created with ID: {newReview.Id}");
+
+            // Verify review was added
+            var reviewsAfter = reviewRepository.GetAllReviewsBySeller(buyer);
+            Console.WriteLine($"Reviews after adding: {reviewsAfter.Count}");
+
+            Assert.That(reviewsAfter.Count, Is.EqualTo(1), "Expected exactly one review after adding");
+
+            // Get the added review
+            var addedReview = reviewsAfter[0];
+            Console.WriteLine($"Found review ID: {addedReview.Id}, Description: {addedReview.Description}, BuyerId: {addedReview.BuyerId}, SellerId: {addedReview.SellerId}");
+
+            // Verify review properties
+            Assert.That(addedReview.Description, Is.EqualTo(testDescription));
+            Assert.That(addedReview.Rating, Is.EqualTo(4.5f));
+            Assert.That(addedReview.BuyerId, Is.EqualTo(buyer.Id));
+            Assert.That(addedReview.SellerId, Is.EqualTo(seller.Id));
+            Assert.That(addedReview.Images.Count, Is.EqualTo(1));
+            Assert.That(addedReview.Images[0].Url, Is.EqualTo("https://example.com/testimage.jpg"));
+        }
+
+        [Test]
         public void TestGetReviewId_FindsCorrectId()
         {
             var testReview = new Review(

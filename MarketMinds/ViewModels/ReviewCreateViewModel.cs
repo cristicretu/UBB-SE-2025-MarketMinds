@@ -5,8 +5,9 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using DomainLayer.Domain;
 using MarketMinds.Services.ReviewService;
-using MarketMinds.Services;
 using Microsoft.UI.Xaml;
+using MarketMinds.Services.ImagineUploadService;
+using MarketMinds.Services.ReviewCreationService;
 
 namespace ViewModelLayer.ViewModel
 {

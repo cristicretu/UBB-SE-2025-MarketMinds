@@ -2,6 +2,7 @@
 using MarketMinds.Services;
 using NUnit.Framework;
 using System.Collections.Generic;
+using MarketMinds.Services.ReviewCalculationService;
 
 namespace MarketMinds.Test.Services
 {

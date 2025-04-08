@@ -2,11 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using DomainLayer.Domain;
+using MarketMinds.Services.ImagineUploadService;
 using MarketMinds.Services.ReviewService;
 
-namespace MarketMinds.Services
+namespace MarketMinds.Services.ReviewCreationService
 {
-    public class ReviewCreationService
+    public class ReviewCreationService : IReviewCreationService
     {
         private readonly ReviewsService reviewsService;
         private readonly ImageUploadService imageService;
@@ -14,7 +15,7 @@ namespace MarketMinds.Services
         public ReviewCreationService(ReviewsService reviewsService)
         {
             this.reviewsService = reviewsService;
-            this.imageService = new ImageUploadService();
+            imageService = new ImageUploadService();
         }
 
         public Review CreateReview(string description, List<Image> images, float rating, User seller, User buyer)

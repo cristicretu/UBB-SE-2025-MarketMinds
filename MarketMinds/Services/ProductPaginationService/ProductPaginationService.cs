@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using DomainLayer.Domain;
 
-namespace MarketMinds.Services
+namespace MarketMinds.Services.ProductPaginationService
 {
-    public class ProductPaginationService
+    public class ProductPaginationService : IProductPaginationService
     {
         private readonly int itemsPerPage;
 

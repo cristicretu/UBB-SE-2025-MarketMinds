@@ -10,6 +10,7 @@ using MarketMinds.Services;
 using MarketMinds.Services.ProductTagService;
 using MarketMinds.Services.BuyProductsService;
 using Moq;
+using MarketMinds.Services.ProductPaginationService;
 
 namespace MarketMinds.Test.Helpers.BuyProductListViewModelHelperTest
 {

@@ -11,7 +11,6 @@ using Microsoft.UI.Xaml.Input;
 using ViewModelLayer.ViewModel;
 using DomainLayer.Domain;
 using MarketMinds;
-using MarketMinds.Services;
 using MarketMinds.Helpers;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI;
@@ -20,6 +19,8 @@ using Windows.Storage.Pickers;
 using Windows.Storage.Streams;
 using Windows.Storage;
 using Microsoft.Extensions.Configuration;
+using MarketMinds.Services.ImagineUploadService;
+using MarketMinds.Services.ListingFormValidationService;
 
 namespace UiLayer
 {

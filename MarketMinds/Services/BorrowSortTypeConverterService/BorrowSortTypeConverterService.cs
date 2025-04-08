@@ -1,8 +1,8 @@
 using DomainLayer.Domain;
 
-namespace MarketMinds.Services
+namespace MarketMinds.Services.BorrowSortTypeConverterService
 {
-    public class BorrowSortTypeConverterService
+    public class BorrowSortTypeConverterService : IBorrowSortTypeConverterService
     {
         public ProductSortType Convert(string sortTag)
         {

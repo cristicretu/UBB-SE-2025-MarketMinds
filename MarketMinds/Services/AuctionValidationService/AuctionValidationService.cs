@@ -2,9 +2,9 @@ using System;
 using DomainLayer.Domain;
 using MarketMinds.Services.AuctionProductsService;
 
-namespace MarketMinds.Services
+namespace MarketMinds.Services.AuctionValidationService
 {
-    public class AuctionValidationService
+    public class AuctionValidationService : IAuctionValidationService
     {
         private readonly IAuctionProductsService auctionProductsService;
 

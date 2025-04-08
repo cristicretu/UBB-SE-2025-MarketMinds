@@ -5,7 +5,7 @@ using Microsoft.UI.Xaml;
 
 namespace MarketMinds.Services
 {
-    public class ProductViewNavigationService
+    public class ProductViewNavigationService : IProductViewNavigationService
     {
         public Window CreateProductDetailView(Product product)
         {

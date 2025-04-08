@@ -1,8 +1,8 @@
 using DomainLayer.Domain;
 
-namespace MarketMinds.Services
+namespace MarketMinds.Services.AuctionSortTypeConverterService
 {
-    public class AuctionSortTypeConverterService
+    public class AuctionSortTypeConverterService : IAuctionSortTypeConverterService
     {
         public ProductSortType Convert(string sortTag)
         {

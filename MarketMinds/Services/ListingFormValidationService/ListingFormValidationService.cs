@@ -4,9 +4,9 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using DomainLayer.Domain;
 
-namespace MarketMinds.Services
+namespace MarketMinds.Services.ListingFormValidationService
 {
-    public class ListingFormValidationService
+    public class ListingFormValidationService : IListingFormValidationService
     {
         public bool ValidateCommonFields(string title, ProductCategory category, string description, ObservableCollection<string> tags, ProductCondition condition, out string errorMessage, out string errorField)
         {

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using DomainLayer.Domain;
-using MarketMinds.Services;
+using MarketMinds.Services.ImagineUploadService;
 
 namespace ViewModelLayer.ViewModel
 {

@@ -1,9 +1,9 @@
 using System;
 using DomainLayer.Domain;
 
-namespace MarketMinds.Services
+namespace MarketMinds.Services.ProductComparisonService
 {
-    public class ProductComparisonService
+    public class ProductComparisonService : IProductComparisonService
     {
         public (Product LeftProduct, Product RightProduct, bool IsComplete) AddProduct(Product leftProduct, Product rightProduct, Product newProduct)
         {

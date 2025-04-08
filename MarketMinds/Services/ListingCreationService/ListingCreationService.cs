@@ -4,9 +4,9 @@ using MarketMinds.Services.BuyProductsService;
 using MarketMinds.Services.BorrowProductsService;
 using MarketMinds.Services.AuctionProductsService;
 
-namespace MarketMinds.Services
+namespace MarketMinds.Services.ListingCreationService
 {
-    public class ListingCreationService
+    public class ListingCreationService : IListingCreationService
     {
         private readonly IBuyProductsService buyProductsService;
         private readonly IBorrowProductsService borrowProductsService;
