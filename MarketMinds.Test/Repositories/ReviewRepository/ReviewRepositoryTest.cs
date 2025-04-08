@@ -337,5 +337,45 @@ namespace MarketMinds.Tests.ReviewRepositoryTest
             Assert.That(addedReview, Is.Not.Null);
             Assert.That(addedReview.Images, Is.Not.Null);
         }
+
+        [Test]
+        public void TestGetReviewId_FindsCorrectId()
+        {
+            // First create a review with known data
+            var testReview = new Review(
+                -1,
+                "Test review for GetReviewId",
+                new List<Image>(),
+                4.0f,
+                buyer.Id,
+                seller.Id
+            );
+
+            reviewRepository.CreateReview(testReview);
+
+            // Create a new review object with the same key data but without ID
+            var reviewToFind = new Review(
+                -1, // Default ID
+                "Test review for GetReviewId",
+                new List<Image>(),
+                0f, // Rating doesn't matter for search
+                buyer.Id,
+                seller.Id
+            );
+
+            // Use reflection to access the private method
+            var methodInfo = typeof(ReviewRepository).GetMethod("GetReviewId",
+                System.Reflection.BindingFlags.NonPublic |
+                System.Reflection.BindingFlags.Instance);
+
+            // Call the private method through reflection
+            int foundId = (int)methodInfo.Invoke(reviewRepository, new object[] { reviewToFind });
+
+            // Assert that we found a valid ID (greater than the default -1)
+            Assert.That(foundId, Is.GreaterThan(0));
+
+            // Clean up - delete the test review
+            reviewRepository.DeleteReview(testReview);
+        }
     }
 }
