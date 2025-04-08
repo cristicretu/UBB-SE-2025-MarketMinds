@@ -6,18 +6,21 @@ namespace MarketMinds.Services
 {
     public class ReviewCalculationService
     {
+        private const int NO_REVIEWS = 0;
+        private const int NO_RATINGS = 0;
+
         public float CalculateAverageRating(IEnumerable<Review> reviews)
         {
             if (reviews == null || !reviews.Any())
             {
-                return 0;
+                return NO_RATINGS;
             }
             return reviews.Average(r => r.Rating);
         }
 
         public int GetReviewCount(IEnumerable<Review> reviews)
         {
-            return reviews?.Count() ?? 0;
+            return reviews?.Count() ?? NO_REVIEWS;
         }
 
         public bool AreReviewsEmpty(IEnumerable<Review> reviews)

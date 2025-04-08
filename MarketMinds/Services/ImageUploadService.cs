@@ -19,6 +19,16 @@ namespace MarketMinds.Services
     {
         private static readonly HttpClient HttpClient = new HttpClient();
 
+        private const int MAX_IMAGE_SIZE = 10 * 1024 * 1024; // 10MB
+        private const int MAX_RETRIES = 3;
+        private const int RETRY_DELAY = 2; // seconds
+        private const string IMGUR_API_URL = "https://api.imgur.com/3/image";
+        private const string IMGUR_CLIENT_ID = "Client-ID";
+        private const string IMAGE_CONTENT_TYPE = "image/png";
+        private const string IMAGE_NAME = "image.png";
+        private const int IMPUR_CLIENT_ID_LENGTH = 20;
+        private const int BASE_RETRY = 0;
+
         public async Task<string> UploadImage(Window window)
         {
             var hwnd = WindowNative.GetWindowHandle(window);
@@ -54,14 +64,14 @@ namespace MarketMinds.Services
                 }
 
                 // Typical Imgur Client IDs are around 15 chars
-                if (clientId.Length > 20)
+                if (clientId.Length > IMPUR_CLIENT_ID_LENGTH)
                 {
                     throw new InvalidOperationException("Client ID format appears invalid. Please ensure you're using the Client ID, not the Client Secret.");
                 }
 
                 using (var stream = await file.OpenAsync(FileAccessMode.Read))
                 {
-                    if (stream.Size > 10 * 1024 * 1024)
+                    if (stream.Size > MAX_IMAGE_SIZE)
                     {
                         throw new InvalidOperationException("File size exceeds Imgur's 10MB limit.");
                     }
@@ -73,9 +83,9 @@ namespace MarketMinds.Services
                         reader.ReadBytes(buffer);
                     }
 
-                    int maxRetries = 3;
-                    int currentRetry = 0;
-                    TimeSpan delay = TimeSpan.FromSeconds(2);
+                    int maxRetries = MAX_RETRIES;
+                    int currentRetry = BASE_RETRY;
+                    TimeSpan delay = TimeSpan.FromSeconds(RETRY_DELAY);
 
                     while (currentRetry < maxRetries)
                     {
